@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhnull.pl 1.5 01/06/10 17:35:03
+##	@(#) mhnull.pl 1.6 01/08/26 01:55:41
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -33,9 +33,9 @@
 package m2h_null;
 
 sub filter {
-    local($header, *fields, *data, $isdecode, $args) = @_;
-    my($ctype) = $fields{'content-type'} =~ m%^\s*([\w\-\./]+)%;
-    my($disp, $nameparm) = &readmail::MAILhead_get_disposition(*fields);
+    my($fields, $data, $isdecode, $args) = @_;
+    my($ctype) = $fields->{'content-type'}[0] =~ m%^\s*([\w\-\./]+)%;
+    my($disp, $nameparm) = readmail::MAILhead_get_disposition($fields);
     join("", '<p><tt>&lt;&lt;',
 	     ($disp ? "$disp: " : ""),
 	     ($nameparm ? $nameparm : $ctype),

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhrmm.pl 1.4 00/04/24 00:03:36
+##      @(#) mhrmm.pl 1.5 01/08/26 01:53:43
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -31,8 +31,8 @@ package mhonarc;
 ##	Function for removing messages.
 ##
 sub rmm {
-    local(@numbers) = ();
-    local($key, %Num2Index, $num, $i, $pg);
+    my(@numbers) = ();
+    my($key, %Num2Index, $num, $i, $pg);
     local($_);
 
     ## Create list of messages to remove
@@ -75,7 +75,7 @@ sub rmm {
 
 	    # Need to flag messages that link to deleted message so
 	    # they will be updated.
-	    foreach (split(/$bs/o, $FollowOld{$index})) {
+	    foreach (@{$FollowOld{$index}}) {
 		$Update{$IndexNum{$_}} = 1;
 	    }
 	    $Update{$IndexNum{$TListOrder[$Index2TLoc{$key}-1]}} = 1;
@@ -104,7 +104,7 @@ sub rmm {
     @MListOrder = ();
     %Index2MLoc = ();
 
-    &write_pages();
+    write_pages();
     1;
 }
 

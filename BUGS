@@ -1,7 +1,7 @@
 Bug History for MHonArc
 =======================
 <URL:http://www.mhonarc.org/>
-@(#) BUGS 01/06/10 18:10:37
+@(#) BUGS 01/08/26 12:55:26
 
 Each bug listing has the following fields:
 
@@ -15,6 +15,55 @@ Each bug listing has the following fields:
 		    applicable.
 
 Bug List
+------------------------------------------------------------------------
+Version:	2.4.9, and earlier
+Problem:   	Links to thread index from message page do not
+		link to the correct thread index page when MULTIPG
+		and TREVERSE is active.
+Solution:	OPEN: The problem is that a listing for a message
+		in a thread index is not "fixed" due to how threads
+		are organized.  Non-related messages can move the
+		location of a message listing, but currently MHonArc
+		is unable to detect this.  A possible solution is
+		to compare old ordinal location with new ordinal
+		location for each message.  If different, see if new
+		position cause message to move to another index page.
+		If so, mark message to be edited.  This kind of check
+		would cause a performance hit, but it may be
+		unavoidable inorder to fix the problem.
+Version Fixed:	OPEN
+------------------------------------------------------------------------
+Version:	2.4.5 - 2.4.9
+Problem:   	Numerous '$' characters are scattered throughout
+		archive pages.
+Solution:	This problem can occur with a bad VARREGEX resource
+		setting, or if set to the empty string.  mhrcfile.pl
+		updated to only honor a VARREGEX setting if it is
+		non-blank.  It is still up to the user to be extremely
+		careful when setting this resource.  A big warning
+		has been added to the VARREGEX resource reference
+		page about the usage of the resource.
+Version Fixed:	2.5.0b
+------------------------------------------------------------------------
+Version:	2.4.9, and earlier
+Problem:   	Default value of TSLICE resource was "0:0".
+Solution:	The docs say the default should be "0:4", so code
+		fixed in mhinit.pl to reflect docs.  Note, existing
+		archives that used the default value will have 0:0
+		and would require an explicit setting of TSLICE to
+		correct.  Fixed default will only affect new archives.
+Version Fixed:	2.5.0b
+------------------------------------------------------------------------
+Version:	2.4.9, and earlier
+Problem:   	M2H_RCFILE envariable setting had no affect.
+Solution:	Bug introduced when multiple rcfiles could be
+		specified on the command-line.  Fixed in mhinit.pl.
+Version Fixed:	2.5.0b
+------------------------------------------------------------------------
+Version:	2.4.9
+Problem:   	Image URLs in HTML data are stripped out.
+Solution:	Fixed in mhtxthtml.pl
+Version Fixed:	2.5.0b
 ------------------------------------------------------------------------
 Version:	2.4.8, and earlier
 Problem:   	Default CHARSETCONVERTERS values for latin[1-6] charsets

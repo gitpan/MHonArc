@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtime.pl 2.8 00/01/15 17:51:12
+##	@(#) mhtime.pl 2.9 01/08/26 02:05:55
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -32,9 +32,14 @@ package mhonarc;
 my %Month2Num = (
     'jan', 0, 'feb', 1, 'mar', 2, 'apr', 3, 'may', 4, 'jun', 5, 'jul', 6,
     'aug', 7, 'sep', 8, 'oct', 9, 'nov', 10, 'dec', 11,
+    'january', 0, 'february', 1, 'march', 2, 'april', 3,
+    'may', 4, 'june', 5, 'july', 6, 'august', 7,
+    'september', 8, 'october', 9, 'november', 10, 'december', 11,
 );
 my %WDay2Num = (
     'sun', 0, 'mon', 1, 'tue', 2, 'wed', 3, 'thu', 4, 'fri', 5, 'sat', 6,
+    'sunday', 0, 'monday', 1, 'tuesday', 2, 'wednesday', 3, 'thursday', 4,
+    'friday', 5, 'saturday', 6,
 );
 
 my @wdays = ('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
@@ -46,8 +51,12 @@ my @Mons   = ('January', 'February', 'March', 'April', 'May', 'June',
 	      'July', 'August', 'September', 'October', 'November',
 	      'December');
 
-my $p_weekdays = "Mon|Tue|Wed|Thu|Fri|Sat|Sun";
-my $p_months   = "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec";
+## The following used in parse_date() regexes
+my $p_weekdays = 'Mon|Tue|Wed|Thu|Fri|Sat|Sun';
+my $p_Weekdays = 'Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday';
+my $p_months   = 'Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec';
+my $p_Months   = 'January|February|March|April|May|June|July|August'.
+		 '|September|October|November|December';
 my $p_hrminsec = '\d{1,2}:\d\d:\d\d';
 my $p_hrmin    = '\d{1,2}:\d\d';
 my $p_day      = '\d{1,2}';
@@ -226,6 +235,11 @@ sub parse_date {
 	    warn "Warning: No year in date ($date), using current\n";
 	    $yr = (localtime(time))[5];
 	}
+
+    # Weekday Month DD YYYY HH:MM Zone
+    } elsif ( $start =~
+	      /($p_Weekdays),?\s+($p_Months)\s+($p_day),?\s+($p_year)$/ ) {
+	($wday, $mon, $mday, $yr, $zone) = ($1, $2, $3, $4, $array[0]);
 
     # All else fails!
     } else {

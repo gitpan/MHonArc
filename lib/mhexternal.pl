@@ -1,8 +1,8 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhexternal.pl 2.8 01/04/10 21:36:40
+##	@(#) mhexternal.pl 2.9 01/08/26 02:08:19
 ##  Author:
-##      Earl Hood       mhonarc@pobox.com
+##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
 ##	Library defines a routine for MHonArc to filter content-types
 ##	that cannot be directly filtered into HTML, but a linked to an
@@ -19,7 +19,7 @@
 ##
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1995-1999	Earl Hood, mhonarc@pobox.com
+##    Copyright (C) 1995-2001	Earl Hood, mhonarc@mhonarc.org
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -101,7 +101,7 @@ package m2h_external;
 ##			problems.
 ##
 sub filter {
-    local($header, *fields, *data, $isdecode, $args) = @_;
+    my($fields, $data, $isdecode, $args) = @_;
     my($ret, $filename, $urlfile, $disp);
     require 'mhmimetypes.pl';
 
@@ -136,12 +136,12 @@ sub filter {
     }
 
     ## Get content-type
-    ($ctype) = $fields{'content-type'} =~ m%^\s*([\w\-\./]+)%;
+    ($ctype) = $fields->{'content-type'}[0] =~ m%^\s*([\w\-\./]+)%;
     $ctype =~ tr/A-Z/a-z/;
     $type = (mhonarc::get_mime_ext($ctype))[1];
 
     ## Get disposition
-    ($disp, $nameparm) = &readmail::MAILhead_get_disposition(*fields);
+    ($disp, $nameparm) = readmail::MAILhead_get_disposition($fields);
     $name = $nameparm  if $usename;
     &debug("Content-type: $ctype",
 	   "Disposition: $disp; filename=$nameparm",
@@ -204,7 +204,7 @@ sub filter {
     $target = qq/ TARGET="$target"/  if $target;
 
     ## Write file
-    $filename = mhonarc::write_attachment($ctype, \$data, $path, $name, $inext);
+    $filename = mhonarc::write_attachment($ctype, $data, $path, $name, $inext);
     ($urlfile = $filename) =~ s/([^\w.\-\/])/sprintf("%%%X",unpack("C",$1))/ge;
     &debug("File-written: $filename")  if $debug;
 
@@ -221,16 +221,16 @@ sub filter {
 
     ## Create HTML markup
     if ($inline) {
-	$ret  = "<P>" . &htmlize($fields{'content-description'}) . "</P>\n"
-	    if ($fields{'content-description'});
-	$ret .= qq|<P><A HREF="$urlfile" $target><IMG SRC="$urlfile" | .
-		qq|ALT="$type"></A></P>\n|;
+	$ret  = "<p>".htmlize($fields->{'content-description'}[0])."</p>\n"
+	    if (defined $fields{'content-description'});
+	$ret .= qq|<p><a href="$urlfile" $target><img src="$urlfile" | .
+		qq|alt="$type"></a></p>\n|;
 
     } else {
-	$ret  = qq|<P><A HREF="$urlfile" $target>$icon_mu| .
-		(&htmlize($fields{'content-description'}) ||
+	$ret  = qq|<p><a href="$urlfile" $target>$icon_mu| .
+		(htmlize($fields->{'content-description'}[0]) ||
 		 $nameparm || $type) .
-		qq|</A></P>\n|;
+		qq|</a></p>\n|;
     }
     ($ret, $path || $filename);
 }

@@ -10,7 +10,7 @@ Using/Copying
     The rules for using and copying MHonArc are explained in the file
     COPYING.  If you cannot agree to the conditions of the GPL but
     still want to use/copy the program, you must contact the author of
-    MHonarc, mhonarc@pobox.com, about arranging an alternative license.
+    MHonarc, mhonarc@mhonarc.org, about arranging an alternative license.
 
 ----------------------------------------------------------------------------
 
@@ -318,4 +318,4 @@ Now, any file with .mrc extension will put Vim into MHonArc resource file
 highlighting mode. The mode is best used with color-capable terminals.
 
 ----------------------------------------------------------------------------
-Copyright © 1997-1999, Earl Hood, mhonarc@pobox.com
+Copyright © 1997-1999, Earl Hood, mhonarc@mhonarc.org

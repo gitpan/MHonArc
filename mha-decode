@@ -1,7 +1,7 @@
 #!/usr/local/bin/perl
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mha-decode 1.3 00/04/24 00:13:53
+##	@(#) mha-decode 1.4 01/08/26 02:27:20
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -125,7 +125,7 @@ E<lt>I<http://www.mhonarc.org/>E<gt>
 
 =head1 AUTHOR
 
-Earl Hood, mhonarc@pobox.com
+Earl Hood, mhonarc@mhonarc.org
 
 =cut
 

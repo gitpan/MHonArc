@@ -1,10 +1,13 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
 <html>
 <head>
-<title>MHonArc v2.4 -- Resources</title>
+<title>MHonArc v2.5 -- Resources</title>
 </head>
+<!--
 <BODY background="ssbg75.jpg"
       text="#000000" link="#0000ee" vlink="#551a8b" alink="ff0000">
+-->
+<BODY>
 
 <!--X-NavButtons-Start-->
 <p align=center>
@@ -182,6 +185,7 @@ command-line option, see
 <tr valign="top"><td align="right"><b><a name="fieldsbeg" href="resources/fieldsbeg.html">FIELDSBEG</a></b></td><td>&nbsp;Beginning markup of message header.</td></tr>
 <tr valign="top"><td align="right"><b><a name="fieldsend" href="resources/fieldsend.html">FIELDSEND</a></b></td><td>&nbsp;Ending markup of message header.</td></tr>
 <tr valign="top"><td align="right"><b><a name="fieldstyles" href="resources/fieldstyles.html">FIELDSTYLES</a></b></td><td>&nbsp;Define HTML elements that wrap field text of message headers.</td></tr>
+<tr valign="top"><td align="right"><b><a name="firstpglink" href="resources/firstpglink.html">FIRSTPGLINK</a></b></td><td>&nbsp;Link markup for first page of main index.</td></tr>
 <tr valign="top"><td align="right"><b><a name="fldbeg" href="resources/fldbeg.html">FLDBEG</a></b></td><td>&nbsp;Markup before field text.</td></tr>
 <tr valign="top"><td align="right"><b><a name="fldend" href="resources/fldend.html">FLDEND</a></b></td><td>&nbsp;Markup after field text.</td></tr>
 <tr valign="top"><td align="right"><b><a name="folrefs" href="resources/folrefs.html">FOLREFS</a></b></td><td>&nbsp;Print links links to explicit follow-ups and references.</td></tr>
@@ -211,6 +215,7 @@ command-line option, see
 <tr valign="top"><td align="right"><b><a name="labelbeg" href="resources/labelbeg.html">LABELBEG</a></b></td><td>&nbsp;Beginning markup of the label text of a message field.</td></tr>
 <tr valign="top"><td align="right"><b><a name="labelend" href="resources/labelend.html">LABELEND</a></b></td><td>&nbsp;End markup of the label text of a message field.</td></tr>
 <tr valign="top"><td align="right"><b><a name="labelstyles" href="resources/labelstyles.html">LABELSTYLES</a></b></td><td>&nbsp;Define HTML elements to wrap message header field labels.</td></tr>
+<tr valign="top"><td align="right"><b><a name="lastpglink" href="resources/lastpglink.html">LASTPGLINK</a></b></td><td>&nbsp;Link markup for last page of main index.</td></tr>
 <tr valign="top"><td align="right"><b><a name="listbegin" href="resources/listbegin.html">LISTBEGIN</a></b></td><td>&nbsp;Markup to begin main index message listing.</td></tr>
 <tr valign="top"><td align="right"><b><a name="listend" href="resources/listend.html">LISTEND</a></b></td><td>&nbsp;Markup to end main index message listing.</td></tr>
 <tr valign="top"><td align="right"><b><a name="litemplate" href="resources/litemplate.html">LITEMPLATE</a></b></td><td>&nbsp;Markup for an entry in the main index message list.</td></tr>
@@ -292,6 +297,7 @@ command-line option, see
 <tr valign="top"><td align="right"><b><a name="subsort" href="resources/subsort.html">SUBSORT</a></b></td><td>&nbsp;List messages by subjext in main index.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tcontbegin" href="resources/tcontbegin.html">TCONTBEGIN</a></b></td><td>&nbsp;Markup before the continuation of a broken thread.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tcontend" href="resources/tcontend.html">TCONTEND</a></b></td><td>&nbsp;Markup after the continuation of a broken thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tfirstpglink" href="resources/tfirstpglink.html">TFIRSTPGLINK</a></b></td><td>&nbsp;Link markup for first page of thread index.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tfoot" href="resources/tfoot.html">TFOOT</a></b></td><td>&nbsp;Footer markup for thread index page.</td></tr>
 <tr valign="top"><td align="right"><b><a name="thead" href="resources/thead.html">THEAD</a></b></td><td>&nbsp;Header markup for thread index page.</td></tr>
 <tr valign="top"><td align="right"><b><a name="thread" href="resources/thread.html">THREAD</a></b></td><td>&nbsp;Create thread index.</td></tr>
@@ -304,6 +310,7 @@ command-line option, see
 <tr valign="top"><td align="right"><b><a name="tindentbegin" href="resources/tindentbegin.html">TINDENTBEGIN</a></b></td><td>&nbsp;Markup for opening a level when continuing a broken thread.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tindentend" href="resources/tindentend.html">TINDENTEND</a></b></td><td>&nbsp;Markup for closing a level when continuing a broken thread.</td></tr>
 <tr valign="top"><td align="right"><b><a name="title" href="resources/title.html">TITLE</a></b></td><td>&nbsp;Title for main index.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tlastpglink" href="resources/tlastpglink.html">TLASTPGLINK</a></b></td><td>&nbsp;Link markup for last page of thread index.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tlevels" href="resources/tlevels.html">TLEVELS</a></b></td><td>&nbsp;Maximum number of levels to indent in thread index.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tliend" href="resources/tliend.html">TLIEND</a></b></td><td>&nbsp;Ending markup for a thread index message listing.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tlinone" href="resources/tlinone.html">TLINONE</a></b></td><td>&nbsp;Markup for a missing message in thread index.</td></tr>
@@ -311,22 +318,58 @@ command-line option, see
 <tr valign="top"><td align="right"><b><a name="tlitxt" href="resources/tlitxt.html">TLITXT</a></b></td><td>&nbsp;Markup for a thread index message listing.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tnextbutton" href="resources/tnextbutton.html">TNEXTBUTTON</a></b></td><td>&nbsp;Button markup for next message by thread.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tnextbuttonia" href="resources/tnextbuttonia.html">TNEXTBUTTONIA</a></b></td><td>&nbsp;Inactive button markup for next message by thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tnextinbutton" href="resources/tnextinbutton.html">TNEXTINBUTTON</a></b></td><td>&nbsp;Button markup for next message within a thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tnextinbuttonia" href="resources/tnextinbuttonia.html">TNEXTINBUTTONIA</a></b></td><td>&nbsp;Inactive button markup for next message within a thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tnextinlink" href="resources/tnextinlink.html">TNEXTINLINK</a></b></td><td>&nbsp;Link markup for next message within a thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tnextinlinkia" href="resources/tnextinlinkia.html">TNEXTINLINKIA</a></b></td><td>&nbsp;Inactive link markup for next message within a thread.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tnextlink" href="resources/tnextlink.html">TNEXTLINK</a></b></td><td>&nbsp;Link markup for next message by thread.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tnextlinkia" href="resources/tnextlinkia.html">TNEXTLINKIA</a></b></td><td>&nbsp;Inactive link markup for next message by thread.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tnextpglink" href="resources/tnextpglink.html">TNEXTPGLINK</a></b></td><td>&nbsp;Link markup for next page in thread index.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tnextpglinkia" href="resources/tnextpglinkia.html">TNEXTPGLINKIA</a></b></td><td>&nbsp;Inactive link markup for next page in thread index.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tnexttopbutton" href="resources/tnexttopbutton.html">TNEXTTOPBUTTON</a></b></td><td>&nbsp;Button markup for first message in the next thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tnexttopbuttonia" href="resources/tnexttopbuttonia.html">TNEXTTOPBUTTONIA</a></b></td><td>&nbsp;Inactive button markup for first message in the next thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tnexttoplink" href="resources/tnexttoplink.html">TNEXTTOPLINK</a></b></td><td>&nbsp;Link markup for first message in the next thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tnexttoplinkia" href="resources/tnexttoplinkia.html">TNEXTTOPLINKIA</a></b></td><td>&nbsp;Inactive link markup for first message in the next thread.</td></tr>
 <tr valign="top"><td align="right"><b><a name="toplinks" href="resources/toplinks.html">TOPLINKS</a></b></td><td>&nbsp;Markup for top navigational links of a message page.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tprevbutton" href="resources/tprevbutton.html">TPREVBUTTON</a></b></td><td>&nbsp;Button markup for previous message by thread.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tprevbuttonia" href="resources/tprevbuttonia.html">TPREVBUTTONIA</a></b></td><td>&nbsp;Inactive button markup for previous message by thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tprevinbutton" href="resources/tprevinbutton.html">TPREVINBUTTON</a></b></td><td>&nbsp;Button markup for previous message within a thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tprevinbuttonia" href="resources/tprevinbuttonia.html">TPREVINBUTTONIA</a></b></td><td>&nbsp;Inactive button markup for previous message within a thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tprevinlink" href="resources/tprevinlink.html">TPREVINLINK</a></b></td><td>&nbsp;Link markup for previous message within a thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tprevinlinkia" href="resources/tprevinlinkia.html">TPREVINLINKIA</a></b></td><td>&nbsp;Inactive link markup for previous message within a thread.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tprevlink" href="resources/tprevlink.html">TPREVLINK</a></b></td><td>&nbsp;Link markup for previous message by thread.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tprevlinkia" href="resources/tprevlinkia.html">TPREVLINKIA</a></b></td><td>&nbsp;Inactive link markup for previous message by thread.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tprevpglink" href="resources/tprevpglink.html">TPREVPGLINK</a></b></td><td>&nbsp;Link markup for previous page in thread index.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tprevpglinkia" href="resources/tprevpglinkia.html">TPREVPGLINKIA</a></b></td><td>&nbsp;Inactive link markup for previous page in thread index.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tprevtopbutton" href="resources/tprevtopbutton.html">TPREVTOPBUTTON</a></b></td><td>&nbsp;Button markup for first message in the previous thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tprevtopbuttonia" href="resources/tprevtopbuttonia.html">TPREVTOPBUTTONIA</a></b></td><td>&nbsp;Inactive button markup for first message in the previous thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tprevtoplink" href="resources/tprevtoplink.html">TPREVTOPLINK</a></b></td><td>&nbsp;Link markup for first message in the previous thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tprevtoplinkia" href="resources/tprevtoplinkia.html">TPREVTOPLINKIA</a></b></td><td>&nbsp;Inactive link markup for first message in the previous thread.</td></tr>
 <tr valign="top"><td align="right"><b><a name="treverse" href="resources/treverse.html">TREVERSE</a></b></td><td>&nbsp;List thread in reverse order.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tsingletxt" href="resources/tsingletxt.html">TSINGLETXT</a></b></td><td>&nbsp;Markup for a thread listing with no follow-ups.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tslice" href="resources/tslice.html">TSLICE</a></b></td><td>&nbsp;Size of thread listing slice for message pages.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tslicebeg" href="resources/tslicebeg.html">TSLICEBEG</a></b></td><td>&nbsp;Markup for the start of a thread slice.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tslicecontbeg" href="resources/tslicecontbeg.html">TSLICECONTBEG</a></b></td><td>&nbsp;Thread slice markup before the continuation of a broken thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tslicecontend" href="resources/tslicecontend.html">TSLICECONTEND</a></b></td><td>&nbsp;Thread slice markup after the continuation of a broken thread.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tsliceend" href="resources/tsliceend.html">TSLICEEND</a></b></td><td>&nbsp;Markup for the end of a thread slice.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tsliceindentbeg" href="resources/tsliceindentbeg.html">TSLICEINDENTBEG</a></b></td><td>&nbsp;Thread slice markup for opening a level when continuing a broken thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tsliceindentend" href="resources/tsliceindentend.html">TSLICEINDENTEND</a></b></td><td>&nbsp;Thread slice markup for closing a level when continuing a broken thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tsliceliend" href="resources/tsliceliend.html">TSLICELIEND</a></b></td><td>&nbsp;Ending markup for a thread slice message listing.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tsliceliendcur" href="resources/tsliceliendcur.html">TSLICELIENDCUR</a></b></td><td>&nbsp;Ending markup for a thread slice message listing if current message.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tslicelinone" href="resources/tslicelinone.html">TSLICELINONE</a></b></td><td>&nbsp;Thread slice markup for a missing message in thread slice.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tslicelinoneend" href="resources/tslicelinoneend.html">TSLICELINONEEND</a></b></td><td>&nbsp;Ending markup for a missing message in thread slice.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tslicelitxt" href="resources/tslicelitxt.html">TSLICELITXT</a></b></td><td>&nbsp;Markup for a thread slice message listing.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tslicelitxtcur" href="resources/tslicelitxtcur.html">TSLICELITXTCUR</a></b></td><td>&nbsp;Markup for a thread slice message listing if current message.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tslicesingletxt" href="resources/tslicesingletxt.html">TSLICESINGLETXT</a></b></td><td>&nbsp;Markup for a thread slice listing with no follow-ups.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tslicesingletxtcur" href="resources/tslicesingletxtcur.html">TSLICESINGLETXTCUR</a></b></td><td>&nbsp;Markup for a thread slice listing with no follow-ups if current message.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tslicesubjectbeg" href="resources/tslicesubjectbeg.html">TSLICESUBJECTBEG</a></b></td><td>&nbsp;Markup before a subject based thread slice listing.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tslicesubjectend" href="resources/tslicesubjectend.html">TSLICESUBJECTEND</a></b></td><td>&nbsp;Markup after a subject based thread slice listing.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tslicesublistbeg" href="resources/tslicesublistbeg.html">TSLICESUBLISTBEG</a></b></td><td>&nbsp;Thread slice markup for starting a sub-thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tslicesublistend" href="resources/tslicesublistend.html">TSLICESUBLISTEND</a></b></td><td>&nbsp;Thread slice markup for ending a sub-thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tslicetopbeg" href="resources/tslicetopbeg.html">TSLICETOPBEG</a></b></td><td>&nbsp;Thread slice markup for the root/start of a thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tslicetopbegcur" href="resources/tslicetopbegcur.html">TSLICETOPBEGCUR</a></b></td><td>&nbsp;Thread slice markup for the root/start of a thread if current message.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tslicetopend" href="resources/tslicetopend.html">TSLICETOPEND</a></b></td><td>&nbsp;Thread slice markup for the end of a thread.</td></tr>
+<tr valign="top"><td align="right"><b><a name="tslicetopendcur" href="resources/tslicetopendcur.html">TSLICETOPENDCUR</a></b></td><td>&nbsp;Thread slice markup for the end of a thread if current message.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tsort" href="resources/tsort.html">TSORT</a></b></td><td>&nbsp;List threads by date.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tsubjectbeg" href="resources/tsubjectbeg.html">TSUBJECTBEG</a></b></td><td>&nbsp;Markup before a subject based thread listing.</td></tr>
 <tr valign="top"><td align="right"><b><a name="tsubjectend" href="resources/tsubjectend.html">TSUBJECTEND</a></b></td><td>&nbsp;Markup after a subject based thread listing.</td></tr>
@@ -356,7 +399,7 @@ command-line option, see
 <!-- *************************************************************** -->
 <hr>
 <address>
-01/06/10 17:47:40<br>
+01/08/26 14:16:47<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.mhonarc.org"
 ><strong>MHonArc</strong></a><br>

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhmsgfile.pl 1.4 99/08/04 23:14:15
+##	@(#) mhmsgfile.pl 1.5 01/08/26 02:07:11
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -115,13 +115,13 @@ sub load_data_from_msg_file {
     }
 
     if (defined($href->{'reference'})) {
-	$Refs{$index} = join($X, @{$href->{'reference'}});
+	$Refs{$index} = $href->{'reference'};
     } elsif (defined($href->{'reference-id'})) {	# older versions
-	$Refs{$index} = join($X, @{$href->{'reference-id'}});
+	$Refs{$index} = $href->{'reference-id'};
     }
 
     if (defined($href->{'derived'})) {
-	$Derived{$index} = join($X, @{$href->{'derived'}});
+	$Derived{$index} = $href->{'derived'};
     }
 
     $IndexNum{$index} = int($msgnum);

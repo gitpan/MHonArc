@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhutil.pl 2.9 00/01/17 17:18:15
+##	@(#) mhutil.pl 2.10 01/08/26 02:17:15
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -129,7 +129,7 @@ sub sort_messages {
 	    $sub{$idx} = $sub;
 	}
 	if ($revsort) {
-	    return sort { ($sub{$b} cmp $sub{$a}) ||
+	    return sort { ($sub{$a} cmp $sub{$b}) ||
 			  (get_time_from_index($b) <=> get_time_from_index($a))
 			} keys %Subject;
 	} else {
@@ -150,7 +150,7 @@ sub sort_messages {
 	    $from{$idx} = $from;
 	}
 	if ($revsort) {
-	    return sort { ($from{$b} cmp $from{$a}) ||
+	    return sort { ($from{$a} cmp $from{$b}) ||
 			  (get_time_from_index($b) <=> get_time_from_index($a))
 			} keys %Subject;
 	} else {
@@ -332,32 +332,34 @@ sub get_header_tags {
 
 ##---------------------------------------------------------------------------
 ##	Format message headers in HTML.
+##	$html = htmlize_header($fields_hash_ref);
 ##
 sub htmlize_header {
-    local(*fields, *l2o) = @_;
+    my $fields = shift;
     my($key,
        $tago, $tagc,
        $ftago, $ftagc,
-       $mesg, $item,
-       @array, %hf);
-    local($tmp);
+       $item,
+       @array);
+    my($tmp);
 
-    $mesg = "";
-    %hf = %fields;
+    my $mesg = "";
+    my %hf = %$fields;
     foreach $item (@FieldOrder) {
 	if ($item eq '-extra-') {
 	    foreach $key (sort keys %hf) {
 		next  if $FieldODefs{$key};
+		next  if $key =~ /^x-mha-/;
 		delete $hf{$key}, next  if &exclude_field($key);
 
-		@array = split(/$readmail::FieldSep/o, $hf{$key});
+		@array = @{$hf{$key}};
 		foreach $tmp (@array) {
 		    $tmp = $HFieldsList{$key} ? mlist_field_add_links($tmp) :
 						&$MHeadCnvFunc($tmp);
-		    &field_add_links($key, *tmp);
-		    ($tago, $tagc, $ftago, $ftagc) = &get_header_tags($key);
+		    $tmp = field_add_links($key, $tmp, $fields);
+		    ($tago, $tagc, $ftago, $ftagc) = get_header_tags($key);
 		    $mesg .= join('', $LABELBEG,
-				  $tago, $l2o{$key}, $tagc, $LABELEND,
+				  $tago, ucfirst($key), $tagc, $LABELEND,
 				  $FLDBEG, $ftago, $tmp, $ftagc, $FLDEND,
 				  "\n");
 		}
@@ -365,14 +367,14 @@ sub htmlize_header {
 	    }
 	} else {
 	    if (!&exclude_field($item) && $hf{$item}) {
-		@array = (split(/$readmail::FieldSep/o, $hf{$item}));
+		@array = @{$hf{$item}};
 		foreach $tmp (@array) {
 		    $tmp = $HFieldsList{$item} ? mlist_field_add_links($tmp) :
 						 &$MHeadCnvFunc($tmp);
-		    &field_add_links($item, *tmp);
+		    $tmp = field_add_links($item, $tmp, $fields);
 		    ($tago, $tagc, $ftago, $ftagc) = &get_header_tags($item);
 		    $mesg .= join('', $LABELBEG,
-				  $tago, $l2o{$item}, $tagc, $LABELEND,
+				  $tago, ucfirst($item), $tagc, $LABELEND,
 				  $FLDBEG, $ftago, $tmp, $ftagc, $FLDEND,
 				  "\n");
 		}
@@ -406,12 +408,17 @@ sub mlist_field_add_links {
 ##
 sub field_add_links {
     my $label = lc shift;
-    local(*fld_text) = shift;
+    my $fld_text = shift;
+    my $fields	 = shift;
 
     LBLSW: {
 	if ($HFieldsAddr{$label}) {
 	    if (!$NOMAILTO) {
-		$fld_text =~ s|([\!\%\w\.\-+=/]+@[\w\.\-]+)|&mailUrl($1)|ge;
+		$fld_text =~ s|([\!\%\w\.\-+=/]+@[\w\.\-]+)
+			      |&mailUrl($1, $fields->{'x-mha-message-id'},
+					    $fields->{'x-mha-subject'},
+					    $fields->{'x-mha-from'});
+			      |gex;
 	    } else {
 		$fld_text =~ s|([\!\%\w\.\-+=/]+@[\w\.\-]+)
 			      |&htmlize(&rewrite_address($1))
@@ -420,11 +427,12 @@ sub field_add_links {
 	    last LBLSW;
 	}
 	if ($label eq 'newsgroup') {
-	    &newsurl(*fld_text)  unless $NONEWS;
+	    $fld_text = newsurl($fld_text)  unless $NONEWS;
 	    last LBLSW;
 	}
 	last LBLSW;
     }
+    $fld_text;
 }
 
 
@@ -432,26 +440,25 @@ sub field_add_links {
 ##	Routine to add news links of newsgroups names
 ##
 sub newsurl {
-    local(*str) = shift;
-    my(@groups) = ();
+    my $str = shift;
     my $h = "";
 
     if ($str =~ s/^([^:]*:\s*)//) {
 	$h = $1;
     }
     $str =~ s/\s//g;			# Strip whitespace
-    @groups = split(/,/, $str);		# Split groups
+    my @groups = split(/,/, $str);	# Split groups
     foreach (@groups) {			# Make hyperlinks
 	s|(.*)|<A HREF="news:$1">$1</A>|;
     }
-    $str = $h . join(', ', @groups);	# Rejoin string
+    $h . join(', ', @groups);	# Rejoin string
 }
 
 ##---------------------------------------------------------------------------
-##	$sub, $msgid, $from come from read_mail_header() (ugly!!!!)
+##	$html = mailUrl($email_addr, $msgid, $subject, $from);
 ##
 sub mailUrl {
-    my($eaddr) = shift;
+    my($eaddr, $msgid, $sub, $from) = @_;
 
     local $_;
     my($url) = ($MAILTOURL);
@@ -534,6 +541,50 @@ sub msgid_to_filename {
 	$msgid =~ s/([^\w.\-\@])/sprintf("=%02X",unpack("C",$1))/geo;
     }
     $msgid;
+}
+
+##---------------------------------------------------------------------------##
+##	Check if new follow up list for a message is different from
+##	old follow up list.
+##
+sub is_follow_ups_diff {
+    my $f	= $Follow{$_[0]};
+    my $o	= $FollowOld{$_[0]};
+    if (defined($f) && defined($o)) {
+	return 1  unless @$f == @$o;
+	local $^W = 0;
+	my $i;
+	for ($i=0; $i < @$f; ++$i) {
+	    return 1  if $f->[$i] ne $o->[$i];
+	}
+	return 0;
+    }
+    return (defined($f) || defined($o));
+}
+
+##---------------------------------------------------------------------------##
+
+sub log_mesg {
+    my $fh	= shift;
+    my $doDate	= shift;
+
+    if ($doDate) {
+	my($sec,$min,$hour,$mday,$mon,$year) = localtime(time);
+	print $fh sprintf("[%4d-%02d-%02d %02d:%02d:%02d] ",
+			  $year+1900, $mon+1, $mday, $hour, $min, $sec);
+    }
+    print $fh @_;
+}
+
+##---------------------------------------------------------------------------##
+
+sub dump_hash {
+    my $fh = shift;
+    my $h = shift;
+    local $_;
+    foreach (sort keys %$h) {
+	print $fh "$_ => ", $h->{$_}, "\n";
+    }
 }
 
 ##---------------------------------------------------------------------------##

@@ -1,13 +1,13 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhinit.pl 2.23 01/06/10 17:35:46
+##	@(#) mhinit.pl 2.25 01/08/26 02:19:52
 ##  Author:
-##      Earl Hood       mhonarc@pobox.com
+##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
 ##      Initialization stuff for MHonArc.
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1995-1999	Earl Hood, mhonarc@pobox.com
+##    Copyright (C) 1995-2001	Earl Hood, mhonarc@mhonarc.org
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -312,22 +312,22 @@ $DBPathName	= '';	# Full pathname of database file
     "plain",     			"mhonarc::htmlize",
     "us-ascii",   			"mhonarc::htmlize",
     "iso-8859-1",   			"mhonarc::htmlize",
-    "iso-8859-2",   			"iso_8859::str2sgml",
-    "iso-8859-3",   			"iso_8859::str2sgml",
-    "iso-8859-4",   			"iso_8859::str2sgml",
-    "iso-8859-5",   			"iso_8859::str2sgml",
-    "iso-8859-6",   			"iso_8859::str2sgml",
-    "iso-8859-7",   			"iso_8859::str2sgml",
-    "iso-8859-8",   			"iso_8859::str2sgml",
-    "iso-8859-9",   			"iso_8859::str2sgml",
-    "iso-8859-10",   			"iso_8859::str2sgml",
+    "iso-8859-2",   			"MHonArc::CharEnt::str2sgml",
+    "iso-8859-3",   			"MHonArc::CharEnt::str2sgml",
+    "iso-8859-4",   			"MHonArc::CharEnt::str2sgml",
+    "iso-8859-5",   			"MHonArc::CharEnt::str2sgml",
+    "iso-8859-6",   			"MHonArc::CharEnt::str2sgml",
+    "iso-8859-7",   			"MHonArc::CharEnt::str2sgml",
+    "iso-8859-8",   			"MHonArc::CharEnt::str2sgml",
+    "iso-8859-9",   			"MHonArc::CharEnt::str2sgml",
+    "iso-8859-10",   			"MHonArc::CharEnt::str2sgml",
     "iso-2022-jp",   			"iso_2022_jp::str2html",
     "latin1",   			"mhonarc::htmlize",
-    "latin2",   			"iso_8859::str2sgml",
-    "latin3",   			"iso_8859::str2sgml",
-    "latin4",   			"iso_8859::str2sgml",
-    "latin5",   			"iso_8859::str2sgml",
-    "latin6",   			"iso_8859::str2sgml",
+    "latin2",   			"MHonArc::CharEnt::str2sgml",
+    "latin3",   			"MHonArc::CharEnt::str2sgml",
+    "latin4",   			"MHonArc::CharEnt::str2sgml",
+    "latin5",   			"MHonArc::CharEnt::str2sgml",
+    "latin6",   			"MHonArc::CharEnt::str2sgml",
     "default",     			"-ignore-",
 );
 %readmail::MIMECharSetConvertersSrc = (
@@ -336,22 +336,22 @@ $DBPathName	= '';	# Full pathname of database file
     "plain",     			undef,
     "us-ascii",   			undef,
     "iso-8859-1",   			undef,
-    "iso-8859-2",   			"iso8859.pl",
-    "iso-8859-3",   			"iso8859.pl",
-    "iso-8859-4",   			"iso8859.pl",
-    "iso-8859-5",   			"iso8859.pl",
-    "iso-8859-6",   			"iso8859.pl",
-    "iso-8859-7",   			"iso8859.pl",
-    "iso-8859-8",   			"iso8859.pl",
-    "iso-8859-9",   			"iso8859.pl",
-    "iso-8859-10",   			"iso8859.pl",
+    "iso-8859-2",   			"MHonArc/CharEnt.pm",
+    "iso-8859-3",   			"MHonArc/CharEnt.pm",
+    "iso-8859-4",   			"MHonArc/CharEnt.pm",
+    "iso-8859-5",   			"MHonArc/CharEnt.pm",
+    "iso-8859-6",   			"MHonArc/CharEnt.pm",
+    "iso-8859-7",   			"MHonArc/CharEnt.pm",
+    "iso-8859-8",   			"MHonArc/CharEnt.pm",
+    "iso-8859-9",   			"MHonArc/CharEnt.pm",
+    "iso-8859-10",   			"MHonArc/CharEnt.pm",
     "iso-2022-jp",   			"iso2022jp.pl",
     "latin1",   			undef,
-    "latin2",   			"iso8859.pl",
-    "latin3",   			"iso8859.pl",
-    "latin4",   			"iso8859.pl",
-    "latin5",   			"iso8859.pl",
-    "latin6",   			"iso8859.pl",
+    "latin2",   			"MHonArc/CharEnt.pm",
+    "latin3",   			"MHonArc/CharEnt.pm",
+    "latin4",   			"MHonArc/CharEnt.pm",
+    "latin5",   			"MHonArc/CharEnt.pm",
+    "latin6",   			"MHonArc/CharEnt.pm",
     "default",     			undef,
 );
 
@@ -363,7 +363,8 @@ $DBPathName	= '';	# Full pathname of database file
 $MHeadCnvFunc	= "mhonarc::htmlize";
 
 ##  Regexp for variable detection
-$VarExp    = $ENV{'M2H_VARREGEX'}   || '\$([^\$]*)\$';
+$VarExp    = $ENV{'M2H_VARREGEX'};
+$VarExp    = '\$([^\$]*)\$'  if !defined($VarExp) || $VarExp !~ /\S/;
 
 ##  Regexp for address/msg-id detection (looks like cussing in cartoons)
 $AddrExp = '[^()<>@,;:\/\s"\'&|]+@[^()<>@,;:\/\s"\'&|]+';
@@ -376,15 +377,12 @@ $DBFILE    = $ENV{'M2H_DBFILE'}     ||
 	     (($MSDOS || $VMS) ? "mhonarc.db": ".mhonarc.db");
 $DOCURL    = $ENV{'M2H_DOCURL'}     ||
 	     'http://www.oac.uci.edu/indiv/ehood/mhonarc.html';
-$FOOTER    = $ENV{'M2H_FOOTER'}     || "";
-$HEADER    = $ENV{'M2H_HEADER'}     || "";
 $IDXNAME   = "";	# Set in get_resources()
 $IDXPREFIX = $ENV{'M2H_IDXPREFIX'}  || "mail";
 $TIDXPREFIX= $ENV{'M2H_TIDXPREFIX'} || "thrd";
 $IDXSIZE   = $ENV{'M2H_IDXSIZE'}    || 0;
 $TIDXNAME  = "";	# Set in get_resources()
 $OUTDIR    = $ENV{'M2H_OUTDIR'}     || $CURDIR;
-$FMTFILE   = $ENV{'M2H_RCFILE'}     || "";
 $TTITLE    = $ENV{'M2H_TTITLE'}     || "Mail Thread Index";
 $TITLE     = $ENV{'M2H_TITLE'}      || "Mail Index";
 $MAILTOURL = $ENV{'M2H_MAILTOURL'}  || "";
@@ -401,9 +399,10 @@ $DefRcFile = $ENV{'M2H_DEFRCFILE'}  || '';
 $HtmlExt   = $ENV{'M2H_HTMLEXT'}    || "html";
 $MsgPrefix = $ENV{'M2H_MSGPREFIX'}  || "msg";
 $DefRcName = $ENV{'M2H_DEFRCNAME'}  ||
-	     (($MSDOS || $VMS) ? "mhonarc.rc": ".mhonarc.rc");
+	     (($MSDOS || $VMS) ? "mhonarc.mrc": ".mhonarc.mrc");
 $GzipExe   = $ENV{'M2H_GZIPEXE'}    || 'gzip';
 $SpamMode  = $ENV{'M2H_SPAMMODE'}   || 0;
+$MainRcDir = undef;	# Set in read_resource_file()
 
 $GMTDateFmt	= $ENV{'M2H_GMTDATEFMT'}   	|| '';
 $LocalDateFmt	= $ENV{'M2H_LOCALDATEFMT'} 	|| '';
@@ -462,6 +461,8 @@ $DoArchive   = defined($ENV{'M2H_ARCHIVE'})     ? $ENV{'M2H_ARCHIVE'}     : 1;
 $DoFolRefs   = defined($ENV{'M2H_FOLREFS'})     ? $ENV{'M2H_FOLREFS'}     : 1;
 $UsingLASTPG = defined($ENV{'M2H_USINGLASTPG'}) ? $ENV{'M2H_USINGLASTPG'} : 1;
 
+@FMTFILE     = defined($ENV{'M2H_RCFILE'}) ?
+		    ($ENV{'M2H_RCFILE'}) : ();
 @OtherIdxs   = defined($ENV{'M2H_OTHERINDEXES'}) ?
 		    split(/:/, $ENV{'M2H_OTHERINDEXES'}) : ();
 @PerlINC     = defined($ENV{'M2H_PERLINC'}) ?
@@ -471,8 +472,9 @@ $UsingLASTPG = defined($ENV{'M2H_USINGLASTPG'}) ? $ENV{'M2H_USINGLASTPG'} : 1;
 @FromFields  = defined($ENV{'M2H_FROMFIELDS'}) ?
 		    split(/:/, $ENV{'M2H_FROMFIELDS'}) : ();
 
-($TSliceNBefore, $TSliceNAfter) = defined($ENV{'M2H_TSLICE'}) ?
-		    split(/:/, $ENV{'M2H_TSLICE'}) : (0, 0);
+($TSliceNBefore, $TSliceNAfter, $TSliceInclusive) =
+    defined($ENV{'M2H_TSLICE'}) ?
+	split(/[:;]/, $ENV{'M2H_TSLICE'}) : (0, 4, 0);
 
 ##	Code for modify addresses in headers
 $AddressModify = $ENV{'M2H_ADDRESSMODIFYCODE'} || "";
@@ -540,8 +542,29 @@ $TINDENTEND	= '';	# Thread indent close
 $TCONTBEG	= '';	# Thread continue open
 $TCONTEND	= '';	# Thread continue close
 
-$TSLICEBEG	= '';	# Start of thread slice
-$TSLICEEND	= '';	# End of thread slice
+$TSLICEBEG		= '';	# Start of thread slice
+$TSLICEEND		= '';	# End of thread slice
+$TSLICESINGLETXT	= '';	# Single/lone thread entry template
+$TSLICETOPBEG		= '';	# Top of a thread begin template
+$TSLICETOPEND		= '';	# Top of a thread end template
+$TSLICESUBLISTBEG	= '';	# Sub-thread list open
+$TSLICESUBLISTEND	= '';	# Sub-thread list close
+$TSLICELITXT 		= '';	# Thread list item text
+$TSLICELIEND 		= '';	# Thread list item end
+$TSLICELINONE		= '';	# List item for missing message in thread
+$TSLICELINONEEND	= '';	# List item end for missing message in thread
+$TSLICESUBJECTBEG	= '';	# Pre-text for subject-based items
+$TSLICESUBJECTEND	= '';	# Post-text for subject-based items
+$TSLICEINDENTBEG	= '';	# Thread indent open
+$TSLICEINDENTEND	= '';	# Thread indent close
+$TSLICECONTBEG		= '';	# Thread continue open
+$TSLICECONTEND		= '';	# Thread continue close
+
+$TSLICESINGLETXTCUR	= '';	# Current Single/lone thread entry template
+$TSLICETOPBEGCUR	= '';	# Current Top of a thread begin template
+$TSLICETOPENDCUR	= '';	# Current Top of a thread end template
+$TSLICELITXTCUR 	= '';	# Thread list current item text
+$TSLICELIENDCUR 	= '';	# Thread list current item end
 
 $MSGFOOT	= '';	# Message footer
 $MSGHEAD	= '';	# Message header
@@ -571,10 +594,31 @@ $TNEXTBUTTON	= '';  	# Thread Next button template
 $TNEXTBUTTONIA	= '';  	# Thread Next inactive button template
 $TPREVBUTTON	= '';  	# Thread Previous button template
 $TPREVBUTTONIA	= '';  	# Thread Previous inactive button template
+
+$TNEXTTOPBUTTON	  = ''; # Next Thread button template
+$TNEXTTOPBUTTONIA = ''; # Next Thread inactive button template
+$TPREVTOPBUTTON	  = ''; # Previous Thread button template
+$TPREVTOPBUTTONIA = ''; # Previous Thread inactive button template
+
+$TNEXTINBUTTON	  = ''; # Within Thread Next button template
+$TNEXTINBUTTONIA  = ''; # Within Thread Next inactive button template
+$TPREVINBUTTON	  = ''; # Within Thread Previous button template
+$TPREVINBUTTONIA  = ''; # Within Thread Previous inactive button template
+
 $TNEXTLINK	= '';  	# Thread Next link template
 $TNEXTLINKIA	= '';  	# Thread Next inactive link template
 $TPREVLINK	= '';  	# Thread Previous link template
 $TPREVLINKIA	= '';  	# Thread Previous inactive link template
+
+$TNEXTTOPLINK	= '';	# Next Thread link template
+$TNEXTTOPLINKIA = '';	# Next Thread inactive link template
+$TPREVTOPLINK	= '';	# Previous Thread link template
+$TPREVTOPLINKIA = '';	# Previous Thread inactive link template
+
+$TNEXTINLINK	= '';	# Within Thread Next link template
+$TNEXTINLINKIA  = '';	# Within Thread Next inactive link template
+$TPREVINLINK	= '';	# Within Thread Previous link template
+$TPREVINLINKIA  = '';	# Within Thread Previous inactive link template
 
 $IDXPGBEG	= '';	# Beginning of main index page
 $IDXPGEND	= '';	# Ending of main index page
@@ -584,11 +628,15 @@ $TIDXPGEND	= '';	# Ending of thread index page
 $MSGPGBEG	= '';	# Beginning of message page
 $MSGPGEND	= '';	# Ending of message page
 
+$FIRSTPGLINK 	= '';  	# First page link template
+$LASTPGLINK 	= '';  	# Last page link template
 $NEXTPGLINK 	= '';  	# Next page link template
 $NEXTPGLINKIA	= '';  	# Next page inactive link template
 $PREVPGLINK 	= '';  	# Previous page link template
 $PREVPGLINKIA	= '';  	# Previous page inactive link template
 
+$TFIRSTPGLINK 	= '';  	# First thread page link template
+$TLASTPGLINK 	= '';  	# Last thread page link template
 $TNEXTPGLINK	= '';  	# Thread next page link template
 $TNEXTPGLINKIA	= '';  	# Thread next page inactive link template
 $TPREVPGLINK	= '';  	# Thread previous page link template
@@ -613,10 +661,11 @@ $NOTEICONIA	= '';	# Markup template for note icon if no annotation
 %CustomRcVars	= ();
 
 $X = "\034";	# Value separator (should equal $;)
-		# NOTE: Older versions used this variable for
-		#	the multiple field separator in parsed
-		#	message headers.  $readmail::FieldSep should
-		#	now be used (readmail.pl).
+		# NOTE: Older versions used this variable as
+		#	the list value separator.  Its use should
+		#	now only be for extracting time from
+		#	indexes of messages or for processing
+		#	old version data.
 
 }
 

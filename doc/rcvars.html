@@ -1,10 +1,13 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
 <html>
 <head>
-<title>MHonArc v2.4 -- Resource Variables</title>
+<title>MHonArc v2.5 -- Resource Variables</title>
 </head>
+<!--
 <BODY background="ssbg75.jpg"
       text="#000000" link="#0000ee" vlink="#551a8b" alink="ff0000">
+-->
+<BODY>
 
 <!--X-NavButtons-Start-->
 <p align=center>
@@ -206,56 +209,73 @@ expanded will be based upon. Possible values are:
 </p>
 <table border=0>
 <tr valign=top>
-<th align=right>Value</th><th align=left>- Meaning</th>
+<th align=right>Value -</th><th align=left>Meaning</th>
 </tr>
 <tr valign=top>
-<td align=right><tt>CUR</tt></td>
-  <td>- Current message.</td>
+<td align=right><tt>CUR</tt> -</td>
+  <td>Current message.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>FIRST</tt></td>
-  <td>- First message listed in main index.</td>
+<td align=right><tt>FIRST</tt> -</td>
+  <td>First message listed in main index.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>LAST</tt></td>
-  <td>- Last message listed in main index.</td>
+<td align=right><tt>LAST</tt> -</td>
+  <td>Last message listed in main index.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>NEXT</tt></td>
-  <td>- Next message by main sort order.</td>
+<td align=right><tt>NEXT</tt> -</td>
+  <td>Next message by main sort order.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>PREV</tt></td>
-  <td>- Previous message by main sort order.</td>
+<td align=right><tt>PREV</tt> -</td>
+  <td>Previous message by main sort order.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TEND</tt></td>
-  <td>- Last message of current discussion thread.</td>
+<td align=right><tt>TEND</tt> -</td>
+  <td>Last message of current discussion thread.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TFIRST</tt></td>
-  <td>- First message listed thread index.</td>
+<td align=right><tt>TFIRST</tt> -</td>
+  <td>First message listed thread index.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TLAST</tt></td>
-  <td>- Last message listed thread index.</td>
+<td align=right><tt>TLAST</tt> -</td>
+  <td>Last message listed thread index.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TNEXT</tt></td>
-  <td>- Next message by thread.</td>
+<td align=right><tt>TNEXT</tt> -</td>
+  <td>Next message by thread.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TPARENT</tt></td>
-  <td>- Parent message of current
-thread.</td>
+<td align=right><tt>TNEXTIN</tt> -</td>
+  <td>Next message within current thread.  This differs from
+  <tt>TNEXT</tt> in that it does not cross discussion thread boundaries.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TPREV</tt></td>
-  <td>- Previous message by thread.</td>
+<td align=right><tt>TNEXTTOP</tt> -</td>
+  <td>First message of next discussion thread.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TTOP</tt></td>
-  <td>- Top/root message of current discussion thread.</td>
+<td align=right><tt>TPARENT</tt> -</td>
+  <td>Parent message of current thread.</td>
+</tr>
+<tr valign=top>
+<td align=right><tt>TPREV</tt> -</td>
+  <td>Previous message by thread.</td>
+</tr>
+<tr valign=top>
+<td align=right><tt>TPREVIN</tt> -</td>
+  <td>Previous message within current thread.  This differs from
+  <tt>TPREV</tt> in that it does not cross discussion thread boundaries.</td>
+</tr>
+<tr valign=top>
+<td align=right><tt>TPREVTOP</tt> -</td>
+  <td>First message of previous discussion thread.</td>
+</tr>
+<tr valign=top>
+<td align=right><tt>TTOP</tt> -</td>
+  <td>Top/root message of current discussion thread.</td>
 </tr>
 </table>
 <p>"<tt>CUR</tt>" is the default if nothing is specified for
@@ -361,14 +381,25 @@ links to the index page.</td>
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Button markup linking to a message. The value of $BUTTON$ is determined
-by the following resources:
+<td>Button markup linking to a message. The value of <tt>$BUTTON$</tt>
+is determined by the following resources based on
+<tt><i><a href="#mesg_spec">mesg_spec</a></i></tt> value:
 <a href="resources/nextbutton.html">NEXTBUTTON</a>,
 <a href="resources/nextbuttonia.html">NEXTBUTTONIA</a>,
 <a href="resources/prevbutton.html">PREVBUTTON</a>,
 <a href="resources/prevbuttonia.html">PREVBUTTONIA</a>,
 <a href="resources/tnextbutton.html">TNEXTBUTTON</a>,
-<a href="resources/tnextbuttonia.html">TNEXTBUTTONIA</a>.
+<a href="resources/tnextbuttonia.html">TNEXTBUTTONIA</a>,
+<a href="resources/tnextinbutton.html">TNEXTINBUTTON</a>,
+<a href="resources/tnextinbuttonia.html">TNEXTINBUTTONIA</a>,
+<a href="resources/tnexttopbutton.html">TNEXTTOPBUTTON</a>,
+<a href="resources/tnexttopbuttonia.html">TNEXTTOPBUTTONIA</a>,
+<a href="resources/tprevbutton.html">TPREVBUTTON</a>,
+<a href="resources/tprevbuttonia.html">TPREVBUTTONIA</a>,
+<a href="resources/tprevinbutton.html">TPREVINBUTTON</a>,
+<a href="resources/tprevinbuttonia.html">TPREVINBUTTONIA</a>,
+<a href="resources/tprevtopbutton.html">TPREVTOPBUTTON</a>,
+<a href="resources/tprevtopbuttonia.html">TPREVTOPBUTTONIA</a>.
 </td>
 </tr>
 </table><br></dd>
@@ -596,16 +627,25 @@ Value set by the <a href="resources/title.html">TITLE</a> resource.
 <tr valign=top>
 <td align=right><b>Description:</b></td>
 <td>Link markup linking to a message.
-Value set by the
+The value of <tt>$LINK$</tt> is determined
+by the following resources based on
+<tt><i><a href="#mesg_spec">mesg_spec</a></i></tt> value:
 <a href="resources/nextlink.html">NEXTLINK</a>,
 <a href="resources/nextlinkia.html">NEXTLINKIA</a>,
 <a href="resources/prevlink.html">PREVLINK</a>,
 <a href="resources/prevlinkia.html">PREVLINKIA</a>,
 <a href="resources/tnextlink.html">TNEXTLINK</a>,
 <a href="resources/tnextlinkia.html">TNEXTLINKIA</a>,
-<a href="resources/tprevlink.html">TPREVLINK</a>, and
-<a href="resources/tprevlinkia.html">TPREVLINKIA</a>
-resources.
+<a href="resources/tnextinlink.html">TNEXTINLINK</a>,
+<a href="resources/tnextinlinkia.html">TNEXTINLINKIA</a>,
+<a href="resources/tnexttoplink.html">TNEXTTOPLINK</a>,
+<a href="resources/tnexttoplinkia.html">TNEXTTOPLINKIA</a>,
+<a href="resources/tprevlink.html">TPREVLINK</a>,
+<a href="resources/tprevlinkia.html">TPREVLINKIA</a>,
+<a href="resources/tprevinlink.html">TPREVINLINK</a>,
+<a href="resources/tprevinlinkia.html">TPREVINLINKIA</a>,
+<a href="resources/tprevtoplink.html">TPREVTOPLINK</a>,
+<a href="resources/tprevtoplinkia.html">TPREVTOPLINKIA</a>.
 </td>
 </tr>
 </table><br></dd>
@@ -874,10 +914,14 @@ context.
 <td align=right><b>Description:</b></td>
 <td>Markup linking to a main index page.
 Value determined by the
+<a href="resources/firstpglink.html">FIRSTPGLINK</a>,
+<a href="resources/lastpglink.html">LASTPGLINK</a>,
 <a href="resources/nextpglink.html">NEXTPGLINK</a>,
 <a href="resources/nextpglinkia.html">NEXTPGLINKIA</a>,
 <a href="resources/prevpglink.html">PREVPGLINK</a>,
 <a href="resources/prevpglinkia.html">PREVPGLINKIA</a>,
+<a href="resources/tfirstpglink.html">TFIRSTPGLINK</a>,
+<a href="resources/tlastpglink.html">TLASTPGLINK</a>,
 <a href="resources/tnextpglink.html">TNEXTPGLINK</a>,
 <a href="resources/tnextpglinkia.html">TNEXTPGLINKIA</a>,
 <a href="resources/tprevpglink.html">TPREVPGLINK</a>, and
@@ -902,6 +946,10 @@ current page to create links to.  If either number argument is prefixed
 with a '<tt><b>T</b></tt>', then the list of links apply to the thread index.
 Examples: <tt>$PGLINKLIST(3;3)$</tt>, <tt>$PGLINKLIST(T2;T3)$</tt>.  The
 link text for to a give page is the page number.
+</p>
+<p>If no arguments are provided to <tt>$PGLINKLIST$</tt>, then the
+links to all index pages will be printed.  To get the entire list
+for a thread index, use <tt>$PGLINKLIST(T)$</tt>.
 </p>
 </td>
 </tr>
@@ -1046,22 +1094,45 @@ This variable is only applicable for use in the
 <dd><table border=0>
 <tr valign=top>
 <td align=right><b>Arguments:</b></td>
-<td>N/A</td>
+<td><tt><i>number</i>;<i>number</i>;<i>flag</i></tt></td>
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
 <td>A <em>slice</em> of the thread listing relative to the current message.
-Size of slice determined by the <a href="resources/tslice.html">TSLICE</a>
-resource.  Layout appearance of <tt>$TSLICE$</tt> determined by
-<a href="tslicebeg.html">TSLICEBEG</a>,
-<a href="tsliceend.html">TSLICEEND</a>,
-<a href="ttopbegin.html">TTOPBEGIN</a>,
-<a href="tlitxt.html">TLITXT</a>,
-<a href="tliend.html">TLIEND</a>,
-<a href="tsingletxt.html">TSINGLETXT</a>,
-<a href="tsubjectbeg.html">TSUBJECTBEG</a>, and
-<a href="ttopend.html">TTOPEND</a>
+Size of slice is determined by the <a href="resources/tslice.html">TSLICE</a>
+resource, or explicitly by the arguments provided.  The first argument
+is the number of maximum messages to list before the current message.
+The second argument is the number of maximum message messages to list
+after the current message.  The third argument is a flag, <tt>0</tt>
+or <tt>1</tt>, denoting if slice should cross discussion thread
+boundaries or not.  If any of the arguments are blank, the value
+defined in the <a href="resources/tslice.html">TSLICE</a> resource
+will be used.
+<p>Layout appearance of <tt>$TSLICE$</tt> is determined by
+<a href="resources/tslicebeg.html">TSLICEBEG</a>,
+<a href="resources/tslicecontbeg.html">TSLICECONTBEG</a>,
+<a href="resources/tslicecontend.html">TSLICECONTEND</a>,
+<a href="resources/tsliceend.html">TSLICEEND</a>,
+<a href="resources/tsliceindentbeg.html">TSLICEINDENTBEG</a>,
+<a href="resources/tsliceindentend.html">TSLICEINDENTEND</a>,
+<a href="resources/tsliceliend.html">TSLICELIEND</a>,
+<a href="resources/tsliceliendcur.html">TSLICELIENDCUR</a>,
+<a href="resources/tslicelinone.html">TSLICELINONE</a>,
+<a href="resources/tslicelinoneend.html">TSLICELINONEEND</a>,
+<a href="resources/tslicelitxt.html">TSLICELITXT</a>,
+<a href="resources/tslicelitxtcur.html">TSLICELITXTCUR</a>,
+<a href="resources/tslicesingletxt.html">TSLICESINGLETXT</a>,
+<a href="resources/tslicesingletxtcur.html">TSLICESINGLETXTCUR</a>,
+<a href="resources/tslicesubjectbeg.html">TSLICESUBJECTBEG</a>,
+<a href="resources/tslicesubjectend.html">TSLICESUBJECTEND</a>,
+<a href="resources/tslicesublistbeg.html">TSLICESUBLISTBEG</a>,
+<a href="resources/tslicesublistend.html">TSLICESUBLISTEND</a>,
+<a href="resources/tslicetopbeg.html">TSLICETOPBEG</a>,
+<a href="resources/tslicetopbegcur.html">TSLICETOPBEGCUR</a>,
+<a href="resources/tslicetopend.html">TSLICETOPEND</a>, and
+<a href="resources/tslicetopendcur.html">TSLICETOPENDCUR</a>
 resources.
+</p>
 </td>
 </tr>
 </table><br></dd>
@@ -1101,7 +1172,7 @@ resources.
 <!-- *************************************************************** -->
 <hr>
 <address>
-01/06/10 17:47:40<br>
+01/08/26 14:16:47<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.mhonarc.org"
 ><strong>MHonArc</strong></a><br>

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhusage.pl 2.14 01/04/10 21:36:41
+##      @(#) mhusage.pl 2.15 01/08/26 02:06:25
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -81,7 +81,6 @@ Options:
   -expireage <secs>        : Time from current when messages expire
   -folrefs                 : Print links to follow-ups/references
   -force                   : Perform archive operations even if unable to lock
-  -footer <file>           : Include File for bottom of index page
   -fromfields <list>       : Fields to detemine whom the message is from
   -genidx                  : Output index to stdout based upon archive contents
   -gmtdatefmt <fmt>        : Format for GMT date
@@ -89,7 +88,6 @@ Options:
                              (def: "gzip")
   -gzipfiles               : Gzip files
   -gziplinks               : Add ".gz" to filenames in links
-  -header <file>           : User text to include at top of index page
   -help                    : This message
   -htmlext <ext>           : Filename extension for generated HTML files
                              (def: "html")
@@ -190,7 +188,7 @@ Options:
   -tlevels <#>             : Maximum # of nested lists in threaded index
                              (def: "3")
   -treverse                : List threads in reverse order
-  -tslice <#:#>            : Set size of thread slice listing
+  -tslice <#:#:#>          : Set size of thread slice listing
   -tsort                   : List threads by date (the default)
   -tsubsort                : List threads by subject
   -ttitle <string>         : Title of thread index page

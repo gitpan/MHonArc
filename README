@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------
                             README for MHonArc
-                                 v2.4.9
+                                 v2.5.0b
 
 			<http://www.mhonarc.org/>
 
@@ -64,7 +64,8 @@ mhonarc*        The MHonArc program
 ---------------------------------------------------------------------------
 INSTALLATION
 
-    Please read RELNOTES before installing MHonArc for any news
+    Please read RELNOTES, or load doc/relnotes.html into your
+    favorite web client, before installing MHonArc for any news
     about compatibility with previous versions and/or important
     usage information.
 
@@ -112,14 +113,19 @@ MAILING LIST
       <http://www.xray.mpe.mpg.de/mailing-lists/mhonarc/>
       <http://www.mail-archive.com/mhonarc@ncsa.uiuc.edu/>
 
+    For more information about the mailing list and contact
+    information, see doc/contacts.html.
+
 ---------------------------------------------------------------------------
 BUGS/COMMENTS/SUGGESTIONS?
 
     If you have any bugs/comments/suggestions about MHonArc, you may
     send mail to the MHonArc mailing list,
-    <mailto:mhonarc@ncsa.uiuc.edu>.
+    <mailto:mhonarc@ncsa.uiuc.edu> or to <mailto:mhonarc@mhonarc.org>
+    if you are not subscribed to the list.
 
-    NOTE: The author of MHonArc *IS* subscribed to the list.
+    NOTE: The author of MHonArc *IS* subscribed to the list so there
+	  is no need to carbon-copy the author.
 
     If it is a bug you are reporting, please include the following in
     your message:
@@ -150,4 +156,4 @@ BUGS/COMMENTS/SUGGESTIONS?
 
 ---------------------------------------------------------------------------
 Copyright (C) 1995-2001,		Earl Hood, mhonarc@mhonarc.org
-@(#) README 01/06/10 18:10:37
+@(#) README 01/08/26 14:18:34

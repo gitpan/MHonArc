@@ -1,7 +1,7 @@
 #!/usr/local/bin/perl
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhonarc 2.5 00/04/24 00:13:37
+##	@(#) mhonarc 2.6 01/08/26 02:27:22
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -91,7 +91,7 @@ Mail
 
 =head1 AUTHOR
 
-Earl Hood, mhonarc@pobox.com
+Earl Hood, mhonarc@mhonarc.org
 
 =cut
 

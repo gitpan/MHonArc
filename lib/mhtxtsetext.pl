@@ -1,5 +1,5 @@
 ##---------------------------------------------------------------------------##
-##	@(#) mhtxtsetext.pl 2.2 99/08/15 21:52:26
+##	@(#) mhtxtsetext.pl 2.3 01/08/26 02:01:31
 ## Library to convert text/setext to HTML.  Adapted for use in MHonArc
 ## by ehood@medusa.acs.uci.edu, Sept 1994.
 ## Filter routine can be registered with the following:
@@ -55,8 +55,8 @@ $PRE = 1;       # in preformated text <PRE>...</PRE>
 $QUOTE = 2;     # in blockquote <BLOCKQUOTE>...</BLOCKQUOTE>
 
 sub filter {
-    local($header, *fields, *body) = @_;
-    local(@data) = split(/\n/,$body);
+    my($fields, $body) = @_;
+    my(@data) = split(/\n/,$$body);
 
     $ret = '';
     # first pass, process <HEAD> items and hypertext link information

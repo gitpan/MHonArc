@@ -1,7 +1,7 @@
 #!/usr/local/bin/perl
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mha-dbedit 1.3 00/04/24 00:13:52
+##	@(#) mha-dbedit 1.4 01/08/26 02:27:08
 ##  Author:
 ##      Earl Hood       mhonarc@bigfoot.com
 ##  Description:
@@ -82,7 +82,7 @@ E<lt>I<http://www.mhonarc.org/>E<gt>
 
 =head1 AUTHOR
 
-Earl Hood, mhonarc@pobox.com
+Earl Hood, mhonarc@mhonarc.org
 
 =cut
 

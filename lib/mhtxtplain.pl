@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxtplain.pl 2.12 01/06/10 17:39:30
+##	@(#) mhtxtplain.pl 2.13 01/08/26 02:14:39
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -93,7 +93,7 @@ $HQuoteChars	= '&gt;|[\|\]+:]';
 ##	All arguments should be separated by at least one space
 ##
 sub filter {
-    local($header, *fields, *data, $isdecode, $args) = @_;
+    my($fields, $data, $isdecode, $args) = @_;
     local($_);
 
     ## Parse arguments
@@ -101,11 +101,11 @@ sub filter {
 
     ## Check if content-disposition should be checked
     if ($args =~ /\battachcheck\b/i) {
-	my($disp, $nameparm) = &readmail::MAILhead_get_disposition(*fields);
+	my($disp, $nameparm) = readmail::MAILhead_get_disposition($fields);
 	if ($disp =~ /\battachment\b/i) {
 	    require 'mhexternal.pl';
-	    return (&m2h_external::filter(
-		      $header, *fields, *data, $isdecode, $args));
+	    return (m2h_external::filter(
+		      $fields, $data, $isdecode, $args));
 	}
     }
 
@@ -119,7 +119,11 @@ sub filter {
 	# $args has uudecode stripped out for recursive calls
 
 	# Make sure we have needed routines
-	require 'base64.pl';
+	my $decoder = readmail::load_decoder("uuencode");
+	if (!defined($decoder) || !defined(&$decoder)) {
+	    require 'base64.pl';
+	    $decoder = \&base64::uudecode;
+	}
 	require 'mhmimetypes.pl';
 
 	# Grab any filename extensions that imply inlining
@@ -130,7 +134,7 @@ sub filter {
 	}
 	my $usename = $args =~ /\busename\b/;
 
-	local($pdata);	# have to use local() since typeglobs used
+	my($pdata);	# have to use local() since typeglobs used
 	my($inext, $uddata, $file, $urlfile);
 	my @files = ( );
 	my $ret = "";
@@ -140,17 +144,17 @@ sub filter {
 	# filter to convert text data: makes it easier to handle all
 	# the various formatting options.
 	foreach $pdata
-		(split(/^(begin \d\d\d \S+\n[!-M].*?\nend\n)/sm, $data)) {
+		(split(/^(begin \d\d\d \S+\n[!-M].*?\nend\n)/sm, $$data)) {
 	    if ($i % 2) {	# uuencoded data
 		# extract filename extension
 		($file) = $pdata =~ /^begin \d\d\d (\S+)/;
 		if ($file =~ /\.(\w+)$/) { $inext = $1; } else { $inext = ""; }
 
 		# decode data
-		$uddata = base64::uudecode($pdata);
+		$uddata = &$decoder($pdata);
 
 		# save to file
-		if (&readmail::MAILis_excluded('application/octet-stream')) {
+		if (readmail::MAILis_excluded('application/octet-stream')) {
 		    $ret .=
 		    "<tt>&lt;&lt;&lt; $file: EXCLUDED &gt;&gt;&gt;</tt><br>\n";
 		} else {
@@ -171,10 +175,12 @@ sub filter {
 		}
 
 	    } elsif ($pdata =~ /\S/) {	# plain text
-		my(@subret) =
-		    &filter($header, *fields, *pdata, $isdecode, $args);
+		my(@subret) = filter($fields, \$pdata, $isdecode, $args);
 		$ret .= shift @subret;
 		push(@files, @subret);
+	    } else {
+		# Make sure readmail thinks we processed
+		$ret .= " ";
 	    }
 	    ++$i;
 	}
@@ -186,10 +192,14 @@ sub filter {
     
     ## Check for HTML data if requested
     if ($args =~ s/\bhtmlcheck\b//i &&
-	    $data =~ /\A\s*<(?:html\b|x-html\b|!doctype\s+html\s)/i) {
-	require 'mhtxthtml.pl';
-	return (&m2h_text_html::filter(
-		  $header, *fields, *data, $isdecode, $args));
+	    $$data =~ /\A\s*<(?:html\b|x-html\b|!doctype\s+html\s)/i) {
+	my $html_filter = readmail::load_filter('text/html');
+	if (defined($html_filter) && defined(&$html_filter)) {
+	    return (&$html_filter($fields, $data, $isdecode, $args));
+	} else {
+	    require 'mhtxthtml.pl';
+	    return (m2h_text_html::filter($fields, $data, $isdecode, $args));
+	}
     }
 
     my($charset, $nourl, $doquote, $igncharset, $nonfixed,
@@ -217,8 +227,8 @@ sub filter {
     $defset =~ s/['"\s]//g;
 
     ## Grab charset parameter (if defined)
-    if ( defined($fields{'content-type'}) and
-	 $fields{'content-type'} =~ /\bcharset\s*=\s*([^\s;]+)/i ) {
+    if ( defined($fields->{'content-type'}[0]) and
+	 $fields->{'content-type'}[0] =~ /\bcharset\s*=\s*([^\s;]+)/i ) {
 	$charset = lc $1;
 	$charset =~ s/['";\s]//g;
     } else {
@@ -240,7 +250,7 @@ sub filter {
 
     ## Check if max-width set
     if ($maxwidth) {
-	$data =~ s/^(.*)$/&break_line($1, $maxwidth)/gem;
+	$$data =~ s/^(.*)$/&break_line($1, $maxwidth)/gem;
     }
 
     ## Convert data according to charset
@@ -249,47 +259,47 @@ sub filter {
 	if ($charset =~ /iso-2022-jp/) {
 	    require "iso2022jp.pl";
 	    if ($nonfixed) {
-		return (&iso_2022_jp::jp2022_to_html($data, $nourl));
+		return (&iso_2022_jp::jp2022_to_html($$data, $nourl));
 	    } else {
 		return ('<pre>' .
-			&iso_2022_jp::jp2022_to_html($data, $nourl).
+			&iso_2022_jp::jp2022_to_html($$data, $nourl).
 			'</pre>');
 	    }
 
 	# Registered in CHARSETCONVERTERS
 	} elsif (defined($charcnv) && defined(&$charcnv)) {
-	    $data = &$charcnv($data, $charset);
+	    $$data = &$charcnv($$data, $charset);
 
 	# Other
 	} else {
 	    warn qq/Warning: Unrecognized character set: $charset\n/;
-	    &esc_chars_inplace(\$data);
+	    esc_chars_inplace($data);
 	}
 
     } else {
-	&esc_chars_inplace(\$data);
+	esc_chars_inplace($data);
     }
 
     ##	Check for quoting
     if ($doquote) {
-	$data =~ s@^( ?${HQuoteChars})(.*)$@$1<I>$2</I>@gom;
+	$$data =~ s@^( ?${HQuoteChars})(.*)$@$1<I>$2</I>@gom;
     }
 
     ## Check if using nonfixed font
     if ($nonfixed) {
-	$data =~ s/(\r?\n)/<br>$1/g;
+	$$data =~ s/(\r?\n)/<br>$1/g;
 	if ($keepspace) {
-	    $data =~ s/^(.*)$/&preserve_space($1)/gem;
+	    $$data =~ s/^(.*)$/&preserve_space($1)/gem;
 	}
     } else {
-    	$data = "<pre>\n" . $data . "</pre>\n";
+    	$$data = "<pre>\n" . $$data . "</pre>\n";
     }
 
     ## Convert URLs to hyperlinks
-    $data =~ s@($HUrlExp)@<A $target HREF="$1">$1</A>@gio
+    $$data =~ s@($HUrlExp)@<A $target HREF="$1">$1</A>@gio
 	unless $nourl;
 
-    ($data);
+    ($$data);
 }
 
 ##---------------------------------------------------------------------------##

@@ -1,13 +1,16 @@
 #!/usr/bin/perl
-# @(#) Makefile.PL 1.4 00/10/28 11:26:52
+# @(#) Makefile.PL 1.5 01/08/26 01:44:33
 # Pseudo Makefile.PL:  Since MHonArc's history goes back to Perl 4 days,
 # it has its own installation process.  This file generates a simple
 # Makefile to (paritally) satisfy the standard Perl 5 way to install
 # software.
 
+use Config;
+
 open(MAKEFILE, ">Makefile") ||
     die "Unable to create Makefile: $!\n";
 
+## Map variable settings to install.me options
 %vars = ( map { split(/=/, $_) } @ARGV );
 my $opt_prefix  = defined($vars{'PREFIX'}) ?
 			"-prefix $vars{'PREFIX'}" : "";
@@ -25,14 +28,26 @@ my $opt_manpath = defined($vars{'INSTALLMAN1DIR'}) ?
 
 my $instme_args = "$opt_prefix $opt_binpath $opt_libpath $opt_manpath";
 
+## Determine which perl should be used
+my $perl  = $Config{'perlpath'};
+unless (-x $perl) {
+  $perl = join('/', $Config{'installbin'}, $Config{'perl'});
+}
+unless (-x $perl) {
+  $perl = 'perl';
+}
+## Determine other commands that will be used
+my $chmod = $Config{'chmod'} || '/bin/chmod';
+my $rm    = $Config{'rm'} || '/bin/rm';
 
+## Print Makefile
 print MAKEFILE <<EOF;
 # This Makefile is for the MHonArc software package.
 
-CHMOD		= /bin/chmod
-RM		= /bin/rm
+CHMOD		= $chmod
+RM		= $rm
 PRGS		= mhonarc mha-dbrecover mha-dbedit mha-decode
-PERL		= perl
+PERL		= $perl
 INSTALLPRG	= install.me
 
 .PHONY		= default install install-ask pod2man test clean versions
@@ -52,7 +67,7 @@ pod2man:
 	\@for i in \$(PRGS) ; \\
 	    do( \\
 		echo "Manifying \$\$i ..."; \\
-		pod2man \$\$i > man/\$\$i.1; \\
+		pod2man --center="MHonArc Documentation" --release="MHonArc v2.5" \$\$i > man/\$\$i.1; \\
 	    ); \\
 	done
 

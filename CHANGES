@@ -2,14 +2,321 @@
 		     ==========================
 		     <http://www.mhonarc.org/>
 
-Change history for MHonArc.  Changes listed are brief.  Consult the
-documentation for further information/clarification.  It is possible
-that not all changes are documented here.
+Please read RELNOTES for changes that can have an impact for users
+of past releases of MHonArc.
+
+Some change notes are brief; consult the documentation for further
+information/clarification.  It is possible that some changes to
+MHonArc are not documented here, but every effort is made to list
+all changes that will be visible to users of MHonArc.
 
 MM/DD/YYYY
-=======================================================================
-#######################################################################
-=======================================================================
+============================================================================
+############################################################################
+============================================================================
+08/26/2001	(2.5.0b)
+
+    (See BUGS for the list of bugs fixed)
+
+    o	API for MIMEFILTERS has been changed.  Content filters are
+	now called as follows:
+
+	  ($html, @files) =
+	      &filter($fields_hash_ref, $body_data_ref, $is_decoded,
+		      $filter_args);
+
+	Paramaters:
+	  $fields_hash_ref
+		      A reference to hash of message/part header
+		      fields.  Keys are field names in lowercase
+		      and values are array references containing the
+		      field values.  For example, to obtain the
+		      content-type, if defined, you would do:
+
+			$fields_hash_ref->{'content-type'}[0]
+
+		      Values for a fields are stored in arrays since
+		      duplication of fields are possible.  For example,
+		      the Received: header field is typically repeated
+		      multiple times.  For fields that only occur once,
+		      then array for the field will only contain one
+		      item.
+
+	  $body_data_ref
+		      Reference to body data.  It is okay for the
+		      filter to modify the text in-place.
+
+	  $is_decoded
+		      Boolean flag if body data has been decoded.
+		      This is normally true unless some non-standard
+		      content-transfer-encoding is used.
+
+	  $filter_args
+		      String containing filter args as defined by
+		      MIMEARGS resource.
+
+	Return:
+	  The return value is still treated in the same manner as
+	  previous releases.  The first item in the return list is
+	  the text that should printed to the message page.  Any
+	  other items in the return list are derived filenames created
+	  by the filter.  If undef, or the empty string, is returned,
+	  readmail.pl assumes the filter was unable to filter the
+	  data.
+
+	All the filters provided in the MHonArc distribution have
+	been modified to use the new calling convention.
+
+    o	The HEADER and FOOTER resources are no longer supported.
+
+    o	The default value of DEFRCNAME is now ".mhonarc.mrc"
+	("mhonarc.mrc" for Win/DOS).
+
+    o	ISO8859 character set data processing now defaults to using
+	the MHonArc::CharEnt module.  The old iso8859.pl library
+	is still provided for compatibility with older archives.
+	To update archives to use the new settings, you can run
+	the following command,
+
+	    mha-dbedit -rcfile examples/def-mime.mrc \
+		       -outdir /path/to/archive
+
+	where "examples/def-mime.mrc" represents the default MIME
+	processing resources for MHonArc provided within the MHonArc
+	distribution.
+
+	The new module is more efficient in memory usage by only
+	loading mappings for character sets actually processed.  The
+	old iso8859.pl library preloads all mappings.  Also, the
+	module is designed to be easily extensible for processing
+	any 8-bit-based character sets.
+
+    o	Reference, follow-up, and derived file information of a
+	message is now stored in a different format in the database
+	(and internally).  MHonArc will auto-update older archives
+	to the new format.  The newer format should provide some
+	performance improvement.
+
+    o	Messages with no subjects are now stored with no subjects.
+	In previous releases, the text "No Subject" was automatically
+	added as a message was parsed, hence there was no real
+	indicator that a message had no real subject.
+
+	A related change is that messages without subject text
+	are skipped in subject-based thread detection.  Therefore,
+	a no-subject message will never be a possible follow-up,
+	but it is still possible for it to be an explicit follow-up
+	if it includes reference message-ids.
+
+	NOTE: This functionality does not apply to messages
+	processed by earlier versions where the text "No Subject"
+	was auto-applied to messages when parsed.  A recreation
+	of an archive from the original message data would
+	have to be done to have new behavior applied to message
+	processed by earlier releases.
+
+	A messages with no subject will now have the string
+	"[no subject]" displayed any time the $SUBJECT$ resource
+	variable is used for the message.
+
+    o	New resources:
+
+	    FIRSTPGLINK 	Link markup for first page of main index.
+	    LASTPGLINK 		Link markup for last page of main index.
+	    TFIRSTPGLINK 	Link markup for first page of thread index.
+	    TLASTPGLINK 	Link markup for last page of thread index.
+	    TNEXTINBUTTON	Button markup for next message
+				within a thread.
+	    TNEXTINBUTTONIA	Inactive button markup for next
+				message within a thread.
+	    TNEXTINLINK 	Link markup for next message within
+				a thread.
+	    TNEXTINLINKIA	Inactive link markup for next
+				message within a thread.
+	    TNEXTTOPBUTTON	Button markup for first message in
+				the next thread.
+	    TNEXTTOPBUTTONIA	Inactive button markup for first
+				message in the next thread.
+	    TPREVINBUTTON	Button markup for previous message
+				within a thread.
+	    TPREVINBUTTONIA	Inactive button markup for previous
+				message within a thread.
+	    TPREVINLINK 	Link markup for previous message
+				within a thread.
+	    TPREVINLINKIA	Inactive link markup for previous
+				message within a thread.
+	    TPREVTOPBUTTON	Button markup for first message in the
+				previous thread.
+	    TPREVTOPBUTTONIA	Inactive button markup for first
+				message in the previous thread.
+	    TSLICECONTBEGIN	Thread slice markup before the
+				continuation of a broken thread.
+	    TSLICECONTEND	Thread slice markup after the
+				continuation of a broken thread.
+	    TSLICEINDENTBEGIN	Thread slice markup for opening a level
+				when continuing a broken thread.
+	    TSLICEINDENTEND	Thread slice markup for closing a level
+				when continuing a broken thread.
+	    TSLICELIEND 	Ending markup for a thread slice
+				message listing.
+	    TSLICELIENDCUR	Ending markup for a thread slice
+				message listing.
+	    TSLICELINONE	Thread slice markup for a missing
+				message in thread slice.
+	    TSLICELINONEEND	Ending markup for a missing message in
+				thread slice.
+	    TSLICELITXT 	Markup for a thread slice message
+				listing.
+	    TSLICELITXTCUR	Markup for a thread slice message
+				listing if current message.
+	    TSLICESINGLETXT	Markup for a thread slice listing with
+				no follow-ups.
+	    TSLICESINGLETXTCUR	Markup for a thread slice listing with
+				no follow-ups if current message.
+	    TSLICESUBJECTBEG	Markup before a subject based thread
+				slice listing.
+	    TSLICESUBJECTEND	Markup after a subject based thread
+				slice listing.
+	    TSLICESUBLISTBEG	Thread slice markup for starting a
+				sub-thread.
+	    TSLICESUBLISTEND	Thread slice markup for ending a
+				sub-thread.
+	    TSLICETOPBEGIN	Thread slice markup for the root/start
+				of a thread.
+	    TSLICETOPBEGINCUR	Thread slice markup for the root/start
+				of a thread.
+	    TSLICETOPEND	Thread slice markup for the end of a
+				thread.
+	    TSLICETOPENDCUR	Thread slice markup for the end of a
+				thread if current message.
+
+    o	$TSLICE$ resource variable can now take up to three arguments:
+
+	    $TSLICE(<before>;<after>;<inclusive>)$
+
+	where,
+
+	    <before>	: Number indicated the maximum number of
+			  message to print before the current message.
+			  If empty, the before value specified in
+			  TSLICE resource will be used.
+	    <after>	: Number indicated the maximum number of
+			  message to print after the current message.
+			  If empty, the after value specified in
+			  TSLICE resource will be used.
+	    <inclusive> : If `1', only messages within the current
+			  thread will be printed.  If `0', messages
+			  from the previous and next threads can
+			  be printed if the values for <before> and
+			  <after> would go beyond the current thread.
+
+    o	TSLICE resource updated to allow specification of default
+	value of inclusive flag.
+
+    o	The following new message specifications can be used for
+	message data-related resource variables:
+
+	    TNEXTIN		Next message within current thread.
+	    TNEXTTOP		Start of next thread.
+	    TPREVIN		Next message within current thread.
+	    TPREVTOP		Start of previous thread.
+
+	When used as arguments to the the $BUTTON$ and $LINK$ resource
+	variables, the TNEXTINBUTTON(IA), TNEXTTOPBUTTON(IA),
+	TPREVINBUTTON(IA), TPREVTOPBUTTON(IA), TNEXTINLINK(IA),
+	TNEXTTOPLINK(IA), TPREVINLINK(IA), TPREVTOPLINK(IA) resources
+	are respectively applied.
+
+    o	The use of TNEXT, TPREV (and new TNEXTTOP and TPREVTOP)
+	message specifications in resource variables behave more
+	intuitively when TREVERSE is active.  If at the boundaries
+	of a thread, TNEXT and TPREV will reference the first
+	message of the next thread by date and the first message
+	of the previous thread by date, respectively.
+
+    o	Version of MHonArc and Perl are printed when MHonArc starts
+	unless QUIET is active.
+
+    o	mhtxtplain.pl (text/plain) filter changes:
+
+	.   If the htmlcheck option is set and it is detected that
+	    the data is HTML, an attempt is first made to use the
+	    registered text/html filter via MIMEFILTERS.  If none
+	    is defined, mhtxthtml.pl will be used.
+
+	.   When uudecode option is set, an attempt is to use
+	    the registered decoder for uuencode via MIMEDECODERS.
+	    If not defined, then base64::uudecode is used from
+	    base64.pl.
+
+    o	mhtxthtml.pl (text/html) filter changes:
+
+	.   Elements that have URL attributes that auto-load data --
+	    IMG, BODY, IFRAME, FRAME, OBJECT, SCRIPT, INPUT -- have the
+	    atributes converted to 'javascript:void(0);' URLs.	See new
+	    'allownoncidurls' filter argument below for more details.
+
+	.   The follow filter arguments have been added:
+
+	    allownoncidurls Preserve URL-based attributes that are not
+			    cid: URLs.	Normally, any URL-based
+			    attribute -- href, src, background,
+			    classid, data, longdesc -- will be
+			    converted to 'javascript:void(0);'
+			    if it is not a cid: URL.  This is to
+			    prevent malicious URLs that verify mail
+			    addresses for spam purposes, secretly set
+			    cookies, or gather some statistical data
+			    automatically with the use of elements
+			    that cause browsers to automatically
+			    fetch data: IMG, BODY, IFRAME, FRAME,
+			    OBJECT, SCRIPT, INPUT.
+
+	    notitle  	    Do not print title.
+
+    o	Searching for OTHERINDEXES resource files has been modified.
+	The following lists the search order for an OTHERINDEXES
+	resource file:
+
+	    1. Current working directory.
+	    2. Same directory that the first resource file was read as
+	       specified by the RCFILE resource.
+	    3. User's home directory.
+	    4. Archive directory.
+	    5. Perl's @INC.
+
+    o	FIRST, LAST, TFIRST, and TLAST idx_page_spec arguments to
+	$PGLINK$ are now supported via the FIRSTPGLINK, LASTPGLINK,
+	TFIRSTPGLINK, and TLASTPGLINK resources.
+
+    o	$PGLINKLIST$ resource variable changed to print entire
+	list of page links if no arguments are provided.  To get
+	the entire list for thread indexes, use: $PGLINKLIST(T)$.
+
+    o	Date parsing routine updated to recognize dates in the
+	following format: Weekday, Month DD, YYYY HH:MM Zone.
+	Apparently, this is useful if converting mail saved to
+	a file in text format from MS Outlook.
+
+    o	Support for defining Perl function callbacks when a
+	new message header is read and just after a message body
+	has been converted.  Documentation about the callbacks is
+	provided in a new API appendix section in the documentation
+	and is provided in comments in the example mhasiteinit.pl
+	provided in the examples/ directory.
+
+    o	Various internal changes have been made to try to eradicate
+	Perl 4-based conventions.  For example, the use of typeglobs to
+	pass by "reference" has been replaced by using real references.
+
+	Assuming nothing was screwed up, this change should be
+	transparent to most users (with the notable exception of the
+	API changes to MIMEFILTERS registered routines).  However,
+	if you have mucked with MHonArc internals, or created custom
+	modifications, you may need to be aware that changes have
+	been made.
+
+============================================================================
 06/10/2001	(2.4.9)
 
     o	Added the following resources:
@@ -1567,4 +1874,4 @@ MM/DD/YYYY
 #######################################################################
 =======================================================================
 Earl Hood, mhonarc@mhonarc.org
-@(#) CHANGES 01/06/10 18:10:36
+@(#) CHANGES 01/08/26 12:55:24

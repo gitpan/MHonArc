@@ -5,9 +5,8 @@
 </head>
 <body>
 
-<address>
-<a href="../resources.html#charsetconverters">MHonArc Resource List</a>
-</address>
+<em><a href="../resources.html#charsetconverters">MHonArc Resource List</a></em> |
+<a href="../mhonarc.html">TOC</a>
 
 <hr>
 <h1>CHARSETCONVERTERS</h1>
@@ -66,7 +65,7 @@ file containing the routine.
 <p>Example:</p>
 <pre>
 <b>&lt;CharsetConverters&gt;</b>
-iso-8859-1;iso_8859::str2sgml;iso8859.pl
+iso-8859-1;MHonArc::CharEnt::str2sgml;MHonArc/CharEnt.pm
 <b>&lt;/CharsetConverters&gt;</b>
 </pre>
 
@@ -159,26 +158,26 @@ included in HTML markup.
 
 <pre>
 <b>&lt;CharsetConverters&gt;</b>
-plain;		mhonarc::htmlize;
-us-ascii;	mhonarc::htmlize;
-iso-8859-1;	mhonarc::htmlize;
-iso-8859-2;	iso_8859::str2sgml;	iso8859.pl
-iso-8859-3;	iso_8859::str2sgml;	iso8859.pl
-iso-8859-4;	iso_8859::str2sgml;	iso8859.pl
-iso-8859-5;	iso_8859::str2sgml;	iso8859.pl
-iso-8859-6;	iso_8859::str2sgml;	iso8859.pl
-iso-8859-7;	iso_8859::str2sgml;	iso8859.pl
-iso-8859-8;	iso_8859::str2sgml;	iso8859.pl
-iso-8859-9;	iso_8859::str2sgml;	iso8859.pl
-iso-8859-10;	iso_8859::str2sgml;	iso8859.pl
+plain;          mhonarc::htmlize;
+us-ascii;       mhonarc::htmlize;
+iso-8859-1;     mhonarc::htmlize;
+iso-8859-2;     MHonArc::CharEnt::str2sgml;     MHonArc/CharEnt.pm
+iso-8859-3;     MHonArc::CharEnt::str2sgml;     MHonArc/CharEnt.pm
+iso-8859-4;     MHonArc::CharEnt::str2sgml;     MHonArc/CharEnt.pm
+iso-8859-5;     MHonArc::CharEnt::str2sgml;     MHonArc/CharEnt.pm
+iso-8859-6;     MHonArc::CharEnt::str2sgml;     MHonArc/CharEnt.pm
+iso-8859-7;     MHonArc::CharEnt::str2sgml;     MHonArc/CharEnt.pm
+iso-8859-8;     MHonArc::CharEnt::str2sgml;     MHonArc/CharEnt.pm
+iso-8859-9;     MHonArc::CharEnt::str2sgml;     MHonArc/CharEnt.pm
+iso-8859-10;    MHonArc::CharEnt::str2sgml;     MHonArc/CharEnt.pm
 iso-2022-jp;    iso_2022_jp::str2html;  iso2022jp.pl
 latin1;         mhonarc::htmlize;
-latin2;         iso_8859::str2sgml;     iso8859.pl
-latin3;         iso_8859::str2sgml;     iso8859.pl
-latin4;         iso_8859::str2sgml;     iso8859.pl
-latin5;         iso_8859::str2sgml;     iso8859.pl
-latin6;         iso_8859::str2sgml;     iso8859.pl
-default;	-ignore-
+latin2;         MHonArc::CharEnt::str2sgml;     MHonArc/CharEnt.pm
+latin3;         MHonArc::CharEnt::str2sgml;     MHonArc/CharEnt.pm
+latin4;         MHonArc::CharEnt::str2sgml;     MHonArc/CharEnt.pm
+latin5;         MHonArc::CharEnt::str2sgml;     MHonArc/CharEnt.pm
+latin6;         MHonArc::CharEnt::str2sgml;     MHonArc/CharEnt.pm
+default;        -ignore-
 <b>&lt;/CharsetConverters&gt;</b>
 </pre>
 
@@ -199,6 +198,7 @@ browsers:
 </p>
 
 <pre>
+<b><a href="decodeheads.html">&lt;DecodeHeads&gt;</a></b>
 <b>&lt;CharsetConverters&gt;</b>
 iso-8859-1;-decode-
 <b>&lt;/CharsetConverters&gt;</b>
@@ -225,10 +225,10 @@ iso-8859-1;-decode-
 <!-- *************************************************************** -->
 <hr>
 <address>
-00/10/28 11:13:00<br>
+01/08/26 01:21:08<br>
 <img align="top" src="../monicon.gif" alt="">
-<a href="http://www.pobox.com/~ehood/mhonarc.html"><strong>MHonArc</strong></a><br>
-Copyright &#169; 1997-1999, <a href="http://www.pobox.com/~ehood/">Earl Hood</a>, <a href="mailto:mhonarc@pobox.com">mhonarc@pobox.com</a><br>
+<a href="http://www.mhonarc.org/"><strong>MHonArc</strong></a><br>
+Copyright &#169; 1997-2001, <a href="http://www.earlhood.com/">Earl Hood</a>, <a href="mailto:mhonarc@mhonarc.org">mhonarc@mhonarc.org</a><br>
 </address>
 
 </body>

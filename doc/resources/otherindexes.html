@@ -5,9 +5,8 @@
 </head>
 <body>
 
-<address>
-<a href="../resources.html#otherindexes">MHonArc Resource List</a>
-</address>
+<em><a href="../resources.html#otherindexes">MHonArc Resource List</a></em> |
+<a href="../mhonarc.html">TOC</a>
 
 <hr>
 <h1>OTHERINDEXES</h1>
@@ -100,7 +99,6 @@ occur, possibly infinite recursion.
 </tr>
 </table>
 
-
 <P>MHonArc will only store the name of the resource files
 listed in the database.  Therefore, for any subsequent updates of the
 archive, the extra index resource files must exist inorder to generate
@@ -108,9 +106,17 @@ the extra index pages.  </P>
 
 <p>All filenames are treated relative to the current working
 directory or the archive directory, except for absolute
-pathnames.  It is common to place OTHERINDEXES resource
-files in the archive directory to simplify archive administration.
+pathnames.  The following shows the search order MHonArc uses
+to find resource files listed in OTHERINDEXES:
 </p>
+<ol>
+<li>Current working directory.</li>
+<li>Same directory that the first resource file was read as
+specified by the RCFILE resource.</li>
+<li>User's home directory.</li>
+<li>Archive directory.</li>
+<li>Perl's <tt>@INC</tt> library search page.</li>
+</ol>
 
 <table border=0 cellpadding=4>
 <tr valign=top>
@@ -167,8 +173,8 @@ possible setting for OTHERINDEXES may look like this:
 
 <pre>
 <b>&lt;OtherIndexes&gt;</b>
-reversedateidx.rc
-subjectidx.rc
+reversedateidx.mrc
+subjectidx.mrc
 <b>&lt;/OtherIndexes&gt;</b>
 </pre>
 
@@ -196,10 +202,10 @@ subjectidx.rc
 <!-- *************************************************************** -->
 <hr>
 <address>
-00/10/28 11:13:08<br>
+01/08/26 01:21:17<br>
 <img align="top" src="../monicon.gif" alt="">
-<a href="http://www.pobox.com/~ehood/mhonarc.html"><strong>MHonArc</strong></a><br>
-Copyright &#169; 1997-1998, <a href="http://www.pobox.com/~ehood/">Earl Hood</a>, <a href="mailto:mhonarc@pobox.com">mhonarc@pobox.com</a><br>
+<a href="http://www.mhonarc.org/"><strong>MHonArc</strong></a><br>
+Copyright &#169; 1997-2001, <a href="http://www.earlhood.com/">Earl Hood</a>, <a href="mailto:mhonarc@mhonarc.org">mhonarc@mhonarc.org</a><br>
 </address>
 
 </body>
