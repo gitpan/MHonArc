@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhrmm.pl 1.1 98/08/10 23:56:33
+##      @(#) mhrmm.pl 1.2 98/10/31 11:50:17
 ##  Author:
 ##      Earl Hood       earlhood@usa.net
 ##  Description:
@@ -39,12 +39,12 @@ sub rmm {
     foreach (@_) {
 	# range
 	if (/^(\d+)-(\d+)$/) {
-	    push(@numbers, $1 .. $2);	# range op removes leading zeros
+	    push(@numbers, int($1) .. int($2));
 	    next;
 	}
 	# single number
 	if (/^\d+$/) {
-	    push(@numbers, int($_));	# int() removes leading zeros
+	    push(@numbers, int($_));
 	    next;
 	}
 	# probably message-id
@@ -70,7 +70,7 @@ sub rmm {
 
     ## Remove messages
     foreach $num (@numbers) {
-	if ($key = $Num2Index{$num} || $MsgId{$num}) {
+	if (($key = $Num2Index{$num}) || $MsgId{$num}) {
 	    &delmsg($key);
 
 	    # Need to flag messages that link to deleted message so

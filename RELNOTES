@@ -6,6 +6,11 @@ Read the CHANGES document for changes that may affect you if you are
 a user of an earlier version of MHonArc.
 
 ===========================================================================
+Version 2.3.2
+
+    o	A new (improved) "install.me" exists to install MHonArc.
+	See INSTALL for more information.
+
 Version 2.3.0, 2.3.1
 
     o	If you have archives created with v2.1.x, or earlier, you
@@ -148,5 +153,5 @@ Version 2.0.0
 		unpredictable results will occur.
 
 ===========================================================================
-@(#) RELNOTES 98/10/24 18:11:34
+@(#) RELNOTES 98/11/01 13:32:58
 Earl Hood, earlhood@usa.net

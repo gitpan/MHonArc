@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhsingle.pl 1.1 98/08/10 23:56:33
+##      @(#) mhsingle.pl 1.2 98/10/31 12:10:13
 ##  Author:
 ##      Earl Hood       earlhood@usa.net
 ##  Description:
@@ -56,6 +56,11 @@ sub single {
 
     ## Read rest of message
     $Message{$index} = &read_mail_body($handle, $index, $header, *fields);
+
+    ## Set index list structures for replace_li_var()
+    @MListOrder = &sort_messages();
+    %Index2MLoc = ();
+    @Index2MLoc{@MListOrder} = (0 .. $#MListOrder);
 
     ## Output mail
     &output_mail($index, 1, 0);

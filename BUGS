@@ -1,7 +1,7 @@
 Bug History for MHonArc
 =======================
 <URL:http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
-@(#) BUGS 98/10/24 18:11:16
+@(#) BUGS 98/11/01 00:06:45
 
 Each bug listing has the following fields:
 
@@ -15,6 +15,21 @@ Each bug listing has the following fields:
 		    applicable.
 
 Bug List
+------------------------------------------------------------------------
+Version:	2.3.0, 2.3.1
+Problem:   	Some resource variables (eg $SUBJECTNA$) expand to
+		blank values when using -single.
+Solution:	SINGLE mode sets @MListOrder and %Index2MLoc to support
+		the new way in v2.3 replace_li_var() resolves resource
+		variables.
+Version Fixed:	2.3.2
+------------------------------------------------------------------------
+Version:	2.3.1 (maybe earlier versions also)
+Problem:   	MHonArc does not handle message range specification
+		with leading zeros in numbers in -rmm mode.
+Solution:	int() is used within Perl's range operator to force
+		the stripping of leading zeros.
+Version Fixed:	2.3.2
 ------------------------------------------------------------------------
 Version:	2.3.0
 Problem:   	Attachments of the same type get written to the same
