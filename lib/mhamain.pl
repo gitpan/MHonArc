@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhamain.pl 2.16 99/08/04 23:36:48
+##	@(#) mhamain.pl 2.17 99/08/15 21:21:52
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -27,7 +27,7 @@
 
 package mhonarc;
 
-$VERSION = "2.4.2";
+$VERSION = "2.4.3";
 $VINFO =<<EndOfInfo;
   MHonArc v$VERSION (Perl $])
   Copyright (C) 1995-1999  Earl Hood, mhonarc\@pobox.com
@@ -122,11 +122,13 @@ sub open_archive {
 ##	close_archive closes the archive.
 ##
 sub close_archive {
+    my $reset_sigs = shift;
+
     ## Remove lock
     &$UnlockFunc()  if defined(&$UnlockFunc);
 
     ## Reset signal handlers
-    reset_handler();
+    reset_handler()  if $reset_sigs;
 
     ## Stop timing
     eval { $EndTime = (times)[0]; };
@@ -1319,8 +1321,9 @@ sub reset_handler {
 ##
 sub signal_catch {
     my $signame = shift;
-    close_archive();
-    &{$SIG{$signame}}($signame)  if defined(&{$SIG{$signame}});
+    close_archive(1);
+    &{$_sig_org{$signame}}($signame)  if defined(&{$_sig_org{$signame}});
+    reset_handler();
     die qq/Processing stopped, signal caught: SIG$signame\n/;
 }
 

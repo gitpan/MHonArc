@@ -186,6 +186,7 @@ command-line to affect what is done during installation.  The following
 is the list of options available:
 </p>
 <pre>
+  -afs                  : Skip permission checks (useful if AFS)
   -batch                : Run in batch mode (do not ask questions)
   -binpath &lt;path&gt;       : Directory path to install programs/scripts
   -docpath &lt;path&gt;       : Directory path to install documentation
@@ -254,6 +255,11 @@ HOME environment variable.  Therefore, the following are
 equivalent: <tt>$HOME/bin</tt> and <tt>~/bin</tt>.
 </p>
 </li>
+<li><p>The <b><tt>-afs</tt></b> option should only be needed
+if installing MHonArc onto AFS and using an older version of Perl 5.
+It should not be need for Perl 5.005 or later.
+</p>
+</li>
 <li><p>If you want to abort the installation, just enter the
 termination character.	For Unix systems, it is normally
 Ctrl-C; for Win32 systems, it is normally Ctrl-Z.
@@ -315,7 +321,7 @@ main programs are in your search path).  For example:
 I/O redirection does not work when invoking a batch file.
 </p>
 </li>
-<li><p>In the logo/ directory of the distribution is a BMP file
+<li><p>In the <b><tt>logo</tt></b> directory of the distribution is a BMP file
 <b><tt>mhaicon.bmp</tt></b>.  You can copy the image into your Windows Icon
 directory.  Then through the file types editor of the file
 explorer, you can specify <b><tt>mhaicon.bmp</tt></b> as the icon for MHonArc
@@ -461,7 +467,7 @@ color-capable terminals.
 <!-- *************************************************************** -->
 <hr>
 <address>
-99/08/11 23:34:41<br>
+99/08/15 21:19:29<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.pobox.com/~ehood/mhonarc.html"
 ><strong>MHonArc</strong></a><br>

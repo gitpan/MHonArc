@@ -292,8 +292,20 @@ follow the conventions described in
 <hr>
 <h2>Default Setting</h2>
 
+<table border=0 cellpadding=4>
+<tr valign=top>
+<td><strong>NOTE</strong></td>
+<td><p>It is important to have an explicit entry for
+<b><tt>application/octet-stream</tt></b> for handling unknown
+media-types.
+</p>
+</td>
+</tr>
+</table>
+
 <PRE>
 <b>&lt;MIMEFilters&gt;</b>
+application/octet-stream;  <a href="#m2h_external">m2h_external::filter</a>;	mhexternal.pl
 application/*;		   <a href="#m2h_external">m2h_external::filter</a>;	mhexternal.pl
 application/x-patch;	   <a href="#m2h_text_plain">m2h_text_plain::filter</a>;	mhtxtplain.pl
 audio/*;		   <a href="#m2h_external">m2h_external::filter</a>;	mhexternal.pl
@@ -1256,8 +1268,8 @@ convert the characters to the appropriate entity references.
 <hr size=0 noshade width="50%">
 <H3><a name="m2h_text_html">m2h_text_html::filter</a></h3>
 
-<p>This filter is designed to process text/html or
-text/x-html data.
+<p>This filter is designed to process <tt>text/html</tt>, or
+<tt>text/x-html</tt>, data.
 The filter modifies HTML documents so they can be
 included into the message pages without causing invalid markup
 to occur.  The following modification are done to HTML documents when
@@ -1275,6 +1287,10 @@ done when removing the HEAD element:</p>
     </ul>
     <p></p>
 </li>
+<li><p>Any markup related to scripting is removed for security
+reasons.  The <strong><tt>allowscript</tt></strong> option can be
+be used to override this behavior (see below).
+</p></li>
 <li><p><b><tt>cid:</tt></b> URLs are resolved, if possible.  Therefore,
 if image data related to the HTML document is included with the message,
 the URLs will be modified to the filenames of the images that were
@@ -1289,11 +1305,11 @@ following
 
 <table cellspacing=1 border=0 cellpadding=4>
 <tr valign=top>
-<td><strong><tt>noscript</tt></strong></td>
-<td><p>Remove any markup associated with scripting.
+<td><strong><tt>allowscript</tt></strong></td>
+<td><p>Preserve any markup associated with scripting.
 This includes elements and attributes related to scripting.  This option
-provides more security for your archive since someone can not introduce
-foreign client-side code.
+can cause security problems for your archive since someone can introduce
+foreign client-side code.  Use this options with care.
 </p>
 </tr>
 </table>
@@ -1318,8 +1334,8 @@ convert the characters to the appropriate entity reference.
 <tr valign=top>
 <td><strong>NOTE</strong></td>
 <td><p>Only the ISO-8859-[1-10] and ISO-2022-JP
-character sets are recognized.  For ISO-2022-JP data, a Web
-client with ISO-2022-JP is required to read the data.
+character sets are recognized.  Some character sets may require
+proper support by the web client for accurate rendering.
 </p>
 </td>
 </tr>
@@ -1336,6 +1352,7 @@ following
 <td><strong><tt>asis=</tt></strong><var>set1</var><tt>:</tt>...</td>
 <td><p>Colon separated lists of charsets to leave as-is.
 Only HTML special characters will be converted into entities.
+The default is "<tt>us-ascii:iso-8859-1</tt>".
 </p>
 </tr>
 <tr valign=top>
@@ -1533,7 +1550,7 @@ sub addbase {
 <!-- *************************************************************** -->
 <hr>
 <address>
-99/08/08 23:14:29<br>
+99/08/15 21:11:38<br>
 <img align="top" src="../monicon.gif" alt="">
 <a href="http://www.pobox.com/~ehood/mhonarc.html"><strong>MHonArc</strong></a><br>
 Copyright &#169; 1997-1999 <a href="http://www.pobox.com/~ehood/">Earl Hood</a>, <a href="mailto:mhonarc@pobox.com">mhonarc@pobox.com</a><br>

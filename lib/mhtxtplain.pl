@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxtplain.pl 2.6 99/08/08 20:03:43
+##	@(#) mhtxtplain.pl 2.8 99/08/15 22:19:04
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -47,7 +47,7 @@ $HQuoteChars	= '&gt;|[\|\]+:]';
 ##	asis=set1:set2:...
 ##			Colon separated lists of charsets to leave as-is.
 ##			Only HTML special characters will be converted into
-##			entities.
+##			entities.  The default value is "us-ascii:iso-8859-1".
 ##
 ##	default=set 	Default charset to use if not set.
 ##
@@ -76,9 +76,6 @@ $HQuoteChars	= '&gt;|[\|\]+:]';
 ##
 sub filter {
     local($header, *fields, *data, $isdecode, $args) = @_;
-    my($charset, $nourl, $doquote, $igncharset, $nonfixed,
-       $keepspace, $maxwidth, $target, $defset);
-    my(%asis) = ();
     local($_);
 
     ## Parse arguments
@@ -148,13 +145,20 @@ sub filter {
 	return ($ret, @files);
     }
 
+    my($charset, $nourl, $doquote, $igncharset, $nonfixed,
+       $keepspace, $maxwidth, $target, $defset);
+    my(%asis) = (
+	'us-ascii'   => 1,
+	'iso-8859-1' => 1,
+    );
+
     $nourl	= ($mhonarc::NOURL || ($args =~ /\bnourl\b/i));
     $doquote	= ($args =~ /\bquote\b/i);
     $nonfixed	= ($args =~ /\bnonfixed\b/i);
     $keepspace	= ($args =~ /\bkeepspace\b/i);
     if ($args =~ /\bmaxwidth=(\d+)/i) { $maxwidth = $1; }
 	else { $maxwidth = 0; }
-    if ($args =~ /\bdefault=(\S+)/i) { $defset = $1; }
+    if ($args =~ /\bdefault=(\S+)/i) { $defset = lc $1; }
 	else { $defset = 'us-ascii'; }
     $target = "";
     if ($args =~ /\btarget="([^"]+)"/i) { $target = $1; }
@@ -163,25 +167,22 @@ sub filter {
     if ($target) {
 	$target = qq/TARGET="$target"/;
     }
-    $defset =~ s/['"]//g;
+    $defset =~ s/['"\s]//g;
 
     ## Grab charset parameter (if defined)
-    if (defined($fields{'content-type'}) and
-	    $fields{'content-type'} =~ /\bcharset=(\S+)/i) {
+    if ( defined($fields{'content-type'}) and
+	 $fields{'content-type'} =~ /\bcharset\s*=\s*([^\s;]+)/i ) {
 	$charset = lc $1;
+	$charset =~ s/['";\s]//g;
     } else {
-	$charset = lc $defset;
+	$charset = $defset;
     }
-    $charset =~ s/['";]//g;
 
     ## Check if certain charsets should be left alone
-    if ($args =~ /\sasis=(\S+)/i) {
-	my(@a) = split(':', $1);
-	local($_);
-	foreach (@a) {
-	    s/["']//g;  tr/A-Z/a-z/;
-	    $asis{$_} = 1;
-	}
+    if ($args =~ /\basis=(\S+)/i) {
+	my $t = lc $1;  $t =~ s/['"]//g;
+	%asis = ('us-ascii' => 1);	# should us-ascii always be "as-is"?
+	local($_);  foreach (split(':', $t)) { $asis{$_} = 1; }
     }
 
     ## Check MIMECharSetConverters if charset should be left alone
@@ -197,22 +198,24 @@ sub filter {
 
     ## Convert data according to charset
     if (!$asis{$charset}) {
-	##	Japanese message
-	if ($charset =~ /iso-2022-jp/i) {
+	# Japanese
+	if ($charset =~ /iso-2022-jp/) {
 	    require "iso2022jp.pl";
 	    return (&iso_2022_jp::jp2022_to_html($data, $nourl));
 
-	##	Latin 2-6, Greek, Hebrew, Arabic
-	} elsif ($charset =~ /iso-8859-([2-9]|10)/i) {
+	# Latin 1-6, Greek, Hebrew, Arabic
+	} elsif ($charset =~ /\biso-8859-(10|[1-9])\b/ ||
+		 $charset =~ /\blatin[1-6]\b/) {
 	    require "iso8859.pl";
 	    $data = &iso_8859::str2sgml($data, $charset);
 
-	##	ASCII, Latin 1, Other
+	# Other
 	} else {
-	    &esc_chars_inplace(*data);
+	    warn qq/Warning: Unrecognized character set: $charset\n/;
+	    &esc_chars_inplace(\$data);
 	}
     } else {
-	&esc_chars_inplace(*data);
+	&esc_chars_inplace(\$data);
     }
 
     ##	Check for quoting
@@ -240,10 +243,10 @@ sub filter {
 ##---------------------------------------------------------------------------##
 
 sub esc_chars_inplace {
-    local(*foo) = shift;
-    $foo =~ s@\&@\&amp;@g;
-    $foo =~ s@<@\&lt;@g;
-    $foo =~ s@>@\&gt;@g;
+    my($foo) = shift;
+    $$foo =~ s/&/&amp;/g;
+    $$foo =~ s/</&lt;/g;
+    $$foo =~ s/>/&gt;/g;
     1;
 }
 

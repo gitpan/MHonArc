@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtime.pl 2.6 99/08/08 20:02:54
+##	@(#) mhtime.pl 2.7 99/08/13 22:49:16
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -84,7 +84,15 @@ sub time2str {
     my($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) =
 	    ($local ? localtime($time) : gmtime($time));
 
+    ## If format string blank, use default format
+    if ($fmt !~ /\S/) {
+	$fmt  = '%a %b %d %H:%M:%S';
+	$fmt .= ' GMT'  unless $local;
+	$fmt .= ' %Y';
+    }
+
     POSIXMODCHK: {
+	last  POSIXMODCHK  unless $POSIXstrftime;
 	eval { require POSIX; };
 	last  POSIXMODCHK  if ($@) || !defined(&POSIX::strftime);
 	return POSIX::strftime($fmt, $sec,$min,$hour,$mday,$mon,$year,
@@ -97,51 +105,44 @@ sub time2str {
     $hour12   = $hour > 12 ? $hour-12 : $hour;
 
     ## Format output
-    if ($fmt =~ /\S/) {
-	$fmt =~ s/\%c/\%a \%b \%d \%H:\%M:\%S \%Y/g;
+    $fmt =~ s/\%c/\%a \%b \%d \%H:\%M:\%S \%Y/g;
 
-	$fmt =~ s/\%a/$wdays[$wday]/g;
-	$fmt =~ s/\%A/$Wdays[$wday]/g;
-	$fmt =~ s/\%[bh]/$mons[$mon]/g;
-	$fmt =~ s/\%B/$Mons[$mon]/g;
+    $fmt =~ s/\%a/$wdays[$wday]/g;
+    $fmt =~ s/\%A/$Wdays[$wday]/g;
+    $fmt =~ s/\%[bh]/$mons[$mon]/g;
+    $fmt =~ s/\%B/$Mons[$mon]/g;
 
-	$sec	  = sprintf("%02d", $sec);
-	$min	  = sprintf("%02d", $min);
-	$hour	  = sprintf("%02d", $hour);
-	$hour12   = sprintf("%02d", $hour12);
-	$mday	  = sprintf("%02d", $mday);
-	$mon	  = sprintf("%02d", $mon+1);
-	$year	  = sprintf("%02d", $year);
-	$yearfull = sprintf("%04d", $yearfull);
-	$wday	  = sprintf("%02d", $wday+1);
-	$yday	  = sprintf("%03d", $yday);
+    $sec	= sprintf("%02d", $sec);
+    $min	= sprintf("%02d", $min);
+    $hour	= sprintf("%02d", $hour);
+    $hour12	= sprintf("%02d", $hour12);
+    $mday	= sprintf("%02d", $mday);
+    $mon	= sprintf("%02d", $mon+1);
+    $year	= sprintf("%02d", $year);
+    $yearfull	= sprintf("%04d", $yearfull);
+    $wday	= sprintf("%02d", $wday+1);
+    $yday	= sprintf("%03d", $yday);
 
-	$fmt =~ s/\%d/$mday/g;
-	$fmt =~ s/\%H/$hour/g;
-	$fmt =~ s/\%I/$hour12/g;
-	$fmt =~ s/\%j/$yday/g;
-	$fmt =~ s/\%m/$mon/g;
-	$fmt =~ s/\%M/$min/g;
-	$fmt =~ s/\%n/\n/g;
-	$fmt =~ s/\%p/am/g if ($hour < 12);
-	$fmt =~ s/\%p/pm/g if ($hour >= 12);
-	$fmt =~ s/\%P/AM/g if ($hour < 12);
-	$fmt =~ s/\%P/PM/g if ($hour >= 12);
-	$fmt =~ s/\%S/$sec/eg;
-	$fmt =~ s/\%w/$wday/g;
-	$fmt =~ s/\%y/$year/g; 
-	$fmt =~ s/\%Y/$year+1900/ge; 
+    $fmt =~ s/\%d/$mday/g;
+    $fmt =~ s/\%H/$hour/g;
+    $fmt =~ s/\%I/$hour12/g;
+    $fmt =~ s/\%j/$yday/g;
+    $fmt =~ s/\%m/$mon/g;
+    $fmt =~ s/\%M/$min/g;
+    $fmt =~ s/\%n/\n/g;
+    $fmt =~ s/\%p/am/g if ($hour < 12);
+    $fmt =~ s/\%p/pm/g if ($hour >= 12);
+    $fmt =~ s/\%P/AM/g if ($hour < 12);
+    $fmt =~ s/\%P/PM/g if ($hour >= 12);
+    $fmt =~ s/\%S/$sec/g;
+    $fmt =~ s/\%w/$wday/g;
+    $fmt =~ s/\%y/$year/g; 
+    $fmt =~ s/\%Y/$yearfull/g; 
 
-	$fmt =~ s/\%\%/\%/g ; 
+    $fmt =~ s/\%\%/\%/g ; 
 
-	$date = $fmt ;
+    $date = $fmt ;
 
-    } else {
-	$date = sprintf("%s %s %02d %02d:%02d:%02d ".
-				($local ? "%d" : "GMT %d"),
-			$wdays[$wday], $mons[$mon],
-			$mday, $hour, $min, $sec, $yearfull);
-    }
     $date ;
 }
 

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) iso8859.pl 2.3 99/06/25 13:57:07
+##	@(#) iso8859.pl 2.4 99/08/13 22:10:35
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -164,6 +164,7 @@ package iso_8859;
 				#	   (Icelandic)
     0xFF,	"&yuml;",	# ISOlat1: LATIN SMALL LETTER Y WITH DIAERESIS
 );
+*LATIN1_To_Ent = *ISO_8859_1_To_Ent;
 
 ##---------------------------------------------------------------------------
 ##	ISO-8859-2: Latin-2
@@ -282,6 +283,7 @@ package iso_8859;
     0xFE,	"&tcedil;",	# ISOlat2: LATIN SMALL LETTER T WITH CEDILLA
     0xFF,	"&dot;",	# ISOdia : DOT ABOVE
 );
+*LATIN2_To_Ent = *ISO_8859_2_To_Ent;
 
 ##---------------------------------------------------------------------------
 ##	ISO-8859-3: Latin-3
@@ -406,6 +408,7 @@ package iso_8859;
 				#	   CIRCUMFLEX
     0xFF,	"&dot;",	# ISOdia : DOT ABOVE
 );
+*LATIN3_To_Ent = *ISO_8859_3_To_Ent;
 
 ##---------------------------------------------------------------------------
 ##	ISO-8859-4: Latin-4
@@ -522,6 +525,7 @@ package iso_8859;
     0xFE,	"&umacr;",	# ISOlat2: LATIN SMALL LETTER U WITH MACRON
     0xFF,	"&dot;",	# ISOdia : DOT ABOVE
 );
+*LATIN4_To_Ent = *ISO_8859_4_To_Ent;
 
 ##---------------------------------------------------------------------------
 ##      ISO-8859-5: Cyrillic
@@ -1017,6 +1021,7 @@ package iso_8859;
     0xFE,	"&scedil;",	# ISOlat2: LATIN SMALL LETTER S WITH CEDILLA
     0xFF,	"&yuml;",	# ISOlat1: LATIN SMALL LETTER Y WITH DIAERESIS
 );
+*LATIN5_To_Ent = *ISO_8859_9_To_Ent;
 
 ##---------------------------------------------------------------------------
 ##      ISO-8859-10: Latin-6
@@ -1134,6 +1139,7 @@ package iso_8859;
     0xFE,	"&thorn;",	# ISOlat1: LATIN SMALL LETTER THORN (Icelandic)
     0xFF,	"&umacr;",	# ISOlat2: LATIN SMALL LETTER u WITH MACRON
 );
+*LATIN6_To_Ent = *ISO_8859_10_To_Ent;
 
 ###############################################################################
 ##	Routines

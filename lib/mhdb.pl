@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhdb.pl 2.9 99/07/25 02:02:12
+##	@(#) mhdb.pl 2.10 99/08/13 22:16:18
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -134,6 +134,7 @@ print_var(\*DB,'NOURL',          \$NOURL);
 print_var(\*DB,'NoMsgPgs',       \$NoMsgPgs);
 print_var(\*DB,'NoSubjectThreads', \$NoSubjectThreads);
 print_var(\*DB,'NoteDir',        \$NoteDir);
+print_var(\*DB,'POSIXstrftime',  \$POSIXstrftime);
 print_var(\*DB,'THREAD',         \$THREAD);
 print_var(\*DB,'SubArtRxp',      \$SubArtRxp);
 print_var(\*DB,'SubReplyRxp',    \$SubReplyRxp);

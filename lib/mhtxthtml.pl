@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxthtml.pl 2.8 99/08/10 00:01:57
+##	@(#) mhtxthtml.pl 2.9 99/08/14 19:38:33
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -46,16 +46,18 @@ my $SAttr = q/(?:onload|onunload|onclick|ondblclick|/.
 ##
 ##	Arguments:
 ##
-##	noscript	Remove any markup associated with scripting.
+##	allowscript	Preserve any markup associated with scripting.
 ##			This includes elements and attributes related
-##			to scripting.
+##			to scripting.  The default is to delete any
+##			scripting markup for security reasons.
 ##
 sub filter {
     local($header, *fields, *data, $isdecode, $args) = @_;
     local(@files) = ();	# !!!Used by resolve_cid!!!
     my $base 	 = '';
     my $title	 = '';
-    my $noscript = $args =~ /\bnoscript\b/i;
+    my $noscript = 1;
+       $noscript = 0  if $args =~ /\ballowscript\b/i;
     my $tmp;
 
     ## Get/remove title

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhusage.pl 2.11 99/08/10 00:52:13
+##      @(#) mhusage.pl 2.12 99/08/13 22:47:41
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -130,7 +130,7 @@ Options:
   -nofolrefs               : Do not print links to follow-ups/references
   -nogzipfiles             : Do not Gzip files (the default)
   -nosaveresources         : Do not save resource values in DB
-  -notgziplinks            : Do not add ".gz" to filenames in links
+  -nogziplinks             : Do not add ".gz" to filenames in links
   -nolock                  : Do not lock archive
   -nomailto                : Do not add in mailto links for e-mail addresses
   -nomain                  : Do not create a main index
@@ -138,6 +138,8 @@ Options:
   -nomsgpgs                : Do not create message pages
   -nomultipg               : Do not generate multi-page indexes
   -nonews                  : Do not add links to newsgroups
+  -noposixstrftime         : Do not use POSIX::strftime() to process time
+                             format (the default)
   -noreverse               : List messages in normal order (the default)
   -nosort                  : Do not sort messages
   -nospammode              : Do not obfuscate addresses
@@ -145,13 +147,16 @@ Options:
   -nosubsort               : Do not sort messages by subject
   -notetext <text>         : Text data of annotation if -annotation specified
   -nothread                : Do not create threaded index
-  -notreverse              : List threads in order
+  -notreverse              : List threads in order (the default)
+  -notsort                 : List threads by ordered processed
+  -notsubsort              : Do not list threads by subject
   -nourl                   : Do not make URL hyperlinks
   -otherindex <files>      : Other rcfile for extra index
   -outdir <path>           : Destination/location of HTML mail archive
                              (def: ".")
   -pagenum <page>          : Output specified page if -genidx and -multipg
   -perlinc <list>          : List of paths to search for MIME filters
+  -posixstrftime           : Use POSIX::strftime() to process time formats
   -quiet                   : Suppress status messages during execution
   -rcfile <file>           : Resource file for MHonArc
   -reverse                 : List messages in reverse order
@@ -180,9 +185,6 @@ Options:
                              (def: "Mail Index")
   -tlevels <#>             : Maximum # of nested lists in threaded index
                              (def: "3")
-  -tnoreverse              : List threads in normal order (the default)
-  -tnosort                 : List threads by ordered processed
-  -tnosubsort              : Do not list threads by subject
   -treverse                : List threads in reverse order
   -tslice <#:#>            : Set size of thread slice listing
   -tsort                   : List threads by date (the default)

@@ -1,5 +1,5 @@
 <!-- ================================================================== -->
-<!--    @(#) def-mime.mrc 1.5 99/06/25 13:25:42
+<!--    @(#) def-mime.mrc 1.6 99/08/15 18:17:37
         Earl Hood <mhonarc@pobox.com>
   -->
 <!--    MHonArc Resource File                                           --
@@ -23,10 +23,17 @@ iso-8859-8;     iso_8859::str2sgml;     iso8859.pl
 iso-8859-9;     iso_8859::str2sgml;     iso8859.pl
 iso-8859-10;    iso_8859::str2sgml;     iso8859.pl
 iso-2022-jp;    iso_2022_jp::str2html;  iso2022jp.pl
+latin1;         mhonarc::htmlize;
+latin2;         iso_8859::str2sgml;     iso8859.pl
+latin3;         iso_8859::str2sgml;     iso8859.pl
+latin4;         iso_8859::str2sgml;     iso8859.pl
+latin5;         iso_8859::str2sgml;     iso8859.pl
+latin6;         iso_8859::str2sgml;     iso8859.pl
 default;        -ignore-
 </CharsetConverters>
 
 <MIMEFilters>
+application/octet-stream;  m2h_external::filter;        mhexternal.pl
 application/*;             m2h_external::filter;        mhexternal.pl
 application/x-patch;       m2h_text_plain::filter;      mhtxtplain.pl
 audio/*;                   m2h_external::filter;        mhexternal.pl

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhinit.pl 2.15 99/08/09 23:12:52
+##	@(#) mhinit.pl 2.17 99/08/15 21:20:28
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -239,6 +239,7 @@ $DBPathName	= '';	# Full pathname of database file
 %readmail::MIMEFilters = (
     # Content-type			Filter
     #-------------------------------------------------------------------
+    "application/octet-stream",		"m2h_external::filter",
     "application/x-patch",		"m2h_text_plain::filter",
     "message/delivery-status",  	"m2h_text_plain::filter",
     "message/partial",   		"m2h_text_plain::filter",
@@ -264,6 +265,7 @@ $DBPathName	= '';	# Full pathname of database file
 %readmail::MIMEFiltersSrc = (
     # Content-type			Filter
     #-------------------------------------------------------------------
+    "application/octet-stream",		"mhexternal.pl",
     "application/x-patch",		"mhtxtplain.pl",
     "message/partial",   		"mhtxtplain.pl",
     "text/enriched",    		"mhtxtenrich.pl",
@@ -315,6 +317,12 @@ $DBPathName	= '';	# Full pathname of database file
     "iso-8859-9",   			"iso_8859::str2sgml",
     "iso-8859-10",   			"iso_8859::str2sgml",
     "iso-2022-jp",   			"iso_2022_jp::str2html",
+    "latin1",   			"mhonarc::htmlize",
+    "latin2",   			"iso_8859::str2sgml",
+    "latin3",   			"iso_8859::str2sgml",
+    "latin4",   			"iso_8859::str2sgml",
+    "latin5",   			"iso_8859::str2sgml",
+    "latin6",   			"iso_8859::str2sgml",
     "default",     			"-ignore-",
 );
 %readmail::MIMECharSetConvertersSrc = (
@@ -333,6 +341,12 @@ $DBPathName	= '';	# Full pathname of database file
     "iso-8859-9",   			"iso8859.pl",
     "iso-8859-10",   			"iso8859.pl",
     "iso-2022-jp",   			"iso2022jp.pl",
+    "latin1",   			undef,
+    "latin2",   			"iso_8859.pl",
+    "latin3",   			"iso_8859.pl",
+    "latin4",   			"iso_8859.pl",
+    "latin5",   			"iso_8859.pl",
+    "latin6",   			"iso_8859.pl",
     "default",     			undef,
 );
 
@@ -424,6 +438,8 @@ $NoSubjectThreads = defined($ENV{'M2H_SUBJECTTHREADS'}) ?
 			   !$ENV{'M2H_SUBJECTTHREADS'} : 0;
 $SaveRsrcs   = defined($ENV{'M2H_SAVERESOURCES'}) ?
 		       $ENV{'M2H_SAVERESOURCES'} : 1;
+$POSIXstrftime = defined($ENV{'M2H_POSIXSTRFTIME'}) ?
+			 $ENV{'M2H_POSIXSTRFTIME'} : 0;
 
 if ($UNIX) {
     eval {

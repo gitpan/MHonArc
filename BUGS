@@ -1,7 +1,7 @@
 Bug History for MHonArc
 =======================
 <URL:http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
-@(#) BUGS 99/08/11 23:43:11
+@(#) BUGS 99/08/15 22:23:47
 
 Each bug listing has the following fields:
 
@@ -15,6 +15,41 @@ Each bug listing has the following fields:
 		    applicable.
 
 Bug List
+------------------------------------------------------------------------
+Version:	2.4.2
+Problem:   	$*GMTDATE$ and $*LOCALDATE$ expand to the empty string
+		if using default time format string settings.
+Solution:	Fixed in mhtime.pl
+Version Fixed:	2.4.3
+------------------------------------------------------------------------
+Version:	2.4.2, and earlier
+Problem:   	Multipart processing is done inproperly if nested
+		multiparts exist and "outer" multipart entity has a
+		boundary which is a substring prefix of an "inner"
+		multipart entity.
+Solution:	Fixed in readmail.pl
+Version Fixed:	2.4.3
+------------------------------------------------------------------------
+Version:	2.4.2, and earlier
+Problem:   	Cid URL in multipart/related is not resolved if message
+		part being referenced is at a higher "level" (due to
+		nested multiparts) than the referrer.
+Solution:	Fixed in readmail.pl
+Version Fixed:	2.4.3
+------------------------------------------------------------------------
+Version:	2.4.2, and earlier
+Problem:   	-tnosort and -tnosubsort should be -notsort and
+		-notsubsort.  Also, bogus -tnoreverse and -notgziplinks
+		options listed in -help message.
+Solution:	Fixed.
+Version Fixed:	2.4.3
+------------------------------------------------------------------------
+Version:	2.4.2, and earlier
+Problem:   	Charset parameter value not properly extracted when
+		no space after value and next parameter
+		(Example: charset=us-ascii;name="file.txt").
+Solution:	Fixed in mhtxtplain.pl
+Version Fixed:	2.4.3
 ------------------------------------------------------------------------
 Version:	2.4.1, and earlier
 Problem:   	M2H_URL envariable does not properly affect the URL

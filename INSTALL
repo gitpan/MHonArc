@@ -125,6 +125,7 @@ may need to have root/admin privileges to have a successful install.
 install.me can take several options on the command-line to affect what is
 done during installation. The following is the list of options available:
 
+  -afs                  : Skip permission checks (useful if AFS)
   -batch                : Run in batch mode (do not ask questions)
   -binpath <path>       : Directory path to install programs/scripts
   -docpath <path>       : Directory path to install documentation
@@ -179,6 +180,10 @@ install.me Notes
      environment variable. Therefore, the following are equivalent:
      $HOME/bin and ~/bin.
 
+   * The -afs option should only be needed if installing MHonArc onto AFS
+     and using an older version of Perl 5. It should not be need for Perl
+     5.005 or later.
+
    * If you want to abort the installation, just enter the termination
      character. For Unix systems, it is normally Ctrl-C; for Win32 systems,
      it is normally Ctrl-Z.
@@ -222,7 +227,7 @@ Win32 Notes
      This is better than going though the batch file mechanism since I/O
      redirection does not work when invoking a batch file.
 
-   * In the logo/ directory of the distribution is a BMP file mhaicon.bmp.
+   * In the logo directory of the distribution is a BMP file mhaicon.bmp.
      You can copy the image into your Windows Icon directory. Then through
      the file types editor of the file explorer, you can specify mhaicon.bmp
      as the icon for MHonArc resource (.mrc) files.

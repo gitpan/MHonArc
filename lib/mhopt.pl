@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhopt.pl 2.16 99/08/04 23:42:43
+##      @(#) mhopt.pl 2.17 99/08/13 22:18:38
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -115,6 +115,8 @@ sub get_resources {
 	"nomodtime",	# Do no set modification time on files to message date
 	"nomultipg",	# Do not generate multi-page indexes
 	"nonews",	# Do not add links to newsgroups
+	"noposixstrftime",
+			# Use own implementation for time format process
 	"noreverse",	# List messages in normal order
 	"nosaveresources",
 			# Do not save resource values in db
@@ -127,12 +129,18 @@ sub get_resources {
 	"notetext=s@",	# Text data of note
 	"nothread",	# Do not create threaded index
 	"notreverse",	# List oldest thread first
+	"notsubsort|tnosubsort",
+			# Do not list threads by subject
+	"notsort|tnosort",
+			# List threads by ordered processed
 	"nourl",	# Do not make URL hyperlinks
 	"otherindex|otherindexes=s@",
 			# List of other rcfiles for extra indexes
 	"outdir=s",	# Destination of HTML files
 	"pagenum=s",	# Page to output if -genidx
 	"perlinc=s@",	# List of paths to search for MIME filters
+	"posixstrftime",
+			# Use POSIX strftime()
 	"quiet",	# No status messages while running
 	"rcfile=s@",	# Resource file for mhonarc
 	"reverse",	# List messages in reverse order
@@ -166,9 +174,7 @@ sub get_resources {
 	"treverse",	# Reverse order of thread listing
 	"tslice=s",	# Set size of thread slice listing
 	"tsort",	# List threads by date
-	"tnosort",	# List threads by ordered processed
 	"tsubsort",	# List threads by subject
-	"tnosubsort",	# Do not list threads by subject
 	"umask=i",	# Set umask of process
 	"url",		# Make URL hyperlinks
 	"weekdays=s",	# Weekday names
@@ -510,8 +516,10 @@ sub get_resources {
     $SpamMode	= 1  if $opt{'spammode'};
     $SpamMode	= 0  if $opt{'nospammode'};
 
-    $CheckNoArchive = 1 if $opt{'checknoarchive'};
-    $CheckNoArchive = 0 if $opt{'nochecknoarchive'};
+    $CheckNoArchive = 1  if $opt{'checknoarchive'};
+    $CheckNoArchive = 0  if $opt{'nochecknoarchive'};
+    $POSIXstrftime  = 1  if $opt{'posixstrftime'};
+    $POSIXstrftime  = 0  if $opt{'noposixstrftime'};
 
     $DecodeHeads = 1 if $opt{'decodeheads'};
     $DecodeHeads = 0 if $opt{'nodecodeheads'};
@@ -558,8 +566,8 @@ sub get_resources {
 
     ## Check for thread listing order
     $TSUBSORT = 1  if $opt{'tsubsort'};
-    $TSUBSORT = 0  if $opt{'tnosubsort'};
-    $TNOSORT  = 1  if $opt{'tnosort'};
+    $TSUBSORT = 0  if $opt{'notsubsort'};
+    $TNOSORT  = 1  if $opt{'notsort'};
     $TNOSORT  = 0  if $opt{'tsort'};
     $TREVERSE = 1  if $opt{'treverse'};
     $TREVERSE = 0  if $opt{'notreverse'};

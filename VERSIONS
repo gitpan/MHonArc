@@ -16,39 +16,39 @@ comprising this release of MHonArc:
 	 base64.pl 2.1 98/03/02 20:24:23
 	 ewhutil.pl 2.5 99/08/08 20:00:40
 	 iso2022jp.pl 1.1 99/06/25 14:26:34
-	 iso8859.pl 2.3 99/06/25 13:57:07
-	 mhamain.pl 2.16 99/08/04 23:36:48
-	 mhdb.pl 2.9 99/07/25 02:02:12
+	 iso8859.pl 2.4 99/08/13 22:10:35
+	 mhamain.pl 2.17 99/08/15 21:21:52
+	 mhdb.pl 2.10 99/08/13 22:16:18
 	 mhdysub.pl 2.4 99/07/25 02:02:34
 	 mhexternal.pl 2.7 99/06/25 13:59:18
 	 mhfile.pl 2.4 99/06/25 14:13:41
 	 mhidxrc.pl 2.6 99/08/08 20:01:19
 	 mhindex.pl 1.4 99/06/25 14:21:22
-	 mhinit.pl 2.15 99/08/09 23:12:52
+	 mhinit.pl 2.17 99/08/15 21:20:28
 	 mhlock.pl 1.2 99/07/13 00:48:29
 	 mhmimetypes.pl 1.3 99/06/25 14:25:25
 	 mhmsgfile.pl 1.4 99/08/04 23:14:15
 	 mhnote.pl 1.2 99/06/25 14:21:43
 	 mhnull.pl 1.3 99/06/25 14:18:03
-	 mhopt.pl 2.16 99/08/04 23:42:43
-	 mhrcfile.pl 2.10 99/07/25 02:03:22
+	 mhopt.pl 2.17 99/08/13 22:18:38
+	 mhrcfile.pl 2.11 99/08/13 22:17:26
 	 mhrcvars.pl 2.8 99/08/08 20:01:37
 	 mhrmm.pl 1.3 99/06/25 14:23:33
 	 mhscan.pl 1.2 99/06/25 14:23:50
 	 mhsingle.pl 1.5 99/08/04 23:39:52
 	 mhthread.pl 2.6 99/06/25 14:18:25
-	 mhtime.pl 2.6 99/08/08 20:02:54
+	 mhtime.pl 2.7 99/08/13 22:49:16
 	 mhtxtenrich.pl 2.3 99/06/25 14:18:01
-	 mhtxthtml.pl 2.8 99/08/10 00:01:57
-	 mhtxtplain.pl 2.6 99/08/08 20:03:43
-	 mhtxtsetext.pl 2.1 98/03/02
+	 mhtxthtml.pl 2.9 99/08/14 19:38:33
+	 mhtxtplain.pl 2.8 99/08/15 22:19:04
+	 mhtxtsetext.pl 2.2 99/08/15 21:52:26
 	 mhtxttsv.pl 2.3 99/06/25 14:21:02
-	 mhusage.pl 2.11 99/08/10 00:52:13
+	 mhusage.pl 2.12 99/08/13 22:47:41
 	 mhutil.pl 2.6 99/08/08 20:01:54
 	 osinit.pl 2.4 99/07/13 00:46:45
 	 qprint.pl 2.3 99/06/25 14:11:46
-	 readmail.pl 2.4 99/06/25 14:12:12
+	 readmail.pl 2.6 99/08/15 21:22:46
 
 ---------------------------------------------------------------------------
 Earl Hood, mhonarc@pobox.com
-@(#) VERSIONS 99/08/11 23:43:11
+@(#) VERSIONS 99/08/15 22:23:49

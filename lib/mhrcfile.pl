@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcfile.pl 2.10 99/07/25 02:03:22
+##	@(#) mhrcfile.pl 2.11 99/08/13 22:17:26
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -581,10 +581,14 @@ sub read_resource_file {
 	if ($elem eq "nonews") {		# Ignore news for linking
 	    $NONEWS = 1; last FMTSW;
 	}
+	if ($elem eq "noposixstrftime") {	# Do not use POSIX::strftime()
+	    $POSIXstrftime = 0;
+	    last FMTSW;
+	}
 	if ($elem eq "noreverse") {		# Sort in normal order
 	    $REVSORT = 0; last FMTSW;
 	}
-	if ($elem eq "nosaveresources") {	# 
+	if ($elem eq "nosaveresources") {	# Do not save resources
 	    $SaveRsrcs = 0;
 	    last FMTSW;
 	}
@@ -631,6 +635,16 @@ sub read_resource_file {
 	if ($elem eq "notreverse") {		# Thread sort in normal order
 	    $TREVERSE = 0; last FMTSW;
 	}
+	if ($elem eq 'notsubsort' ||
+	    $elem eq "tnosubsort") {		# No subject order for threads
+	    $TSUBSORT = 0;
+	    last FMTSW;
+	}
+	if ($elem eq 'notsort' ||
+	    $elem eq "tnosort") {		# Raw order for threads
+	    $TNOSORT = 1; $TSUBSORT = 0;
+	    last FMTSW;
+	}
 	if ($elem eq "nourl") {			# Ignore URLs
 	    $NOURL = 1; last FMTSW;
 	}
@@ -648,6 +662,10 @@ sub read_resource_file {
 	if ($elem eq "perlinc") {		# Define perl search paths
 	    @PerlINC = ()  if $override;
 	    unshift(@PerlINC, &get_pathname_content($handle, $elem));
+	    last FMTSW;
+	}
+	if ($elem eq "posixstrftime") {		# Use POSIX::strftime()
+	    $POSIXstrftime = 1;
 	    last FMTSW;
 	}
 	if ($elem eq "prevbutton") {		# Prev button link in message
@@ -832,14 +850,6 @@ sub read_resource_file {
 	}
 	if ($elem eq "toplinks") {		# Top links in message
 	    $TOPLINKS = &get_elem_content($handle, $elem, $chop);
-	    last FMTSW;
-	}
-	if ($elem eq "tnosubsort") {		# No subject order for threads
-	    $TSUBSORT = 0;
-	    last FMTSW;
-	}
-	if ($elem eq "tnosort") {		# Raw order for threads
-	    $TNOSORT = 1; $TSUBSORT = 0;
 	    last FMTSW;
 	}
 	if ($elem eq "tslice") {

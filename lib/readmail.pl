@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) readmail.pl 2.4 99/06/25 14:12:12
+##	@(#) readmail.pl 2.6 99/08/15 21:22:46
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -379,16 +379,19 @@ sub MAILdecode_1522_str {
 ##	files.
 ##
 sub MAILread_body {
-    local($header, $body, $ctypeArg, $encodingArg) = @_;
+    local($header, $body, $ctypeArg, $encodingArg, $inaltArg) = @_;
 
-    local($part, $parthead, $partcontent, $partencoding);
-    local(@parts, %partfields, %partl2o) = ();
-    local($tmphead, $decoded);
-    my($type, $subtype, $boundary, $ret, $content, $ctype, $pos,
+    # the following must be local's due to legacy use of typeglobs
+    local(%partfields, %partl2o) = ();
+    local($part, $decoded);
+
+    my($parthead, $partcontent, $partencoding);
+    my($type, $subtype, $boundary, $content, $ctype, $pos,
        $encoding, $decodefunc, $args);
+    my(@parts) = ();
     my(@files) = ();
     my(@array) = ();
-    $ret = "";
+    my $ret = "";
 
     ## Get type/subtype
     $content = $ctypeArg || 'text/plain';	# Default to text/plain 
@@ -405,14 +408,22 @@ sub MAILread_body {
     }
 
     ## Load content-type filter
-    $filter = &load_filter($ctype);
-    $filter = &load_filter("$type/*")	unless $filter;
-    $filter = &load_filter("*/*")	unless $filter;
+    if ( (!defined($filter = &load_filter($ctype)) || !defined(&$filter)) &&
+	 (!defined($filter = &load_filter("$type/*")) || !defined(&$filter)) &&
+	 (!$inaltArg &&
+	  (!defined($filter = &load_filter("*/*")) || !defined(&$filter)) &&
+	     $ctype !~ m^\bmessage/(?:rfc822|news)\b^i &&
+	     $type  !~ /\bmultipart\b/) ) {
+	warn qq|Warning: Unrecognized content-type, "$ctype", |,
+	     qq|assuming "application/octet-stream"\n|;
+	$filter = &load_filter('application/octet-stream');
+    }
 
     ## Check for filter arguments
     $args = $MIMEFiltersArgs{$ctype};
-    $args = $MIMEFiltersArgs{"$type/*"} if !defined($args) or $args eq '';
-    $args = $MIMEFiltersArgs{$filter}   if !defined($args) or $args eq '';
+    $args = $MIMEFiltersArgs{"$type/*"} if !defined($args) || $args eq '';
+    $args = $MIMEFiltersArgs{$filter}   if defined($filter) &&
+					   (!defined($args) || $args eq '');
 
     ## Check encoding
     if (defined($encodingArg)) {
@@ -426,7 +437,7 @@ sub MAILread_body {
 
     ## A filter is defined for given content-type
     if ($filter && defined(&$filter)) {
-	$tmphead	= $header . "\n";
+	local $tmphead	= $header . "\n";
 
 	## Parse message header for filter
 	&MAILread_header(*tmphead, *partfields, *partl2o);
@@ -451,9 +462,9 @@ sub MAILread_body {
     ## No filter defined for given content-type
     } else {
 	## If multipart, recursively process each part
-	if ($type =~ /multipart/i) {
-	    local(%Cid) = ();
-	    local($isalt) = $subtype =~ /alternative/i;
+	if ($type =~ /\bmultipart\b/i) {
+	    local(%Cid) = ( )  unless scalar(caller) eq 'readmail';
+	    my($isalt) = $subtype =~ /\balternative\b/i;
 
 	    ## Get boundary
 	    $boundary = "";
@@ -467,26 +478,46 @@ sub MAILread_body {
 	    ## If boundary defined, split body into parts
 	    if ($boundary =~ /\S/) {
 		my $found = 0;
+		my $start_pos = 0;
 		substr($body, 0, 0) = "\n";
 		substr($boundary, 0, 0) = "\n--";
-		while (($pos = index($body, $boundary, 0)) > -1) {
+		my $blen = length($boundary);
+		my $bchkstr;
+
+		while (($pos = index($body, $boundary, $start_pos)) > -1) {
+		    # have to check for case when boundary is a substring
+		    #	of another boundary, yuck!
+		    $bchkstr = substr($body, $pos+$blen, 2);
+		    unless ($bchkstr =~ /\A\r?\n/ || $bchkstr =~ /\A--/) {
+			# incomplete match, continue search
+			$start_pos = $pos+$blen;
+			next;
+		    }
 		    $found = 1;
 		    if ($isalt) {
+			# if alternative, do things in reverse
 			unshift(@parts, substr($body, 0, $pos));
 			$parts[0] =~ s/^\r//;
 		    } else {
 			push(@parts, substr($body, 0, $pos));
 			$parts[$#parts] =~ s/^\r//;
 		    }
-		    substr($body, 0, $pos+length($boundary)) = "";
-		    last  if $body =~ /^--/;
-		    $body =~ s/^\r?\n//;
+		    # prune out part data just grabbed
+		    substr($body, 0, $pos+$blen) = "";
+
+		    # check if hit end
+		    last  if $body =~ /\A--/;
+
+		    # remove EOL at the beginning
+		    $body =~ s/\A\r?\n//;
+		    $start_pos = 0;
 		}
 		if ($found) {
-		    # Discard front-matter
+		    # discard front-matter
 		    if ($isalt) { pop(@parts); } else { shift(@parts); }
 		} else {
-		    # No boundary separators in message!
+		    # no boundary separators in message!
+		    warn qq/Warning: No boundaries found in message body\n/;
 		    substr($body, 0, 1) = ""; # remove \n added above
 		    push(@parts, $body);
 		}
@@ -500,50 +531,46 @@ sub MAILread_body {
 	    my(@entity) = ();
 	    my($cid, $href);
 	    while (defined($part = shift(@parts))) {
-		$parthead = &MAILread_header(*part, *partfields, *partl2o);
+		$href = { };
+		$href->{'head'} =
+		    &MAILread_header(*part, *partfields, *partl2o);
+		$href->{'fields'}   = { %partfields };
+		$href->{'l2o'}	    = { %partl2o };
+		$href->{'body'}	    = $part;
+		$href->{'filtered'} = 0;
+		push(@entity, $href);
+
 		$cid = $partfields{'content-id'} || $partfields{'message-id'};
 		$cid =~ s/[\s<>]//g;
-		$href = {
-		    'head'	=> $parthead,
-		    'fields'	=> { %partfields },
-		    'l2o'	=> { %partl2o },
-		    'body'	=> $part,
-		    'filtered'	=> 0,
-		};
-		push(@entity, $href);
-		$Cid{$cid} = $href  if defined($cid);
+		$Cid{$cid} = $href  if $cid =~ /\S/;
 	    }
 
 	    my($entity);
-	    foreach $entity (@entity) {
+	    ENTITY: foreach $entity (@entity) {
 		next  if $entity->{'filtered'};
-
-		$parthead     = $entity->{'head'};
-		$part         = $entity->{'body'};
-		$partcontent  = $entity->{'fields'}{'content-type'};
-		$partencoding =
-			$entity->{'fields'}{'content-transfer-encoding'};
 
 		## If content-type not defined for part, then determine
 		## content-type based upon multipart subtype.
+		$partcontent  = $entity->{'fields'}{'content-type'};
 		if (!$partcontent) {
-		    if ($subtype =~ /digest/) {
-			$partcontent = 'message/rfc822';
-		    } else {
-			$partcontent = 'text/plain';
-		    }
+		    $partcontent = ($subtype =~ /digest/) ?
+					'message/rfc822' : 'text/plain';
 		}
 
 		## Process part
-		@array = &MAILread_body($parthead, $part,
-					$partcontent, $partencoding);
+		@array = &MAILread_body(
+			    $entity->{'head'}, $entity->{'body'},
+			    $partcontent,
+			    $entity->{'fields'}{'content-transfer-encoding'},
+			    $isalt);
 
 		## Only use last filterable part in alternate
 		if ($subtype =~ /alternative/) {
 		    $ret = shift @array;
 		    if ($ret) {
 			push(@files, @array);
-			last;
+			$entity->{'filtered'} = 1;
+			last ENTITY;
 		    }
 		} else {
 		    if (!$array[0]) {
@@ -556,12 +583,26 @@ sub MAILread_body {
 		$entity->{'filtered'} = 1;
 	    }
 
+	    ## Check if multipart/alternative, and no success
 	    if (!$ret && ($subtype =~ /alternative/)) {
-		$ret = &$UnrecognizedAltPartFunc();
+		warn qq|Warning: No recognized part in multipart/alternative; |,
+		     qq|will try to decode last part as |,
+		     qq|application/octet-stream\n|;
+		$entity = $entity[0];
+		@array = &MAILread_body(
+			    $entity->{'head'}, $entity->{'body'},
+			    'application/octet-stream',
+			    $entity->{'fields'}{'content-transfer-encoding'});
+		$ret = shift @array;
+		if ($ret) {
+		    push(@files, @array);
+		} else {
+		    $ret = &$UnrecognizedAltPartFunc();
+		}
 	    }
 
 	## Else if message/rfc822 or message/news
-	} elsif ($ctype =~ m%message/(rfc822|news)%i) {
+	} elsif ($ctype =~ m^\bmessage/(?:rfc822|news)\b^i) {
 	    $parthead = &MAILread_header(*body, *partfields, *partl2o);
 	    $partcontent = $partfields{'content-type'};
 	    $partencoding = $partfields{'content-transfer-encoding'};
@@ -570,13 +611,12 @@ sub MAILread_body {
 	    if ($FormatHeaderFunc && defined(&$FormatHeaderFunc)) {
 		$ret .= &$FormatHeaderFunc(*partfields, *partl2o);
 	    } else {
-		warn "WARNING: readmail.pl: No message header formatting ",
+		warn "Warning: readmail: No message header formatting ",
 		     "function defined\n";
 	    }
 	    @array = &MAILread_body($parthead, $body,
-				     $partcontent, $partencoding);
-	    $ret .= shift @array ||
-		    &$CantProcessPartFunc($partfields{'content-type'});
+				    $partcontent, $partencoding);
+	    $ret .= shift @array || &$CantProcessPartFunc($partcontent);
 	    $ret .= &$EndEmbeddedMesgFunc();
 
 	    push(@files, @array);
@@ -586,6 +626,7 @@ sub MAILread_body {
 	    $ret = '';
 	}
     }
+
     ($ret, @files);
 }
 

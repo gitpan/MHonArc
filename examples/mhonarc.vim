@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:	MHonArc Resource File
 " Maintainer:	Earl Hood <mhonarc@pobox.com>
-" Last change:	99/07/25 23:07:56
+" Last change:	99/08/15 18:22:12
 
 "	Adapted from the following:
 " Language:	HTML
@@ -144,6 +144,7 @@ syn keyword mhaTagName contained notedir
 syn keyword mhaTagName contained noteia
 syn keyword mhaTagName contained otherindexes
 syn keyword mhaTagName contained perlinc
+syn keyword mhaTagName contained posixstrftime
 syn keyword mhaTagName contained prevbutton
 syn keyword mhaTagName contained prevbuttonia
 syn keyword mhaTagName contained prevlink
