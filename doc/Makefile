@@ -17,35 +17,36 @@ HTMLFILES = intro.html \
 	    app-bugs.html \
 	    # End of HTMLFILES
 
-RCLIST = .src/resource.lst
-RCVARLIST = .src/rcvars.lst
+RCLIST = _helper/resource.lst
+RCVARLIST = _helper/rcvars.lst
 
 .PHONY: default residx toc pagetocs buttons rcfileexs
 
 default: residx rcfileexs toc pagetocs buttons
 
 residx:
-	perl .src/addrcindex.pl $(RCLIST) resources.html app-rcidx.html
+	perl _helper/addrcindex.pl $(RCLIST) resources.html app-rcidx.html
 
 toc:
-	perl .src/addtoc.pl $(TOCFILE) $(HTMLFILES)
+	perl _helper/addtoc.pl $(TOCFILE) $(HTMLFILES)
 
 pagetocs:
-	perl .src/addtoc-i.pl $(HTMLFILES)
+	perl _helper/addtoc-i.pl $(HTMLFILES)
 
 buttons:
-	perl .src/addbuttons.pl $(HTMLFILES)
+	perl _helper/addbuttons.pl $(HTMLFILES)
 
 rcfileexs:
-	perl .src/ppeg.pl $(RCLIST) $(RCVARLIST) ../examples/date.mrc > \
+	-@mkdir rcfileexs
+	perl _helper/ppeg.pl $(RCLIST) $(RCVARLIST) ../examples/date.mrc > \
 	    rcfileexs/date.mrc.html
-	perl .src/ppeg.pl $(RCLIST) $(RCVARLIST) ../examples/def-mime.mrc > \
+	perl _helper/ppeg.pl $(RCLIST) $(RCVARLIST) ../examples/def-mime.mrc > \
 	    rcfileexs/def-mime.mrc.html
-	perl .src/ppeg.pl $(RCLIST) $(RCVARLIST) ../examples/frames.mrc > \
+	perl _helper/ppeg.pl $(RCLIST) $(RCVARLIST) ../examples/frames.mrc > \
 	    rcfileexs/frames.mrc.html
-	perl .src/ppeg.pl $(RCLIST) $(RCVARLIST) ../examples/icons.mrc > \
+	perl _helper/ppeg.pl $(RCLIST) $(RCVARLIST) ../examples/icons.mrc > \
 	    rcfileexs/icons.mrc.html
-	perl .src/ppeg.pl $(RCLIST) $(RCVARLIST) ../examples/subject.mrc > \
+	perl _helper/ppeg.pl $(RCLIST) $(RCVARLIST) ../examples/subject.mrc > \
 	    rcfileexs/subject.mrc.html
 
 clean:

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcfile.pl 2.18 01/10/06 20:02:06
+##	$Id: mhrcfile.pl,v 2.19 2001/12/24 11:18:13 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -36,6 +36,7 @@ sub read_resource_file {
     my($line, $tag, $label, $acro, $hr, $type, $routine, $plfile,
        $url, $arg, $tmp, @a);
     my($elem, $attr, $override, $handle, $pathhead, $chop);
+    local($_);
     $override = 0;
 
     $handle = &file_open($file);

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) iso2022jp.pl 1.3 01/09/17 22:10:44
+##	$Id: iso2022jp.pl,v 1.3 2001/09/17 16:10:44 ehood Exp $
 ##  Author(s):
 ##      Earl Hood       mhonarc@mhonarc.org
 ##      NIIBE Yutaka	gniibe@mri.co.jp

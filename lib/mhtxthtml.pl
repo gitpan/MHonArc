@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxthtml.pl 2.19 01/10/07 23:04:43
+##	$Id: mhtxthtml.pl,v 2.20 2001/12/24 13:10:33 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -170,11 +170,21 @@ sub filter {
 	$$data =~ s|$SAttr\s*=\s*'[^']*'||gio; #'
 	$$data =~ s|$SAttr\s*=\s*[^\s>]+||gio;
 	$$data =~ s|</?$SElem[^>]*>||gio;
+
+	# just in-case, make sure all script tags are removed
+	1 while ($$data =~ s|</?script\b||gi);
+	# for netscape 4.x browsers
+	$$data =~ s/(=\s*["']?\s*)\&\{/$1/g;
     }
     
     if ($onlycid) {
+	# quoted attributes
         $$data =~ s/($AElem[^>]+$UAttr\s*=\s*['"])([^'"]+)(['"])
 		   /&preserve_cid($1, $2, $3)
+		   /geoix;
+	# not-quoted attributes
+        $$data =~ s/($AElem[^>]+$UAttr\s*=\s*)([^'"\s>][^\s>]*)
+		   /&preserve_cid($1, $2, "")
 		   /geoix;
     }
 

@@ -1,7 +1,7 @@
 #!/usr/local/bin/perl
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhasiteinit.pl 1.2 01/08/26 02:57:25
+##      $Id: mhasiteinit.pl,v 1.3 2002/03/14 15:30:57 ehood Exp $
 ##  Description:
 ##      Site-specific initialization code for MHonArc.  If used, it
 ##	should be place in the MHonArc library directory as specified
@@ -27,7 +27,7 @@ package mhonarc_site_init;
 ##  under Perl works reliable over NFS.  See the LOCKMETHOD resource
 ##  page of the documentation for more information.
 
-#&mhonarc::set_lock_mode(&mhonarc::MHA_LOCK_MODE_DIR);
+#&mhonarc::set_lock_mode(&mhonarc::MHA_LOCK_MODE_FLOCK);
 
 ##---------------------------------------------------------------------------
 ##  Uncomment the following to set the callback function after a

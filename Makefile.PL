@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# @(#) Makefile.PL 1.10 01/11/13 23:31:27
+# $Id: Makefile.PL,v 1.12 2002/04/04 07:07:48 ehood Exp $
 # Pseudo Makefile.PL:  Since MHonArc's history goes back to Perl 4 days,
 # it has its own installation process.  This file generates a simple
 # Makefile to (paritally) satisfy the standard Perl 5 way to install
@@ -11,7 +11,14 @@ open(MAKEFILE, ">Makefile") ||
     die "Unable to create Makefile: $!\n";
 
 ## Map variable settings to install.me options
-%vars = ( map { split(/=/, $_) } @ARGV );
+%vars = ( );
+foreach (@ARGV) {
+  # make sure to only process arguments that look like variables
+  if (/=/) {
+    ($var, $value) = split(/=/, $_, 2);
+    $vars{$var} = $value;
+  }
+}
 my $opt_prefix  = defined($vars{'PREFIX'}) ?
 			"-prefix $vars{'PREFIX'}" : "";
 my $opt_binpath = defined($vars{'INSTALLSCRIPT'}) ?
@@ -38,6 +45,7 @@ unless (-x $perl) {
 }
 ## Determine other commands that will be used
 my $chmod = $Config{'chmod'} || '/bin/chmod';
+my $mkdir = $Config{'mkdir'} || '/bin/mkdir';
 my $rm    = $Config{'rm'} || '/bin/rm';
 
 ## Print Makefile
@@ -45,6 +53,7 @@ print MAKEFILE <<EOF;
 # This Makefile is for the MHonArc software package.
 
 CHMOD		= $chmod
+MKDIR		= $mkdir
 RM		= $rm
 PRGS		= mhonarc mha-dbrecover mha-dbedit mha-decode
 PERL		= $perl
@@ -58,7 +67,7 @@ default: pod2man
 	\$(CHMOD) a+x \$(PRGS)
 	\$(CHMOD) -R a+r,a+X .
 
-release-prep: autodoc versions relnotes bugs install-doc
+release-prep: autodoc relnotes bugs install-doc
 
 install:
 	\$(PERL) \$(INSTALLPRG) -batch $instme_args
@@ -70,6 +79,7 @@ install-doc:
 	w3m doc/install.html -cols 76 > INSTALL
 
 pod2man:
+	-\@\$(MKDIR) man
 	\@for i in \$(PRGS) ; \\
 	    do( \\
 		echo "Manifying \$\$i ..."; \\
@@ -86,16 +96,6 @@ autodoc: pod2man
 
 bugs:
 	w3m doc/app-bugs.html -cols 76 > BUGS
-
-versions:
-	\@echo "SCCS Version Numbers" > VERSIONS
-	\@echo "====================" >> VERSIONS
-	\@echo "Note: SCCS versions do not correspond to product version" \\
-	    >> VERSIONS
-	\@echo "--------------------------------------------------------" \\
-	    >> VERSIONS
-	\@what mhonarc mha-* lib/*.pl >> VERSIONS
-	\@echo "Created VERSIONS"
 
 test:
 	\@echo "No tests"

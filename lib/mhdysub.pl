@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhdysub.pl 2.5 01/08/26 02:09:21
+##	$Id: mhdysub.pl,v 2.5 2001/08/25 20:09:21 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

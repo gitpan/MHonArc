@@ -11,7 +11,7 @@
 <!--X-NavButtons-Start-->
 <table width="100%">
 <tr valign="top">
-<td align="left"><nobr><a href="app-mimeconf.html"><img src="prev.gif"border=0 alt="[Prev]"></a>&nbsp;&nbsp;&nbsp;</nobr></td><td align="center" width="99%"><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.mhonarc.org/"><img src="home.gif" border=0 alt="[Home]"></a></td><td align="right"><nobr>&nbsp;&nbsp;&nbsp;<img src="blank.gif" border=0 alt="[Next]"></nobr></td></tr></table>
+<td align="left"><nobr><a href="app-mimeconf.html"><img src="prev.png"border=0 alt="[Prev]"></a>&nbsp;&nbsp;&nbsp;</nobr></td><td align="center" width="99%"><a href="mhonarc.html"><img src="up.png" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.png" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.png" border=0 alt="[Bugs]"></a><a href="http://www.mhonarc.org/"><img src="home.png" border=0 alt="[Home]"></a></td><td align="right"><nobr>&nbsp;&nbsp;&nbsp;<img src="blank.png" border=0 alt="[Next]"></nobr></td></tr></table>
 <!--X-NavButtons-End-->
 <HR>
 
@@ -160,6 +160,162 @@ the bug was fixed.
 
 <!--X-BugList-Start-->
 <table border=0 cellspacing=0 cellpadding=4 width="100%">
+
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version:</strong></td>
+<td align=left>2.5.2, and earlier</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem:</strong></td>
+<td align=left>The <tt>$MSGID$</tt> resource variable always expanded
+to the message-id of the current message, regardless of the value
+of any <var>mesg_spec</var> argument.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution:</strong></td>
+<td align=left>Fixed in <tt>mhrcvars.pl</tt>.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed:</strong></td>
+<td align=left>2.5.3</td>
+</tr>
+
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version:</strong></td>
+<td align=left>2.5.2, and earlier</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem:</strong></td>
+<td align=left>Excluding a media-type via MIMEEXCS does not cause
+a lesser alternative part in a <tt>multipart/alternative</tt> message to
+be used.  For example, if <tt>text/html</tt> is listed in MIMEEXCS
+and a <tt>multipart/alternative</tt> message contains a
+<tt>text/plain</tt> part and a <tt>text/html</tt> part, the converted
+message will contain the <tt>text/html</tt> excluded statement instead
+of the <tt>text/plain</tt> data.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution:</strong></td>
+<td align=left>Fixed in <tt>readmail.pl</tt>:  Any part in a
+multipart message that is in MIMEEXCS will be quietly dropped.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed:</strong></td>
+<td align=left>2.5.3</td>
+</tr>
+
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version:</strong></td>
+<td align=left>2.5.2, and earlier</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem:</strong></td>
+<td align=left><tt>Makefile.PL</tt> will generate an error if
+arguments passed to it are not variable definitions.  For example,
+"<tt>perl Makefile.PL somearg</tt>",
+will cause the following Perl error,
+"<tt>Odd number of elements in hash list...</tt>"
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution:</strong></td>
+<td align=left>Fixed to only define variables specified on the
+command-line that actually look like variable definitions:
+"<tt>VAR=VALUE</tt>".
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed:</strong></td>
+<td align=left>2.5.3</td>
+</tr>
+
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version:</strong></td>
+<td align=left>2.5.2, and possibly earlier versions</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem:</strong></td>
+<td align=left>Perl generates the following message:
+"<tt>/&amp;([\w-.]+);/: false [] range "\w-" in regexp at mhopt.pl
+line 720.</tt>"
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution:</strong></td>
+<td align=left>Fixed in mhopt.pl: Escape the '-' so it is not
+interpreted as a possible character range specifier.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed:</strong></td>
+<td align=left>2.5.3</td>
+</tr>
+
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version:</strong></td>
+<td align=left>2.5.2, and possibly earlier versions</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem:</strong></td>
+<td align=left>Using the
+<a href="resources/defrcfile.html">default resource file</a> could
+cause mhonarc to abort with a,
+"<tt>Can't locate readmail.pl in @INC ...</tt>," error message.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution:</strong></td>
+<td align=left>Fixed in mhrcfile.pl: Localize <tt>$_</tt> to
+protect from modifying any arrays from caller.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed:</strong></td>
+<td align=left>2.5.3</td>
+</tr>
+
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version:</strong></td>
+<td align=left>2.5.0 - 2.5.2</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem:</strong></td>
+<td align=left>Example filter shown in
+<a href="resources/mimefilters.html">MIMEFILTERS</a> resource page
+uses pre-2.5-style API.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution:</strong></td>
+<td align=left>Fixed example.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed:</strong></td>
+<td align=left>2.5.3</td>
+</tr>
 
 <tr valign=top>
 <td colspan=2><hr noshade size=0></td>
@@ -2741,14 +2897,14 @@ before TSUBJECTBEG to after TSUBJECTEND.
 <!--X-NavButtons-Start-->
 <table width="100%">
 <tr valign="top">
-<td align="left"><nobr><a href="app-mimeconf.html"><img src="prev.gif"border=0 alt="[Prev]"></a>&nbsp;&nbsp;&nbsp;</nobr></td><td align="center" width="99%"><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.mhonarc.org/"><img src="home.gif" border=0 alt="[Home]"></a></td><td align="right"><nobr>&nbsp;&nbsp;&nbsp;<img src="blank.gif" border=0 alt="[Next]"></nobr></td></tr></table>
+<td align="left"><nobr><a href="app-mimeconf.html"><img src="prev.png"border=0 alt="[Prev]"></a>&nbsp;&nbsp;&nbsp;</nobr></td><td align="center" width="99%"><a href="mhonarc.html"><img src="up.png" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.png" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.png" border=0 alt="[Bugs]"></a><a href="http://www.mhonarc.org/"><img src="home.png" border=0 alt="[Home]"></a></td><td align="right"><nobr>&nbsp;&nbsp;&nbsp;<img src="blank.png" border=0 alt="[Next]"></nobr></td></tr></table>
 <!--X-NavButtons-End-->
 
 <!-- *************************************************************** -->
 <hr>
 <address>
-01/11/24 03:33:57<br>
-<img align="top" src="monicon.gif" alt="">
+$Date: 2002/04/18 06:12:37 $ <br>
+<img align="top" src="monicon.png" alt="">
 <a href="http://www.mhonarc.org"
 ><strong>MHonArc</strong></a><br>
 Copyright &#169; 1997-1999, <a href="http://www.mhonarc.org/~ehood/"

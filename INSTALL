@@ -271,10 +271,9 @@ After installation, you may want to do some site-specific configuration.
 Default Resource File
 
 You have the ability to create a default resource file to make site-wide
-defaults for MHonArc. The name of the resource file should be mhonarc.rc
-and should be placed in the MHonArc library directory as specified during
-installation. For more information on what can be put in a resource file,
-see the Resources section.
+defaults for MHonArc. See the DEFRCFILE resource on valid pathname
+locations for the default resource file. For more information on what can
+be put in a resource file, see the Resources section.
 
 NOTE  It is advisable to create some local documentation for users         
       describing any settings you place in the site-wide resource file.    
@@ -318,7 +317,7 @@ highlighting mode. The mode is best used with color-capable terminals.
 
 ---------------------------------------------------------------------------
 
-01/09/05 22:03:29
+$Date: 2001/12/24 14:38:07 $
 [monicon] MHonArc
 Copyright © 1997-1999, Earl Hood, mhonarc@mhonarc.org
 

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhrmm.pl 1.6 01/09/17 22:10:35
+##      $Id: mhrmm.pl,v 1.6 2001/09/17 16:10:35 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

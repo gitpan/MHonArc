@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhusage.pl 2.18 01/09/30 15:24:02
+##      $Id: mhusage.pl,v 2.18 2001/09/30 09:24:02 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

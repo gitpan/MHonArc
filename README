@@ -1,10 +1,10 @@
 ---------------------------------------------------------------------------
                             README for MHonArc
-                                  v2.5.2
+                                   v2.5
 
 			<http://www.mhonarc.org/>
 
-			 Copyright (C) 1995-2001
+			 Copyright (C) 1995-2002
 		       Earl Hood, mhonarc@mhonarc.org
 
 ---------------------------------------------------------------------------
@@ -49,7 +49,8 @@ README          The file you are reading
 RELNOTES        Release notes for MHonArc (PLEASE READ BEFORE INSTALL)
 TODO		TODO list for MHonArc development
 VERSIONS	List of SCCS versions of MHonArc source
-admin/		Experimental web-based archive administration tool.
+admin/		Experimental web-based archive administration tool
+contrib/	Contributed programs
 doc/            Documentation for MHonArc
 examples/       Example resource files for MHonArc
 extras/         Extra programs for use with MHonArc (See extras/README)
@@ -155,5 +156,5 @@ BUGS/COMMENTS/SUGGESTIONS?
     development of the program.
 
 ---------------------------------------------------------------------------
-Copyright (C) 1995-2001,		Earl Hood, mhonarc@mhonarc.org
-@(#) README 01/11/24 03:27:46
+Earl Hood, mhonarc@mhonarc.org
+$Date: 2002/04/04 04:42:39 $

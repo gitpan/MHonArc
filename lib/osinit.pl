@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) osinit.pl 2.6 01/09/17 22:09:27
+##	$Id: osinit.pl,v 2.6 2001/09/17 16:09:27 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhidxrc.pl 2.11 01/11/24 02:42:39
+##	$Id: mhidxrc.pl,v 2.11 2001/11/23 20:42:39 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

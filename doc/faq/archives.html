@@ -35,7 +35,7 @@
 <!-- ??????????????????????????????????????????????????????????????? -->
 <hr noshade size=1>
 <table border=0>
-<tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
+<tr valign=top><td><img src="monicon.png" align="bottom" alt=""></td><td>
 <h3><b><a name="split">Why does a message get split into mulitple messages with no headers?</a></b></h3>
 </td></tr></table>
 
@@ -82,13 +82,74 @@ environments.
 resource available in v2.0 and later.  The CONLEN resource, when set, tells
 MHonArc to utilize the <code>Content-Length</code> fields
 in the message head.  If your MTA defines this field accurately,
-then you can utilize this
-feature.  </p>
+then you can utilize this feature.
+Sun Solaris' delivery agent will define the
+<tt>Content-Length</tt> field for messages delivered to local users.
+</p>
+<p>If you use Procmail to filter your mail,
+you can try the following Procmail recipe (contributed by
+<a href="mailto:lindsey@ncsa.uiuc.edu">Christopher Lindsey</a>):
+</p>
+<blockquote>
+<p>However, one can add a Content-Length: header with everyone's favorite
+tool, procmail.  :)  Here's a recipe borrowed from David Tamkin about
+9 moons ago:
+</p>
+<pre>
+  :0fhw # B won't help; size conditions ignore H and B flags on the :0 line
+  * ! ^Content-Length:.*[0-9]
+  * 1^1 B ?? &gt;1
+  | formail -a "Content-Length:  $="
+</pre>
+<p>So if you want to count on Content-Length, the message could be
+piped into procmail with a specific procmailrc file which would 
+do this counting and then call MHonArc.
+</p>
+</blockquote>
+
+<p>If <a href="http://www.sendmail.org/">sendmail</a> is
+your system's MTA and you use Procmail as your local delivery agent,
+you can configure things to have <tt>Content-Length</tt> defined
+for all locally delivered mail.  The following technique is
+contributed by
+<a href="mailto:tibbs@math.uh.edu">Jason L Tibbitts III</a>:
+</p>
+<blockquote>
+<p>I use Procmail as my local delivery agent.  I have the following extremely
+disgusting settings in my .mc (M4 config) file to add in a Content-Length:
+header, <u>but I'm <b>not</b> sure if I would recommend that anyone
+actually think of using this</u>:
+</p>
+<pre>
+define(`LOCAL_MAILER_FLAGS',`SPfhn9Z')
+define(`LOCAL_MAILER_ARGS',`procmail -a $h -d $u')
+
+LOCAL_CONFIG
+#
+# Add fake Content-Length Header for local mailer
+# This is corrected by Procmail
+# Note that the Z flag is used here; if Z is ever defined, this
+#  will break something
+H?Z?Content-Length: 0000000000
+</pre>
+</blockquote>
+
+<p>If possible, try to avoid relying on the use of
+<tt>Content-Length</tt> since it is hard to guarantee that it is
+set properly.  When <b>CONLEN</b> is specified, MHonArc will read at
+least the number of bytes specified by <tt>Content-Length</tt> before
+checking for the message separator, as defined by the <b>MSGSEP</b>
+resource.  Therefore, the value of <tt>Content-Length</tt> can be less
+than the actual message size, and message extraction will probably
+work as expected.  However, if <tt>Content-Length</tt> for a message
+has a value that is larger than the actual size, MHonArc may include
+the content of the next message in the message.
+</p>
 
 <!-- ??????????????????????????????????????????????????????????????? -->
 <hr noshade size=1>
 <table border=0>
-<tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
+<tr valign=top><td><img src="monicon.png" align="bottom" alt=""></td><td>
 <h3><b><a name="move">Can I move a message from one archive to another?</a></b></h3>
 </td></tr></table>
 
@@ -99,7 +160,7 @@ appropriate HTML version of the message from the source archive.  </P>
 <!-- ??????????????????????????????????????????????????????????????? -->
 <hr noshade size=1>
 <table border=0>
-<tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
+<tr valign=top><td><img src="monicon.png" align="bottom" alt=""></td><td>
 <h3><b><a name="reconstruct">Can I reconstruct a database from the HTML messages?</a></b></h3>
 </td></tr></table>
 
@@ -113,7 +174,7 @@ usage information.
 <!-- ??????????????????????????????????????????????????????????????? -->
 <hr noshade size=1>
 <table border=0>
-<tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
+<tr valign=top><td><img src="monicon.png" align="bottom" alt=""></td><td>
 <h3><b><a name="dynamic">Is it safe to add messages to an archive as they are received?</a></b></h3>
 </td></tr></table>
 
@@ -140,7 +201,7 @@ from MHonArc.
 <!-- ??????????????????????????????????????????????????????????????? -->
 <hr noshade size=1>
 <table border=0>
-<tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
+<tr valign=top><td><img src="monicon.png" align="bottom" alt=""></td><td>
 <h3><b><a name="forward">So it is safe.  How do I do it??</a></b></h3>
 </td></tr></table>
 
@@ -236,7 +297,7 @@ of commands on scheduled basis.
 <!-- ??????????????????????????????????????????????????????????????? -->
 <hr noshade size=1>
 <table border=0>
-<tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
+<tr valign=top><td><img src="monicon.png" align="bottom" alt=""></td><td>
 <h3><b><a name="majordomo">How can I do it with Majordomo lists?</a></b></h3>
 </td></tr></table>
 
@@ -284,7 +345,7 @@ matter.
 <!-- ??????????????????????????????????????????????????????????????? -->
 <hr noshade size=1>
 <table border=0>
-<tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
+<tr valign=top><td><img src="monicon.png" align="bottom" alt=""></td><td>
 <h3><b><a name="different">Can I get MHonArc to filter messages to different archives?</a></b></h3>
 </td></tr></table>
 
@@ -473,7 +534,7 @@ Unix SysAdmin Contractor
 <!-- ??????????????????????????????????????????????????????????????? -->
 <hr noshade size=1>
 <table border=0>
-<tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
+<tr valign=top><td><img src="monicon.png" align="bottom" alt=""></td><td>
 <h3><b><a name="exclude">Does MHonArc support the "no archive" flag in messages?</a></b></h3>
 </td></tr></table>
 
@@ -517,7 +578,7 @@ Chris
 <!-- ??????????????????????????????????????????????????????????????? -->
 <hr noshade size=1>
 <table border=0>
-<tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
+<tr valign=top><td><img src="monicon.png" align="bottom" alt=""></td><td>
 <h3><b><a name="addsafe">Is it safe to specify <tt>-add</tt> when no archive exists?</a></b></h3>
 </td></tr></table>
 
@@ -543,7 +604,7 @@ is not in the proper format.
 <!-- ??????????????????????????????????????????????????????????????? -->
 <hr noshade size=1>
 <table border=0>
-<tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
+<tr valign=top><td><img src="monicon.png" align="bottom" alt=""></td><td>
 <h3><b><a name="jumps">Why are there "jumps" in message numbers?</a></b></h3>
 </td></tr></table>
 
@@ -575,7 +636,7 @@ a message number).  </p>
 <!-- ??????????????????????????????????????????????????????????????? -->
 <hr noshade size=1>
 <table border=0>
-<tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
+<tr valign=top><td><img src="monicon.png" align="bottom" alt=""></td><td>
 <h3><b><a name="dups">Why do some messages get re-added each time MHonArc processes a mail folder?</a></b></h3>
 </td></tr></table>
 
@@ -620,7 +681,7 @@ via RMM, make sure to remove the message from input source.
 <!-- ??????????????????????????????????????????????????????????????? -->
 <hr noshade size=1>
 <table border=0>
-<tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
+<tr valign=top><td><img src="monicon.png" align="bottom" alt=""></td><td>
 <h3><b><a name="remove">How do I remove messages from an archive?</a></b></h3>
 </td></tr></table>
 
@@ -636,7 +697,7 @@ and examples.
 <!-- ??????????????????????????????????????????????????????????????? -->
 <hr noshade size=1>
 <table border=0>
-<tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
+<tr valign=top><td><img src="monicon.png" align="bottom" alt=""></td><td>
 <h3><b><a name="tombox">Can I convert an archive back to mailbox format?</a></b></h3>
 </td></tr></table>
 
@@ -659,8 +720,8 @@ the program, goto
 
 <hr>
 <address>
-01/09/05 21:44:15<br>
-<img align="top" src="monicon.gif" alt="">
+$Date: 2002/04/04 05:00:24 $ <br>
+<img align="top" src="monicon.png" alt="">
 <a href="http://www.mhonarc.org/"
 ><strong>MHonArc</strong></a><br>
 Copyright &#169; 1997-2001, <a href="http://www.earlhood.com/"

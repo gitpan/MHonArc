@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhindex.pl 1.8 01/09/05 21:57:29
+##	$Id: mhindex.pl,v 1.8 2001/09/05 15:57:29 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

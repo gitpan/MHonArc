@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) ewhutil.pl 2.8 01/08/26 01:52:48
+##	$Id: ewhutil.pl,v 2.8 2001/08/25 19:52:48 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

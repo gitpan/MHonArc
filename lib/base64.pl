@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 # base64.pl -- A perl package to handle MIME-style BASE64 encoding
 # A. P. Barrett <barrett@ee.und.ac.za>, October 1993
-# $Revision: 1.4 $$Date: 1994/08/11 16:08:51 $
+# $Revision: 2.2 $$Date: 2001/09/05 11:53:01 $
 #
-#	@(#) base64.pl 2.2 01/09/05 17:53:01
+#	$Id: base64.pl,v 2.2 2001/09/05 11:53:01 ehood Exp $
 #
 # Modified March 21, 1996 by ehood@convex.com
 #	-> Changes to base64'uudecode to strip out any begin/end

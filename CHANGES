@@ -10,11 +10,73 @@ information/clarification.  It is possible that some changes to
 MHonArc are not documented here, but every effort is made to list
 all changes that will be visible to users of MHonArc.
 
-MM/DD/YYYY
+YYYY/MM/DD
 ============================================================================
-############################################################################
+2002/04/18	(2.5.3)
+
+(See BUGS for the list of bugs reported and fixed)
+
+*   Added 'use locale' pragmas to be applied when sorting messages.
+    This is considered experimental, but it appears to give better
+    results when sorting text that contains 8-bit-non-English
+    characters.  This is far from any real locale support, but
+    hopefully it is better than nothing.
+
+*   Beefed up HTML filtering in mhtxthtml.pl to eliminate some
+    security exploits.
+
+    CAUTION: If you are worried about security, it is recommended
+	     that you disable support of text/html messages in
+	     your mail archives.  There is no guarantee that
+	     the mhtxthtml.pl library is robust enough to
+	     eliminate all possible exploits that can occur with
+	     HTML data.
+
+    Thanks goto Jason Molenda and Hiromitsu Takagi for spotting
+    more exploit cases.
+
+*   mhtxtplain.pl checks MIMEXCS if text/html data is excluded
+    when the htmlcheck option is specified.  Seems unnecessary
+    because someone use excludes HTML data will probably not use
+    the htmlcheck option to m2h_text_plain::filter.
+
+*   Modified mail address extraction for $FROMADDR$ resource
+    variable to help deal with malformed From: header fields.
+    Thanks to Eugene Eric Kim for the recommendation.
+
+*   Fixed uudecoding support in mhtxtplain.pl to handle spaces
+    in filenames and \r\n EOLs.  Thanks to Jordan Russell for
+    spotting this.
+
+*   Added ISO-8859-15 mappings.  Thanks goto Jan Kraeber for the
+    contribution.
+
+*   Removed GIF images from distribution.  All GIF images
+    have been converted to PNG format.  Transparency of PNG
+    images may only be supported in the latest versions of various
+    graphical web browsers.
+
+    See <http://www.gnu.org/philosophy/gif.html> for reasons
+    why GIF images should not be used.
+
+*   Source code imported into CVS.  CVS respository is currently
+    not available publicly.  Stilling wondering if a site like
+    savannah.gnu.org should be used or if the respository should
+    be hosted independently, like at www.mhonarc.org.
+
+*   Fixed regex patterns in readmail.pl to avoid Perl warning
+    messages.
+
+*   Created a contrib/ directory to contain any contributed
+    programs imported into the MHonArc distribution.  Moved
+    prsfrom.pl from extras/ to contrib/.
+
+*   Added Security section to FAQ.  Provided more information to
+    question, "Why does a message get split into mulitple messages
+    with no headers?", mainly information contributed by users.
+
 ============================================================================
-11/24/2001	(2.5.2)
+2001/11/24	(2.5.2)
 
     (See BUGS for the list of bugs reported and fixed)
 
@@ -40,7 +102,7 @@ MM/DD/YYYY
 	character sets.
 
 ============================================================================
-11/13/2001	(2.5.1)
+2001/11/13	(2.5.1)
 
     (See BUGS for the list of bugs reported and fixed)
 
@@ -50,7 +112,7 @@ MM/DD/YYYY
     o	Some documentation corrections.
 
 ============================================================================
-10/14/2001	(2.5.0)
+2001/10/14	(2.5.0)
 
     [This is non-beta release of 2.5.0.  See the change notes
      below and for the various beta release for a complete list of
@@ -90,7 +152,7 @@ MM/DD/YYYY
 	along with the total message count when QUIET is not active.
 
 ============================================================================
-09/05/2001	(2.5.0b2)
+2001/09/05	(2.5.0b2)
 
     (See BUGS for the list of bugs fixed)
 
@@ -117,7 +179,7 @@ MM/DD/YYYY
 	use MHonArc with perl's -w option.
 
 ============================================================================
-08/26/2001	(2.5.0b)
+2001/08/26	(2.5.0b)
 
     (See BUGS for the list of bugs fixed)
 
@@ -420,7 +482,7 @@ MM/DD/YYYY
 	been made.
 
 ============================================================================
-06/10/2001	(2.4.9)
+2001/06/10	(2.4.9)
 
     o	Added the following resources:
 
@@ -452,7 +514,7 @@ MM/DD/YYYY
     See BUGS.
 
 =======================================================================
-04/13/2001	(2.4.8)
+2001/04/13	(2.4.8)
 
     o	Added the following resources:
 
@@ -507,7 +569,7 @@ MM/DD/YYYY
     See BUGS.
 
 =======================================================================
-10/28/2000	(2.4.7)
+2000/10/28	(2.4.7)
 
     o	Added the following options to m2h_text_plain::filter:
 
@@ -562,7 +624,7 @@ MM/DD/YYYY
     See BUGS.
 
 =======================================================================
-04/24/2000	(2.4.6)
+2000/04/24	(2.4.6)
 
     o	Stricter check is made when decoded quoted-printable data.
 	An escape sequence is only converted to a raw character if
@@ -577,7 +639,7 @@ MM/DD/YYYY
     See BUGS.
 
 =======================================================================
-02/14/2000	(2.4.5)
+2000/02/14	(2.4.5)
 
     Enhancements/Changes
     --------------------
@@ -610,7 +672,7 @@ MM/DD/YYYY
     See BUGS.
 
 =======================================================================
-10/01/1999	(2.4.4)
+1999/10/01	(2.4.4)
 
     Enhancements/Changes
     --------------------
@@ -639,7 +701,7 @@ MM/DD/YYYY
     See BUGS.
 
 =======================================================================
-08/15/1999	(2.4.3)
+1999/08/15	(2.4.3)
 
     Enhancements/Changes
     --------------------
@@ -670,7 +732,7 @@ MM/DD/YYYY
     See BUGS.
 
 =======================================================================
-08/11/1999	(2.4.2)
+1999/08/11	(2.4.2)
 
     Enhancements/Changes
     --------------------
@@ -700,7 +762,7 @@ MM/DD/YYYY
     See BUGS.
 
 =======================================================================
-07/25/1999	(2.4.1)
+1999/07/25	(2.4.1)
 
     Enhancements/Changes
     --------------------
@@ -726,7 +788,7 @@ MM/DD/YYYY
     See BUGS.
 
 =======================================================================
-06/25/1999	(2.4.0)
+1999/06/25	(2.4.0)
 
     Enhancements/Changes
     --------------------
@@ -823,14 +885,14 @@ MM/DD/YYYY
     See BUGS.
 
 =======================================================================
-11/08/1998	(2.3.3)
+1998/11/08	(2.3.3)
 
     Bug Fixes
     ---------
     See BUGS.
 
 =======================================================================
-11/01/1998	(2.3.2)
+1998/11/01	(2.3.2)
 
     Enhancements/Changes
     --------------------
@@ -842,7 +904,7 @@ MM/DD/YYYY
     See BUGS.
 
 =======================================================================
-10/25/1998	(2.3.1)
+1998/10/25	(2.3.1)
 
     Enhancements/Changes
     --------------------
@@ -871,7 +933,7 @@ MM/DD/YYYY
     See BUGS.
 
 =======================================================================
-10/10/1998	(2.3.0)
+1998/10/10	(2.3.0)
 
     o	Perl 5 is now required to run MHonArc.  Although the code
 	base is still "Perl 4-style", many changes made use of Perl 5
@@ -984,7 +1046,7 @@ MM/DD/YYYY
     See BUGS.
 
 =======================================================================
-03/03/1998	(2.2.0)
+1998/03/03	(2.2.0)
 
     Enhancements/Changes
     --------------------
@@ -1037,7 +1099,7 @@ MM/DD/YYYY
     See BUGS.
 
 =======================================================================
-02/23/1998	(2.1.2)
+1998/02/23	(2.1.2)
 
     Enhancements/Changes
     --------------------
@@ -1072,7 +1134,7 @@ MM/DD/YYYY
     See BUGS.
 
 =======================================================================
-02/18/1998	(2.1.1)
+1998/02/18	(2.1.1)
 
     Enhancements/Changes
     --------------------
@@ -1095,7 +1157,7 @@ MM/DD/YYYY
     See BUGS.
 
 =======================================================================
-06/09/97	(2.1.0)
+1997/06/09	(2.1.0)
 
     Enhancements/Changes
     --------------------
@@ -1141,14 +1203,14 @@ MM/DD/YYYY
     See BUGS.
 
 =======================================================================
-05/23/97	(2.0.1)
+1997/05/23	(2.0.1)
 
     Bug Fixes
     ---------
     See BUGS.
 
 =======================================================================
-05/16/97	(2.0.0)
+1997/05/16	(2.0.0)
 
     Enhancements:
 
@@ -1199,7 +1261,7 @@ MM/DD/YYYY
     See BUGS.
 
 =======================================================================
-02/28/97	(2.0.0 beta 3)
+1997/02/28	(2.0.0 beta 3)
 
 	o  Removed bogus call to output_db() when GENIDX is active.
 	   The routine is not loaded when GENIDX is active and the
@@ -1217,7 +1279,7 @@ MM/DD/YYYY
 	o  Fixed bug where an extra TSUBLISTEND could get generated.
 
 =======================================================================
-02/17/97	(2.0.0 beta 2)
+1997/02/17	(2.0.0 beta 2)
 
 	o  Added <nosubsort> element and -nosubsort option.
 
@@ -1251,7 +1313,7 @@ MM/DD/YYYY
 	o  Some code changes.
 
 =======================================================================
-01/31/97	(2.0.0 beta 1)
+1997/01/31	(2.0.0 beta 1)
 
 	o  RFC 1522 support.  Charset filters can be plugged in to
 	   handle character sets not recognized by mhonarc.
@@ -1515,7 +1577,7 @@ MM/DD/YYYY
 	o  Source code has been put under SCCS revision control.
 
 =======================================================================
-07/12/96	(1.2.3)
+1996/07/12	(1.2.3)
 
 	o  Extracted initialization of data structures into mhinit.pl.
 	   The file is just required from the main source.
@@ -1535,7 +1597,7 @@ MM/DD/YYYY
 	o  Simple fix to mhtxt2022.pl for execution under Perl 5.
 
 =======================================================================
-04/18/96	(1.2.2)
+1996/04/18	(1.2.2)
 
 	o  Increased the speed performance of base64 decoding.  Speed
 	   increase is much greater under Perl 4 than Perl 5.
@@ -1569,7 +1631,7 @@ MM/DD/YYYY
 	   overall execution time.
 
 =======================================================================
-03/22/96	(1.2.1)
+1996/03/22	(1.2.1)
 
 	o  Added support for x-uuencode content-transfer-encoding.
 
@@ -1600,7 +1662,7 @@ MM/DD/YYYY
 	   current size of the archive.
 
 =======================================================================
-03/01/96	(1.2.0)
+1996/03/01	(1.2.0)
 
 	o  Rewrote message parser routine so it will work under Perl 5
 	   for multipart messages.  The rewrite also allows some
@@ -1826,13 +1888,13 @@ MM/DD/YYYY
 	   documentation.
 
 =======================================================================
-04/24/95	(1.1.1)
+1995/04/24	(1.1.1)
 
 	o  Fixed bug in -scan output where month in date was off by
 	   one.
 
 =======================================================================
-04/21/95	(1.1.0)
+1995/04/21	(1.1.0)
 
 	o  Made modifications to make MHonArc suitable to run
 	   under MS-DOS without modification.  MHonArc will
@@ -1968,7 +2030,7 @@ MM/DD/YYYY
 	o  There's probably other stuff, but I cannot remember.
 
 =======================================================================
-10/01/94	(1.0.0)
+1994/10/01	(1.0.0)
 
 	o  First release -- See RELNOTES about compatibility issues
 	   with mail2html.
@@ -1977,4 +2039,4 @@ MM/DD/YYYY
 #######################################################################
 =======================================================================
 Earl Hood, mhonarc@mhonarc.org
-@(#) CHANGES 01/11/24 03:27:45
+$Id: CHANGES,v 1.59 2002/04/18 06:13:09 ehood Exp $

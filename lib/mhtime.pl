@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtime.pl 2.10 01/09/17 22:09:35
+##	$Id: mhtime.pl,v 2.10 2001/09/17 16:09:35 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

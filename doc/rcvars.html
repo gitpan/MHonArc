@@ -12,7 +12,7 @@
 <!--X-NavButtons-Start-->
 <table width="100%">
 <tr valign="top">
-<td align="left"><nobr><a href="resources.html"><img src="prev.gif"border=0 alt="[Prev]"></a>&nbsp;&nbsp;&nbsp;</nobr></td><td align="center" width="99%"><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.mhonarc.org/"><img src="home.gif" border=0 alt="[Home]"></a></td><td align="right"><nobr>&nbsp;&nbsp;&nbsp;<a href="contacts.html"><img src="next.gif" border=0 alt="[Next]"></a></nobr></td></tr></table>
+<td align="left"><nobr><a href="resources.html"><img src="prev.png"border=0 alt="[Prev]"></a>&nbsp;&nbsp;&nbsp;</nobr></td><td align="center" width="99%"><a href="mhonarc.html"><img src="up.png" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.png" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.png" border=0 alt="[Bugs]"></a><a href="http://www.mhonarc.org/"><img src="home.png" border=0 alt="[Home]"></a></td><td align="right"><nobr>&nbsp;&nbsp;&nbsp;<a href="contacts.html"><img src="next.png" border=0 alt="[Next]"></a></nobr></td></tr></table>
 <!--X-NavButtons-End-->
 <hr>
 <h1><a name="rcvars">Resource Variables</a></h1>
@@ -348,7 +348,9 @@ the <a href="resources/gmtdatefmt.html">GMTDATEFMT</a> and
 <td>The <tt>NAME</tt> and <tt>HREF</tt> attributes to use in an anchor
 to link to the archived message.
 The <tt>NAME</tt> attribute provides a destination location when a message
-links to the index page.</td>
+links to the index page.  This resource variable is equivalent to
+"<nobr><tt><a href="#A_NAME">$A_NAME$</a>&nbsp;<a href="#A_HREF">$A_HREF$</a></tt></nobr>".
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="A_HREF"><tt>$A_HREF$</tt></a></strong></dt>
@@ -359,7 +361,11 @@ links to the index page.</td>
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>The <tt>HREF</tt> attribute to use in an anchor to link to the archived message.</td>
+<td>The <tt>HREF</tt> attribute to use in an anchor to link to the
+archived message.
+This variable is equivalent to
+"<tt>href="<a href="#MSG">$MSG$</a>"</tt>".
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="A_NAME"><tt>$A_NAME$</tt></a></strong></dt>
@@ -370,7 +376,11 @@ links to the index page.</td>
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>The <tt>NAME</tt> attribute to use in an anchor for messages to link to the index page.</td>
+<td>The <tt>NAME</tt> attribute to use in an anchor for messages to link
+to the index page.
+This variable is equivalent to
+"<tt>name="<a href="#MSGNUM">$MSGNUM$</a>"</tt>".
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="BUTTON"><tt>$BUTTON$</tt></a></strong></dt>
@@ -973,10 +983,13 @@ for a thread index, use <tt>$PGLINKLIST(T)$</tt>.
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>The subject text of the message, and if no arguments, wrapped in an
-anchor element that hyperlinks to the message.  This behavior exists
+<td>The subject text of the message, <em>and if no arguments</em>, wrapped in
+an anchor element that hyperlinks to the message.  This behavior exists
 for backwards capatibility and a simple way to provide a link to
-the current message using the subject as the link text.</td>
+the current message using the subject as the link text.  The
+no argument version is equivalent to:
+"<nobr><tt>&lt;a&nbsp;<a href="#A_ATTR">$A_ATTR$</a>&gt;<a href="#SUBJECTNA">$SUBJECTNA$</a>&lt;/a&gt;</tt></nobr>".
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="SUBJECTNA"><tt>$SUBJECTNA$</tt></a></strong></dt>
@@ -1178,14 +1191,14 @@ resources.
 <!--X-NavButtons-Start-->
 <table width="100%">
 <tr valign="top">
-<td align="left"><nobr><a href="resources.html"><img src="prev.gif"border=0 alt="[Prev]"></a>&nbsp;&nbsp;&nbsp;</nobr></td><td align="center" width="99%"><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.mhonarc.org/"><img src="home.gif" border=0 alt="[Home]"></a></td><td align="right"><nobr>&nbsp;&nbsp;&nbsp;<a href="contacts.html"><img src="next.gif" border=0 alt="[Next]"></a></nobr></td></tr></table>
+<td align="left"><nobr><a href="resources.html"><img src="prev.png"border=0 alt="[Prev]"></a>&nbsp;&nbsp;&nbsp;</nobr></td><td align="center" width="99%"><a href="mhonarc.html"><img src="up.png" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.png" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.png" border=0 alt="[Bugs]"></a><a href="http://www.mhonarc.org/"><img src="home.png" border=0 alt="[Home]"></a></td><td align="right"><nobr>&nbsp;&nbsp;&nbsp;<a href="contacts.html"><img src="next.png" border=0 alt="[Next]"></a></nobr></td></tr></table>
 <!--X-NavButtons-End-->
 
 <!-- *************************************************************** -->
 <hr>
 <address>
-01/09/05 22:03:31<br>
-<img align="top" src="monicon.gif" alt="">
+$Date: 2001/12/24 14:38:07 $ <br>
+<img align="top" src="monicon.png" alt="">
 <a href="http://www.mhonarc.org"
 ><strong>MHonArc</strong></a><br>
 Copyright &#169; 1998-1999, <a href="http://www.mhonarc.org/~ehood/"

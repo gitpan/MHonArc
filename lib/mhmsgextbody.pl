@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhmsgextbody.pl 1.3 01/09/05 21:48:15
+##	$Id: mhmsgextbody.pl,v 1.3 2001/09/05 15:48:15 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:	MHonArc Resource File
 " Maintainer:	Earl Hood <mhonarc@pobox.com>
-" Last change:	01/06/10 17:47:56
+" Last change:	$Date: 2001/06/10 11:47:56 $ 
 
 "	Adapted from the following:
 " Language:	HTML

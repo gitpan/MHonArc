@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhinit.pl 2.29 01/10/06 19:59:44
+##	$Id: mhinit.pl,v 2.29 2001/10/06 13:59:44 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

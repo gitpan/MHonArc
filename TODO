@@ -3,7 +3,13 @@ TODO List for MHonArc
 
 Items are in no particular order:
 
+===========================================================================
+
 => Fix all open bugs. :-)
+
+=> Enhance locale support, especially for message sorting.
+
+=> Provide preference configuration for multipart/alternative data.
 
 => Add resource to disable use of MD5 if no message-id.
 
@@ -31,14 +37,11 @@ Items are in no particular order:
 
 => Add support for "format=flowed" for text/plain.
    XXX: Way to do this without too much overhead in handling the rules
-        defined by RFC?
+        defined by RFC 2646.
 
 => "00" year => 1900 (need test case that verifies this).
 
 => Add resource to set initial message number.  XXX: Use of this?
-
-=> Get source moved to CVS.  Is preserving SCCS history files
-   important.
 
 => Redo MHonArc using modules/class structure.  Basically a redesign
    and implementation (MHonArc 3.x?).
@@ -51,3 +54,50 @@ Items are in no particular order:
 
 => Create a resource to control value of "[no subject]" given to
    messages without a defined subject.
+
+=> Unicode support (waiting for Perl to be mature enough).
+    (related to "UTF8 charsetconverter below").
+
+=> Make Content-Disposition check at the readmail.pl level so
+   each filter does not have to handle it.
+
+=> API hooks:
+      resource variable resolution
+      database read and write
+
+=> Subject-based threading enhancements:
+      . Messages with no "Re:" are in different threads.  Related to
+	this is grouping follow-ups under proper message based upon
+	date.
+
+=> Use the link tag to specify the first, prev, next, and last
+   relationships among indices and messages.  These are specified in
+   the standard and supported by Mozilla's Site Navigation Toolbar.
+   (see http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=115991)
+
+=> Add UTF8 charsetconverter.
+   (see
+    http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=131512&repeatmerged=yes)
+
+=> Check into TSLICE problem report mailed in by Mike Hamilton where
+   older messages of a thread are not properly updated to include newer
+   messages in tslice listing.
+
+=> Add a reasource (ICONURLPREFIX?) to prepend to icon url to support
+   relative-based archives (see message from Oliver Creighton).
+
+=> Add ability to decode all non-ASCII encoded headers.  Maybe useful
+   for sites that want to force everything to be treated as a single
+   character set and not mess with multiple encoding headache.
+
+=> Support filter chains: pre- and port-filters to MIMEFILTERS.
+
+=> Hashify all resources.
+
+=> Use message-IDs as filenames: Internal impacts, OS support problems.
+   Should be configurable?
+
+=> Provide an (anonymous) public CVS repository for the source.
+
+===========================================================================
+$Id: TODO,v 1.15 2002/04/06 07:59:31 ehood Exp $

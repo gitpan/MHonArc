@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxtenrich.pl 2.5 01/08/26 01:57:59
+##	$Id: mhtxtenrich.pl,v 2.5 2001/08/25 19:57:59 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxtplain.pl 2.14 01/09/05 21:56:33
+##	$Id: mhtxtplain.pl,v 2.16 2002/04/04 03:38:39 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -141,14 +141,18 @@ sub filter {
 	my $ret = "";
 	my $i = 0;
 
+	# <CR><LF> => <LF> to make parsing easier
+	$$data =~ s/\r\n/\n/g;
+
 	# Split on uuencoded data.  For text portions, recursively call
 	# filter to convert text data: makes it easier to handle all
 	# the various formatting options.
 	foreach $pdata
-		(split(/^(begin \d\d\d \S+\n[!-M].*?\nend\n)/sm, $$data)) {
+		(split(/^(begin\s+\d\d\d\s+[^\n]+\n[!-M].*?\nend\n)/sm,
+		       $$data)) {
 	    if ($i % 2) {	# uuencoded data
 		# extract filename extension
-		($file) = $pdata =~ /^begin \d\d\d (\S+)/;
+		($file) = $pdata =~ /^begin\s+\d\d\d\s+([^\n]+)/;
 		if ($file =~ /\.(\w+)$/) { $inext = $1; } else { $inext = ""; }
 
 		# decode data
@@ -156,8 +160,7 @@ sub filter {
 
 		# save to file
 		if (readmail::MAILis_excluded('application/octet-stream')) {
-		    $ret .=
-		    "<tt>&lt;&lt;&lt; $file: EXCLUDED &gt;&gt;&gt;</tt><br>\n";
+		    $ret .= &$readmail::ExcludedPartFunc($file);
 		} else {
 		    push(@files,
 			 mhonarc::write_attachment(
@@ -194,6 +197,9 @@ sub filter {
     ## Check for HTML data if requested
     if ($args =~ s/\bhtmlcheck\b//i &&
 	    $$data =~ /\A\s*<(?:html\b|x-html\b|!doctype\s+html\s)/i) {
+	if (readmail::MAILis_excluded('text/html')) {
+	  return (&$readmail::ExcludedPartFunc('text/plain HTML'));
+	}
 	my $html_filter = readmail::load_filter('text/html');
 	if (defined($html_filter) && defined(&$html_filter)) {
 	    return (&$html_filter($fields, $data, $isdecode, $args));

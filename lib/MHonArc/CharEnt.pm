@@ -1,13 +1,13 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) CharEnt.pm 1.2 01/09/05 20:44:05
+##	$Id: CharEnt.pm,v 1.3 2002/04/13 00:58:09 ehood Exp $
 ##  Author:
 ##      Earl Hood       earl@earlhood.com
 ##  Description:
 ##	Module to deal with 8-bit character data conversion to
 ##	(SGML) entity references.
 ##---------------------------------------------------------------------------##
-##    Copyright (C) 1997,2001	Earl Hood, earl@earlhood.com
+##    Copyright (C) 1997-2002	Earl Hood, earl@earlhood.com
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -75,12 +75,14 @@ my %CharsetMaps = (
     'iso-8859-8'  =>	'MHonArc/CharEnt/ISO8859_8.pm',
     'iso-8859-9'  =>	'MHonArc/CharEnt/ISO8859_9.pm',
     'iso-8859-10' =>	'MHonArc/CharEnt/ISO8859_10.pm',
+    'iso-8859-15' =>	'MHonArc/CharEnt/ISO8859_15.pm',
     'latin1'      =>	'MHonArc/CharEnt/ISO8859_1.pm',
     'latin2'      =>	'MHonArc/CharEnt/ISO8859_2.pm',
     'latin3'      =>	'MHonArc/CharEnt/ISO8859_3.pm',
     'latin4'      =>	'MHonArc/CharEnt/ISO8859_4.pm',
     'latin5'      =>	'MHonArc/CharEnt/ISO8859_9.pm',
     'latin6'      =>	'MHonArc/CharEnt/ISO8859_10.pm',
+    'latin9'      =>	'MHonArc/CharEnt/ISO8859_15.pm',
     'windows-1250'=>	'MHonArc/CharEnt/CP1250.pm',
     'windows-1252'=>	'MHonArc/CharEnt/CP1252.pm',
 );
@@ -91,9 +93,11 @@ my %ReverseCharsetMaps = (
     'iso-8859-7'  =>	'MHonArc/CharEnt/ISO8859_7R.pm',
     'iso-8859-8'  =>	'MHonArc/CharEnt/ISO8859_8R.pm',
     'iso-8859-9'  =>	'MHonArc/CharEnt/ISO8859_9R.pm',
+    'iso-8859-15' =>	'MHonArc/CharEnt/ISO8859_15R.pm',
     'latin1'      =>	'MHonArc/CharEnt/ISO8859_1R.pm',
     'latin3'      =>	'MHonArc/CharEnt/ISO8859_3R.pm',
     'latin5'      =>	'MHonArc/CharEnt/ISO8859_9R.pm',
+    'latin9'      =>	'MHonArc/CharEnt/ISO8859_15R.pm',
 );
 
 ###############################################################################

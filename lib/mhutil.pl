@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhutil.pl 2.13 01/10/06 20:02:15
+##	$Id: mhutil.pl,v 2.14 2002/03/05 08:03:03 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -61,16 +61,19 @@ my %HFieldsAddr = (
 sub extract_email_address {
     return ''  unless defined $_[0];
     my $str = shift;
-    my($ret);
 
-    if ($str =~ /<(\S+)>/) {
-	$ret = $1;
-    } elsif ($str =~ s/\([^\)]+\)//) {
-	$str =~ /\s*(\S+)\s*/;  $ret = $1;
-    } else {
-	$str =~ /\s*(\S+)\s*/;  $ret = $1;
+    if ($str =~ /($AddrExp)/o) {
+	return $1;
     }
-    $ret;
+    if ($str =~ /<(\S+)>/) {
+	return $1;
+    }
+    if ($str =~ s/\([^\)]+\)//) {
+	$str =~ /\s*(\S+)\s*/;
+	return $1;
+    }
+    $str =~ /\s*(\S+)\s*/;
+    return $1;
 }
 
 ##---------------------------------------------------------------------------
@@ -119,6 +122,7 @@ sub sort_messages {
     } elsif ($subsort) {
 	## Subject order
 	my(%sub, $idx, $sub);
+	use locale;
 	eval {
 	    my $hs = scalar(%Subject);  $hs =~ s|^[^/]+/||;
 	    keys(%sub) = $hs;
@@ -142,6 +146,7 @@ sub sort_messages {
     } elsif ($authsort) {
 	## Author order
 	my(%from, $idx, $from);
+	use locale;
 	eval {
 	    my $hs = scalar(%From);  $hs =~ s|^[^/]+/||;
 	    keys(%from) = $hs;

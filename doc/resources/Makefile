@@ -1,7 +1,7 @@
-# 01/03/03 11:19:04
+# $Date: 2002/03/30 08:56:43 $ 
 
 # Where doc scripts are located
-SCRIPT_DIR  = ../.src
+SCRIPT_DIR  = ../_helper
 # Root of mhonarc source
 MHA_SRC_DIR = ../..
 

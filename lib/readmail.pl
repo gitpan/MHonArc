@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) readmail.pl 2.14 01/11/13 23:08:32
+##	$Id: readmail.pl,v 2.16 2002/04/04 03:39:26 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -46,12 +46,6 @@ package readmail;
 ##---------------------------------------------------------------------------##
 ##	Scalar Variables
 ##
-
-##  Variable storing the mulitple fields separator value for the
-##  the read header routines.
-##  DEPRECATED: NO LONGER USED BY ANY ROUTINES IN THIS LIBRARY.
-
-$FieldSep	= "\034";
 
 ##  Flag if message headers are decoded in the parse header routines:
 ##  MAILread_header, MAILread_file_header.  This only affects the
@@ -436,7 +430,7 @@ sub MAILread_body {
 	$content = $fields->{'content-type'}->[0];
     }
     $content = 'text/plain'  unless $content;
-    ($ctype) = $content =~ m%^\s*([\w-\./]+)%;	# Extract content-type
+    ($ctype) = $content =~ m%^\s*([\w\-\./]+)%;	# Extract content-type
     $ctype =~ tr/A-Z/a-z/;			# Convert to lowercase
     if ($ctype =~ m%/%) {			# Extract base and sub types
 	($type,$subtype) = split(/\//, $ctype, 2);
@@ -578,11 +572,11 @@ sub MAILread_body {
 		$partfields = $href->{'fields'} = (MAILread_header($part))[0];
 		$href->{'body'} = $part;
 		$href->{'filtered'} = 0;
-		push(@entity, $href);
 
 		## only add to %Cid if not excluded
 		if (!defined($partfields->{'content-type'}) ||
 			!&MAILis_excluded($partfields->{'content-type'}[0])) {
+		    push(@entity, $href);
 		    $cid = $partfields->{'content-id'}[0] ||
 			   $partfields->{'message-id'}[0];
 		    if (defined($cid)) {
@@ -790,7 +784,7 @@ sub MAILread_file_header {
 ##
 sub MAILis_excluded {
     my $content = $_[0] || 'text/plain';
-    my($ctype) = $content =~ m|^\s*([\w-\./]+)|;
+    my($ctype) = $content =~ m|^\s*([\w\-\./]+)|;
     $ctype =~ tr/A-Z/a-z/;
     if ($MIMEExcs{$ctype}) {
 	return 1;

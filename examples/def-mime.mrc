@@ -1,5 +1,5 @@
 <!-- ================================================================== -->
-<!--    @(#) def-mime.mrc 1.11 01/10/06 19:52:36
+<!--    $Id: def-mime.mrc,v 1.11 2001/10/06 13:52:36 ehood Exp $
         Earl Hood <earl@earlhood.com>
   -->
 <!--    MHonArc Resource File                                           --

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) qprint.pl 2.5 01/09/17 22:09:32
+##	$Id: qprint.pl,v 2.5 2001/09/17 16:09:32 ehood Exp $
 ##  Authors:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##	Alan Barrett	barrett@daisy.ee.und.ac.za

@@ -17,12 +17,12 @@
 
 <dl>
 
-<dt><strong>Envariable</strong><dt>
+<dt><strong>Envariable</strong></dt>
 <dd><p>N/A
 </p>
 </dd>
 
-<dt><strong>Element</strong><dt>
+<dt><strong>Element</strong></dt>
 <dd><p>
 <code>&lt;MIMEFILTERS&gt;</code></br>
 <var>filter-specification</var><br>
@@ -31,7 +31,7 @@
 </p>
 </dd>
 
-<dt><strong>Command-line Option</strong><dt>
+<dt><strong>Command-line Option</strong></dt>
 <dd><p>N/A
 </p>
 </dd>
@@ -332,7 +332,7 @@ will be provided based on the specified content-type of the data.
 <p>If the <tt>useicon</tt> filter argument has been specified for the
 filter, the following format will be used:
 </p>
-<dl><dd><p><strong><a href="" ><img src="../monicon.gif" align="left" border=0 alt="Attachment:"></a>
+<dl><dd><p><strong><a href="" ><img src="../monicon.png" align="left" border=0 alt="Attachment:"></a>
 <a href="" ><tt>blueball.gif</tt></a></strong><br>
 <em>Description:</em> Blue ball GIF icon</p>
 </dd></dl>
@@ -1335,6 +1335,19 @@ convert the characters to the appropriate entity references.
 <hr size=0 noshade width="50%">
 <H3><a name="m2h_text_html">m2h_text_html::filter</a></h3>
 
+<table border=0 cellpadding=4>
+<tr valign=top>
+<td><strong><font color="red">CAUTION</font></strong></td>
+<td><p>
+If you are worried about security, it is recommended that you disable
+support of text/html messages in your mail archives.  There is no
+guarantee that this filter is robust enough to eliminate all possible
+exploits that can occur with HTML data.
+</p>
+</td>
+</tr>
+</table>
+
 <p>This filter is designed to process <tt>text/html</tt>, or
 <tt>text/x-html</tt>, data.
 The filter modifies HTML documents so they can be
@@ -1386,7 +1399,7 @@ The following attributes are removed:
 <tt>onkeydown</tt>,
 <tt>onkeyup</tt>.
 The <strong><tt>allowscript</tt></strong> option can be
-be used to override the this behavior (see below).
+be used to override this behavior (see below).
 </p></li>
 <li><p><b><tt>cid:</tt></b> URLs are resolved, if possible.  Therefore,
 if image data related to the HTML document is included with the message,
@@ -1656,82 +1669,29 @@ content-type is shown.
 <hr>
 <h2>Examples</h2>
 
-<p>The following code is an example filter for HTML message data
-(note, this example has a subset of the functionality of the HTML
-filter used by MHonArc):
+<p>The following code is an example filter for converting
+<tt>text/tab-separated-values</tt> into an HTML table:
 </p>
 <pre>
-##---------------------------------------------------------------------------##
-##    Copyright (C) 1995-1998	Earl Hood, mhonarc@mhonarc.org
-##---------------------------------------------------------------------------##
+package m2h_text_tsv;
 
-package m2h_text_html;
-
-$Url	= '(\w+://|\w+:)';	# Beginning of URL match expression
-
-##---------------------------------------------------------------------------
-##	The filter must modify HTML content parts for merging into the
-##	final filtered HTML messages.  Modification is needed so the
-##	resulting filtered message is valid HTML.
-##
 sub filter {
-    local($header, *fields, *data, $isdecode, $args) = @_;
-    local($base, $title, $tmp);
-    $base 	= '';
-    $title	= '';
-    $tmp	= '';
+    my($fields, $data, $isdecode, $args) = @_;
+    my($field, $line, $ret);
+    local($_);
 
-    ## Get/remove title
-    if ($data =~ s%&lt;title\s*&gt;([^&lt;]*)&lt;/title\s*&gt;%%i) {
-        $title = "&lt;ADDRESS&gt;Title: &lt;STRONG&gt;$1&lt;/STRONG&gt;&lt;/ADDRESS&gt;\n";
-    }
-    ## Get/remove BASE url
-    if ($data =~ s%(&lt;base\s[^&gt;]*&gt;)%%i) {
-        $tmp = $1;
-        if ($tmp =~ m|href\s*=\s*['"]([^'"]+)['"]|i) {
-	    $base = $1;
-	} elsif ($tmp =~ m|href\s*=\s*([^\s&gt;]+)|i) {
-	    $base = $1;
+    $$data =~ s/^\s+//;
+    $ret  = "&lt;table border=1&gt;\n";
+    foreach $line (split(/\r?\n/, $$data)) {
+	$ret .= "&lt;tr&gt;";
+	foreach $field (split(/\t/, $line)) {
+	    $ret .= "&lt;td&gt;$field&lt;/td&gt;";
 	}
-    } elsif ((defined($tmp = $fields{'content-base'}) ||
-	      defined($tmp = $fields{'content-location'})) &amp;&amp;
-	     ($tmp =~ m%/%)) {
-	($base = $tmp) =~ s/['"\s]//g;
+	$ret .= "&lt;/tr&gt;\n";
     }
-    $base =~ s%(.*/).*%$1%;
-
-    ## Strip out certain elements/tags
-    $data =~ s%&lt;!doctype\s[^&gt;]*&gt;%%i;
-    $data =~ s%&lt;/?html[^&gt;]*&gt;%%ig;
-    $data =~ s%&lt;/?body[^&gt;]*&gt;%%ig;
-    $data =~ s%&lt;head\s*&gt;[\s\S]*&lt;/head\s*&gt;%%i;
-
-    ## Modify relative urls to absolute using BASE
-    if ($base =~ /\S/) {
-        $data =~ s%(href\s*=\s*['"])([^'"]+)(['"])%
-		   &amp;addbase($base,$1,$2,$3)%gei;
-        $data =~ s%(src\s*=\s*['"])([^'"]+)(['"])%
-                   &amp;addbase($base,$1,$2,$3)%gei;
-    }
-
-    ($title . $data);
+    $ret .= "&lt;/table&gt;\n";
+    ($ret);
 }
-##---------------------------------------------------------------------------
-sub addbase {
-    local($b, $pre, $u, $suf) = @_;
-    local($ret);
-    $u =~ s/^\s+//;
-    if ($u =~ m%^$Url%o) {	# Non-relative URL, do nothing
-        $ret = $pre . $u . $suf;
-    } else {			# Relative URL
-	if ($u =~ m%^/%) {		# Check for "/..."
-	    $b =~ s%^(${Url}[^/]*)/.*%$1%o;	# Get hostname:port number
-	}
-        $ret = $pre . $b . $u . $suf;
-    }
-    $ret;
-}
-##---------------------------------------------------------------------------
 
 1;
 </pre>
@@ -1758,8 +1718,8 @@ sub addbase {
 <!-- *************************************************************** -->
 <hr>
 <address>
-01/10/06 19:51:25<br>
-<img align="top" src="../monicon.gif" alt="">
+$Date: 2002/04/01 20:37:31 $ <br>
+<img align="top" src="../monicon.png" alt="">
 <a href="http://www.mhonarc.org"><strong>MHonArc</strong></a><br>
 Copyright &#169; 1997-2001 <a href="http://www.mhonarc.org/~ehood/">Earl Hood</a>, <a href="mailto:mhonarc@mhonarc.org">mhonarc@mhonarc.org</a><br>
 </address>

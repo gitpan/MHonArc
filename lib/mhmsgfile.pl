@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhmsgfile.pl 1.6 01/09/17 22:10:28
+##	$Id: mhmsgfile.pl,v 1.6 2001/09/17 16:10:28 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

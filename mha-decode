@@ -1,7 +1,7 @@
 #!/usr/local/bin/perl
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mha-decode 1.5 01/09/18 00:17:10
+##	$Id: mha-decode,v 1.5 2001/09/17 18:17:10 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

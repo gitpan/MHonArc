@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhopt.pl 2.24 01/11/13 23:09:36
+##      $Id: mhopt.pl,v 2.25 2002/03/06 15:11:28 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -717,10 +717,10 @@ sub update_data_1_to_2 {
     #--------------------------------------
     my($index);
     foreach $index (keys %From) {
-	$From{$index} =~ s/\&([\w-.]+);/&entname_to_char($1)/ge;
+	$From{$index} =~ s/\&([\w\-.]+);/&entname_to_char($1)/ge;
     }
     foreach $index (keys %Subject) {
-	$Subject{$index} =~ s/\&([\w-.]+);/&entname_to_char($1)/ge;
+	$Subject{$index} =~ s/\&([\w\-.]+);/&entname_to_char($1)/ge;
     }
     delete $IndexNum{''};
     $TLITXT = '<li>' . $TLITXT  unless ($TLITXT) && ($TLITXT =~ /<li>/i);

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcvars.pl 2.16 01/10/06 20:02:27
+##	$Id: mhrcvars.pl,v 2.17 2002/04/18 06:12:39 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -187,7 +187,7 @@ sub replace_li_var {
 	}
     	if ($var eq 'MSGID') {		## Message-ID
 	    ($lref, $key, $pos) = compute_msg_pos($index, $var, $arg);
-	    $tmp = defined($key) ? $Index2MsgId{$index} : "";
+	    $tmp = defined($key) ? $Index2MsgId{$key} : "";
 	    last REPLACESW;
 	}
     	if ($var eq 'MSGLOCALDATE') {	## Message local date

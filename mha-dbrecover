@@ -1,7 +1,7 @@
 #!/usr/local/bin/perl
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mha-dbrecover 1.6 01/11/18 13:25:34
+##	$Id: mha-dbrecover,v 1.6 2001/11/18 07:25:34 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhnull.pl 1.7 01/09/17 22:10:30
+##	$Id: mhnull.pl,v 1.7 2001/09/17 16:10:30 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

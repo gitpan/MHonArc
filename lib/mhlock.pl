@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhlock.pl 1.3 01/09/17 22:10:40
+##      $Id: mhlock.pl,v 1.3 2001/09/17 16:10:40 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

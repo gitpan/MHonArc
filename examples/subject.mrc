@@ -1,5 +1,5 @@
 <!-- MHonArc Resource File -->
-<!-- @(#) subject.mrc 99/06/25 13:25:44
+<!-- %Z% $RCSfile: subject.mrc,v $ $Date: 1999/06/25 08:25:44 $ 
      Earl Hood <mhonarc@pobox.com>
   -->
 <!-- This resource file utilizes the subject grouping feature of MHonArc

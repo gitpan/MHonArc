@@ -97,6 +97,83 @@ summary of the solution, and the version of MHonArc the bug was fixed.
 
 ---------------------------------------------------------------------------
                                                                            
+ Version: 2.5.2, and earlier                                               
+                                                                           
+ Problem: The $MSGID$ resource variable always expanded to the message-id  
+          of the current message, regardless of the value of any mesg_spec 
+          argument.                                                        
+                                                                           
+Solution: Fixed in mhrcvars.pl.                                            
+                                                                           
+   Fixed: 2.5.3                                                            
+                                                                           
+---------------------------------------------------------------------------
+                                                                           
+ Version: 2.5.2, and earlier                                               
+                                                                           
+ Problem: Excluding a media-type via MIMEEXCS does not cause a lesser      
+          alternative part in a multipart/alternative message to be used.  
+          For example, if text/html is listed in MIMEEXCS and a multipart/ 
+          alternative message contains a text/plain part and a text/html   
+          part, the converted message will contain the text/html excluded  
+          statement instead of the text/plain data.                        
+                                                                           
+Solution: Fixed in readmail.pl: Any part in a multipart message that is in 
+          MIMEEXCS will be quietly dropped.                                
+                                                                           
+   Fixed: 2.5.3                                                            
+                                                                           
+---------------------------------------------------------------------------
+                                                                           
+ Version: 2.5.2, and earlier                                               
+                                                                           
+ Problem: Makefile.PL will generate an error if arguments passed to it are 
+          not variable definitions. For example, "perl Makefile.PL         
+          somearg", will cause the following Perl error, "Odd number of    
+          elements in hash list..."                                        
+                                                                           
+Solution: Fixed to only define variables specified on the command-line that
+          actually look like variable definitions: "VAR=VALUE".            
+                                                                           
+   Fixed: 2.5.3                                                            
+                                                                           
+---------------------------------------------------------------------------
+                                                                           
+ Version: 2.5.2, and possibly earlier versions                             
+                                                                           
+ Problem: Perl generates the following message: "/&([\w-.]+);/: false []   
+          range "\w-" in regexp at mhopt.pl line 720."                     
+                                                                           
+Solution: Fixed in mhopt.pl: Escape the '-' so it is not interpreted as a  
+          possible character range specifier.                              
+                                                                           
+   Fixed: 2.5.3                                                            
+                                                                           
+---------------------------------------------------------------------------
+                                                                           
+ Version: 2.5.2, and possibly earlier versions                             
+                                                                           
+ Problem: Using the default resource file could cause mhonarc to abort with
+          a, "Can't locate readmail.pl in @INC ...," error message.        
+                                                                           
+Solution: Fixed in mhrcfile.pl: Localize $_ to protect from modifying any  
+          arrays from caller.                                              
+                                                                           
+   Fixed: 2.5.3                                                            
+                                                                           
+---------------------------------------------------------------------------
+                                                                           
+ Version: 2.5.0 - 2.5.2                                                    
+                                                                           
+ Problem: Example filter shown in MIMEFILTERS resource page uses           
+          pre-2.5-style API.                                               
+                                                                           
+Solution: Fixed example.                                                   
+                                                                           
+   Fixed: 2.5.3                                                            
+                                                                           
+---------------------------------------------------------------------------
+                                                                           
  Version: 2.5.0, 2.5.1                                                     
                                                                            
  Problem: Messages with the "X-no-archive: yes" message header field are   
@@ -1516,7 +1593,7 @@ Solution: Fixed.
 
 ---------------------------------------------------------------------------
 
-01/11/24 03:33:57
+$Date: 2002/04/18 06:12:37 $
 [monicon] MHonArc
 Copyright © 1997-1999, Earl Hood, mhonarc@mhonarc.org
 

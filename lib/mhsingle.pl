@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhsingle.pl 1.6 01/08/26 01:56:59
+##      $Id: mhsingle.pl,v 1.6 2001/08/25 19:56:59 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

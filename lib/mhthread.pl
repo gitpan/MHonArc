@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhthread.pl 2.8 01/09/05 21:58:48
+##      $Id: mhthread.pl,v 2.8 2001/09/05 15:58:48 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

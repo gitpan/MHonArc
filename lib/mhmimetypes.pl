@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhmimetypes.pl 1.7 01/09/17 22:10:42
+##	$Id: mhmimetypes.pl,v 1.8 2002/03/05 07:37:54 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -181,6 +181,8 @@ $UnknownExt     = 'bin';
     'image/ief',			'ief:IEF image',
     'image/ifs',			'ifs:IFS image',
     'image/jpeg',			'jpg,jpeg,jpe:JPEG image',
+    'image/pbm',			'pbm:Portable bitmap',
+    'image/pgm',			'pgm:Portable graymap',
     'image/png',			'png:PNG image',
     'image/tiff',			'tif,tiff:TIFF image',
     'image/vnd',			'dwg:VND image',

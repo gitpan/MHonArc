@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhexternal.pl 2.10 01/10/06 20:02:38
+##	$Id: mhexternal.pl,v 2.10 2001/10/06 14:02:38 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhscan.pl 1.3 01/09/17 22:10:37
+##      $Id: mhscan.pl,v 1.3 2001/09/17 16:10:37 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:

@@ -1,5 +1,5 @@
 <!-- MHonArc Resource File -->
-<!-- @(#) date.mrc 99/06/25 13:25:39
+<!-- %Z% $RCSfile: date.mrc,v $ $Date: 1999/06/25 08:25:39 $ 
      Earl Hood <mhonarc@pobox.com>
   -->
 <!-- This resource file utilizes the day grouping feature of MHonArc

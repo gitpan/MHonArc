@@ -1,5 +1,5 @@
 <!-- ================================================================== -->
-<!--	@(#) frames.mrc 1.8 99/07/25 01:01:43
+<!--	$Id: frames.mrc,v 1.8 1999/07/24 20:01:43 ehood Exp $
 	Earl Hood <mhonarc@pobox.com>
   -->
 <!--	MHonArc Resource File					--

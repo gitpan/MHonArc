@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhamain.pl 2.31 01/11/24 01:53:40
+##	$Id: mhamain.pl,v 2.34 2002/04/02 06:59:31 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -27,10 +27,12 @@
 
 package mhonarc;
 
-$VERSION = "2.5.2";
+require 5;
+
+$VERSION = "2.5.3";
 $VINFO =<<EndOfInfo;
   MHonArc v$VERSION (Perl $] $^O)
-  Copyright (C) 1995-2001  Earl Hood, mhonarc\@mhonarc.org
+  Copyright (C) 1995-2002  Earl Hood, mhonarc\@mhonarc.org
   MHonArc comes with ABSOLUTELY NO WARRANTY and MHonArc may be copied only
   under the terms of the GNU General Public License, which may be found in
   the MHonArc distribution.
@@ -1225,8 +1227,12 @@ sub output_mail {
     if ($MODTIME && !$SINGLE) {
 	eval {
 	    $tmp = get_time_from_index($index);
-	    @array2 = @{$Derived{$index}};
-	    grep($_ = $OUTDIR . $DIRSEP . $_, @array2);
+	    if (defined($Derived{$index})) {
+	      @array2 = @{$Derived{$index}};
+	      grep($_ = $OUTDIR . $DIRSEP . $_, @array2);
+	    } else {
+	      @array2 = ( );
+	    }
 	    unshift(@array2, $filepathname);
 	    file_utime($tmp, $tmp, @array2);
 	};
