@@ -1,7 +1,7 @@
 Bug History for MHonArc
 =======================
 <URL:http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
-@(#) BUGS 98/11/01 00:06:45
+@(#) BUGS 98/11/08 13:05:02
 
 Each bug listing has the following fields:
 
@@ -15,6 +15,28 @@ Each bug listing has the following fields:
 		    applicable.
 
 Bug List
+------------------------------------------------------------------------
+Version:	2.3.0-2.3.2
+Problem:   	-otherindex and -perlinc command-line options do not
+		work.  Using them has no affect.
+Solution:	Subtle precedence issue in Perl variable operations;
+		problem fixed.
+Version Fixed:	2.3.3
+------------------------------------------------------------------------
+Version:	2.3.0-2.3.2
+Problem:   	Resource variable expansion not working properly in
+		MAILTOURL resource.
+Solution:	Certain variables in read_mail_header() where put in
+		my() declarations when they should stay as local()'s.
+		Changed back.
+Version Fixed:	2.3.3
+------------------------------------------------------------------------
+Version:	2.3.0-2.3.2
+Problem:   	Next/previous message link resource variables are
+		reversed when REVERSE is on.
+Solution:	REVERSE check was left out in new v2.3 replace_li_var().
+		Check added in.
+Version Fixed:	2.3.3
 ------------------------------------------------------------------------
 Version:	2.3.0, 2.3.1
 Problem:   	Some resource variables (eg $SUBJECTNA$) expand to

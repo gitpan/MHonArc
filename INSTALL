@@ -74,6 +74,7 @@ available:
   -nolib                : Do not install library files
   -noman                : Do not install manpages
   -perl <pathname>      : Pathname of perl interpreter
+  -prefix <path>        : Set prefix for installation directories
 
 For example, if you do not want to install the documentation, do
 the following:
@@ -84,6 +85,11 @@ Later on, if you decide you want to install the documentation, but
 not re-install the other files, do the following:
 
     shell-prompt> perl install.me -nobin -nolib -noman
+
+If you want to install files relative to your home directory, do the
+following:
+
+    shell-prompt> perl install.me -prefix $HOME
 
 ---------------------------------------------------------------------------
 install.me NOTES
@@ -96,19 +102,19 @@ install.me NOTES
     o	The installation lib directory is added to each program's
 	search path so each program can find the libaries needed for
 	proper execution.  Therefore, you should NOT have to set your
-	PERL5LIB environment if you install the library files in a
-	location not in the default perl library search path.
+	PERL5LIB environment variable if you install the library files
+	in a location not in the default perl library search path.
 
     o	If you specify paths that do not exist, the install.me
-	program will create the path ONLY if running in interactive
-	mode (you will be prompted before path is created).  If running
-	in batch mode, you must check that all paths specified exist.
+	program will create the paths for you.	If running in
+	interactive mode, you will be prompted before each path
+	is created.
 
     o	install.me supports environment variable interpolation in
-	pathnames specified during installation.  For example, if
-	you want to install the program files into your local bin
-	directory, you can enter the following when prompted for the
-	location to install executables:
+	pathnames specified during interactive installation.
+	For example, if you want to install the program files into
+	your local bin directory, you can enter the following when
+	prompted for the location to install executables:
 
 	    $HOME/bin
 
@@ -198,4 +204,4 @@ terminals.
 
 ---------------------------------------------------------------------------
 Copyright (C) 1997-1998,	Earl Hood, earlhood@usa.net
-@(#) INSTALL 98/11/01 13:32:58
+@(#) INSTALL 98/11/08 15:56:28

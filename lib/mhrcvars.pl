@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcvars.pl 2.4 98/09/30 22:45:54
+##	@(#) mhrcvars.pl 2.5 98/11/02 22:32:45
 ##  Author:
 ##      Earl Hood       earlhood@usa.net
 ##  Description:
@@ -535,7 +535,8 @@ sub replace_li_var {
 sub compute_msg_pos {
     my($idx, $var, $arg) = @_;
     my($ofs, $pos, $aref, $href, $key);
-    my($opt) = undef;
+    my $opt  = undef;
+    my $flip = 0;
 
     ## Determine what list type
     if ($arg =~ s/^T//) {
@@ -544,6 +545,7 @@ sub compute_msg_pos {
     } else {
 	$aref = \@MListOrder;
 	$href = \%Index2MLoc;
+	$flip = $REVSORT;
     }
 
     ## Extract out optional data
@@ -552,15 +554,15 @@ sub compute_msg_pos {
     SW: {
 	$ofs =  0, last SW
 	    if $arg eq "" or $arg eq 'CUR';
-	$ofs = -1, last SW
+	$ofs = ($flip ? 1 : -1), last SW
 	    if $arg eq 'PREV';
-	$ofs =  1, last SW
+	$ofs = ($flip ? -1 : 1), last SW
 	    if $arg eq 'NEXT';
-	$ofs = $aref->[0], last SW
+	$ofs = ($flip ? $aref->[$#$aref] : $aref->[0]), last SW
 	    if $arg eq 'FIRST';
-	$ofs = $aref->[$#$aref], last SW
+	$ofs = ($flip ? $aref->[$#$aref] : $aref->[0]), last SW
 	    if $arg eq 'LAST';
-	$ofs = $arg, last SW
+	$ofs = ($flip ? -$arg : $arg), last SW
 	    if $arg =~ /^-?\d+$/;
 	if ($arg eq 'PARENT') {
 	    my $level = $ThreadLevel{$idx};

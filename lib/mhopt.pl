@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhopt.pl 2.7 98/09/30 22:47:34
+##      @(#) mhopt.pl 2.8 98/11/08 11:55:42
 ##  Author:
 ##      Earl Hood       earlhood@usa.net
 ##  Description:
@@ -34,7 +34,7 @@ use Getopt::Long;
 ##	the command-line and resource file(s).
 ##
 sub get_resources {
-    my($tmp, @array);
+    my($tmp);
     my(%opt) = ();
     local($_);
 
@@ -325,8 +325,9 @@ sub get_resources {
 
     ## Other indexes resource files
     if (defined($opt{'otherindex'})) {
-	@array = ();
-	foreach (@$opt{'otherindex'}) {
+	my @array = ();
+	local($_);
+	foreach (@{$opt{'otherindex'}}) {
 	    push(@array, split(/$PATHSEP/o, $_));
 	}
 	unshift(@OtherIdxs, @array);
@@ -334,8 +335,9 @@ sub get_resources {
 
     ## Perl INC paths
     if (defined($opt{'perlinc'})) {
-	@array = ();
-	foreach (@$opt{'perlinc'}) {
+	my @array = ();
+	local($_);
+	foreach (@{$opt{'perlinc'}}) {
 	    push(@array, split(/$PATHSEP/o, $_));
 	}
 	unshift(@PerlINC, @array);
@@ -406,7 +408,7 @@ sub get_resources {
 
     ## Parse any rc variable definition from command-line
     if (defined($opt{'definevar'})) {
-	@array = ();
+	my @array = ();
 	foreach (@{$opt{'definevar'}}) {
 	    push(@array, &parse_vardef_str($_));
 	}
@@ -529,6 +531,7 @@ sub get_resources {
 
     ## Set $ExpireDateTime from $ExpireDate
     if ($ExpireDate) {
+	my @array = ();
 	if (@array = &parse_date($ExpireDate)) {
 	    $ExpireDateTime = &get_time_from_date(@array[1..$#array]);
 	} else {

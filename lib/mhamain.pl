@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhamain.pl 2.9 98/10/31 23:33:51
+##	@(#) mhamain.pl 2.10 98/11/08 12:17:52
 ##  Author:
 ##      Earl Hood       earlhood@usa.net
 ##  Description:
@@ -27,7 +27,7 @@
 
 package mhonarc;
 
-$VERSION = "2.3.2";
+$VERSION = "2.3.3";
 $VINFO =<<EndOfInfo;
   MHonArc v$VERSION (Perl $])
   Copyright (C) 1995-1998  Earl Hood, earlhood\@usa.net
@@ -673,8 +673,8 @@ sub write_mail {
 ##
 sub read_mail_header {
     local($handle, *mesg, *fields) = @_;
-    my(%l2o, $header, $index, $from, $sub, $date, $tmp, $msgid,
-	@refs, @array);
+    my(%l2o, $header, $index, $date, $tmp, @refs, @array);
+    local($from, $sub, $msgid);
     local($_);
 
     $header = &readmail::MAILread_file_header($handle, *fields, *l2o);

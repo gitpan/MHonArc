@@ -10,6 +10,27 @@ MM/DD/YYYY
 =======================================================================
 #######################################################################
 =======================================================================
+11/08/1998	(2.3.3)
+
+    Bug Fixes
+    ---------
+    Problem:   	-otherindex and -perlinc command-line options do not
+		work.  Using them has no affect.
+    Solution:	Subtle precedence issue in Perl variable operations;
+		problem fixed.
+
+    Problem:   	Resource variable expansion not working properly in
+		MAILTOURL resource.
+    Solution:	Certain variables in read_mail_header() where put in
+		my() declarations when they should stay as local()'s.
+		Changed back.
+
+    Problem:   	Next/previous message link resource variables are
+		reversed when REVERSE is on.
+    Solution:	REVERSE check was left out in new v2.3 replace_li_var().
+		Check added in.
+
+=======================================================================
 11/01/1998	(2.3.2)
 
     Enhancements/Changes
@@ -1436,4 +1457,4 @@ MM/DD/YYYY
 #######################################################################
 =======================================================================
 Earl Hood, earlhood@usa.net
-@(#) CHANGES 98/11/01 13:32:57
+@(#) CHANGES 98/11/08 13:06:01
