@@ -1,0 +1,56 @@
+Release Notes for MHonArc
+
+    http://www.oac.uci.edu/indiv/ehood/mhonarc.html
+
+Also read the CHANGES document for changes that may affect
+you if you are a user of an earlier version of MHonArc.
+
+===========================================================================
+Version 2.1.0
+
+    o	See the Warnings in the documentation for the new HTMLEXT
+	and MSGPREFIX resources before using them.
+
+    o	To take advantage of the new default MIMEFILTERS setting
+	for existing archives, you will need set the MIMEFILERS
+	resource in a update operation.  The simplest approach
+	is to perform an -editidx on existing archives with a
+	resource file containing the following settings:
+
+	<MIMEFILTERS>
+	model/*:m2h_external'filter:mhexternal.pl
+	text/enriched:m2h_text_enriched'filter:mhtxtenrich.pl
+	text/richtext:m2h_text_enriched'filter:mhtxtenrich.pl
+	</MIMEFILTERS>
+
+---------------------------------------------------------------------------
+
+Version 2.0.1
+
+	See the BUGS file for an important bug fix related to
+	empty database entries.
+
+---------------------------------------------------------------------------
+
+Version 2.0.0
+
+	o  The installation process has changed slightly.  Please
+	   read the installation instructions in the README
+	   carefully.
+
+	o  Documentation is now provided only in HTML.
+
+	o  There are some changes to how data is stored in the
+	   database file from v1.x.  If MHonArc v2.0 reads a 1.x
+	   archive, it will automatically convert the 1.x data into
+	   2.0 data.  All existing resource settings will be preserved.
+
+	   NOTE
+		Once an archive has been processed by v2.0, the
+		database may no longer be utilized by v1.x.  If
+		v1.x is used later to process the archive,
+		unpredictable results will occur.
+
+
+===========================================================================
+97/06/06 19:47:09

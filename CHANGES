@@ -1,0 +1,1001 @@
+CHANGES for MHonArc
+
+    http://www.oac.uci.edu/indiv/ehood/mhonarc.html
+
+Revision history for MHonArc.  Changes listed are brief.  Consult
+the documentation for further information/clarification.  It is
+possible that not all changes are documented here.
+
+MM/DD/YY
+=======================================================================
+#######################################################################
+=======================================================================
+06/09/97	(2.1.0)
+
+    Enhancements/Changes
+    --------------------
+
+	o  Added the following resources:
+
+		DEFRCNAME	Base name of default resource file
+		FOLUPBEGIN	Begin markup for message follow-ups
+		FOLUPEND	End markup for message follow-ups
+		FOLUPLITXT	Markup for follow-up list entry
+		GZIPEXE		Pathname of gzip executable
+		GZIPFILES	Gzip files
+		GZIPLINKS	Add ".gz" to filenames in URLs
+		HTMLEXT		HTML extension for files
+		MSGBODYEND	Markup at end of converted message body
+		MSGPREFIX	Prefix for message filenames
+		REFSBEGIN	Begin markup for message references
+		REFSEND 	End markup for message references
+		REFSLITXT	Markup for reference list entry
+		TSORT		Sort threads by date or message number
+		TSUBSORT	Sort threads by subject
+
+	o  Changes to mhexternal.pl filter:
+	
+	    -  Two new options: useicons and iconurl="url".
+	    -  Added some more content-types to CTExt hash.
+
+	o  Added filter for text/enriched data (mhtxtenrich.pl).
+
+	o  Changed default setting for MIMEFILTERS.  The following
+	   was added:
+
+	    model/*:m2h_external'filter:mhexternal.pl
+	    text/enriched:m2h_text_enriched'filter:mhtxtenrich.pl
+	    text/richtext:m2h_text_enriched'filter:mhtxtenrich.pl
+
+	o  Some code moved to new library files (mhopt.pl,
+	   mhfile.pl).
+
+
+    Bug Fixes
+    ---------
+    Problem:    An undefined subroutine error occured during an
+		RMM operation when there are messages with non-ASCII
+		encodings in message headers.
+    Solution:   Proper libraries are now loaded for RMM operations.
+
+    Problem:   	Subjects using the "... -Reply" convention started
+		a new thread.
+    Solution:  	Fixed typo in regexp.
+
+    Problem:   	Nested anchor markup occurs on index pages where
+		a message's subject contains a URL and the subject
+		is used to link to the message page.
+    Solution:  	Replaced default routine that converts subject text
+
+
+=======================================================================
+05/23/97	(2.0.1)
+
+    Bug Fixes
+    ---------
+
+    Problem:   	Bogus empty entry shows up in the database.  Bogus
+		entry appears if a duplicate message is detected.
+		Potential visible problems of bogus entry are: mailto
+		links in headers corrupted; a blank listing in the
+		index.  Maybe other potential problems.
+    Solution:  	There is a be a bug in some versions of Perl where a
+		hash key gets added invalidly.  The section of code that
+		this occurs has been modified to avoid the problem.
+		For existing databases with a bogus empty entry,
+		MHonArc now removes any empty key entries.
+		However, it is recommed to rebuild the archive.
+
+    Problem:   	Index pages are not properly updated if zero messages
+		are in the archive (like through the -rmm option).
+		Even -editidx cannot cause a proper update.
+    Solution:  	Page count was set to zero when no messages exist.  This
+		caused problems in conditional checks in the write index
+		routines.  To fix, page count is forced to 1 if their
+		are no messages.
+
+=======================================================================
+05/16/97	(2.0.0)
+
+    Enhancements:
+
+	o  Added TCONTBEGIN, TCONTEND, TINDENTBEGIN, TINDENTEND
+	   resources.  They are provided to support the formatting
+	   of threads that split across multiple pages of a
+	   multipage index.
+
+	o  Added "nonfixed", "maxwidth", and "keepspace" options
+	   to text/plain (mhtxtplain.pl) filter.
+
+	o  A directory file is now used for performing archive
+	   locking.  This should provide better portability across
+	   operating systems.
+
+	o  Dervied files returned from filters can be directories.
+	   If so, the any directory is completely removed if the
+	   message is removed.
+
+	o  The mhexternal.pl filter can now output files into
+	   a subdirectory with the "subdir" option.  This may be
+	   useful for those wanting to use the "usename" option
+	   and avoid potential filename conflicts.
+
+	o  The $NEXT...$ and $PREV...$ resource variables now
+	   behave as one may expect.  I.e.  The are always relative
+	   to the base sort method: date, author, subject, message
+	   number.  The REVERSE resource has no effect on their
+	   values.  Therefore, the variables no longer refer to
+	   the actual physical listing order.  This new behavior
+	   no longer requires a users to redefine button and link
+	   resources for the sake of specifying REVERSE.
+
+	o  "Resent-To" and "Resent-Cc" will now have e-mail
+	   address hyperlinked.
+
+	o  Unknown types processed by mhexternal.pl now default
+	   to have a ".bin" extension.  This should cause HTTP
+	   servers to treat the file as application/octet-stream.
+
+	o  Standard input can be specified as the source of a
+	   mailbox by using a lone "-" on the command-line.  Note:
+	   You may need to specify "--" first to shut-off option
+	   processing so the "-" is not interpreted as the start
+	   of an option.
+
+    Bug Fixes:
+
+	o  Problem:   	Index pages with last page links are not updated
+		      	when a new page is added.
+	   Solution:  	All index pages are regenerated if a new page
+		      	is added.
+
+	o  Problem:   	"-idxsize 0" does not give unlimited page size.
+	   Solution:  	Problem fixed and now works as documented.
+
+	o  Problem:   	"-maxsize 0" does not reset archive with
+			unlimited messages allowed.
+	   Solution:  	Problem fixed and now works as documented.
+
+	o  Problem:   	Non-ASCII text encodings (=?ISO-..?...) are not
+		      	properly decoded when EDITIDX is set.
+	   Solution:  	The charset filter libraries are now loaded
+		      	for EDITIDX.
+
+	o  Problem:   	MODTIME resource setting not remembered across
+		      	archive updates.
+	   Solution:  	MODTIME resource is now properly stored in the
+		      	database.
+
+	o  Problem:   	Specifying -rmm and -single caused confusion on
+		      	what MHonArc does.
+	   Solution:  	The case is properly handled, with -rmm taking
+		      	precedence.
+
+	o  Problem:	4 digit year not checked before 2 digit year
+			when parsing dates.
+	   Solution:	Fixed.
+
+	o  Problem:	Some index pages in multipage indexes not
+			updated when messages expire.
+	   Solution:	Fixed; all pages are regenerated when a message
+			expires.
+
+	o  Problem:	Setting MONTHS and MONTHSABR had no effect.
+	   Solution:	Fixed.
+
+	o  Problem:	$TNEXTFROM$ actually gave the value of $NEXTFROM$.
+	   Solution:	Fixed.
+
+	o  Problem:	Numerical timezone offsets not handled properly
+			when the offset contained non-zero minutes.  This
+			caused message to be sorted wrong by date.
+	   Solution:	Fixed.
+
+	o  Problem:	Some characters were not properly escaped when
+			specifying the "in URL" modifier to a resource
+			variable.
+	   Solution:	Fixed.
+
+	o  Problem:	Thread (formatting) information lost when a
+			thread is split across multiple pages.
+	   Solution:	Fixed.  New resources (TCONTBEGIN, TCONTEND,
+			TINDENTBEGIN, TINDENTEND) exist to preserve
+			formatting of threads across pages.
+
+	o  Problem:	If specifying the REVERSE, the next/prev
+			links in messages do not point to the proper
+			message as one may expect.
+	   Solution:	This should be fixed by the new behavior of
+			$NEXT...$ and $PREV...$ resource variables.
+
+
+=======================================================================
+02/28/97	(2.0.0 beta 3)
+
+	o  Removed bogus call to output_db() when GENIDX is active.
+	   The routine is not loaded when GENIDX is active and the
+	   call causes Perl to abort.
+
+	o  Duplicates of the OTHERINDEXES resource should no longer
+	   occur.  Before, if the OTHERINDEXES resource gets set
+	   during invocation, mhonarc would store duplicate values,
+	   causing unnecessary work to be performed.
+
+	o  Fixed problem with blank indexes being created for
+	   OTHERINDEXES.  Apparently, there is a bug in Perl, and
+	   a work-around fix has been done.
+
+	o  Fixed bug where an extra TSUBLISTEND could get generated.
+
+
+=======================================================================
+02/17/97	(2.0.0 beta 2)
+
+	o  Added <nosubsort> element and -nosubsort option.
+
+	o  Changed M2H_DATEFMT envariable to M2H_GMTDATEFMT.
+
+	o  Documented LOCKTRIES and LOCKDELAY resources.
+
+	o  New resources:
+
+		AUTHORBEGIN	- Markup for start of author group
+		AUTHOREND	- Markup for end of author group
+		AUTHSORT	- Sort messages by author
+		DAYBEGIN	- Markup for start of day group
+		DAYEND  	- Markup for end of day group
+		IDXLABEL	- Label for main index
+		MSGGMTDATEFMT	- Format of $MSGGMTDATE$
+		MSGLOCALDATEFMT	- Format of $MSGLOCALDATE$
+		SUBJECTBEGIN	- Markup for start of subject group
+		SUBJECTEND	- Markup for end of subject group
+		TIDXLABEL	- Label for thread index
+
+	o  New resource variables
+		
+		$IDXLABEL$	- Label for main index
+		$MSGGMTDATE$	- Date of message in GMT format
+		$MSGLOCALDATE$	- Date of message in local format
+		$TIDXLABEL$	- Label for thread index
+
+	o  Some enhancements to the documentation.
+
+	o  Some code changes.
+
+
+=======================================================================
+01/31/97	(2.0.0 beta 1)
+
+	o  RFC 1522 support.  Charset filters can be plugged in to
+	   handle character sets not recognized by mhonarc.
+	   The library, iso8859.pl, contains charset filters for
+	   character sets iso-8859-[1-10].
+
+	o  Multi-page index generation.
+
+	o  Subject-based threading is done inconjunction with explicit
+	   threading.
+
+	o  Missing messages in a thread are recognized when processing
+	   messages that utilize the References field.
+
+	o  New resources for customizing thread indexes.  There is
+	   now complete user control on how thread indexes are
+	   formatted.
+
+	o  Resource are available to access the next and previous messages
+	   in thread from messages.
+
+	o  Inclusion of files containing resource settings can be
+	   done within a resource file.
+
+	o  Support for a default resource file.  The default resource
+	   file is one of the following, in the order of precedence:
+
+		1. File specified by the M2H_DEFRCFILE envariable
+		2. $HOME/.mhonarc.rc
+		3. <Install-Library-Dir>/.mhonarc.rc
+
+	   "<Install-Library-Dir>" is the path of the MHonArc library
+	   directory defined during installation.  For MS-DOS, replace
+	   ".mhonarc.rc" with "MHONARC.RC".
+
+	o  Support for user defined resource variables.
+
+	o  Support for user defined derived files for messages.
+
+	o  Support for the Content-Length field.
+
+	o  Modification time of messages, and derived files, can be
+	   set to the Received/Date time specified in the message.
+
+	o  More control on how mail headers get formatted.
+
+	o  Added filter in mhexternal.pl to be the default filter
+	   for main content-types: application, image, video, audio.
+
+	o  List of enhancements to mhexternal.pl:
+	
+		- Show content-type if the data is not recognized.
+		- New `ext' filter option to define the extension to
+		  use for the created file.
+		- New `type' filter option to define the "english"
+		  type name of the create file.
+		- Content-Disposition is supported.  Filenames are
+		  ignored still unless `usename' argument passed to
+		  filter.
+		- Added recognition of few more content-types
+
+	o  Updated date parsing to figure out the date of a message to be
+	   more robust on how it parses a date.  If unable to parse
+	   date, the message will take on the current time for sorting
+	   purposes.  Also, character case is ignored in month and weekday
+	   names.
+
+	o  The comment declaration "<!--X-Body-of-Message-->" is
+	   now inserted between the message header and body.  Helps
+	   in the building of some search indexes to restrict searches
+	   on message data.
+
+	o  Many resource settings are no longer stored in database if
+	   the resource is the default value.  Save some disk space and
+	   allows resources to self adjust when a dependent resource is
+	   changed.
+
+	o  The text/plain filter in mhtxtplain.pl has the following
+	   enhancements:
+	   
+	       -  Check for charset to control character conversion.
+	       -  Integrated iso-2022-jp filter (keys off charset)
+	       -  Filter option "quote" cause quoted text in message
+		  to be italicized.
+	       -  Filter option "asis" defines a list of charsets to
+		  not convert to sgml entitites.  Example usage:
+
+			asis=iso-8859-1:iso-8859-2
+
+	o  mhtxt2022.pl has been removed since the code has been
+	   integrated into mhtxtplain.pl.
+
+	o  Resource file elements that have textual content (ie. no
+	   line oriented content) can specify the "chop" attribute
+	   to have the last end-of-line stripped from the content.
+	   Example usage:
+
+		<nextbuttonia chop>
+		[Next]
+		</nextbuttonia>
+
+	o  Fixed bug in creating links of message-ids.  Mhonarc blindingly
+	   made links of message-ids when editting messages w/o
+	   consideration that the message-ids may already be linked.  This
+	   caused markup like the following to occur:
+
+	    <A HREF="..."><A HREF="..."><A HREF="...">...</A></A></A>...
+
+	   Browsers handle the invalid markup with no problems, causing
+	   the bug to go unnoticed for a long time.  Now, only new
+	   added message-ids are scanned for when creating links.
+
+	o  $readmail'FieldSep should now be used instead of $FieldSep
+	   for separating duplicate fields in a parsed message header.
+
+	o  The -scan output now prints a 4 digit year.
+
+	o  Bogus space no longer appears in subjects and dates.
+
+	o  Outdir permissions are not checked if -single specified.
+
+	o  Some internal changes to how data is stored in databases
+	   (needed for 1522 support).  v2.0 will automatically
+	   modify 1.x databases to the 2.0 format.
+
+	o  The -single option utilizes the same mail output routine
+	   utilized by regular archive processing.
+
+	o  MhonArc will now handle numbers with leading zeros when
+	   the -rmm option is specified.
+
+	o  New resources:
+
+		CHARSETCONVERTERS
+				- Specify character set filters
+		CONLEN		- Honor content-lengths
+		DECODEHEADS	- Decode 1522 encoded data, set for decode
+				  only, as message headers are read (see
+				  note below)
+		DEFINEVAR	- Define resource variables
+		DEFINEDERIVED	- Define user defined derived file
+		EXPIREDATE	- Message cut-off date
+		EXPIREAGE	- Time in seconds from current if msg expires
+		FIELDSBEG	- Begin markup of converted mail header
+		FIELDSEND	- End markup of converted mail header
+		FLDBEG		- Begin markup of mail header field text
+		FLDEND		- End markup of mail header field text
+		FOLREFS		- Print links to explicit follow-ups & refs
+		GMTDATEFMT	- Format of $GMTDATE$
+		HEADBODYSEP	- Markup between converted mail header & body
+		IDXPREFIX	- Prefix for multi-page main index filenames
+		INCLUDE		- Read resources from other files
+		LABELBEG	- Begin markup of mail header label
+		LABELEND	- End markup of mail header label
+		LOCALDATEFMT	- Format of $LOCALDATE$
+		MAIN   		- Create main index
+		MHPATTERN	- Expression for mesg files in a directory
+		MODTIME		- Set file times to message dates
+		MONTHS		- Full month names: EOL or ':' separated
+		MONTHSABR	- Abbrieviated month names: EOL or ':'
+				  separated
+		MULTIPG		- Create multi-page indexes
+		NEXTPGLINK	- Link to next page in main index
+		NEXTPGLINK	- Inactive link to next page in main index
+		NOCONLEN	- Ignore content-lengths
+		NODECODEHEADS	- Leave message headers "as is" when read
+				  (see note below)
+		NOFOLREFS	- Do not print links to follow-ups & refs
+		NOMAIN 		- Do not create main index
+		NOMODTIME	- Do not set file times to message dates
+		NOMULTIPG	- Do not create multi-page indexes
+		PREVPGLINK	- Link to previous page in main index
+		PREVPGLINKIA	- Inactive link to previous page in main index
+		SUBJECTHEADER	- Markup for subject header in converted mail
+		TIDXPREFIX	- Prefix for multi-page thread index filenames
+		TSUBLISTBEG	- List begin in sub-thread
+		TSUBLISTEND	- List end in sub-thread
+		TSUBJECTBEG	- Begin markup for subject-based sub-thread
+		TSUBJECTEND	- End markup for subject-based sub-thread
+		TSINGLETXT	- Markup for mesg not part of a thread
+		TTOPBEGIN	- Begin for top of a thread
+		TTOPEND		- End for a thread
+		TLINONE		- Markup for missing message in a thread
+		TLIEND		- Thread idx list item end
+		TNEXTBUTTON	- Thread next button template
+		TNEXTBUTTONIA	- Inactive thread next button template
+		TNEXTLINK	- Thread next link template
+		TNEXTLINKIA	- Inactive thread next link template
+		TNEXTPGLINK	- Link to next page in thread index
+		TNEXTPGLINKIA	- Inactive link to next page in thread index
+		TPREVBUTTON	- Thread previous button template
+		TPREVBUTTONIA	- Inactive thread previous button template
+		TPREVLINK	- Thread previous link template
+		TPREVLINKIA	- Inactive thread previous link template
+		TPREVPGLINK	- Link to prev page in thread index
+		TPREVPGLINKIA	- Inactive link to prev page in thread index
+		WEEKDAYS	- Full weekday names: EOL or ':' separated
+		WEEKDAYSABR	- Abbrieviated weekday names: EOL or ':'
+				  separated
+
+
+	   NOTE
+	       1522 processing is done when creating HTML output and
+	       the (relevant) data stored in the database stays in
+	       encoded form.  The DECODEHEADS resource can be set
+	       to decode decode-only charsets when message headers
+	       are read.  Hence, the decode-only charsets will be
+	       stored in decoded form.	Regular 1522 processing is
+	       still done to still-encoded data when generating output.
+	       The default is NODECODEHEADS.
+
+	o  List of removed resources:
+
+		NOTSUBSORT, TSUBSORT
+
+	o  New resource variables:
+	   (NOTE: Some variables are only valid in certain contexts)
+
+		$FIRSTPG$	- Filename of first page of main index
+		$IDXPREFIX$	- Prefix to main index pages' filenames
+		$LASTPG$	- Filename of last page of main index
+		$NEXTPG$	- Filename of next main index page
+		$NEXTPGLINK$	- Link to next page of main index
+		$NUMOFPAGES$	- Total number of pages in index
+		$PAGENUM$	- Current page number of index
+		$PREVPG$	- Filename of previous main index page
+		$PREVPGLINK$	- Link to previous page of main index
+		$TFIRSTPG$	- Filename of first page of thread index
+		$TIDXPREFIX$	- Prefix to thread index pages' filenames
+		$TLASTPG$	- Filename of last page of thread index
+		$TNEXTBUTTON$	- Button for next mesg in thread
+		$TNEXTFROM$	- From of next mesg in thread
+		$TNEXTFROMADDR$	- From address of next mesg in thread
+		$TNEXTFROMNAME$	- From name of next mesg in thread
+		$TNEXTLINK$	- Link for next mesg in thread
+		$TNEXTMSG$	- Next mesg filename in thread
+		$TNEXTMSGNUM$	- Next mesg number in thread
+		$TNEXTPG$	- Filename of next thread index page
+		$TNEXTPGLINK$	- Link to next page of thread index
+		$TNEXTSUBJECT$	- Next mesg subject in thread
+		$TPREVBUTTON$	- Button for prev mesg in thread
+		$TPREVFROM$	- From of previous mesg in thread
+		$TPREVFROMADDR$	- From address of previous mesg in thread
+		$TPREVFROMNAME$	- From name of previous mesg in thread
+		$TPREVLINK$	- Link for prev mesg in thread
+		$TPREVMSG$	- Previous mesg filename in thread
+		$TPREVMSGNUM$	- Previous mesg number in thread
+		$TPREVPG$	- Filename of previous thread index page
+		$TPREVPGLINK$	- Link to previous page of thread index
+		$TPREVSUBJECT$	- Previous mesg subject in thread
+
+	o  Removed resources:
+
+		NOTSUBSORT, TSUBSORT
+
+	o  Some changes to default resource settings.
+
+	o  Reorganized code.  Some new libraries have been created
+	   to help in maintenance.
+
+	o  Source code has been put under SCCS revision control.
+
+
+=======================================================================
+07/12/96	(1.2.3)
+
+	o  Extracted initialization of data structures into mhinit.pl.
+	   The file is just required from the main source.
+
+	o  Use q{} instead of qq{} when trying to read database file.
+	   Should fix require problem under MS-DOS.
+
+	o  Added <!--X-Reference-Id: ... --> comments at beginning
+	   of messages.  May aid in database recovery techniques.
+
+	o  ';'s are now deleted in filenames in mhexternal.pl
+	   (applicable only when "usename" option specified)
+
+	o  Added recognition of '/' when converted e-mail addresses
+	   to mailto links in message headers.
+
+	o  Simple fix to mhtxt2022.pl for execution under Perl 5.
+
+
+=======================================================================
+04/18/96	(1.2.2)
+
+	o  Increased the speed performance of base64 decoding.  Speed
+	   increase is much greater under Perl 4 than Perl 5.
+
+	o  Added -time option to print out total CPU execution time.
+	   Mainly used for debugging reasons (like checking on
+	   base64 decoding times).  Time information is sent to
+	   standard error.
+
+	o  Added M2H_LOCKDELAY envariable and -lockdelay option.
+	   Either can be used to adjust the sleep time between
+	   attempts to lock the archive.
+
+	o  Added -force option to override a lock on an archive if
+	   attempts to lock fail.
+
+	o  Added image/x-bmp and image/x-pcx to the default supported
+	   MIME types.
+
+	o  Ignore "Sv:" at the beginning of subjects when sorting by
+	   subject.  "Sv:" is Danish for "Re:".
+
+	o  Fixed bug in mhutil.pl where TIDXPGEND actually set
+	   TIDXPGBEG.
+
+	o  Dynamically define exclude_field routine after reading
+	   user options.  exclude_field is utilized when formatting
+	   a message header in HTML.  Defining the routine at run-time
+	   helps reduce the regular expression overhead the old version
+	   of the routine entailed.  There should be an increase in
+	   overall execution time.
+
+
+=======================================================================
+03/22/96	(1.2.1)
+
+	o  Added support for x-uuencode content-transfer-encoding.
+
+	o  Added -locktries command-line option.
+
+	o  Added the resource variable $OUTDIR$.
+
+	o  mhexternal.pl filter will use the name parameter string
+	   on the content-type field as the anchor text to the file
+	   if there is no content-description.
+
+	o  application/x-patch is recognized and processed by the
+	   text/plain filter (mhtxtplain.pl).
+
+	o  Fixed bug in install.me and osinit.pl where setting
+	   $'PROG caused perl to terminate if $'DIRSEP was a backslash
+	   (occured under MS-DOS usage).
+
+	o  Fixed bug in install.me in the create_dir routine.
+	   If $DIRSEP was a backslash, the regular expression setting
+	   @a would cause perl to abort with an error.
+
+	o  Fixed database bug where the MIMEARGS resource setting
+	   was not being stored.
+
+	o  Fixed index listing bug where a reverse listing was not
+	   correct if an index size was specified less than the
+	   current size of the archive.
+
+
+=======================================================================
+03/01/96	(1.2.0)
+
+	o  Rewrote message parser routine so it will work under Perl 5
+	   for multipart messages.  The rewrite also allows some
+	   additional features that are mentioned below.
+
+	o  The -mbox and -mh options are no longer required.  MHonArc
+	   will automatically determine which mode to operate in
+	   based upon the file arguments.  Hence, one can specify
+	   MH folders and mailbox files on the same command-line.
+	   Both options are ignored if specified.
+
+	o  An HTML index of an archive contents can be generated to
+	   standard output (-genidx).
+
+	o  Message header lines not conforming to RFC 822 are ignored.
+	   (Eg: Those pesky "From " lines should not show up anymore --
+	    please do not confuse this with the regular "From:" lines;
+	    note the colon vs the space).
+
+	o  New resources:
+
+		BOTLINKS	- May be used to completely customize
+				  the links at the bottom of messages.
+		IDXPGBEGIN	- Opening markup for main index page.
+				  Allows one to redefine opening HTML
+				  element, HEAD element, TITLE element,
+				  opening BODY element, etc.
+		IDXPGEND	- Closing markup for main index page.
+		IDXSIZE		- Set the maximum number of messages
+				  listed in index.  This is different
+				  in MAXSIZE where MAXSIZE will remove
+				  older messages when the MAXSIZE limit
+				  is reached in the archive.
+		MIMEARGS	- Define arguments to filters
+		MSGPGBEGIN	- Opening markup for message pages.
+				  Allows one to redefine opening HTML
+				  element, HEAD element, TITLE element,
+				  opening BODY element, etc.
+		MSGPGEND	- Closing markup for message pages.
+		NEXTBUTTON	- Defines the 'Next' button.
+		NEXTBUTTONIA	- Defines the 'Next' button when it is
+				  inactive.
+		NEXTLINK	- Defines the 'Next' link.
+		NEXTLINKIA	- Defines the 'Next' link when it is
+				  inactive.
+		NOTSUBSORT	- Do not sort threads by subject.
+		OTHERINDEXES	- List other resource files defining
+				  other indexes to create when creating,
+				  or updating, an archive.
+		PREVBUTTON	- Defines the 'Prev' button.
+		PREVBUTTONIA	- Defines the 'Prev' button when it is
+				  inactive.
+		PREVLINK	- Defines the 'Prev' link.
+		PREVLINKIA	- Defines the 'Prev' link when it is
+				  inactive.
+		TIDXPGBEGIN	- Opening markup for thread index page.
+				  Allows one to redefine opening HTML
+				  element, HEAD element, TITLE element,
+				  opening BODY element, etc.
+		TIDXPGEND	- Closing markup for thread index page.
+		TOPLINKS	- May be used to completely customize
+				  the buttons at the top of messages.
+		TSUBSORT	- Sort threads listed by subject.
+
+	o  Removed resources:
+
+		INDEXBL, INDEXFL, MBOX, MH, NEXTBL, NEXTFL, PREVBL,
+		PREVFL, TINDEXBL, TINDEXFL
+
+	   Resource were removed because they were no longer applicable
+	   and/or have been superceded by other resources.  MHonArc
+	   will still honor old resource settings (where applicable) of
+	   older archives and incorporate them into the new resource
+	   settings.
+
+	o  When specifying the resource file, mhonarc will now do
+	   the following to determine its location:
+
+		1.  If its an absolute pathname, mhonarc uses it.
+		2.  If it is a relative pathname, mhonarc checks for
+		    it relative to the current working directory.
+		3.  Otherwise, mhonarc checks for it relative to
+		    location of the archive as specified by outdir.
+
+	   This resolution will allow you to place resource files with
+	   the archive if desired (can be useful when using the
+	   OTHERINDEXES resource element).
+
+	o  Because of the new resources available, many <HR>'s are no
+	   longer hard-coded and are controllable by resources.  <HR>'s
+	   are still used in message pages to separate message data
+	   from mhonarc data.
+
+	o  Added resource variables:
+	   (NOTE: Some variables are only valid in certain contexts)
+
+		$DDMMYY$	- Date of message in dd/mm/yy format
+		$IDXSIZE$	- Max size of index list
+		$MMDDYY$	- Date of message in mm/dd/yy format
+		$MSGID$		- Message id
+		$NEXTBUTTON$	- Next button markup
+		$NEXTFROM$	- From field of next listed message
+		$NEXTFROMADDR$	- From e-mail address of next listed message
+		$NEXTFROMNAME$	- From name of next listed message
+		$NEXTLINK$	- Next link markup
+		$NEXTMSGNUM$	- Number of next listed message
+		$NEXTSUBJECT$	- Subject text of next listed message
+		$NUMOFIDXMSG$	- Number of messages in index list
+		$PREVBUTTON$	- Previous button markup
+		$PREVFROM$	- From field of previous listed message
+		$PREVFROMADDR$	- From e-mail address of prev listed message
+		$PREVFROMNAME$	- From name of previous listed message
+		$PREVLINK$	- Previous link markup
+		$PREVMSGNUM$	- Number of previous message
+		$PREVSUBJECT$	- Subject text of previous listed message
+		$YYMMDD$	- Date of message in yy/mm/dd format
+
+	o  Can specify a 'U' with variable length specifier to denote
+	   replacement string is to be used in a URL.  Examples:
+
+		$SUBJECTNA:40U$
+		$MSGID:U$
+
+	   The 'U' causes the replace text to have special characters
+	   escaped as denoted by the URL spec.  NOTE: Specify ":U"
+	   should NOT be used in the MAILTOURL resource; the variables
+	   will automatically be expanded according to the URL spec.
+	   Specifyind ":U" or a length specifier in the MAILTOURL
+	   resource will prevent mhonarc from detecting the variable.
+
+	o  New command-line options:
+
+		-genidx		- Generate HTML index of archive contents
+				  to stdout.
+		-idxsize	- Maximum number of messages shown in indexes
+		-notsubsort	- Do not sort threads listed by subject.
+		-savemem	- Write message data while processing
+		-tsubsort	- Sort threads listed by subject.
+
+	o  The library mhtxt2022.pl has been added that provides
+	   a filter to process ISO-2022 (Japanese) encoded mail messages.
+	   See mhtxt2022.pl on how to hook it in.
+
+	o  The mhexternal.pl filter by default ignores any filename
+	   specification in the message for creating derived files.
+	   This avoids name conflicts and security problems.
+	   The "usename" filter option may be used to override this.
+
+	o  Mime filters are now called with two additional arguments:
+
+		$converted_data = &function(
+			$header, *parsed_header_assoc_array,
+			*message_data, $decoded_flag,
+			$optional_filter_arguments);
+
+	   The $decoded_flag is set to 1 if the *message_data has been
+	   decoded.  $optional_filter_arguments contains an optional
+	   argument string as determined by the filter.
+
+	o  Mime filters can now be registered for multipart types
+	   and message types.  This allows one to override mhonarc's
+	   conversion of these types, and completely replace mhonarc's
+	   message->HTML conversion process.
+
+	o  Mime filters should now use $'FieldSep instead of $'X for
+	   accessing parsed message headers.
+
+	o  Mime filters can be registered for a base type.  Ie.
+	   It is no longer required to explicitly list each possible
+	   subtype if a single filter is to be used for them all.
+	   Example:
+
+		<mimefilters>
+		image/*:myfilter'imagefilter:myfilter.pl
+		</mimefilters>
+
+	   Registers "myfilter'filter" for all image data types,
+	   regardless of subtype.  However, if an explicit entry
+	   exists for a subtype, then that filter is called.
+	   Example:
+
+		<mimefilters>
+		image/*:myfilter'imagefilter:myfilter.pl
+		image/gif:myfilter'giffilter:myfilter.pl
+		</mimefilters>
+
+	   "myfilter'giffilter" is called for all image/gif data.
+	   "myfilter'imagefilter" is called for all other image data.
+
+	o  A new resource, MIMEARGS, may be used to pass optional arguments
+	   to filters to control their behavior.  The format of the
+	   argument string is controlled by the various filters.  The
+	   arguments can be specified by a specific content-type, or
+	   for the filter routine in general.  A content-type argument
+	   will be used over any arguments specified for a filter.
+
+	   Example usage:
+
+		<mimeargs>
+		image/gif:inline usename
+		m2h_external'filter:usename
+		</mimeargs>
+
+	   See the documentation for possible arguments to filters.
+
+	o  Installation program can now be invoked in batch mode.
+
+	o  Thread index properly includes docurl as main index.
+	   -nodocurl will prevent the inclusion as with the main index.
+
+	o  Fixed bug in mhtxthtml.pl on properly propogating a base
+	   URL to relative URLs starting with a "/".
+
+	o  Fixed bug where single quotes, and backslashed in keys of
+	   associative arrays in the database file were not getting
+	   escaped.
+
+	o  Fixed bug where spaces and special characters were not
+	   properly escaped in URL strings: spaces were left as-is,
+	   and special characters were deleted.
+
+	o  Removed illegal invocation choices in the Synopsis of the
+	   documentation.
+
+
+=======================================================================
+04/24/95	(1.1.1)
+
+	o  Fixed bug in -scan output where month in date was off by
+	   one.
+
+
+=======================================================================
+04/21/95	(1.1.0)
+
+	o  Made modifications to make MHonArc suitable to run
+	   under MS-DOS without modification.  MHonArc will
+	   automatically detect if it is running under Unix or MS-DOS.
+
+	o  Added support for a thread index.  MHonArc will create a
+	   complimentary index to the main index showing message
+	   threads.
+
+	o  Archive messages can be deleted.
+
+	o  A listing to stdout of an archives contents can be
+	   generated.
+
+	o  Maximum number of messages for an archive can be set.
+	   Older messages (based on sort method) are removed
+	   automatically during add operations.
+
+	o  MHonArc will now recognize if you try to add in a message
+	   that already exists in an archive.
+
+	o  The -editdx option will now also cause a updating of all
+	   mail messages.  Guarantees resource changes to affect all
+	   messages.
+
+	o  Added the following resource file elements:
+
+		MSGFOOT		-- Footer text for converted messages
+		MSGHEAD		-- Header text for converted messages
+		NODOC		-- Do not put link to documentation
+		NOTHREAD	-- Do not create thread index
+		TFOOT		-- Text at bottom of thread index page
+		THEAD		-- Text at top of thread index page
+		THREAD		-- Create thread index
+		TLEVELS		-- Depth of thread listing
+		TLITXT		-- Template text for entry in thread
+				   index
+		TIDXFNAME	-- Thread index filename
+		TINDEXBL	-- Top button label in messages to
+				   thread index
+		TINDEXFL	-- Verbose label in message to thread
+				   index
+		TTITLE		-- Title of thread index page
+
+	o  Added the following command-line options:
+
+		-maxsize	-- Maxinum # messages in an archive
+		-nodoc		-- Do not put link to documentation
+		-nothread	-- Do not create thread index
+		-rmm		-- Remove messages from an archive
+		-scan		-- Listing of archive to stdout
+		-thread		-- Create thread index
+		-tidxfname	-- Thread index filename
+		-tlevels	-- Depth of thread listing
+		-ttitle		-- Title of thread index page
+
+	o  Added the following environment variables:
+
+		M2H_MAXSIZE	-- Maxinum # messages in an archive
+		M2H_THREAD	-- If non-zero, create thread index
+		M2H_TIDXFNAME	-- Thread index filename
+		M2H_TLEVELS	-- Depth of thread listing
+		M2H_TTITLE	-- Title of thread index page
+
+	o  Added the following variables for template resources
+	   (applicability of variables vary depending on the resource):
+
+		$DOCURL$	-- URL to documentation
+		$IDXFNAME$	-- Main index page filename
+		$IDXTITLE$	-- Main index page title
+		$NEXTMSG$	-- Next message filename
+		$PREVMSG$	-- Previous message filename
+		$PROG$		-- Program name
+		$TIDXFNAME$	-- Thread index page filename
+		$TIDXTITLE$	-- Thread index page title
+		$VERSION$	-- Version number of the program
+
+	o  Added $FROM$, $MSGID$, and $SUBJECT$ variables to be used
+	   in the MAILTOURL resource.
+
+	o  The string `$$' in template resources will produce a `$' in
+	   the output.
+
+	o  Fixed problem with messages (with follow-ups) getting
+	   unnecessarily updated when messages are added to an archive.
+
+	o  Only a CR/LF, or LF, pair will terminate a message head.
+	   Before, MHonArc was terminating message heads when
+	   encountering an empty line or a line that only contained
+	   whitespace (which was incorrect behavior).
+
+	o  Fixed bug in mhexternal.pl dealing with the `name' parameter
+	   in the content-type field.  Surrounding "s or 's were not
+	   being deleted causing filenames with quotes to be written.
+
+	o  mhexternal.pl: The head of a pathname in the `name'
+	   parameter in the content-type field is stripped off before
+	   writing the external file.  I.e. Only the base filename is
+	   used.
+
+	o  Only one <HR> after the H1 subject in messages will appear
+	   if no message header fields are printed.
+
+	o  Added recognition of the following content-types in
+	   mhexternal.pl:
+
+		application/mac-binhex40
+
+	o  Added a extras/ directory containing useful programs for
+	   MHonArc.  See README in the directory for information on
+	   the programs contained in there.
+
+	o  To support -rmm, MIME filters now return an array.  The
+	   first array value is the HTML for the message, and any other
+	   array values are filenames of files generated by the
+	   filter.  This allows MHonArc to know of any extra files that
+	   must be deleted when a message is removed.
+
+	o  Some routines from the main mhonarc source file have been
+	   moved into a separate librarys: readmail.pl, mhdb.pl,
+	   mhutil.pl
+
+	o  The default URL to the documentation is now,
+
+		http://www.oac.uci.edu/indiv/ehood/mhonarc.html
+
+	   The old URL,
+
+		http://www.oac.uci.edu/indiv/ehood/mhonarc.doc.html
+
+	   is still valid.
+
+	o  There's probably other stuff, but I cannot remember.
+
+
+=======================================================================
+10/01/94	(1.0.0)
+
+	o  First release -- See RELNOTES about compatibility issues
+	   with mail2html.
+
+
+=======================================================================
+#######################################################################
+=======================================================================
+Earl Hood, ehood@medusa.acs.uci.edu
+@(#) CHANGES 97/06/06 19:47:06 @(#)
