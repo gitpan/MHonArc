@@ -1,13 +1,13 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhdb.pl,v 2.17 2001/09/05 15:47:04 ehood Exp $
+##	$Id: mhdb.pl,v 2.18 2002/05/02 01:34:30 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
 ##      MHonArc library defining routines for outputing database.
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1995-2001	Earl Hood, mhonarc@mhonarc.org
+##    Copyright (C) 1995-2002	Earl Hood, mhonarc@mhonarc.org
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -38,8 +38,13 @@
 sub output_db {
     my($pathname) = shift;
     my $tmpfile = $pathname . "$$";
-    local(*DB);
 
+    ## Invoke pre-save callback
+    if (defined($CBDbPreSave) && defined(&$CBDbPreSave)) {
+	return  unless &$CBDbPreSave($pathname, $tmpfile);
+    }
+
+    local(*DB);
     if (!open(DB, ">$tmpfile")) {
 	warn qq/ERROR: Unable to create "$tmpfile": $!\n/;
 	return 0;
@@ -76,23 +81,31 @@ print_var(\*DB,'Icons',       \%Icons);
 print_var(\*DB,'UDerivedFile',\%UDerivedFile);
 print_var(\*DB,'ZoneUD',      \%ZoneUD);
 
-print_var(\*DB,'readmail::MIMECharSetConverters',
-		\%readmail::MIMECharSetConverters);
-print_var(\*DB,'readmail::MIMECharSetConvertersSrc',
-		\%readmail::MIMECharSetConvertersSrc);
-print_var(\*DB,'readmail::MIMEDecoders',
-		\%readmail::MIMEDecoders);
-print_var(\*DB,'readmail::MIMEDecodersSrc',
-		\%readmail::MIMEDecodersSrc);
-print_var(\*DB,'readmail::MIMEFilters',
-		\%readmail::MIMEFilters);
-print_var(\*DB,'readmail::MIMEFiltersSrc',
-		\%readmail::MIMEFiltersSrc);
+unless ($IsDefault{'CHARSETCONVERTERS'}) {
+    print_var(\*DB,'readmail::MIMECharSetConverters',
+		    \%readmail::MIMECharSetConverters);
+    print_var(\*DB,'readmail::MIMECharSetConvertersSrc',
+		    \%readmail::MIMECharSetConvertersSrc);
+}
+unless ($IsDefault{'MIMEDECODERS'}) {
+    print_var(\*DB,'readmail::MIMEDecoders',
+		    \%readmail::MIMEDecoders);
+    print_var(\*DB,'readmail::MIMEDecodersSrc',
+		    \%readmail::MIMEDecodersSrc);
+}
+unless ($IsDefault{'MIMEFILTERS'}) {
+    print_var(\*DB,'readmail::MIMEFilters',
+		    \%readmail::MIMEFilters);
+    print_var(\*DB,'readmail::MIMEFiltersSrc',
+		    \%readmail::MIMEFiltersSrc);
+}
 print_var(\*DB,'readmail::MIMEFiltersArgs',
-		\%readmail::MIMEFiltersArgs);
+		\%readmail::MIMEFiltersArgs)
+		unless $IsDefault{'MIMEARGS'};
 if (%readmail::MIMEExcs) {
-  print_var(\*DB,'readmail::MIMEExcs',
-		  \%readmail::MIMEExcs);
+    print_var(\*DB,'readmail::MIMEExcs',
+		    \%readmail::MIMEExcs)
+		    unless $IsDefault{'MIMEEXCS'};
 }
 
 print_var(\*DB,'DateFields', \@DateFields) unless $IsDefault{'DATEFIELDS'};
@@ -356,7 +369,13 @@ print_var(\*DB,'UMASK',	       \$UMASK);
 
 }
 
-print DB "1;\n";	# for require
+    ## Invoke save callback
+    if (defined($CBDbSave) && defined(&$CBDbSave)) {
+	&$CBDbSave(\*DB);
+    }
+
+    ## Make sure file ends with a true value
+    print DB "1;\n";
 
     close(DB);
 

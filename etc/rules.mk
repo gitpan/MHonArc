@@ -1,4 +1,4 @@
-# $Id: rules.mk,v 1.2 2002/04/04 04:38:56 ehood Exp $
+# $Id: rules.mk,v 1.3 2002/05/02 01:23:45 ehood Exp $
 ##-----------------------------------------------------------------------##
 ##  Common rules
 ##-----------------------------------------------------------------------##
@@ -13,7 +13,7 @@ perl_syntax: $(PERL_FILES)
 
 ## Individual rules for each source file
 $(PERL_FILES): _perl_force
-	$(V)PERL5LIB="$(PERL_SEARCH_LIBS)" $(PERL) -cw $@
+	$(V)PERL5LIB="$(PERL_SEARCH_LIBS)" $(PERL) -c $@
 
 ## Rules to invoke make on specified sub-directories.
 make_subdirs: $(SUBDIRS)
@@ -30,7 +30,7 @@ _perl_force:
 	PERL5LIB="$(PERL_SEARCH_LIBS)" $(PERL) -cw $@
 
 %.pl:
-	PERL5LIB="$(PERL_SEARCH_LIBS)" $(PERL) -cw $@
+	PERL5LIB="$(PERL_SEARCH_LIBS)" $(PERL) -c $@
 
 
 endif

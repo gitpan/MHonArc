@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhrcfile.pl,v 2.19 2001/12/24 11:18:13 ehood Exp $
+##	$Id: mhrcfile.pl,v 2.20 2002/05/02 01:34:30 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -81,6 +81,7 @@ sub read_resource_file {
 	    last FMTSW;
 	}
 	if ($elem eq 'charsetconverters') {	# Charset filters
+	    $IsDefault{'CHARSETCONVERTERS'} = 0;
 	    if ($override) {
 		%readmail::MIMECharSetConverters = ();
 		%readmail::MIMECharSetConvertersSrc = ();
@@ -418,6 +419,7 @@ sub read_resource_file {
 	    last FMTSW;
 	}
 	if ($elem eq 'mimedecoders') {		# Mime decoders
+	    $IsDefault{'MIMEDECODERS'} = 0;
 	    if ($override) {
 		%readmail::MIMEDecoders = ();
 		%readmail::MIMEDecodersSrc = ();
@@ -438,6 +440,7 @@ sub read_resource_file {
 	    last FMTSW;
 	}
 	if ($elem eq 'mimefilters') {		# Mime filters
+	    $IsDefault{'MIMEFILTERS'} = 0;
 	    if ($override) {
 		%readmail::MIMEFilters = ();
 		%readmail::MIMEFiltersSrc = ();
@@ -458,6 +461,7 @@ sub read_resource_file {
 	    last FMTSW;
 	}
 	if ($elem eq 'mimeargs') {		# Mime arguments
+	    $IsDefault{'MIMEARGS'} = 0;
 	    %readmail::MIMEFiltersArgs = ()  if $override;
 	    while (defined($line = <$handle>)) {
 		last  if     $line =~ /^\s*<\/mimeargs\s*>/i;
@@ -474,6 +478,7 @@ sub read_resource_file {
 	    last FMTSW;
 	}
 	if ($elem eq 'mimeexcs') {		# Mime exclusions
+	    $IsDefault{'MIMEEXCS'} = 0;
 	    %readmail::MIMEExcs = ()  if $override;
 	    while (defined($line = <$handle>)) {
 		last  if $line =~ /^\s*<\/mimeexcs\s*>/i;

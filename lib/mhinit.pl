@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhinit.pl,v 2.29 2001/10/06 13:59:44 ehood Exp $
+##	$Id: mhinit.pl,v 2.31 2002/05/02 01:34:30 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -26,6 +26,48 @@
 ##---------------------------------------------------------------------------##
 
 package mhonarc;
+
+##---------------------------------------------------------------------------##
+##  Callbacks
+##	We only declare once so custom front-ends do not have to
+##	re-register each time.  This basically serves as a summary
+##	of the callbacks available.
+##---------------------------------------------------------------------------##
+
+## After message body is read and converted:
+##	&invoke($fields_hash_ref, $html_text_ref, $files_array_ref);
+$CBMessageBodyRead = undef
+    unless defined($CBMessageBodyRead);
+
+## Right before database file is loaded:
+##	$do_load = &invoke($pathname);
+$CBDbPreLoad = undef
+    unless defined($CBDbPreLoad);
+
+## Right before database file is written:
+##	$do_save = &invoke($pathname, $tmp_pathname);
+$CBDbPreSave = undef
+    unless defined($CBDbPreSave);
+
+## When data has been written:
+##	$do_save = &invoke($db_fh);
+$CBDbSave = undef
+    unless defined($CBDbSave);
+
+## After message header is parsed:
+##	$do_not_exclude = &invoke($fields_hash_ref, $raw_header_txt);
+$CBMessageHeadRead = undef
+    unless defined($CBMessageHeadRead);
+
+## After message body is read from input
+##	&invoke($fields_hash_ref, $raw_data_ref);
+$CBRawMessageBodyRead = undef
+    unless defined($CBRawMessageBodyRead);
+
+## When a resource variable is being expanded:
+##	($result, $recurse, $canclip) = &invoke($index, $varname, $arg);
+$CBRcVarExpand = undef
+    unless defined($CBRcVarExpand);
 
 ##---------------------------------------------------------------------------##
 
@@ -293,6 +335,7 @@ $DBPathName	= '';	# Full pathname of database file
 
     "x-sun-attachment",			"mhtxtplain.pl",
 );
+$IsDefault{'MIMEFILTERS'} = 1;
 
 ##  Default filter arguments
 ##
@@ -301,6 +344,7 @@ $DBPathName	= '';	# Full pathname of database file
     #-------------------------------------------------------------------
     'm2h_external::filter',		'inline',
 );
+$IsDefault{'MIMEARGS'} = 1;
 
 ##  Charset filters
 ##
@@ -319,6 +363,7 @@ $DBPathName	= '';	# Full pathname of database file
     "iso-8859-8",   			"MHonArc::CharEnt::str2sgml",
     "iso-8859-9",   			"MHonArc::CharEnt::str2sgml",
     "iso-8859-10",   			"MHonArc::CharEnt::str2sgml",
+    "iso-8859-15",   			"MHonArc::CharEnt::str2sgml",
     "iso-2022-jp",   			"iso_2022_jp::str2html",
     "latin1",   			"mhonarc::htmlize",
     "latin2",   			"MHonArc::CharEnt::str2sgml",
@@ -326,6 +371,7 @@ $DBPathName	= '';	# Full pathname of database file
     "latin4",   			"MHonArc::CharEnt::str2sgml",
     "latin5",   			"MHonArc::CharEnt::str2sgml",
     "latin6",   			"MHonArc::CharEnt::str2sgml",
+    "latin9",   			"MHonArc::CharEnt::str2sgml",
     "windows-1250",   			"MHonArc::CharEnt::str2sgml",
     "windows-1252",   			"MHonArc::CharEnt::str2sgml",
     "default",     			"-ignore-",
@@ -345,6 +391,7 @@ $DBPathName	= '';	# Full pathname of database file
     "iso-8859-8",   			"MHonArc/CharEnt.pm",
     "iso-8859-9",   			"MHonArc/CharEnt.pm",
     "iso-8859-10",   			"MHonArc/CharEnt.pm",
+    "iso-8859-15",   			"MHonArc/CharEnt.pm",
     "iso-2022-jp",   			"iso2022jp.pl",
     "latin1",   			undef,
     "latin2",   			"MHonArc/CharEnt.pm",
@@ -352,10 +399,21 @@ $DBPathName	= '';	# Full pathname of database file
     "latin4",   			"MHonArc/CharEnt.pm",
     "latin5",   			"MHonArc/CharEnt.pm",
     "latin6",   			"MHonArc/CharEnt.pm",
+    "latin9",   			"MHonArc/CharEnt.pm",
     "windows-1250",   			"MHonArc/CharEnt.pm",
     "windows-1252",   			"MHonArc/CharEnt.pm",
     "default",     			undef,
 );
+$IsDefault{'CHARSETCONVERTERS'} = 1;
+
+##  Content-Transfer-Encoding decoders:
+##    readmail.pl has a default set, so we just use it.
+##
+$IsDefault{'MIMEDECODERS'} = 1;
+
+##  Content-Types to exclude:
+##    Nothing is excluded by default.
+$IsDefault{'MIMEEXCS'} = 1;
 
 ##------------------------------------------------------------------------
 ##	END readmail.pl variable settings

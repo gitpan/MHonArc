@@ -1,4 +1,12 @@
-TOCFILE = mhonarc.html
+# $Id: Makefile,v 1.10 2002/05/03 04:12:38 ehood Exp $
+
+.PHONY: default residx toc pagetocs buttons rcfileexs utildocs
+
+TOP	  = ..
+
+include $(TOP)/etc/variables.mk
+
+TOCFILE	  = mhonarc.html
 HTMLFILES = intro.html \
 	    relnotes.html \
 	    install.html \
@@ -17,12 +25,17 @@ HTMLFILES = intro.html \
 	    app-bugs.html \
 	    # End of HTMLFILES
 
-RCLIST = _helper/resource.lst
+UTIL_PODS = \
+	    $(TOP)/mha-dbedit \
+	    $(TOP)/mha-dbrecover \
+	    $(TOP)/mha-decode \
+	    # End of UTIL_PODS
+
+RCLIST	  = _helper/resource.lst
 RCVARLIST = _helper/rcvars.lst
 
-.PHONY: default residx toc pagetocs buttons rcfileexs
 
-default: residx rcfileexs toc pagetocs buttons
+default: residx rcfileexs toc pagetocs buttons utildocs
 
 residx:
 	perl _helper/addrcindex.pl $(RCLIST) resources.html app-rcidx.html
@@ -49,5 +62,18 @@ rcfileexs:
 	perl _helper/ppeg.pl $(RCLIST) $(RCVARLIST) ../examples/subject.mrc > \
 	    rcfileexs/subject.mrc.html
 
+utildocs: $(UTIL_PODS)
+	-@$(RM) -f pod2htm*~~
+
+$(UTIL_PODS): _force
+	-@$(MKDIR) -p utils
+	pod2html --header --infile=$@ \
+		 --outfile=utils/$(notdir $@).html
+
 clean:
-	/bin/rm *.gml
+	$(RM) -rf *.gml \
+	          pod2htm*~~ \
+		  utils
+
+_force:
+

@@ -1,7 +1,7 @@
 #!/usr/local/bin/perl
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mha-dbedit,v 1.5 2001/09/17 18:16:54 ehood Exp $
+##	$Id: mha-dbedit,v 1.6 2002/05/03 04:12:17 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -75,6 +75,12 @@ Due to its size and organization, it is not suited for manpage
 format.  Consult your system administrator for where the documentation
 has been installed, or see L<"AVAILABILITY"> on where you can
 access the documentation on the web.
+
+=head1 EXAMPLE
+
+Typical usage:
+
+  shell> mha-dbedit -rcfile res.mrc -outdir /path/to/archive
 
 =head1 AVAILABILITY
 

@@ -1,4 +1,4 @@
-# $Id: variables.mk,v 1.2 2002/04/04 04:38:56 ehood Exp $
+# $Id: variables.mk,v 1.3 2002/05/02 01:23:45 ehood Exp $
 ##-----------------------------------------------------------------------##
 ##  Common variables
 ##-----------------------------------------------------------------------##
@@ -43,8 +43,16 @@ endif
 ## List of perl files to check.  If not set, default to all files
 ## ending with .pm and .pl.
 
+ifeq ($(PERL_PL_FILES),)
+  PERL_PL_FILES = $(strip $(wildcard *.pl))
+endif
+
+ifeq ($(PERL_PM_FILES),)
+  PERL_PM_FILES = $(strip $(wildcard *.pm))
+endif
+
 ifeq ($(PERL_FILES),)
-  PERL_FILES    = $(strip $(wildcard *.pm) $(wildcard *.pl))
+  PERL_FILES    = $(PERL_PM_FILES) $(PERL_PL_FILES)
 endif
 
 

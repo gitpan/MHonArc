@@ -61,10 +61,6 @@ Items are in no particular order:
 => Make Content-Disposition check at the readmail.pl level so
    each filter does not have to handle it.
 
-=> API hooks:
-      resource variable resolution
-      database read and write
-
 => Subject-based threading enhancements:
       . Messages with no "Re:" are in different threads.  Related to
 	this is grouping follow-ups under proper message based upon
@@ -100,4 +96,4 @@ Items are in no particular order:
 => Provide an (anonymous) public CVS repository for the source.
 
 ===========================================================================
-$Id: TODO,v 1.15 2002/04/06 07:59:31 ehood Exp $
+$Id: TODO,v 1.16 2002/05/03 04:44:10 ehood Exp $

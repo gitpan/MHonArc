@@ -1,0 +1,89 @@
+<HTML>
+<HEAD>
+<TITLE>mha-dbrecover - rebuild a MHonArc archive database</TITLE>
+<LINK REV="made" HREF="mailto:earl@earlhood.com">
+</HEAD>
+
+<BODY>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%>
+<TR><TD CLASS=block VALIGN=MIDDLE WIDTH=100% BGCOLOR="#cccccc">
+<FONT SIZE=+1><STRONG><P CLASS=block>&nbsp;mha-dbrecover - rebuild a MHonArc archive database</P></STRONG></FONT>
+</TD></TR>
+</TABLE>
+
+<A NAME="__index__"></A>
+<!-- INDEX BEGIN -->
+
+<UL>
+
+	<LI><A HREF="#name">NAME</A></LI>
+	<LI><A HREF="#synopsis">SYNOPSIS</A></LI>
+	<LI><A HREF="#description">DESCRIPTION</A></LI>
+	<LI><A HREF="#options">OPTIONS</A></LI>
+	<LI><A HREF="#availability">AVAILABILITY</A></LI>
+	<LI><A HREF="#author">AUTHOR</A></LI>
+</UL>
+<!-- INDEX END -->
+
+<HR>
+<P>
+<H1><A NAME="name">NAME</A></H1>
+<P>mha-dbrecover - rebuild a MHonArc archive database</P>
+<P>
+<HR>
+<H1><A NAME="synopsis">SYNOPSIS</A></H1>
+<P><STRONG>mha-dbrecover</STRONG>&nbsp;[<EM>options</EM>]</P>
+<P>
+<HR>
+<H1><A NAME="description">DESCRIPTION</A></H1>
+<P><STRONG>mha-dbrecover</STRONG> is a utility program that is part of the <STRONG>MHonArc</STRONG>
+software package.  The program allows can be used to rebuild a
+<STRONG>MHonArc</STRONG> archive database from the HTML message files.  This allows
+database recovery if the database gets corrupted or accidentally
+deleted.</P>
+<P>The documentation for <STRONG>MHonArc</STRONG> is distributed in HTML format.
+Due to its size and organization, it is not suited for manpage
+format.  Consult your system administrator for where the documentation
+has been installed, or see <A HREF="#availability">AVAILABILITY</A> on where you can
+access the documentation on the web.</P>
+<P>
+<HR>
+<H1><A NAME="options">OPTIONS</A></H1>
+<P><STRONG>mha-dbrecover</STRONG> takes all the options available to <STRONG>mhonarc</STRONG> along
+with the following additional options:</P>
+<DL>
+<DT><STRONG><A NAME="item_%2Ddbr%2Dstartnum_%23"><CODE>-dbr-startnum</CODE> <EM>#</EM></A></STRONG><BR>
+<DD>
+The starting message number to recover data from.  This option is
+useful if you have many message files in a directory, but you only
+want to recover a subset of the files.
+<P>If this option is not specified, the starting number is 0.</P>
+<P></P>
+<DT><STRONG><A NAME="item_%2Ddbr%2Dendnum_%23"><CODE>-dbr-endnum</CODE> <EM>#</EM></A></STRONG><BR>
+<DD>
+The ending message number to recover data from.  This option is
+useful if you have many message files in a directory, but you only
+want to recover a subset of the files.
+<P>If this option is not specified, all messages starting from
+<CODE>-dbr-startnum</CODE> will be recovered.</P>
+<P></P></DL>
+<P><STRONG>NOTE:</STRONG> Only a subset of the options available to <STRONG>mhonarc</STRONG>
+are actually supported since many options are not applicable for
+recovering operations.</P>
+<P>
+<HR>
+<H1><A NAME="availability">AVAILABILITY</A></H1>
+<P>&lt;<EM><A HREF="http://www.mhonarc.org/">http://www.mhonarc.org/</A></EM>&gt;</P>
+<P>
+<HR>
+<H1><A NAME="author">AUTHOR</A></H1>
+<P>Earl Hood, <A HREF="mailto:mhonarc@mhonarc.org">mhonarc@mhonarc.org</A></P>
+<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%>
+<TR><TD CLASS=block VALIGN=MIDDLE WIDTH=100% BGCOLOR="#cccccc">
+<FONT SIZE=+1><STRONG><P CLASS=block>&nbsp;mha-dbrecover - rebuild a MHonArc archive database</P></STRONG></FONT>
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>

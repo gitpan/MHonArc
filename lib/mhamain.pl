@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhamain.pl,v 2.34 2002/04/02 06:59:31 ehood Exp $
+##	$Id: mhamain.pl,v 2.36 2002/05/03 04:48:40 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -29,7 +29,7 @@ package mhonarc;
 
 require 5;
 
-$VERSION = "2.5.3";
+$VERSION = "2.5.4";
 $VINFO =<<EndOfInfo;
   MHonArc v$VERSION (Perl $] $^O)
   Copyright (C) 1995-2002  Earl Hood, mhonarc\@mhonarc.org
@@ -883,11 +883,6 @@ sub read_mail_body {
     my(@files);
     local($_);
 
-    ## Define "globals" for use by filters
-    ##	NOTE: This stuff can be handled better, and will be done
-    ##	      when/if I get around to rewriting mhonarc in (OO) Perl 5.
-    $MHAmsgnum = &fmt_msgnum($IndexNum{$index}) unless $skip;
-
     ## Slurp up message body
     ##	UUCP mailbox
     if ($MBOX) {
@@ -918,8 +913,19 @@ sub read_mail_body {
 	$data = <$handle>;
     }
 
-    ## Filter data
     return ''  if $skip;
+
+    ## Invoke callback if defined
+    if (defined($CBRawMessageBodyRead) && defined(&$CBRawMessageBodyRead)) {
+	&$CBRawMessageBodyRead($fields, \$data);
+    }
+
+    ## Define "globals" for use by filters
+    ##	NOTE: This stuff can be handled better, and will be done
+    ##	      when/if I get around to rewriting mhonarc in (OO) Perl 5.
+    $MHAmsgnum = &fmt_msgnum($IndexNum{$index});
+
+    ## Filter data
     ($ret, @files) = &readmail::MAILread_body($fields, \$data);
     $ret = ''     unless defined $ret;
     @files = ( )  unless @files;

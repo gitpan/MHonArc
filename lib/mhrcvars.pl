@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhrcvars.pl,v 2.17 2002/04/18 06:12:39 ehood Exp $
+##	$Id: mhrcvars.pl,v 2.18 2002/05/02 01:34:30 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -108,6 +108,11 @@ sub replace_li_var {
 
     ##	Do variable replacement
     REPLACESW: {
+	## Invoke callback if defined
+	if (defined($CBRcVarExpand) && defined(&$CBRcVarExpand)) {
+	    ($tmp, $expand, $canclip) = &$CBRcVarExpand($index, $var, $arg);
+	    last REPLACESW  if defined($tmp);
+	}
 
 	## -------------------------------------- ##
 	## Message information resource variables ##

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      $Id: mhopt.pl,v 2.25 2002/03/06 15:11:28 ehood Exp $
+##      $Id: mhopt.pl,v 2.26 2002/05/02 01:34:30 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -352,6 +352,10 @@ sub get_resources {
 		   (!-e join($DIRSEP, $OUTDIR, ".mail2html.db"));
 	$DBPathName = join($DIRSEP, $OUTDIR, $DBFILE);
 
+	## Invoke preload callback
+	if (defined($CBDbPreLoad) && defined(&$CBDbPreLoad)) {
+	    &$CBDbPreLoad($DBPathName);
+	}
 	if (-e $DBPathName) {
 	    print STDOUT "Reading database ...\n"  unless $QUIET;
 

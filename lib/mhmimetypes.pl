@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhmimetypes.pl,v 1.8 2002/03/05 07:37:54 ehood Exp $
+##	$Id: mhmimetypes.pl,v 1.9 2002/05/02 17:20:04 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -205,6 +205,9 @@ $UnknownExt     = 'bin';
     'image/x-xpm',			'xpm:X pixmap',
     'image/x-xwd',			'xwd:X window dump',
     'image/x-xwindowdump',		'xwd:X window dump',
+
+    'message/rfc822',			'822:Mail message',
+    'message/news',			'822:News post',
 
     'model/iges',			'iges:IGES model',
     'model/vrml',			'wrl:VRML model',

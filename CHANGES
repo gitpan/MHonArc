@@ -1,20 +1,58 @@
-		     Change History for MHonArc
-		     ==========================
-		     <http://www.mhonarc.org/>
+		       Change History for MHonArc
+		       ==========================
+		       <http://www.mhonarc.org/>
+ ---------------------------------------------------------------------------
+|   PLEASE READ RELNOTES FOR CHANGES THAT CAN HAVE COMPATIBILITY IMPACTS    |
+|           FOR ARCHIVES CREATED FROM PAST RELEASES OF MHONARC.             |
+ ---------------------------------------------------------------------------
 
-  PLEASE READ RELNOTES FOR CHANGES THAT CAN HAVE COMPATIBILITY IMPACTS
-	  FOR ARCHIVES CREATED FROM PAST RELEASES OF MHONARC.
+    Some change notes are brief; consult the documentation for further
+    information/clarification.  It is possible that some changes to
+    MHonArc are not documented here, but every effort is made to list
+    all changes that will be visible to users of MHonArc.
 
-Some change notes are brief; consult the documentation for further
-information/clarification.  It is possible that some changes to
-MHonArc are not documented here, but every effort is made to list
-all changes that will be visible to users of MHonArc.
+	  --------------------------------------------------------
+	 |  See BUGS for the history of bugs reported and fixed.  |
+	  --------------------------------------------------------
 
 YYYY/MM/DD
 ============================================================================
-2002/04/18	(2.5.3)
+2002/05/03	(2.5.4)
 
-(See BUGS for the list of bugs reported and fixed)
+* Added more API callback functions:
+
+    $CBDbPreLoad
+	Right before database file is loaded.
+    $CBDbPreSave
+	Right before database file is written.
+    $CBDbSave
+	When data has been written.
+    $CBRawMessageBodyRead
+	After message body is read from input
+    $CBRcVarExpand
+	When a resource variable is being expanded.
+
+  See API appendix of the documentation for more information.
+
+* mha-decode now supports the following option: -dcd-digest.  This
+  tells mha-decode to not recursively process attached message/rfc822
+  and message/news entities.  This option is useful to extract
+  out all the individual messages of a message digest.
+
+* Added message/rfc822 and message/news to mhmimetypes.pl
+  content-type => extension/description hash.  The extension used
+  is ".822".
+
+* Added ISO-8859-15 to default value of CHARSETCONVERTERS.  This should
+  have been done in the previous release.
+
+* A readmail:: variable is not written to database file if it is
+  the default value.  The readmail:: variables that can be saved
+  are controled by the CHARSETCONVERTERS, MIMEFILTERS, and MIMEARGS
+  resources.
+
+============================================================================
+2002/04/18	(2.5.3)
 
 *   Added 'use locale' pragmas to be applied when sorting messages.
     This is considered experimental, but it appears to give better
@@ -78,8 +116,6 @@ YYYY/MM/DD
 ============================================================================
 2001/11/24	(2.5.2)
 
-    (See BUGS for the list of bugs reported and fixed)
-
     o	mha-dbrecover new options:
 
 	  -dbr-startnum # 
@@ -104,8 +140,6 @@ YYYY/MM/DD
 ============================================================================
 2001/11/13	(2.5.1)
 
-    (See BUGS for the list of bugs reported and fixed)
-
     o	Added special note within the release notes about
 	downgrading.
 
@@ -117,8 +151,6 @@ YYYY/MM/DD
     [This is non-beta release of 2.5.0.  See the change notes
      below and for the various beta release for a complete list of
      changes from the last v2.4 release.]
-
-    (See BUGS for the list of bugs reported and fixed)
 
     o	The ICONS resource has been updated to support the association
 	of icons at the base type level (e.g. text/*) and to specify
@@ -154,8 +186,6 @@ YYYY/MM/DD
 ============================================================================
 2001/09/05	(2.5.0b2)
 
-    (See BUGS for the list of bugs fixed)
-
     o	Long overdue update of ACKNOWLG file.
 
     o	New resources:
@@ -180,8 +210,6 @@ YYYY/MM/DD
 
 ============================================================================
 2001/08/26	(2.5.0b)
-
-    (See BUGS for the list of bugs fixed)
 
     o	API for MIMEFILTERS has been changed.  Content filters are
 	now called as follows:
@@ -509,10 +537,6 @@ YYYY/MM/DD
 
     o	TODO list added to distribution.
 
-    Bug Fixes
-    ---------
-    See BUGS.
-
 =======================================================================
 2001/04/13	(2.4.8)
 
@@ -562,11 +586,6 @@ YYYY/MM/DD
 	 but the regex used was known to crash perl on large comment
 	 declarations, so a simplier expression is now used to
 	 modify comment declarations to prevent possible attacks.)
-
-
-    Bug Fixes
-    ---------
-    See BUGS.
 
 =======================================================================
 2000/10/28	(2.4.7)
@@ -618,11 +637,6 @@ YYYY/MM/DD
 
     o	Bug fixes to the documentation.
 
-
-    Bug Fixes
-    ---------
-    See BUGS.
-
 =======================================================================
 2000/04/24	(2.4.6)
 
@@ -634,15 +648,9 @@ YYYY/MM/DD
     o	Call to Digest::MD5::md5_hex() wrapped in eval block in
 	case of bad installations of Digest::MD5 module.
 
-    Bug Fixes
-    ---------
-    See BUGS.
-
 =======================================================================
 2000/02/14	(2.4.5)
 
-    Enhancements/Changes
-    --------------------
     o	Following changes to m2h_text_html::filter:
 	-   All comment declarations are removed.  This avoid
 	    potential SSI attacks and declarations that may conflict
@@ -667,15 +675,9 @@ YYYY/MM/DD
 	variable matching.  Mainly for use with resource files written
 	on multibyte charsets like SJIS.  Use with caution.
 
-    Bug Fixes
-    ---------
-    See BUGS.
-
 =======================================================================
 1999/10/01	(2.4.4)
 
-    Enhancements/Changes
-    --------------------
     o	Added the following resources:
     
 	    MIMEDECODERS	Content-Transfer-Encoding decoding
@@ -696,15 +698,9 @@ YYYY/MM/DD
 	for RFC 2184 extensions.  Function added to provide
 	support for message/external-body filter.
 
-    Bug Fixes
-    ---------
-    See BUGS.
-
 =======================================================================
 1999/08/15	(2.4.3)
 
-    Enhancements/Changes
-    --------------------
     o	Added the following resources:
 
 	    POSIXSTRFTIME	Use POSIX::strftime() or not for
@@ -727,15 +723,9 @@ YYYY/MM/DD
     o	If in a multipart/alternative entity, and no known media-types
 	exists, the last part is treated as application/octet-stream.
 
-    Bug Fixes
-    ---------
-    See BUGS.
-
 =======================================================================
 1999/08/11	(2.4.2)
 
-    Enhancements/Changes
-    --------------------
     o	Added the following resources:
 
 	    STDIN		Source for standard input
@@ -757,15 +747,9 @@ YYYY/MM/DD
     o	Description section moved before Options section in -help
 	message.
 
-    Bug Fixes
-    ---------
-    See BUGS.
-
 =======================================================================
 1999/07/25	(2.4.1)
 
-    Enhancements/Changes
-    --------------------
     o	Added the following resources:
 
 	    MSGEXCFILTER	Perl expressions for excluding
@@ -783,15 +767,9 @@ YYYY/MM/DD
 
     o	mhtime.pl explicitly defined in mhonarc package.
 
-    Bug Fixes
-    ---------
-    See BUGS.
-
 =======================================================================
 1999/06/25	(2.4.0)
 
-    Enhancements/Changes
-    --------------------
     o	Added the following resources:
 
 	    ADDRESSMODIFYCODE	Perl expressions to apply to addresses
@@ -880,34 +858,20 @@ YYYY/MM/DD
     o	URL matching expression in mhtxtplain.pl modified to handle
 	'&' characters.
 
-    Bug Fixes
-    ---------
-    See BUGS.
-
 =======================================================================
 1998/11/08	(2.3.3)
 
     Bug Fixes
-    ---------
-    See BUGS.
 
 =======================================================================
 1998/11/01	(2.3.2)
 
-    Enhancements/Changes
-    --------------------
     o	A new (improved) install.me program to do the installation.
 	See INSTALL for more information.
-
-    Bug Fixes
-    ---------
-    See BUGS.
 
 =======================================================================
 1998/10/25	(2.3.1)
 
-    Enhancements/Changes
-    --------------------
     Please read the RELNOTES file for important information regarding
     upgrading to v2.2.x, or later, from pre-v2.2 releases.
 
@@ -927,10 +891,6 @@ YYYY/MM/DD
     o	Changes to readmail.pl inorder to support MHTML.  Changes
 	done should help the handling of other multipart/related
 	data types.
-
-    Bug Fixes
-    ---------
-    See BUGS.
 
 =======================================================================
 1998/10/10	(2.3.0)
@@ -1041,15 +1001,8 @@ YYYY/MM/DD
 
     o	Some other code cleanup in the hopes to improve performance.
 
-    Bug Fixes
-    ---------
-    See BUGS.
-
 =======================================================================
 1998/03/03	(2.2.0)
-
-    Enhancements/Changes
-    --------------------
 
 	o  New resource
 
@@ -1094,15 +1047,8 @@ YYYY/MM/DD
 	   related resource documentation now puts preference to
 	   Perl 5 notations (eg: MIMEFILTERS, CHARSETCONVERTERS).
 
-    Bug Fixes
-    ---------
-    See BUGS.
-
 =======================================================================
 1998/02/23	(2.1.2)
-
-    Enhancements/Changes
-    --------------------
 
 	o  Added the following resources:
 
@@ -1129,15 +1075,8 @@ YYYY/MM/DD
 
 	o  Probably some other changes I forgot about.
 
-    Bug Fixes
-    ---------
-    See BUGS.
-
 =======================================================================
 1998/02/18	(2.1.1)
-
-    Enhancements/Changes
-    --------------------
 
 	o  Added DATEFIELDS resource.  The resource allows the user to
 	   specify the fields (and order) that are checked when
@@ -1152,15 +1091,8 @@ YYYY/MM/DD
 
 	o  'No Author' used if no message sender is not present.
 
-    Bug Fixes
-    ---------
-    See BUGS.
-
 =======================================================================
 1997/06/09	(2.1.0)
-
-    Enhancements/Changes
-    --------------------
 
 	o  Added the following resources:
 
@@ -1197,22 +1129,13 @@ YYYY/MM/DD
 	o  Some code moved to new library files (mhopt.pl,
 	   mhfile.pl).
 
-
-    Bug Fixes
-    ---------
-    See BUGS.
-
 =======================================================================
 1997/05/23	(2.0.1)
 
     Bug Fixes
-    ---------
-    See BUGS.
 
 =======================================================================
 1997/05/16	(2.0.0)
-
-    Enhancements:
 
 	o  Added TCONTBEGIN, TCONTEND, TINDENTBEGIN, TINDENTEND
 	   resources.  They are provided to support the formatting
@@ -1256,9 +1179,6 @@ YYYY/MM/DD
 	   You may need to specify "--" first to shut-off option
 	   processing so the "-" is not interpreted as the start
 	   of an option.
-
-    Bug Fixes:
-    See BUGS.
 
 =======================================================================
 1997/02/28	(2.0.0 beta 3)
@@ -2036,7 +1956,5 @@ YYYY/MM/DD
 	   with mail2html.
 
 =======================================================================
-#######################################################################
-=======================================================================
 Earl Hood, mhonarc@mhonarc.org
-$Id: CHANGES,v 1.59 2002/04/18 06:13:09 ehood Exp $
+$Id: CHANGES,v 1.63 2002/05/03 04:41:29 ehood Exp $
