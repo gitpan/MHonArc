@@ -35,10 +35,6 @@ Items are in no particular order:
 
 => XHTML defaults for resources (XXX: Browser impact?)
 
-=> Add support for "format=flowed" for text/plain.
-   XXX: Way to do this without too much overhead in handling the rules
-        defined by RFC 2646.
-
 => "00" year => 1900 (need test case that verifies this).
 
 => Add resource to set initial message number.  XXX: Use of this?
@@ -93,7 +89,5 @@ Items are in no particular order:
 => Use message-IDs as filenames: Internal impacts, OS support problems.
    Should be configurable?
 
-=> Provide an (anonymous) public CVS repository for the source.
-
 ===========================================================================
-$Id: TODO,v 1.16 2002/05/03 04:44:10 ehood Exp $
+$Id: TODO,v 1.18 2002/05/15 07:19:28 ehood Exp $

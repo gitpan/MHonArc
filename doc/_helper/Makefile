@@ -1,17 +1,21 @@
-# 97/03/03 15:58:47
+# $Id: Makefile,v 1.5 2002/05/04 04:59:59 ehood Exp $
 
-default:
-	chmod a+x *.pl
+.PHONY: default vim restbl ctypetbl clean
+
+TOP	  = ../..
+include $(TOP)/etc/variables.mk
+
+default: vim
 
 restbl:
-	perl mkrestbl.pl resource.lst > restbl.html
+	$(PERL) mkrestbl.pl resource.lst > restbl.html
 
 ctypetbl:
-	perl dumpctypes.pl 1>ctypes.tmp 2>&1
-	perl mkctypetbl.pl ctypes.tmp > ctypetbl.gml
+	$(PERL) dumpctypes.pl 1>ctypes.tmp 2>&1
+	$(PERL) mkctypetbl.pl ctypes.tmp > ctypetbl.gml
 
 vim:
-	perl addvimtags.pl resource.lst ../../examples/mhonarc.vim
+	$(PERL) addvimtags.pl resource.lst ../../examples/mhonarc.vim
 
 clean:
-	/bin/rm -f *.tmp *.gml
+	$(RM) -f *.tmp *.gml

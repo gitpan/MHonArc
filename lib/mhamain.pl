@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhamain.pl,v 2.36 2002/05/03 04:48:40 ehood Exp $
+##	$Id: mhamain.pl,v 2.39 2002/05/27 21:05:22 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -29,7 +29,7 @@ package mhonarc;
 
 require 5;
 
-$VERSION = "2.5.4";
+$VERSION = "2.5.5";
 $VINFO =<<EndOfInfo;
   MHonArc v$VERSION (Perl $] $^O)
   Copyright (C) 1995-2002  Earl Hood, mhonarc\@mhonarc.org
@@ -295,7 +295,7 @@ sub doit {
 	    unless $QUIET;
 	my($mbox, $mesgfile, @files);
 
-	foreach $mbox (@ARGV) {
+	MAILFOLDER: foreach $mbox (@ARGV) {
 
 	    ## MH mail folder (a directory)
 	    if (-d $mbox) {
@@ -308,11 +308,17 @@ sub doit {
 		@files = sort { $a <=> $b } grep(/$MHPATTERN/o,
 						 readdir(MAILDIR));
 		closedir(MAILDIR);
-		foreach (@files) {
+
+		local($_);
+		MHFILE: foreach (@files) {
 		    $mesgfile = "${mbox}${DIRSEP}${_}";
-		    if (!($fh = file_open($mesgfile))) {
-			warn "\nWarning: Unable to open message $mesgfile\n";
-			next;
+		    eval {
+			$fh = file_open($mesgfile);
+		    };
+		    if ($@) {
+			warn $@,
+			     qq/...Skipping "$mesgfile"\n/;
+			next MHFILE;
 		    }
 		    print STDOUT "."  unless $QUIET;
 		    ($index, $fields) = read_mail_header($fh);
@@ -329,7 +335,9 @@ sub doit {
 			#  Check if conserving memory
 			if ($SLOW && $DoArchive) {
 			    output_mail($index, 1, 1);
-			    $Update{$IndexNum{$index}} = 1;
+			    if (defined($IndexNum{$index})) {
+				$Update{$IndexNum{$index}} = 1;
+			    }
 			}
 			if ($SLOW || !$DoArchive) {
 			    delete $MsgHead{$index};
@@ -343,9 +351,15 @@ sub doit {
 	    } else {
 		if ($mbox eq "-") {
 		    $fh = $MhaStdin;
-		} elsif (!($fh = &file_open($mbox))) {
-		    warn "\nWarning: Unable to open $mbox\n";
-		    next;
+		} else {
+		    eval {
+			$fh = file_open($mbox);
+		    };
+		    if ($@) {
+			warn $@,
+			     qq/...Skipping "$mbox"\n/;
+			next MAILFOLDER;
+		    }
 		}
 
 		$MBOX = 1;  $MH = 0;
@@ -365,7 +379,9 @@ sub doit {
 						$NoMsgPgs);
 			if ($SLOW && $DoArchive) {
 			    output_mail($index, 1, 1);
-			    $Update{$IndexNum{$index}} = 1;
+			    if (defined($IndexNum{$index})) {
+				$Update{$IndexNum{$index}} = 1;
+			    }
 			}
 			if ($SLOW || !$DoArchive) {
 			    delete $MsgHead{$index};
@@ -404,8 +420,9 @@ sub doit {
 ##	write_pages writes out all archive pages and db
 ##
 sub write_pages {
-    my($i, $key, $index, $tmp, $tmp2);
+    my($i, $j, $key, $index, $tmp, $tmp2);
     my(@array2);
+    my($mloc, $tloc);
 
     ## Remove old message if hit maximum size or expiration
     if (($MAXSIZE && ($NumOfMsgs > $MAXSIZE)) ||
@@ -423,7 +440,6 @@ sub write_pages {
 	&ign_signals();
 
 	## Expiration based upon time
-	my($mloc, $tloc);
 	foreach $index (sort_messages(0,0,0,0)) {
 	    last  unless
 		    ($MAXSIZE && ($NumOfMsgs > $MAXSIZE)) ||
@@ -533,6 +549,16 @@ sub write_pages {
 			if $i > 0;
 		    $Update{$IndexNum{$TListOrder[$i+1]}} = 1
 			if $i < $#TListOrder;
+
+		    $tloc = $Index2TLoc{$index};
+		    for ($j=2; $j <= $TSliceNBefore; ++$j) {
+			$Update{$IndexNum{$TListOrder[$tloc-$j]}} = 1
+			    if $tloc-$j >= 0;
+		    }
+		    for ($j=2; $j <= $TSliceNAfter; ++$j) {
+			$Update{$IndexNum{$TListOrder[$tloc+$j]}} = 1
+			    if $tloc-$j >= $#TListOrder;
+		    }
 		}
 		$i++;
 	    }
@@ -923,7 +949,9 @@ sub read_mail_body {
     ## Define "globals" for use by filters
     ##	NOTE: This stuff can be handled better, and will be done
     ##	      when/if I get around to rewriting mhonarc in (OO) Perl 5.
+    $MHAindex  = $index;
     $MHAmsgnum = &fmt_msgnum($IndexNum{$index});
+    $MHAmsgid  = $Index2MsgId{$index};
 
     ## Filter data
     ($ret, @files) = &readmail::MAILread_body($fields, \$data);
@@ -959,21 +987,44 @@ sub read_mail_body {
 ##	    $force	=> flag if mail is written and not editted, regardless
 ##	    $nocustom	=> ignore sections with user customization
 ##
+##	This function returns ($msgnum, $filename) if everything went
+##	okay, but no calls to this routine check the return values.
+##
 sub output_mail {
     my($index, $force, $nocustom) = @_;
     my($msgi, $tmp, $tmp2, $template, @array2);
     my($msghandle, $msginfh, $drvfh);
 
+    my $msgnum	     = $IndexNum{$index};
+    if (!defined($msgnum)) {
+      # Something bad must have happened to message, so we just
+      # quietly return.
+      return;
+    }
+
     my $adding	     = ($ADD && !$force && !$SINGLE);
-    my $i_p0 	     = fmt_msgnum($IndexNum{$index});
-    my $filename     = msgnum_filename($IndexNum{$index});
+    my $i_p0 	     = fmt_msgnum($msgnum);
+    my $filename     = msgnum_filename($msgnum);
     my $filepathname = join($DIRSEP, $OUTDIR, $filename);
     my $tmppathname  = join($DIRSEP, $OUTDIR, "msgtmp.$$");
 
     if ($adding) {
-	return ($i_p0, $filename)  unless $Update{$IndexNum{$index}};
+	return ($i_p0, $filename)  unless $Update{$msgnum};
 	#&file_rename($filepathname, $tmppathname);
-	$msginfh = file_open($filepathname);
+	eval {
+	  $msginfh = file_open($filepathname);
+	};
+	if ($@) {
+	  # Something is screwed up with archive: We try to delete
+	  # message from database since message file appears to have
+	  # disappeared
+	  warn $@,
+	       qq/...Will attempt to remove message and continue on\n/;
+	  delmsg($index);
+
+	  # Nothing else to do, so return.
+	  return;
+	}
     }
     if ($SINGLE) {
 	$msghandle = \*STDOUT;
@@ -1242,6 +1293,11 @@ sub output_mail {
 	    unshift(@array2, $filepathname);
 	    file_utime($tmp, $tmp, @array2);
 	};
+	if ($@) {
+	    warn qq/\nWarning: Your platform does not support setting file/,
+		   qq/         modification times\n/;
+	    $MODTIME = 0;
+	}
     }
 
     ($i_p0, $filename);
@@ -1292,7 +1348,7 @@ sub link_refmsgid {
     if (defined($MsgId{$refmsgid}) &&
 	defined($IndexNum{$MsgId{$refmsgid}}) &&
 	(!$onlynew || $NewMsgId{$refmsgid})) {
-	local($lreftmpl) = $MSGIDLINK;
+	my($lreftmpl) = $MSGIDLINK;
 	$lreftmpl =~ s/$VarExp/&replace_li_var($1,$MsgId{$refmsgid})/geo;
 	$lreftmpl;
     } else {

@@ -1,8 +1,8 @@
 <!-- ================================================================== -->
-<!--	$Id: frames.mrc,v 1.8 1999/07/24 20:01:43 ehood Exp $
-	Earl Hood <mhonarc@pobox.com>
+<!--	$Id: frames.mrc,v 1.9 2002/05/04 04:52:52 ehood Exp $
+	Earl Hood <earl@earlhood.com>
   -->
-<!--	MHonArc Resource File					--
+<!--	MHonArc Resource File						--
   --									--
   --	Description:							--
   --									--

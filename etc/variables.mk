@@ -1,4 +1,4 @@
-# $Id: variables.mk,v 1.3 2002/05/02 01:23:45 ehood Exp $
+# $Id: variables.mk,v 1.5 2002/05/28 05:24:41 ehood Exp $
 ##-----------------------------------------------------------------------##
 ##  Common variables
 ##-----------------------------------------------------------------------##
@@ -7,7 +7,6 @@ ifeq ($(_variables_mk),)
 _variables_mk:=1
 
 ## Programs
-
 BZIP2		= /usr/bin/bzip2
 CHMOD		= /bin/chmod
 CP		= /bin/cp
@@ -17,13 +16,12 @@ MV		= /bin/mv
 PERL		= /usr/local/bin/perl
 RM		= /bin/rm
 TAR		= /bin/tar
-ZIP		= /usr/bin/zip
+ZIP		= zip
 
 ## Path and pathname separators.
 ## NOTE: Unix pathname conventions should used when possible since
 ##	 Win32 systems do handle "/".  However, PATHSEP should be
 ##	 be used since ":" under Win32 can be used in pathnames.
-
 SEP		= /
 PATHSEP		= :
 ifneq ($(COMSPEC),)
@@ -32,9 +30,12 @@ ifneq ($(COMSPEC),)
   PATHSEP	= ;
 endif
 
+## Path to projects releases root
+ifeq ($(PROJECTS_RELEASES),)
+  PROJECTS_RELEASES = /mnt/WWW/customers/mhonarc.org/htdocs/release
+endif
 
 ## Set include search path
-
 ifeq ($(PERL_SEARCH_LIBS),)
   PERL_SEARCH_LIBS := $(TOP)/lib
 endif

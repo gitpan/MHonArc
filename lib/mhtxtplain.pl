@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhtxtplain.pl,v 2.16 2002/04/04 03:38:39 ehood Exp $
+##	$Id: mhtxtplain.pl,v 2.18 2002/05/14 01:08:57 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -41,6 +41,11 @@ $HUrlExp        = $Url . q/(?:&(?![gl]t;)|[^\s\(\)\|<>"'\&])+/ .
 			 q/[^\.?!;,"'\|\[\]\(\)\s<>\&]/;
 $QuoteChars	= '[>\|\]+:]';
 $HQuoteChars	= '&gt;|[\|\]+:]';
+
+$StartFlowedQuote =
+  '<blockquote style="border-left: #0000FF solid 0.2em; '.
+                     'margin-left: 0.2em; padding-left: 0.2em">';
+$EndFlowedQuote   = "</blockquote>";
 
 ##---------------------------------------------------------------------------##
 ##	Text/plain filter for mhonarc.  The following filter arguments
@@ -209,7 +214,7 @@ sub filter {
 	}
     }
 
-    my($charset, $nourl, $doquote, $igncharset, $nonfixed,
+    my($charset, $nourl, $doquote, $igncharset, $nonfixed, $textformat,
        $keepspace, $maxwidth, $target, $defset, $xhtml);
     my(%asis) = (
 	'us-ascii'   => 1,
@@ -241,6 +246,14 @@ sub filter {
     } else {
 	$charset = $defset;
     }
+    ## Grab format parameter (if defined)
+    if ( defined($fields->{'content-type'}[0]) and
+	 $fields->{'content-type'}[0] =~ /\bformat\s*=\s*([^\s;]+)/i ) {
+	$textformat = lc $1;
+	$textformat =~ s/['";\s]//g;
+    } else {
+	$textformat = "fixed";
+    }
 
     ## Check if certain charsets should be left alone
     if ($args =~ /\basis=(\S+)/i) {
@@ -256,7 +269,7 @@ sub filter {
     }
 
     ## Check if max-width set
-    if ($maxwidth) {
+    if ($maxwidth && $textformat eq 'fixed') {
 	$$data =~ s/^(.*)$/&break_line($1, $maxwidth)/gem;
     }
 
@@ -279,7 +292,10 @@ sub filter {
 
 	# Other
 	} else {
-	    warn qq/Warning: Unrecognized character set: $charset\n/;
+	    warn qq/\n/,
+		 qq/Warning: Unrecognized character set: $charset\n/,
+		 qq/         Message-Id: <$mhonarc::MHAmsgid>\n/,
+		 qq/         Message Number: $mhonarc::MHAmsgnum\n/;
 	    esc_chars_inplace($data);
 	}
 
@@ -287,19 +303,91 @@ sub filter {
 	esc_chars_inplace($data);
     }
 
-    ##	Check for quoting
-    if ($doquote) {
-	$$data =~ s@^( ?${HQuoteChars})(.*)$@$1<I>$2</I>@gom;
-    }
+    if ($textformat eq 'flowed') {
+	# Initial code for format=flowed by Ken Hirsch (May 2002).
+	# text/plain; format=flowed defined in RFC2646
 
-    ## Check if using nonfixed font
-    if ($nonfixed) {
-	$$data =~ s/(\r?\n)/<br>$1/g;
-	if ($keepspace) {
-	    $$data =~ s/^(.*)$/&preserve_space($1)/gem;
+	my $currdepth = 0;
+	my $ret='';
+	s!^</?x-flowed>\r?\n>!!mg; # we don't know why Eudora puts these in
+	while (length($$data)) {
+	    $$data =~ /^((?:&gt;)*)/;
+	    my $qd = $1;
+	    if ($$data =~ s/^(.*(?:(?:\n|\r\n?)$qd(?!&gt;).*)*\n?)//) {
+		# divide message into chunks by "quote-depth",
+		# which is the number of leading > signs
+		my $chunk = $1;
+		$chunk =~ s/^$qd ?//mg;  # N.B. also takes care of
+					 # space-stuffing
+		$chunk =~ s/^-- $/--/mg; # special case for '-- '
+
+		if ($chunk =~ / \r?\n/) {
+		    # Treat this chunk as format=flowed
+		    # Lines that end with spaces are
+		    # considered to have soft line breaks.
+		    # Lines that end with no spaces are
+		    # considered to have hard line breaks.
+		    $chunk =~ s/(?<! )(\r?\n|\Z)/<br>$1/g;
+
+		} else {
+		    # Treat this chunk as format=fixed
+		    if ($nonfixed) {
+			$chunk =~ s/(\r?\n)/<br>$1/g;
+			if ($keepspace) {
+			    $chunk =~ s/^(.*)$/&preserve_space($1)/gem;
+			}
+		    } else {
+			$chunk = "<pre>" . $chunk . "</pre>\n";
+		    }
+		}
+		my $newdepth = length($qd)/length('&gt;');
+		if ($currdepth < $newdepth) {
+		    $chunk = $StartFlowedQuote x
+			     ($newdepth - $currdepth) . $chunk;
+		} elsif ($currdepth > $newdepth) {
+		    $chunk = $EndFlowedQuote x
+			     ($currdepth - $newdepth) . $chunk;
+		}
+		$currdepth = $newdepth;
+		$ret .= $chunk;
+
+	    } else {
+		# I think the above regex will always match, but
+		# I put this in here to catch any weird cases
+		# so there's no infinite loop
+		warn qq/\n/,
+		     qq/Warning: Dequoting problem with format=flowed data\n/,
+		     qq/         Message-Id: <$MHAmsgid>\n/,
+		     qq/         Message Number: $MHAmsgnum\n/;
+		$ret .= $$data;
+		last;
+	    }
 	}
+	if ($currdepth > 0) {
+	    $ret .= $EndFlowedQuote x $currdepth;
+	}
+
+	## Post-processing cleanup: makes things look nicer
+	$ret =~ s/<br><\/blockquote>/<\/blockquote>/g;
+	$ret =~ s/<\/blockquote><br>/<\/blockquote>/g;
+
+	$$data = $ret;
+
     } else {
-    	$$data = "<pre>\n" . $$data . "</pre>\n";
+	## Check for quoting
+	if ($doquote) {
+	    $$data =~ s@^( ?${HQuoteChars})(.*)$@$1<I>$2</I>@gom;
+	}
+
+	## Check if using nonfixed font
+	if ($nonfixed) {
+	    $$data =~ s/(\r?\n)/<br>$1/g;
+	    if ($keepspace) {
+		$$data =~ s/^(.*)$/&preserve_space($1)/gem;
+	    }
+	} else {
+	    $$data = "<pre>" . $$data . "</pre>\n";
+	}
     }
 
     ## Convert URLs to hyperlinks

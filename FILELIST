@@ -1,4 +1,7 @@
 name:MHonArc
+dep:Getopt::Long
+dep:Time::Local
+dep:Symbol
 bin:mhonarc
 bin:mha-dbedit
 bin:mha-dbrecover

@@ -1,6 +1,6 @@
-# $Id: Makefile,v 1.10 2002/05/03 04:12:38 ehood Exp $
+# $Id: Makefile,v 1.11 2002/05/04 04:59:14 ehood Exp $
 
-.PHONY: default residx toc pagetocs buttons rcfileexs utildocs
+.PHONY: default residx toc pagetocs buttons rcfileexs utildocs vim
 
 TOP	  = ..
 
@@ -35,32 +35,30 @@ RCLIST	  = _helper/resource.lst
 RCVARLIST = _helper/rcvars.lst
 
 
-default: residx rcfileexs toc pagetocs buttons utildocs
+default: residx rcfileexs toc pagetocs buttons utildocs vim
 
 residx:
-	perl _helper/addrcindex.pl $(RCLIST) resources.html app-rcidx.html
+	$(PERL) _helper/addrcindex.pl $(RCLIST) resources.html app-rcidx.html
 
 toc:
-	perl _helper/addtoc.pl $(TOCFILE) $(HTMLFILES)
+	$(PERL) _helper/addtoc.pl $(TOCFILE) $(HTMLFILES)
 
 pagetocs:
-	perl _helper/addtoc-i.pl $(HTMLFILES)
+	$(PERL) _helper/addtoc-i.pl $(HTMLFILES)
 
 buttons:
-	perl _helper/addbuttons.pl $(HTMLFILES)
+	$(PERL) _helper/addbuttons.pl $(HTMLFILES)
 
 rcfileexs:
-	-@mkdir rcfileexs
-	perl _helper/ppeg.pl $(RCLIST) $(RCVARLIST) ../examples/date.mrc > \
-	    rcfileexs/date.mrc.html
-	perl _helper/ppeg.pl $(RCLIST) $(RCVARLIST) ../examples/def-mime.mrc > \
-	    rcfileexs/def-mime.mrc.html
-	perl _helper/ppeg.pl $(RCLIST) $(RCVARLIST) ../examples/frames.mrc > \
-	    rcfileexs/frames.mrc.html
-	perl _helper/ppeg.pl $(RCLIST) $(RCVARLIST) ../examples/icons.mrc > \
-	    rcfileexs/icons.mrc.html
-	perl _helper/ppeg.pl $(RCLIST) $(RCVARLIST) ../examples/subject.mrc > \
-	    rcfileexs/subject.mrc.html
+	-@$(MKDIR) -p rcfileexs
+	@for i in ../examples/*.mrc; do \
+	  echo "Converting $$i to html..."; \
+	  $(PERL) _helper/ppeg.pl $(RCLIST) $(RCVARLIST) $$i > \
+		  rcfileexs/`basename $$i`.html; \
+	done
+
+vim:
+	$(PERL) _helper/addvimtags.pl $(RCLIST) ../examples/mhonarc.vim
 
 utildocs: $(UTIL_PODS)
 	-@$(RM) -f pod2htm*~~
@@ -73,7 +71,8 @@ $(UTIL_PODS): _force
 clean:
 	$(RM) -rf *.gml \
 	          pod2htm*~~ \
-		  utils
+		  utils \
+		  rcfileexs/*.mrc.html
 
 _force:
 

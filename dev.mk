@@ -1,4 +1,4 @@
-# $Id: dev.mk,v 2.3 2002/04/04 07:09:35 ehood Exp $
+# $Id: dev.mk,v 2.4 2002/05/07 22:59:40 ehood Exp $
 ##-----------------------------------------------------------------------##
 ##  Development makefile.
 ##-----------------------------------------------------------------------##
@@ -16,7 +16,7 @@ include $(TOP)/etc/variables.mk
 
 TAR_EXCLUDE	= ./etc/tar-exclude
 DIST_DIR	= ./dist
-INSTALL_ME	= /home/cvs/release/install.me/latest/install.me
+INSTALL_ME	= $(PROJECTS_RELEASES)/install.me/latest/install.me
 VERSION_NAME	= MHonArc$(_RELEASE_VERSION)
 
 PERL_FILES	= \

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhrcvars.pl,v 2.18 2002/05/02 01:34:30 ehood Exp $
+##	$Id: mhrcvars.pl,v 2.19 2002/05/04 05:01:20 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -699,7 +699,7 @@ sub compute_msg_pos {
     }
 
     ## Extract out optional data
-    ($arg, $opt) = split(/;/, $arg);
+    ($arg, $opt) = split(/;/, $arg, 2);
 
     SW: {
 	if ($usethread && $TREVERSE) {

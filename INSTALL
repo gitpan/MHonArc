@@ -6,8 +6,11 @@ Installation
 
 The following section describes how to install MHonArc on your system.
 
-NOTE Make sure to read the release notes before installing MHonArc,        
-     especially if you are upgrading from a previous release.              
+NOTE  Make sure to read the release notes before installing MHonArc,       
+      especially if you are upgrading from a previous release. If you are  
+      reading the text version of this installation document, a text       
+      version of the release notes is contained in the file RELNOTES       
+      contained within the root of the MHonArc distribution.               
 
   * System Requirements
   * Downloading MHonArc
@@ -33,13 +36,7 @@ The following is required inorder to use MHonArc:
     language.perl.com/> for download information.
    
   * Getopt::Long and Time::Local modules are installed. These modules are
-    part of the standard Perl distribution. The following command can be
-    used to verify that the modules are installed on your system:
-   
-    shell> perl -MGetopt::Long -MTime::Local -e ';'
-   
-    If you get any error messages, you either have an incomplete
-    installation of Perl, or Perl is misconfigured.
+    part of the standard Perl distribution.
    
   * The following modules are optional:
    
@@ -53,6 +50,9 @@ The following is required inorder to use MHonArc:
     MHonArc will still function if the above listed modules are not
     available.
    
+NOTE  The MHonArc installation program will check that required modules are
+      available before installing MHonArc on your system.                  
+
 ---------------------------------------------------------------------------
 
 Downloading MHonArc
@@ -62,9 +62,13 @@ various sites that you can download MHonArc. If you are familiar with
 Comprehensive Perl Archive Network (CPAN), MHonArc can be downloaded from 
 <http://www.perl.com/CPAN/authors/id/EHOOD/>.
 
-MHonArc is distributed in either a tar/gzip file or a zip file. The tar/
-gzip file will have a name like MHonArcX.X.X.tar.gz, and the zip file have
-a name like MHonArcX.X.X.zip; where X.X.X represents the version number.
+MHonArc is distributed in the following formats:
+
+  * tar-bz2: MHonArcX.X.X.tar.bz2
+  * tar-gzip: MHonArcX.X.X.tar.gz
+  * zip: MHonArcX.X.X.zip
+
+where X.X.X represents the version number.
 
 Alternate distribution formats for MHonArc may be available, like Linux
 RPM. Alternate distribution formats are not covered in this document.
@@ -74,23 +78,27 @@ RPM. Alternate distribution formats are not covered in this document.
 Extracting the MHonArc Distribution
 
 After downloading MHonArc, it is best to move the file to a temporary
-location for extraction. To extract a tar/gzip distribution, use the
-following command:
+location for extraction. To extract the distribution under Unix-like
+systems, use one of the following commands based upon the distribution
+format you downloaded:
 
-    shell> gzip -dc MHonArcX.X.X.tar.gz | tar xvf -
+tar-bz2
+        shell> bzip2 -dc MHonArcX.X.X.tar.bz2 | tar xvf -
+tar-gzip
+        shell> gzip -dc MHonArcX.X.X.tar.gz | tar xvf -
+zip
+        shell> unzip MHonArcX.X.X.zip
 
-To extract the zip distribution, you can use a program like WinZip, or any
-other program that supports zip archives. When extracting, make sure to
-preserve the directory structure.
-
-NOTE WinZip does support tar/gzip files.
+For Win32 systems, you can use a program like WinZip to extract the
+tar-gzip or zip formats. If using Cygwin, you can use the Unix-based
+extraction methods.
 
 After extraction, the subdirectory MHonArcX.X.X will have been created
 containing all the files comprising MHonArc.
 
-IMPORTANT Please read the file RELNOTES included in the MHonArc            
-          distribution before continuing for any news about compatibility  
-          with previous versions and/or important usage information.       
+IMPORTANT  Please read the release notes before continuing for any news    
+           about compatibility with previous versions and/or important     
+           usage information.                                              
 
 You will now want to change your current directory to MHonArcX.X.X for the 
 next step.
@@ -105,8 +113,8 @@ at your shell prompt:
 
     shell> perl install.me
 
-IMPORTANT You must be in the same directory as the install.me program when 
-          you run it.                                                      
+IMPORTANT  You must be in the same directory as the install.me program when
+           you run it.                                                     
 
 The installation program will ask you a series of questions on where the
 perl executable is and where to put MHonArc files. Just hit <CR> to accept
@@ -126,6 +134,7 @@ done during installation. The following is the list of options available:
   -filelist <file>      : List of files to install (def="FILELIST")
   -manpath <path>       : Directory path to manpages
   -nobin                : Do not install programs
+  -nodep                : Skip module dependency check
   -nodoc                : Do not install documentation
   -nolib                : Do not install library files
   -noman                : Do not install manpages
@@ -146,7 +155,6 @@ If you want to install files relative to your home directory, do the
 following:
 
     shell> perl install.me -prefix $HOME
-
 
 install.me Notes
 
@@ -197,8 +205,8 @@ If you want to install in a specific directory, try:
     shell> make
     shell> make install
 
-NOTE install.me is actually called "behind the scenes" to install the      
-     files.                                                                
+NOTE  install.me is actually called "behind the scenes" in batch mode to   
+      install the files.                                                   
 
 ---------------------------------------------------------------------------
 
@@ -226,6 +234,9 @@ Win32 Notes
     the file types editor of the file explorer, you can specify mhaicon.bmp
     as the icon for MHonArc resource (.mrc) files.
    
+    This method of associating the icon to MHonArc resource files is known
+    to work with Win9x systems.
+
 ---------------------------------------------------------------------------
 
 Alternate Operating Systems
@@ -275,11 +286,11 @@ defaults for MHonArc. See the DEFRCFILE resource on valid pathname
 locations for the default resource file. For more information on what can
 be put in a resource file, see the Resources section.
 
-NOTE It is advisable to create some local documentation for users          
-     describing any settings you place in the site-wide resource file. This
-     will avoid confusion if site settings vary from default settings      
-     described in the documentation, and it will help avoid invalid bug    
-     reports.                                                              
+NOTE  It is advisable to create some local documentation for users         
+      describing any settings you place in the site-wide resource file.    
+      This will avoid confusion if site settings vary from default settings
+      described in the documentation, and it will help avoid invalid bug   
+      reports.                                                             
 
 Site Initialization Library
 
@@ -317,7 +328,7 @@ highlighting mode. The mode is best used with color-capable terminals.
 
 ---------------------------------------------------------------------------
 
-$Date: 2001/12/24 14:38:07 $
+$Date: 2002/05/27 20:07:10 $
 [monicon] MHonArc
-Copyright © 1997-1999, Earl Hood, mhonarc@mhonarc.org
+Copyright © 1997-2002, Earl Hood, mhonarc@mhonarc.org
 

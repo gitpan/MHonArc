@@ -1,11 +1,13 @@
-<!--	MHonArc resource file
-	$Id: icons.mrc,v 1.4 2001/10/06 13:53:00 ehood Exp $
+<!-- ================================================================== -->
+<!--    $Id: icons.mrc,v 1.5 2002/05/04 04:52:52 ehood Exp $
+        Earl Hood <earl@earlhood.com>
 
 	This example file makes use of the icons feature of
 	MHonArc.  The icon mappings used work with the
 	default set of icons provided with the Apache HTTP
 	server.
   -->
+<!-- ================================================================== -->
 
 <!--	In this example, we only do a chronological index.
   -->

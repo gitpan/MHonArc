@@ -1,5 +1,5 @@
 <!-- ================================================================== -->
-<!--    $Id: def-mime.mrc,v 1.11 2001/10/06 13:52:36 ehood Exp $
+<!--    $Id: def-mime.mrc,v 1.12 2002/05/04 04:52:40 ehood Exp $
         Earl Hood <earl@earlhood.com>
   -->
 <!--    MHonArc Resource File                                           --
@@ -22,6 +22,7 @@ iso-8859-7;     MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
 iso-8859-8;     MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
 iso-8859-9;     MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
 iso-8859-10;    MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
+iso-8859-15;    MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
 iso-2022-jp;    iso_2022_jp::str2html;  iso2022jp.pl
 latin1;         mhonarc::htmlize;
 latin2;         MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
@@ -29,6 +30,7 @@ latin3;         MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
 latin4;         MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
 latin5;         MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
 latin6;         MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
+latin9;         MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
 windows-1250;   MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
 windows-1252;   MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
 default;        -ignore-

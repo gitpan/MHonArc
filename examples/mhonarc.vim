@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:	MHonArc Resource File
 " Maintainer:	Earl Hood <mhonarc@pobox.com>
-" Last change:	$Date: 2001/06/10 11:47:56 $ 
+" Last change:	$Date: 2002/05/04 01:25:54 $ 
 
 "	Adapted from the following:
 " Language:	HTML
@@ -71,6 +71,7 @@ syn keyword mhaTagName contained fieldorder
 syn keyword mhaTagName contained fieldsbeg
 syn keyword mhaTagName contained fieldsend
 syn keyword mhaTagName contained fieldstyles
+syn keyword mhaTagName contained firstpglink
 syn keyword mhaTagName contained fldbeg
 syn keyword mhaTagName contained fldend
 syn keyword mhaTagName contained folrefs
@@ -100,6 +101,7 @@ syn keyword mhaTagName contained include
 syn keyword mhaTagName contained labelbeg
 syn keyword mhaTagName contained labelend
 syn keyword mhaTagName contained labelstyles
+syn keyword mhaTagName contained lasttpglink
 syn keyword mhaTagName contained listbegin
 syn keyword mhaTagName contained listend
 syn keyword mhaTagName contained litemplate
@@ -177,6 +179,7 @@ syn keyword mhaTagName contained subsort
 syn keyword mhaTagName contained nosubsort
 syn keyword mhaTagName contained tcontbegin
 syn keyword mhaTagName contained tcontend
+syn keyword mhaTagName contained tfirstpglink
 syn keyword mhaTagName contained tfoot
 syn keyword mhaTagName contained thead
 syn keyword mhaTagName contained thread
@@ -190,6 +193,7 @@ syn keyword mhaTagName contained timezones
 syn keyword mhaTagName contained tindentbegin
 syn keyword mhaTagName contained tindentend
 syn keyword mhaTagName contained title
+syn keyword mhaTagName contained tlasttpglink
 syn keyword mhaTagName contained tlevels
 syn keyword mhaTagName contained tliend
 syn keyword mhaTagName contained tlinone
@@ -197,23 +201,60 @@ syn keyword mhaTagName contained tlinoneend
 syn keyword mhaTagName contained tlitxt
 syn keyword mhaTagName contained tnextbutton
 syn keyword mhaTagName contained tnextbuttonia
+syn keyword mhaTagName contained tnextinbutton
+syn keyword mhaTagName contained tnextinbuttonia
+syn keyword mhaTagName contained tnextinlink
+syn keyword mhaTagName contained tnextinlinkia
 syn keyword mhaTagName contained tnextlink
 syn keyword mhaTagName contained tnextlinkia
 syn keyword mhaTagName contained tnextpglink
 syn keyword mhaTagName contained tnextpglinkia
+syn keyword mhaTagName contained tnexttopbutton
+syn keyword mhaTagName contained tnexttopbuttonia
+syn keyword mhaTagName contained tnexttoplink
+syn keyword mhaTagName contained tnexttoplinkia
 syn keyword mhaTagName contained toplinks
 syn keyword mhaTagName contained tprevbutton
 syn keyword mhaTagName contained tprevbuttonia
+syn keyword mhaTagName contained tprevinbutton
+syn keyword mhaTagName contained tprevinbuttonia
+syn keyword mhaTagName contained tprevinlink
+syn keyword mhaTagName contained tprevinlinkia
 syn keyword mhaTagName contained tprevlink
 syn keyword mhaTagName contained tprevlinkia
 syn keyword mhaTagName contained tprevpglink
 syn keyword mhaTagName contained tprevpglinkia
+syn keyword mhaTagName contained tprevtopbutton
+syn keyword mhaTagName contained tprevtopbuttonia
+syn keyword mhaTagName contained tprevtoplink
+syn keyword mhaTagName contained tprevtoplinkia
 syn keyword mhaTagName contained treverse
 syn keyword mhaTagName contained notreverse
 syn keyword mhaTagName contained tsingletxt
 syn keyword mhaTagName contained tslice
 syn keyword mhaTagName contained tslicebeg
+syn keyword mhaTagName contained tslicecontbegin
+syn keyword mhaTagName contained tslicecontend
 syn keyword mhaTagName contained tsliceend
+syn keyword mhaTagName contained tsliceindentbegin
+syn keyword mhaTagName contained tsliceindentend
+syn keyword mhaTagName contained tslicelevels
+syn keyword mhaTagName contained tsliceliend
+syn keyword mhaTagName contained tsliceliendcur
+syn keyword mhaTagName contained tslicelinone
+syn keyword mhaTagName contained tslicelinoneend
+syn keyword mhaTagName contained tslicelitxt
+syn keyword mhaTagName contained tslicelitxtcur
+syn keyword mhaTagName contained tslicesingletxt
+syn keyword mhaTagName contained tslicesingletxtcur
+syn keyword mhaTagName contained tslicesubjectbeg
+syn keyword mhaTagName contained tslicesubjectend
+syn keyword mhaTagName contained tslicesublistbeg
+syn keyword mhaTagName contained tslicesublistend
+syn keyword mhaTagName contained tslicetopbegin
+syn keyword mhaTagName contained tslicetopbegincur
+syn keyword mhaTagName contained tslicetopend
+syn keyword mhaTagName contained tslicetopendcur
 syn keyword mhaTagName contained tsort
 syn keyword mhaTagName contained notsort
 syn keyword mhaTagName contained tsubjectbeg
