@@ -10,6 +10,61 @@ MM/DD/YYYY
 =======================================================================
 #######################################################################
 =======================================================================
+04/13/2001	(2.4.8)
+
+    o	Added the following resources:
+
+	    KEEPONRMM   	Do not remove message files from disk
+				when messages are removed from the
+				archive.
+
+    o	m2h_text_plain::filter now uses CHARSETCONVERTERS for
+	translating text data with a specified charset parameter.
+	The only exception is iso-2022-jp, which is handled directly
+	to properly support nourl flag.
+
+    o	m2h_external::filter new arguments:
+
+	excludeexts=ext1,...
+		  A comma separated list of message specified filename
+		  extensions to exclude.  I.e.	If the filename
+		  extension matches an extension in excludeexts, the
+		  content will not be written.	The return markup
+		  will contain the name of the attachment, but no
+		  link to the data.  This option is best used with
+		  application/octet-stream to exclude unwanted data
+		  that is not tagged with the proper content-type.
+		  The m2h_null::filter can be used to exclude content
+		  by content-type.
+
+    o	m2h_null::filter will now output a one line description
+	of the excluded content.  This is so the reader knows that
+	there was message content not saved within the archive.
+
+    o	m2h_text_plain::filter new arguments:
+
+	usename		If extracting uuencoded data, the filename
+			specified should be used.
+
+    o	m2h_text_html::filter new arguments:
+
+ 	allowcomments	Preserve any comment declarations.  Normally
+ 			Comment declarations are munged to prevent
+ 			SSI attacks or comments that can conflict
+ 			with MHonArc processing.  Use this option
+ 			with care.
+
+	(NOTE: Comment declarations were completely stripped before,
+	 but the regex used was known to crash perl on large comment
+	 declarations, so a simplier expression is now used to
+	 modify comment declarations to prevent possible attacks.)
+
+
+    Bug Fixes
+    ---------
+    See BUGS.
+
+=======================================================================
 10/28/2000	(2.4.7)
 
     o	Added the following options to m2h_text_plain::filter:
@@ -1480,4 +1535,4 @@ MM/DD/YYYY
 #######################################################################
 =======================================================================
 Earl Hood, mhonarc@pobox.com
-@(#) CHANGES 00/10/28 11:28:33
+@(#) CHANGES 01/04/13 12:33:07

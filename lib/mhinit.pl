@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhinit.pl 2.21 00/10/28 10:53:12
+##	@(#) mhinit.pl 2.22 01/04/10 21:36:40
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -438,6 +438,7 @@ $TREVERSE    = defined($ENV{'M2H_TREVERSE'})  ?  $ENV{'M2H_TREVERSE'}	: 0;
 $TSUBSORT    = defined($ENV{'M2H_TSUBSORT'})  ?  $ENV{'M2H_TSUBSORT'}	: 0;
 $GzipFiles   = defined($ENV{'M2H_GZIPFILES'}) ?  $ENV{'M2H_GZIPFILES'}	: 0;
 $GzipLinks   = defined($ENV{'M2H_GZIPLINKS'}) ?  $ENV{'M2H_GZIPLINKS'}	: 0;
+$KeepOnRmm   = defined($ENV{'M2H_KEEPONRMM'}) ?  $ENV{'M2H_KEEPONRMM'}  : 0;
 $UseLocalTime= defined($ENV{'M2H_USELOCALTIME'}) ? 
 		       $ENV{'M2H_USELOCALTIME'} : 0;
 $NoSubjectThreads = defined($ENV{'M2H_SUBJECTTHREADS'}) ?

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhopt.pl 2.19 00/02/13 03:28:54
+##      @(#) mhopt.pl 2.20 01/04/10 21:36:41
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -75,6 +75,7 @@ sub get_resources {
 	"idxfname=s",	# Filename of index page
 	"idxprefix=s",	# Filename prefix for multi-page main index
 	"idxsize=i",	# Maximum number of messages shown in indexes
+	"keeponrmm",	# Do not delete message files on archive remove
 	"localdatefmt=s",
 			# Date specification for local date
 	"lock",		# Do archive locking (default)
@@ -108,6 +109,7 @@ sub get_resources {
 	"nofolrefs",	# Do not print links to explicit follow-ups/references
 	"nogzipfiles",	# Do not Gzip files
 	"nogziplinks",	# Do not add ".gz" extensions to files
+	"nokeeponrmm",	# Delete message files on archive remove
 	"nolock",	# Do no archive locking
 	"nomailto",	# Do not add in mailto links for e-mail addresses
 	"nomain",	# Do not create a main index
@@ -518,6 +520,8 @@ sub get_resources {
     $SaveRsrcs	= 0  if $opt{'nosaveresources'};
     $SpamMode	= 1  if $opt{'spammode'};
     $SpamMode	= 0  if $opt{'nospammode'};
+    $KeepOnRmm	= 1  if $opt{'keeponrmm'};
+    $KeepOnRmm	= 0  if $opt{'nokeeponrmm'};
 
     $CheckNoArchive = 1  if $opt{'checknoarchive'};
     $CheckNoArchive = 0  if $opt{'nochecknoarchive'};

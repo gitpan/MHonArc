@@ -1,10 +1,10 @@
 ---------------------------------------------------------------------------
                             README for MHonArc
-                                 v2.4.7
+                                 v2.4.8
 
 			<http://www.mhonarc.org/>
 
-			 Copyright (C) 1995-2000
+			 Copyright (C) 1995-2001
 		       Earl Hood, mhonarc@pobox.com
 
 ---------------------------------------------------------------------------
@@ -54,7 +54,7 @@ examples/       Example resource files for MHonArc
 extras/         Extra programs for use with MHonArc (See extras/README)
 install.me      Installation program for MHonArc
 lib/            Libraries/MIME filters used by MHonArc
-logo/           Gifs of the MHonArc logo
+logo/           MHonArc logo images
 mha-dbedit*	Modify database without regenerating pages
 mha-dbrecover*	Rebuild database from HTML message pages
 mha-decode*	MIME message decoder
@@ -148,5 +148,5 @@ BUGS/COMMENTS/SUGGESTIONS?
     development of the program.
 
 ---------------------------------------------------------------------------
-Copyright (C) 1995-2000,		Earl Hood, mhonarc@pobox.com
-@(#) README 00/10/28 11:29:12
+Copyright (C) 1995-2001,		Earl Hood, mhonarc@pobox.com
+@(#) README 01/04/13 12:42:20

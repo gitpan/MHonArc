@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcvars.pl 2.12 00/10/28 10:54:06
+##	@(#) mhrcvars.pl 2.13 01/04/10 21:36:41
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -430,7 +430,7 @@ sub replace_li_var {
 	}
 	if ($var eq 'PGLINKLIST') {
 	    my $num = $PageNum;
-	    my $t = $arg =~ s/T//i;
+	    my $t = $arg =~ s/T//gi;
 	    my($before, $after) = split(/;/, $arg);
 	    my $prefix  = $t ? $TIDXPREFIX : $IDXPREFIX;
 	    my $suffix  = $HtmlExt;

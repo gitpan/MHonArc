@@ -84,6 +84,73 @@ the bug was fixed.
 </tr>
 <tr valign=top>
 <td align=right><strong>Version</strong></td>
+<td align=left>2.4.7, and earlier</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Message with HTML content can cause perl to crash. Other symptom would be that a stale .mhonarc.lck
+ directory would exist preventing further archive
+ updates.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>There appears to be a bug in perl's regex engine. The fix was to change mhtxthtml.pl comment declaration
+ removal expression into a simplier one that just
+ munges (removes parts) to avoid crashes.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.8</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.4.7, and earlier</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Prefixing second argument to $PGLINKLIST()$ with a 'T' cause no thread page links to be rendered after
+ current thread index page.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Fixed in mhrcvars.pl: Make sure to strip 'T' from both arguments before evaluating numeric values.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.8</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.4.7, and earlier</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Default CHARSETCONVERTERS values for latin[1-6] charsets causing require error.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Fixed in mhinit.pl (typo in library filename).</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.8</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
 <td align=left>2.4.6, and earlier</td>
 </tr>
 <tr valign=top>
@@ -2198,7 +2265,7 @@ the bug was fixed.
 <!-- *************************************************************** -->
 <hr>
 <address>
-00/10/28 11:26:19<br>
+01/04/10 21:42:54<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.mhonarc.org"
 ><strong>MHonArc</strong></a><br>

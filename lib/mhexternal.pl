@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhexternal.pl 2.7 99/06/25 13:59:18
+##	@(#) mhexternal.pl 2.8 01/04/10 21:36:40
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -44,6 +44,21 @@ package m2h_external;
 ##
 ##	Argument string may contain the following values.  Each value
 ##	should be separated by a space:
+##
+##	excludeexts="ext1,ext2,..."
+##			A comma separated list of message specified filename
+##			extensions to exclude.  I.e.  If the filename
+##			extension matches an extension in excludeexts,
+##			the content will not be written.  The return
+##			markup will contain the name of the attachment,
+##			but no link to the data.  This option is best
+##			used with application/octet-stream to exclude
+##			unwanted data that is not tagged with the proper
+##			content-type.  The m2h_null::filter can be used
+##			to exclude content by content-type.
+##
+##			Applicable when content-type not image/* and
+##			usename or usenameext is in effect.
 ##
 ##	ext=ext 	Use `ext' as the filename extension.
 ##
@@ -109,9 +124,15 @@ sub filter {
     my $usenameext = $args =~ /\busenameext\b/i;
     my $debug      = $args =~ /\bdebug\b/i;
     my $inlineexts = '';
+    my $excexts    = '';
     if ($args =~ /\binlineexts=(\S+)/) {
-	$inlineexts = ',' . lc($1) . ',';
+	$inlineexts = join("", ',', lc($1), ',');
 	$inlineexts =~ s/['"]//g;
+    }
+    if ($args =~ /\bexcludeexts=(\S+)/) {
+	$excexts = join("", ',', lc($1), ',');
+	$excexts =~ s/['"]//g;
+	&debug("Exclude extensions: $excexts") if $debug;
     }
 
     ## Get content-type
@@ -126,6 +147,18 @@ sub filter {
 	   "Disposition: $disp; filename=$nameparm",
 	   "Arg-string: $args")  if $debug;
 
+    ## Get filename extension in disposition
+    my $dispext = '';
+    if ($nameparm && ($nameparm !~ /^\./) && ($nameparm =~ /\.(\w+)$/)) {
+      $dispext = lc $1;
+      &debug("Disposition filename extension: $dispext") if $debug;
+    }
+
+    ## Check if content is excluded based on filename extension
+    if ($excexts && index($excexts, ",$dispext,") >= $[) {
+      return (qq|<p><tt>&lt&lt;attachment: $nameparm&gt;&gt;</tt></p>\n|);
+    }
+
     ## Check if file goes in a subdirectory
     $path = join('', $mhonarc::MsgPrefix, $mhonarc::MHAmsgnum)
 	if $subdir;
@@ -135,10 +168,7 @@ sub filter {
     if ($args =~ /\btype="([^"]+)"/i) { $intype = $1; }
 
     ## Check if utilizing extension from mail header defined filename
-    if ($nameparm &&			 # filename specified, and
-	$usenameext &&          	 # use filename ext option set, and
-	($nameparm !~ /^\./) &&		 # filename does not begin w/dot, and
-	($nameparm =~ /\.(\w+)$/)) {	 # filename has an extention
+    if ($dispext && $usenameext) {
 	$inext = $1;
     }
 

@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) install.me 1.15 00/02/13 02:23:12
+##	@(#) install.me 1.16 01/04/06 00:28:49
 ##  Author:
 ##      Earl Hood, ehood@pobox.com
 ##  Summary:
@@ -104,15 +104,9 @@ BEGIN {
     } elsif (/mswin/i or /winnt/i) {
 	$WINDOWS = 1;  $MSDOS = 1;
 	$OSType = 'windows';
-    } elsif (/unix/i or
-	     /aix/i or
-	     /bsd/i or
-	     /dynix/i or
-	     /hpux/i or
-	     /solaris/i or
-	     /sunos/i or
-	     /ultrix/i or
-	     /linux/i) {
+    } elsif (/unix/i  || /aix/i     || /bsd/i   || /dynix/i  ||
+	     /hpux/i  || /solaris/i || /sunos/i || /ultrix/i ||
+	     /linux/i || /cygwin/i) {
 	$UNIX = 1;
 	$OSType = 'unix';
     } else {

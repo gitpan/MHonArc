@@ -351,24 +351,37 @@ following
 
 <table cellspacing=1 border=0 cellpadding=4>
 <tr valign=top>
+<td><strong><tt>excludeexts=</tt></strong><var>ext1</var><tt>,</tt>...</td>
+<td><p>A comma separated list of message specified filename extensions
+to exclude.  I.e.  If the filename extension matches an extension
+in excludeexts, the content will not be written.  The return markup
+will contain the name of the attachment, but no link to the data.
+This option is best used with application/octet-stream to exclude
+unwanted data that is not tagged with the proper content-type.  The
+<a href="#m2h_null"><tt>m2h_null::filter</tt></a> can be used to
+exclude content by content-type.
+</p>
+</td>
+</tr>
+<tr valign=top>
 <td><strong><tt>ext=<var>ext</var></tt></strong></td>
 <td><p>Use <var>ext</var> as the filename extension.
 The filter already has a large list of extensions for various
 content-types.  Use this argument if you process a
 content-type not recognized by the filter.
-</p>
+</p></td>
 </tr>
 <tr valign=top>
 <td><strong><tt>forceattach</tt></strong></td>
 <td><p>Force images to never be displayed inline, overriding any
 Content-Disposition setting.
-</p>
+</p></td>
 </tr>
 <tr valign=top>
 <td><strong><tt>forceinline</tt></strong></td>
 <td><p>Force images to be displayed inline, overriding any
 Content-Disposition setting.
-</p>
+</p></td>
 </tr>
 <tr valign=top>
 <td><strong><tt>iconurl="<var>url</var>"</tt></strong></td>
@@ -377,12 +390,12 @@ if the <strong><tt>useicon</tt></strong> option is set.
 This option will override any setting defined by the
 <a href="icons.html">ICONS</a> resource.
 The double quotes are required.
-</p>
+</p></td>
 </tr>
 <tr valign=top>
 <td><strong><tt>inline</tt></strong></td>
 <td><p>Inline image data by default if content-disposition not defined.
-</p>
+</p></td>
 </tr>
 <tr valign=top>
 <td><strong><tt>inlineexts=</tt></strong><var>ext1</var><tt>,</tt>...</td>
@@ -390,7 +403,7 @@ The double quotes are required.
 extensions to treat as possible inline data.
 Applicable when content-type is not <tt>image/</tt><var>*</var> and
 <b><tt>usename</tt></b> or <b><tt>usenameext</tt></b> is in effect.
-</p>
+</p></td>
 </tr>
 <tr valign=top>
 <td><strong><tt>type="<var>description</var>"</tt></strong></td>
@@ -399,7 +412,7 @@ data.  The double quotes are required.
 The filter already has a large list of descriptions for various
 content-types.  Use this argument if you process a
 content-type not recognized by the filter.
-</p>
+</p></td>
 </tr>
 <tr valign=top>
 <td><strong><tt>subdir</tt></strong></td>
@@ -407,14 +420,14 @@ content-type not recognized by the filter.
 The subdirectory will be called "<tt>msg<var>MSGNUM</var></tt>".
 This option may be useful if <strong><tt>usename</tt></strong> is
 specified to avoid security and name conflict problems.
-</p>
+</p></td>
 </tr>
 <tr valign=top>
 <td><strong><tt>target=</tt></strong><var>name</var></td>
 <td><p>Set the TARGET attribute of anchor link to file
 Default value is undefined (ie. no TARGET attribute will be
 written).
-</p>
+</p></td>
 </tr>
 <tr valign=top>
 <td><strong><tt>useicon</tt></strong></td>
@@ -422,7 +435,7 @@ written).
 the derived file.  The icon used is the value of the
 <strong><tt>iconurl</tt></strong> option or the icon
 defined by the <a href="icons.html">ICONS</a> resource.
-</p>
+</p></td>
 </tr>
 <tr valign=top>
 <td><strong><tt>usename</tt></strong></td>
@@ -431,7 +444,7 @@ of derived file.  Use this option with caution
 since it can lead to filename conflicts and
 security problems (however, see the <strong><tt>subdir</tt></strong>
 option).
-</p>
+</p></td>
 </tr>
 <tr valign=top>
 <td><strong><tt>usenameext</tt></strong></td>
@@ -440,7 +453,7 @@ of derived file.  Use this option with caution
 since it can lead to
 security problems (however, see the <strong><tt>subdir</tt></strong>
 option).
-</p>
+</p></td>
 </tr>
 </table>
 
@@ -1365,6 +1378,16 @@ following
 
 <table cellspacing=1 border=0 cellpadding=4>
 <tr valign=top>
+<td><strong><tt>allowcomments</tt></strong></td>
+<td><p>Preserve any comment declarations.  Comment declarations
+are sometimes used to contain executable commands, like for
+server-side includes.  Normally, comment declarations are munged
+to protect against potential exploits, but this option will
+disable that behavior.  Use this options with <strong>EXTREME</strong>
+care.
+</p></td>
+</tr>
+<tr valign=top>
 <td><strong><tt>allowscript</tt></strong></td>
 <td><p>Preserve any markup associated with scripting.
 This includes elements and attributes related to scripting.  This option
@@ -1493,6 +1516,14 @@ hyperlinking URLs.
 </p>
 </tr>
 <tr valign=top>
+<td><strong><tt>usename</tt></strong></td>
+<td><p>When decoding uuencoded data, use the full filename specified
+when write the data to disk instead of just the filename extension.
+<b>Note:</b> Be aware that there are potential security problems when
+using this option.
+</p></td>
+</tr>
+<tr valign=top>
 <td><strong><tt>uudecode</tt></strong></td>
 <td><p>Decode any embedded uuencoded data.  Including uuencoded data
 within messages was a way to trasmit binary data
@@ -1502,7 +1533,7 @@ USENET (binary) newsgroups.  Note, specifying <b><tt>uudecode</tt></b>
 adds extra
 overhead in the processing of text messages, including messages without
 any uuencoded data.
-</p>
+</p></td>
 </tr>
 
 </table>
@@ -1521,6 +1552,32 @@ to HTML.
 
 <p>This filter converts text/tab-separated-values to HTML.  The
 tabular data will be converted into an HTML table.
+</p>
+
+<hr size=0 noshade width="50%">
+<H3><a name="m2h_null">m2h_null::filter</a></h3>
+
+<p>This filter can be used to exclude message content from archives.
+You can register this filter to any content-type you do not want
+to store in your archives.  For example, the following resource setting
+excludes all images:
+</p>
+<pre>
+<b>&lt;MIMEFilters&gt;</b>
+image/*; m2h_null::filter</a>; mhnull.pl
+<b>&lt;/MIMEFilters&gt;</b>
+</pre>
+<p>The markup returned by this filter displays the a one line description
+of what was excluded.  Examples:
+</p>
+<pre>
+&lt;&lt;attachment: HelloWorld.jpg&gt;&gt;
+&lt;&lt;application/postscript&gt;&gt;
+&lt;&lt;inline: image/jpg&gt;&gt;
+</pre>
+<p>If the disposition is available, it will be shown.  If a filename
+was specified, it will be shown.  If there was no filename, the
+content-type is shown.
 </p>
 
 <!-- *************************************************************** -->
@@ -1635,7 +1692,7 @@ sub addbase {
 <!-- *************************************************************** -->
 <hr>
 <address>
-00/10/28 11:13:03<br>
+01/04/10 21:42:33<br>
 <img align="top" src="../monicon.gif" alt="">
 <a href="http://www.pobox.com/~ehood/mhonarc.html"><strong>MHonArc</strong></a><br>
 Copyright &#169; 1997-1999 <a href="http://www.pobox.com/~ehood/">Earl Hood</a>, <a href="mailto:mhonarc@pobox.com">mhonarc@pobox.com</a><br>

@@ -19,13 +19,13 @@ lib/iso2022jp.pl:
 lib/iso8859.pl:
 	 iso8859.pl 2.4 99/08/13 22:10:35
 lib/mhamain.pl:
-	 mhamain.pl 2.21 00/10/30 00:04:32
+	 mhamain.pl 2.22 01/04/10 21:36:49
 lib/mhdb.pl:
-	 mhdb.pl 2.13 00/10/28 10:46:37
+	 mhdb.pl 2.14 01/04/10 21:36:37
 lib/mhdysub.pl:
 	 mhdysub.pl 2.4 99/07/25 02:02:34
 lib/mhexternal.pl:
-	 mhexternal.pl 2.7 99/06/25 13:59:18
+	 mhexternal.pl 2.8 01/04/10 21:36:40
 lib/mhfile.pl:
 	 mhfile.pl 2.4 99/06/25 14:13:41
 lib/mhidxrc.pl:
@@ -33,7 +33,7 @@ lib/mhidxrc.pl:
 lib/mhindex.pl:
 	 mhindex.pl 1.6 99/10/01 02:03:44
 lib/mhinit.pl:
-	 mhinit.pl 2.21 00/10/28 10:53:12
+	 mhinit.pl 2.22 01/04/10 21:36:40
 lib/mhlock.pl:
 	 mhlock.pl 1.2 99/07/13 00:48:29
 lib/mhmimetypes.pl:
@@ -45,13 +45,13 @@ lib/mhmsgfile.pl:
 lib/mhnote.pl:
 	 mhnote.pl 1.2 99/06/25 14:21:43
 lib/mhnull.pl:
-	 mhnull.pl 1.3 99/06/25 14:18:03
+	 mhnull.pl 1.4 01/04/10 21:36:50
 lib/mhopt.pl:
-	 mhopt.pl 2.19 00/02/13 03:28:54
+	 mhopt.pl 2.20 01/04/10 21:36:41
 lib/mhrcfile.pl:
-	 mhrcfile.pl 2.13 00/02/13 03:28:50
+	 mhrcfile.pl 2.14 01/04/10 21:36:41
 lib/mhrcvars.pl:
-	 mhrcvars.pl 2.12 00/10/28 10:54:06
+	 mhrcvars.pl 2.13 01/04/10 21:36:41
 lib/mhrmm.pl:
 	 mhrmm.pl 1.4 00/04/24 00:03:36
 lib/mhscan.pl:
@@ -65,15 +65,15 @@ lib/mhtime.pl:
 lib/mhtxtenrich.pl:
 	 mhtxtenrich.pl 2.4 00/02/08 10:04:43
 lib/mhtxthtml.pl:
-	 mhtxthtml.pl 2.13 00/10/28 10:55:44
+	 mhtxthtml.pl 2.14 01/04/10 21:36:41
 lib/mhtxtplain.pl:
-	 mhtxtplain.pl 2.10 00/10/28 10:57:32
+	 mhtxtplain.pl 2.11 01/04/10 21:36:41
 lib/mhtxtsetext.pl:
 	 mhtxtsetext.pl 2.2 99/08/15 21:52:26
 lib/mhtxttsv.pl:
 	 mhtxttsv.pl 2.3 99/06/25 14:21:02
 lib/mhusage.pl:
-	 mhusage.pl 2.13 00/02/13 03:28:52
+	 mhusage.pl 2.14 01/04/10 21:36:41
 lib/mhutil.pl:
 	 mhutil.pl 2.9 00/01/17 17:18:15
 lib/osinit.pl:

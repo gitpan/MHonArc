@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxtplain.pl 2.10 00/10/28 10:57:32
+##	@(#) mhtxtplain.pl 2.11 01/04/10 21:36:41
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -31,6 +31,8 @@
 ##---------------------------------------------------------------------------##
 
 package m2h_text_plain;
+
+require 'readmail.pl';
 
 $Url    	= '(http://|https://|ftp://|afs://|wais://|telnet://|ldap://' .
 		   '|gopher://|news:|nntp:|mid:|cid:|mailto:|prospero:)';
@@ -82,6 +84,10 @@ $HQuoteChars	= '&gt;|[\|\]+:]';
 ##	target=name  	Set TARGET attribute for links if converting URLs
 ##			to links.  Defaults to _top.
 ##
+##	usename		Use filename specified in uuencoded data when
+##			converting uuencoded data.  This option is only
+##			applicable of uudecode is specified.
+##
 ##	uudecode	Decoded any embedded uuencoded data.
 ##
 ##	All arguments should be separated by at least one space
@@ -122,6 +128,7 @@ sub filter {
 	    $inlineexts = ',' . lc($1) . ',';
 	    $inlineexts =~ s/['"]//g;
 	}
+	my $usename = $args =~ /\busename\b/;
 
 	local($pdata);	# have to use local() since typeglobs used
 	my($inext, $uddata, $file, $urlfile);
@@ -145,7 +152,8 @@ sub filter {
 		# save to file
 		push(@files,
 		     mhonarc::write_attachment(
-			'application/octet-stream', \$uddata, '', '', $inext));
+			'application/octet-stream', \$uddata, '',
+			($usename?$file:''), $inext));
 		$urlfile = mhonarc::htmlize($files[$#files]);
 
 		# create link to file
@@ -215,13 +223,13 @@ sub filter {
     ## Check if certain charsets should be left alone
     if ($args =~ /\basis=(\S+)/i) {
 	my $t = lc $1;  $t =~ s/['"]//g;
-	%asis = ('us-ascii' => 1);	# should us-ascii always be "as-is"?
+	%asis = ('us-ascii' => 1);  # XXX: Should us-ascii always be "as-is"?
 	local($_);  foreach (split(':', $t)) { $asis{$_} = 1; }
     }
 
     ## Check MIMECharSetConverters if charset should be left alone
-    if (defined($readmail::MIMECharSetConverters{$charset}) and
-	    $readmail::MIMECharSetConverters{$charset} eq "-decode-") {
+    my $charcnv = &readmail::load_charset($charset);
+    if (defined($charcnv) && $charcnv eq '-decode-') {
 	$asis{$charset} = 1;
     }
 
@@ -232,7 +240,7 @@ sub filter {
 
     ## Convert data according to charset
     if (!$asis{$charset}) {
-	# Japanese
+	# Japanese we have to handle directly to support nourl flag
 	if ($charset =~ /iso-2022-jp/) {
 	    require "iso2022jp.pl";
 	    if ($nonfixed) {
@@ -243,17 +251,16 @@ sub filter {
 			'</pre>');
 	    }
 
-	# Latin 1-6, Greek, Hebrew, Arabic
-	} elsif ($charset =~ /\biso-8859-(10|[1-9])\b/ ||
-		 $charset =~ /\blatin[1-6]\b/) {
-	    require "iso8859.pl";
-	    $data = &iso_8859::str2sgml($data, $charset);
+	# Registered in CHARSETCONVERTERS
+	} elsif (defined($charcnv) && defined(&$charcnv)) {
+	    $data = &$charcnv($data, $charset);
 
 	# Other
 	} else {
 	    warn qq/Warning: Unrecognized character set: $charset\n/;
 	    &esc_chars_inplace(\$data);
 	}
+
     } else {
 	&esc_chars_inplace(\$data);
     }

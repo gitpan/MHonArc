@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxthtml.pl 2.13 00/10/28 10:55:44
+##	@(#) mhtxthtml.pl 2.14 01/04/10 21:36:41
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -56,6 +56,12 @@ my $SElem = q/(?:applet|base|embed|form|ilayer|input|layer|link|meta|object|/.
 ##
 ##	nofont  	Remove <FONT> tags.
 ##
+##	allowcomments	Preserve any comment declarations.  Normally
+##			Comment declarations are munged to prevent
+##			SSI attacks or comments that can conflict
+##			with MHonArc processing.  Use this option
+##			with care.
+##
 sub filter {
     local($header, *fields, *data, $isdecode, $args) = @_;
     local(@files) = ();	# !!!Used by resolve_cid!!!
@@ -66,9 +72,10 @@ sub filter {
     my $nofont	 = $args =~ /\bnofont\b/i;
     my $tmp;
 
-    ## Remove comment declarations: may screw-up mhonarc processing
+    ## Check comment declarations: may screw-up mhonarc processing
     ## and avoids someone sneaking in SSIs.
-    $data =~ s/<!(?:--(?:[^-]|-[^-])*--\s*)+>//go;
+    #$data =~ s/<!(?:--(?:[^-]|-[^-])*--\s*)+>//go; # can crash perl
+    $data =~ s/<!--[^-]+[#X%\$\[]*/<!--/g;  # Just mung them (faster)
 
     ## Get/remove title
     if ($data =~ s|<title\s*>([^<]*)</title\s*>||io) {

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhdb.pl 2.13 00/10/28 10:46:37
+##	@(#) mhdb.pl 2.14 01/04/10 21:36:37
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -119,6 +119,7 @@ print_var(\*DB,'GzipFiles',      \$GzipFiles);
 print_var(\*DB,'GzipLinks',      \$GzipLinks);
 print_var(\*DB,'HtmlExt',        \$HtmlExt);
 print_var(\*DB,'IDXSIZE',        \$IDXSIZE);
+print_var(\*DB,'KeepOnRmm',      \$KeepOnRmm);
 print_var(\*DB,'LocalDateFmt',   \$LocalDateFmt);
 print_var(\*DB,'MAILTOURL',      \$MAILTOURL)  unless $IsDefault{'MAILTOURL'};
 print_var(\*DB,'MAIN',           \$MAIN);

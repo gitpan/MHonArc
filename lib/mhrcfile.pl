@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcfile.pl 2.13 00/02/13 03:28:50
+##	@(#) mhrcfile.pl 2.14 01/04/10 21:36:41
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -330,6 +330,10 @@ sub read_resource_file {
 	    }
 	    last FMTSW;
 	}
+	if ($elem eq "keeponrmm") {		# Keep files on rmm
+	    $KeepOnRmm = 1;
+	    last FMTSW;
+	}
 	if ($elem eq "labelbeg") {		# Begin markup of label
 	    $LABELBEG = &get_elem_content($handle, $elem, $chop);
 	    last FMTSW;
@@ -582,6 +586,10 @@ sub read_resource_file {
 	}
 	if ($elem eq "nogziplinks") {		# Don't add ".gz" to links
 	    $GzipLinks = 0;  last FMTSW;
+	}
+	if ($elem eq "nokeeponrmm") {		# Remove files on rmm
+	    $KeepOnRmm = 0;
+	    last FMTSW;
 	}
 	if ($elem eq "nomailto") {		# Do not convert e-mail addrs
 	    $NOMAILTO = 1; last FMTSW;

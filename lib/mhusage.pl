@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhusage.pl 2.13 00/02/13 03:28:52
+##      @(#) mhusage.pl 2.14 01/04/10 21:36:41
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -98,6 +98,8 @@ Options:
   -idxprefix <string>      : Filename prefix for multi-page main index
                              (def: "mail")
   -idxsize <#>             : Maximum number of messages shown in indexes
+  -keeponrmm               : Do not delete message files when message is
+                             removed from archive.
   -localdatefmt <fmt>      : Format for local date
   -lock                    : Do archive locking (default)
   -lockdelay <#>           : Time delay, in seconds, between lock tries
@@ -129,8 +131,9 @@ Options:
   -nodoc                   : Do not print link to doc at end of index page
   -nofolrefs               : Do not print links to follow-ups/references
   -nogzipfiles             : Do not Gzip files (the default)
-  -nosaveresources         : Do not save resource values in DB
   -nogziplinks             : Do not add ".gz" to filenames in links
+  -nokeeponrmm             : Delete message files when message is removed
+                             from archive.
   -nolock                  : Do not lock archive
   -nomailto                : Do not add in mailto links for e-mail addresses
   -nomain                  : Do not create a main index
@@ -141,6 +144,7 @@ Options:
   -noposixstrftime         : Do not use POSIX::strftime() to process time
                              format (the default)
   -noreverse               : List messages in normal order (the default)
+  -nosaveresources         : Do not save resource values in DB
   -nosort                  : Do not sort messages
   -nospammode              : Do not obfuscate addresses
   -nosubjectthreads        : Do not check subjects for threads

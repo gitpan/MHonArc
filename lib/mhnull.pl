@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhnull.pl 1.3 99/06/25 14:18:03
+##	@(#) mhnull.pl 1.4 01/04/10 21:36:50
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -33,7 +33,13 @@
 package m2h_null;
 
 sub filter {
-    " ";	# Return a bogus space to denote success for readmail.pl
+    local($header, *fields, *data, $isdecode, $args) = @_;
+    my($ctype) = ($fields{'content-type'} =~ m%^\s*([\w\-\./]+)%;
+    my($disp, $nameparm) = &readmail::MAILhead_get_disposition(*fields);
+    join("", '<p><tt>&lt;&lt;',
+	     ($disp ? "$disp: ", ""),
+	     ($nameparm ? $nameparm : $ctype),
+	     '&gt;&gt;</tt></p>');
 }
 
 ##---------------------------------------------------------------------------##

@@ -1,7 +1,7 @@
 Bug History for MHonArc
 =======================
 <URL:http://www.mhonarc.org/>
-@(#) BUGS 00/10/28 11:26:33
+@(#) BUGS 01/04/10 21:44:20
 
 Each bug listing has the following fields:
 
@@ -15,6 +15,31 @@ Each bug listing has the following fields:
 		    applicable.
 
 Bug List
+------------------------------------------------------------------------
+Version:	2.4.7, and earlier
+Problem:   	Message with HTML content can cause perl to crash.
+		Other symptom would be that a stale .mhonarc.lck
+		directory would exist preventing further archive
+		updates.
+Solution:	There appears to be a bug in perl's regex engine.
+		The fix was to change mhtxthtml.pl comment declaration
+		removal expression into a simplier one that just
+		munges (removes parts) to avoid crashes.
+Version Fixed:	2.4.8
+------------------------------------------------------------------------
+Version:	2.4.7, and earlier
+Problem:   	Prefixing second argument to $PGLINKLIST()$ with
+		a 'T' cause no thread page links to be rendered after
+		current thread index page.
+Solution:	Fixed in mhrcvars.pl: Make sure to strip 'T' from
+		both arguments before evaluating numeric values.
+Version Fixed:	2.4.8
+------------------------------------------------------------------------
+Version:	2.4.7, and earlier
+Problem:   	Default CHARSETCONVERTERS values for latin[1-6] charsets
+		causing require error.
+Solution:	Fixed in mhinit.pl (typo in library filename).
+Version Fixed:	2.4.8
 ------------------------------------------------------------------------
 Version:	2.4.6, and earlier
 Problem:   	ADDRESSMODIFYCODE not stored in database.

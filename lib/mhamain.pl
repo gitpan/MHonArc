@@ -1,13 +1,13 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhamain.pl 2.21 00/10/30 00:04:32
+##	@(#) mhamain.pl 2.22 01/04/10 21:36:49
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
 ##	Main library for MHonArc.
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1995-1999	Earl Hood, mhonarc@pobox.com
+##    Copyright (C) 1995-2001	Earl Hood, mhonarc@pobox.com
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -27,10 +27,10 @@
 
 package mhonarc;
 
-$VERSION = "2.4.7";
+$VERSION = "2.4.8";
 $VINFO =<<EndOfInfo;
   MHonArc v$VERSION (Perl $])
-  Copyright (C) 1995-2000  Earl Hood, mhonarc\@pobox.com
+  Copyright (C) 1995-2001  Earl Hood, mhonarc\@pobox.com
   MHonArc comes with ABSOLUTELY NO WARRANTY and MHonArc may be copied only
   under the terms of the GNU General Public License, which may be found in
   the MHonArc distribution.
@@ -1248,15 +1248,15 @@ sub delmsg {
     delete $Refs{$key};
     delete $Subject{$key};
     delete $MsgId{$Index2MsgId{$key}};
-    &file_remove($filename);
+    &file_remove($filename)  unless $KeepOnRmm;
     foreach $filename (split(/$X/o, $Derived{$key})) {
 	$pathname = (&OSis_absolute_path($filename)) ?
 			$filename :
 			join($DIRSEP, $OUTDIR, $filename);
 	if (-d $pathname) {
-	    &dir_remove($pathname);
+	    &dir_remove($pathname)  unless $KeepOnRmm;
 	} else {
-	    &file_remove($pathname);
+	    &file_remove($pathname)  unless $KeepOnRmm;
 	}
     }
     delete $Derived{$key};
