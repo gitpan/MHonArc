@@ -10,6 +10,61 @@ MM/DD/YYYY
 =======================================================================
 #######################################################################
 =======================================================================
+10/28/2000	(2.4.7)
+
+    o	Added the following options to m2h_text_plain::filter:
+
+	attachcheck	Honor attachment disposition.  By default,
+			all text/plain data is displayed inline on
+			the message page.  If attachcheck is specified
+			and Content-Disposition specifies the data as
+			an attachment, the data is saved to a file
+			with a link to it from the message page.
+	htmlcheck	Check if message is actually an HTML message
+			(to get around abhorrent MUAs).  The message
+			is treated as HTML if the first non-whitespace
+			data looks like the start of an HTML document.
+
+    o	FROMFIELD resource default value is now:
+
+	  from:mail-reply-to:reply-to:return-path:apparently-from:
+	  sender:resent-sender
+
+	The change is the addition of "mail-reply-to."
+
+    o	Added the following resource variables:
+
+	    $MSGTORDNUM$	Ordinal number of message in current
+				thread.
+
+    o	Added the following resource variable message specificiers:
+
+	    TEND		Last message of current discussion
+				thread.
+	    TTOP		Top/root message of current discussion
+				thread.
+
+    o	Changes to readmail.pl:
+	-   %Cid hash keys are now URLs.  Content-Ids are denoted
+	    as "cid:..."  Hash also contains Content-Location values
+	    of message parts.  This allows filters (like the HTML
+	    filter) to check for external URL references where
+	    the data for the reference is included with the message.
+	-   More robust handling of malformed multipart messages.
+
+    o	The null filter is applied to application/ms-tnef by default.
+
+    o	Lowercase tag names are now used in default resource values
+	that contain HTML markup.
+
+    o	Bug fixes to the documentation.
+
+
+    Bug Fixes
+    ---------
+    See BUGS.
+
+=======================================================================
 04/24/2000	(2.4.6)
 
     o	Stricter check is made when decoded quoted-printable data.
@@ -1425,4 +1480,4 @@ MM/DD/YYYY
 #######################################################################
 =======================================================================
 Earl Hood, mhonarc@pobox.com
-@(#) CHANGES 00/04/24 00:53:08
+@(#) CHANGES 00/10/28 11:28:33

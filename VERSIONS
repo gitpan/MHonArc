@@ -1,14 +1,7 @@
-VERSIONS for MHonArc
-
----------------------------------------------------------------------------
-MHonArc Release Version: 2.4.6
-
----------------------------------------------------------------------------
-SCCS Versions
-
-The following list the SCCS versions of the various source files
-comprising this release of MHonArc:
-
+SCCS Version Numbers
+====================
+Note: SCCS versions do not correspond to product version
+--------------------------------------------------------
 mhonarc:
 	 mhonarc 2.5 00/04/24 00:13:37
 mha-dbedit:
@@ -28,7 +21,7 @@ lib/iso8859.pl:
 lib/mhamain.pl:
 	 mhamain.pl 2.20 00/04/24 00:05:57
 lib/mhdb.pl:
-	 mhdb.pl 2.12 00/02/13 03:28:23
+	 mhdb.pl 2.13 00/10/28 10:46:37
 lib/mhdysub.pl:
 	 mhdysub.pl 2.4 99/07/25 02:02:34
 lib/mhexternal.pl:
@@ -36,15 +29,15 @@ lib/mhexternal.pl:
 lib/mhfile.pl:
 	 mhfile.pl 2.4 99/06/25 14:13:41
 lib/mhidxrc.pl:
-	 mhidxrc.pl 2.6 99/08/08 20:01:19
+	 mhidxrc.pl 2.7 00/10/28 10:47:42
 lib/mhindex.pl:
 	 mhindex.pl 1.6 99/10/01 02:03:44
 lib/mhinit.pl:
-	 mhinit.pl 2.20 00/02/13 03:28:47
+	 mhinit.pl 2.21 00/10/28 10:53:12
 lib/mhlock.pl:
 	 mhlock.pl 1.2 99/07/13 00:48:29
 lib/mhmimetypes.pl:
-	 mhmimetypes.pl 1.4 00/01/15 17:54:32
+	 mhmimetypes.pl 1.5 00/10/28 11:01:33
 lib/mhmsgextbody.pl:
 	 mhmsgextbody.pl 1.1 99/09/28 23:17:50
 lib/mhmsgfile.pl:
@@ -58,7 +51,7 @@ lib/mhopt.pl:
 lib/mhrcfile.pl:
 	 mhrcfile.pl 2.13 00/02/13 03:28:50
 lib/mhrcvars.pl:
-	 mhrcvars.pl 2.11 00/01/19 13:16:41
+	 mhrcvars.pl 2.12 00/10/28 10:54:06
 lib/mhrmm.pl:
 	 mhrmm.pl 1.4 00/04/24 00:03:36
 lib/mhscan.pl:
@@ -72,9 +65,9 @@ lib/mhtime.pl:
 lib/mhtxtenrich.pl:
 	 mhtxtenrich.pl 2.4 00/02/08 10:04:43
 lib/mhtxthtml.pl:
-	 mhtxthtml.pl 2.12 00/02/05 19:33:31
+	 mhtxthtml.pl 2.13 00/10/28 10:55:44
 lib/mhtxtplain.pl:
-	 mhtxtplain.pl 2.9 00/04/24 00:02:43
+	 mhtxtplain.pl 2.10 00/10/28 10:57:32
 lib/mhtxtsetext.pl:
 	 mhtxtsetext.pl 2.2 99/08/15 21:52:26
 lib/mhtxttsv.pl:
@@ -88,8 +81,5 @@ lib/osinit.pl:
 lib/qprint.pl:
 	 qprint.pl 2.4 00/04/24 00:04:24
 lib/readmail.pl:
-	 readmail.pl 2.7 99/09/28 23:15:00
-
----------------------------------------------------------------------------
-Earl Hood, mhonarc@pobox.com
-@(#) VERSIONS 00/04/24 00:20:39
+	 readmail.pl 2.9 00/10/28 10:58:32
+lib/rfc822.pl:

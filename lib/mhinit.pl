@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhinit.pl 2.20 00/02/13 03:28:47
+##	@(#) mhinit.pl 2.21 00/10/28 10:53:12
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -239,6 +239,7 @@ $DBPathName	= '';	# Full pathname of database file
 %readmail::MIMEFilters = (
     # Content-type			Filter
     #-------------------------------------------------------------------
+    "application/ms-tnef",		"m2h_null::filter",
     "application/octet-stream",		"m2h_external::filter",
     "application/x-patch",		"m2h_text_plain::filter",
     "message/delivery-status",  	"m2h_text_plain::filter",
@@ -266,6 +267,7 @@ $DBPathName	= '';	# Full pathname of database file
 %readmail::MIMEFiltersSrc = (
     # Content-type			Filter
     #-------------------------------------------------------------------
+    "application/ms-tnef",		"mhnull.pl",
     "application/octet-stream",		"mhexternal.pl",
     "application/x-patch",		"mhtxtplain.pl",
     "message/delivery-status",  	"mhtxtplain.pl",
@@ -364,7 +366,7 @@ $MHeadCnvFunc	= "mhonarc::htmlize";
 $VarExp    = $ENV{'M2H_VARREGEX'}   || '\$([^\$]*)\$';
 
 ##  Regexp for address/msg-id detection (looks like cussing in cartoons)
-$AddrExp = q%[^()<>@,;:\/\s"'&|]+@[^()<>@,;:\/\s"'&|]+%;
+$AddrExp = '[^()<>@,;:\/\s"\'&|]+@[^()<>@,;:\/\s"\'&|]+';
 
 ##	Grab environment variable settings
 ##

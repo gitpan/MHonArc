@@ -35,9 +35,9 @@ for example:
 
 <PRE>
 &lt;LiTemplate&gt;
-&lt;LI&gt;&lt;STRONG&gt;<b>$SUBJECT$</b>&lt;/STRONG&gt;
-&lt;UL&gt;&lt;LI&gt;&lt;EM&gt;From&lt;/EM&gt;: <b>$FROM$</b>&lt;/LI&gt;&lt;/UL&gt;
-&lt;/LI&gt;
+&lt;li&gt;&lt;strong&gt;<b>$SUBJECT$</b>&lt;/strong&gt;
+&lt;ul&gt;&lt;li&gt;&lt;em&gt;From&lt;/em&gt;: <b>$FROM$</b>&lt;/li&gt;&lt;/ul&gt;
+&lt;/li&gt;
 &lt;/LiTemplate&gt;
 </PRE>
 
@@ -45,7 +45,8 @@ for example:
 in the main index page.  The <tt>$SUBJECT$</tt> and
 <tt>$FROM$</tt> are resource
 variables.  <tt>$SUBJECT$</tt> will get expanded to the current message's
-subject, hyperlinked to the message page.  <tt>$FROM$</tt> will be replaced with
+subject, hyperlinked to the message page.
+<tt>$FROM$</tt> will be replaced with
 the message's author's name and address.
 </p>
 
@@ -54,9 +55,9 @@ the message's author's name and address.
 example:
 
 <pre>
-&lt;LI&gt;Next by Date:
-&lt;STRONG&gt;&lt;A HREF="<b>$MSG(NEXT)$</b>"&gt;<b>$SUBJECT(NEXT)$</b>&lt;/A&gt;&lt;/STRONG&gt;
-&lt;/LI&gt;
+&lt;li&gt;Next by Date:
+&lt;strong&gt;&lt;a href="<b>$MSG(NEXT)$</b>"&gt;<b>$SUBJECT(NEXT)$</b>&lt;/a&gt;&lt;/strong&gt;
+&lt;/li&gt;
 </pre>
 
 <p>The resource setting uses two resource variables: <tt>$MSG$</tt> and
@@ -199,7 +200,7 @@ are used to represent argument values:
 
 <dl>
 
-<dt><a name="mesg_spec"><b><i><tt>mesg_spec</tt></b></i></a></dt>
+<dt><a name="mesg_spec"><b><i><tt>mesg_spec</tt></i></b></a></dt>
 <dd><p>A message specification determines which message the variable's
 expanded will be based upon. Possible values are:
 </p>
@@ -208,35 +209,53 @@ expanded will be based upon. Possible values are:
 <th align=right>Value</th><th align=left>- Meaning</th>
 </tr>
 <tr valign=top>
-<td align=right><tt>CUR</tt></td><td>- Current message.</td>
+<td align=right><tt>CUR</tt></td>
+  <td>- Current message.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>FIRST</tt></td><td>- First message listed in main index.</td>
+<td align=right><tt>FIRST</tt></td>
+  <td>- First message listed in main index.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>LAST</tt></td><td>- Last message listed in main index.</td>
+<td align=right><tt>LAST</tt></td>
+  <td>- Last message listed in main index.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>NEXT</tt></td><td>- Next message by main sort order.</td>
+<td align=right><tt>NEXT</tt></td>
+  <td>- Next message by main sort order.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>PREV</tt></td><td>- Previous message by main sort order.</td>
+<td align=right><tt>PREV</tt></td>
+  <td>- Previous message by main sort order.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TFIRST</tt></td><td>- First message listed thread index.</td>
+<td align=right><tt>TEND</tt></td>
+  <td>- Last message of current discussion thread.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TLAST</tt></td><td>- Last message listed thread index.</td>
+<td align=right><tt>TFIRST</tt></td>
+  <td>- First message listed thread index.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TNEXT</tt></td><td>- Next message by thread.</td>
+<td align=right><tt>TLAST</tt></td>
+  <td>- Last message listed thread index.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TPARENT</tt></td><td>- Parent message of current
+<td align=right><tt>TNEXT</tt></td>
+  <td>- Next message by thread.</td>
+</tr>
+<tr valign=top>
+<td align=right><tt>TPARENT</tt></td>
+  <td>- Parent message of current
 thread.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TPREV</tt></td><td>- Previous message by thread.</td>
+<td align=right><tt>TPREV</tt></td>
+  <td>- Previous message by thread.</td>
+</tr>
+<tr valign=top>
+<td align=right><tt>TTOP</tt></td>
+  <td>- Top/root message of current discussion thread.</td>
 </tr>
 </table>
 <p>"<tt>CUR</tt>" is the default if nothing is specified for
@@ -690,6 +709,33 @@ resource.
 </td>
 </tr>
 </table><br></dd>
+<dt><strong><a name="MSGTORDNUM"><tt>$MSGTORDNUM$</tt></a></strong></dt>
+<dd><table border=0>
+<tr valign=top>
+<td align=right><b>Arguments:</b></td>
+<td><tt><i><a href="#mesg_spec">mesg_spec</a></i></tt></td>
+</tr>
+<tr valign=top>
+<td align=right><b>Description:</b></td>
+<td>The ordinal message number of the current discussion thread.  Numbering
+starts with the first top/root message of a thread and ends with the
+last message of the thread, spanning in sub-threads.  The following
+illustrates how the numbering works:
+<pre>
+  <b>1</b>. <var>top/root message</var>
+    <b>2</b>. <var>first follow-up to 1</var>
+      <b>3</b>. <var>first follow-up to 2</var>
+      <b>4</b>. <var>second follow-up to 2</var>
+    <b>5</b>. <var>second follow-up to 1</var>
+      <b>6</b>. <var>first follow-up to 5</var>
+        <b>7</b>. <var>first follow-up to 6</var>
+    <b>8</b>. <var>third follow-up to 1</var>
+</pre>
+The above contains 8 total message in the discussion thread, so numbering
+goes from 1 to 8.
+</td>
+</tr>
+</table><br></dd>
 <dt><strong><a name="NOTE"><tt>$NOTE$</tt></a></strong></dt>
 <dd><table border=0>
 <tr valign=top>
@@ -879,7 +925,10 @@ link text for to a give page is the page number.
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>The subject text of the message wrapped in an anchor element that hyperlinks to the message.</td>
+<td>The subject text of the message, and if no arguments, wrapped in an
+anchor element that hyperlinks to the message.  This behavior exists
+for backwards capatibility and a simple way to provide a link to
+the current message using the subject as the link text.</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="SUBJECTNA"><tt>$SUBJECTNA$</tt></a></strong></dt>
@@ -1052,7 +1101,7 @@ resources.
 <!-- *************************************************************** -->
 <hr>
 <address>
-00/04/24 00:09:35<br>
+00/10/28 11:08:02<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.mhonarc.org"
 ><strong>MHonArc</strong></a><br>

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxtplain.pl 2.9 00/04/24 00:02:43
+##	@(#) mhtxtplain.pl 2.10 00/10/28 10:57:32
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -34,9 +34,9 @@ package m2h_text_plain;
 
 $Url    	= '(http://|https://|ftp://|afs://|wais://|telnet://|ldap://' .
 		   '|gopher://|news:|nntp:|mid:|cid:|mailto:|prospero:)';
-$UrlExp 	= $Url . q%[^\s\(\)\|<>"']*[^\.?!;,"'\|\[\]\(\)\s<>]%;
-$HUrlExp        = $Url . q%(?:&(?![gl]t;)|[^\s\(\)\|<>"'\&])+% .
-			 q%[^\.?!;,"'\|\[\]\(\)\s<>\&]%;
+$UrlExp 	= $Url . q/[^\s\(\)\|<>"']*[^\.?!;,"'\|\[\]\(\)\s<>]/;
+$HUrlExp        = $Url . q/(?:&(?![gl]t;)|[^\s\(\)\|<>"'\&])+/ .
+			 q/[^\.?!;,"'\|\[\]\(\)\s<>\&]/;
 $QuoteChars	= '[>\|\]+:]';
 $HQuoteChars	= '&gt;|[\|\]+:]';
 
@@ -49,12 +49,24 @@ $HQuoteChars	= '&gt;|[\|\]+:]';
 ##			Only HTML special characters will be converted into
 ##			entities.  The default value is "us-ascii:iso-8859-1".
 ##
+##	attachcheck	Honor attachment disposition.  By default,
+##			all text/plain data is displayed inline on
+##			the message page.  If attachcheck is specified
+##			and Content-Disposition specifies the data as
+##			an attachment, the data is saved to a file
+##			with a link to it from the message page.
+##
 ##	default=set 	Default charset to use if not set.
 ##
 ##      inlineexts="ext1,ext2,..."
 ##                      A comma separated list of message specified filename
 ##                      extensions to treat as inline data.
 ##                      Applicable only when uudecode options specified.
+##
+##	htmlcheck	Check if message is actually an HTML message
+##			(to get around abhorrent MUAs).  The message
+##			is treated as HTML if the first non-whitespace
+##			data looks like the start of an HTML document.
 ##
 ##	keepspace	Preserve whitespace if nonfixed
 ##
@@ -80,6 +92,16 @@ sub filter {
 
     ## Parse arguments
     $args	= ""  unless defined($args);
+
+    ## Check if content-disposition should be checked
+    if ($args =~ /\battachcheck\b/i) {
+	my($disp, $nameparm) = &readmail::MAILhead_get_disposition(*fields);
+	if ($disp =~ /\battachment\b/i) {
+	    require 'mhexternal.pl';
+	    return (&m2h_external::filter(
+		      $header, *fields, *data, $isdecode, $args));
+	}
+    }
 
     ## Check if decoding uuencoded data.  The implementation chosen here
     ## for decoding uuencoded data was done so when uudecode is not
@@ -128,15 +150,18 @@ sub filter {
 
 		# create link to file
 		if (index($inlineexts, ','.lc($inext).',') >= $[) {
-		    $ret .= qq|<A HREF="$urlfile"><IMG SRC="$urlfile">| .
-			    qq|</A><BR>\n|;
+		    $ret .= qq|<a href="$urlfile"><img src="$urlfile">| .
+			    qq|</a><br>\n|;
 		} else {
-		    $ret .= qq|<A HREF="$urlfile">| . mhonarc::htmlize($file) .
-			    qq|</A><BR>\n|;
+		    $ret .= qq|<a href="$urlfile">| . mhonarc::htmlize($file) .
+			    qq|</a><br>\n|;
 		}
 
 	    } else {		# plain text
-		$ret .= &filter($header, *fields, *pdata, $isdecode, $args);
+		my(@subret) =
+		    &filter($header, *fields, *pdata, $isdecode, $args);
+		$ret .= shift @subret;
+		push(@files, @subret);
 	    }
 	    ++$i;
 	}
@@ -145,8 +170,17 @@ sub filter {
 	return ($ret, @files);
     }
 
+    
+    ## Check for HTML data if requested
+    if ($args =~ s/\bhtmlcheck\b//i &&
+	    $data =~ /\A\s*<(?:html\b|x-html\b|!doctype\s+html\s)/i) {
+	require 'mhtxthtml.pl';
+	return (&m2h_text_html::filter(
+		  $header, *fields, *data, $isdecode, $args));
+    }
+
     my($charset, $nourl, $doquote, $igncharset, $nonfixed,
-       $keepspace, $maxwidth, $target, $defset);
+       $keepspace, $maxwidth, $target, $defset, $xhtml);
     my(%asis) = (
 	'us-ascii'   => 1,
 	'iso-8859-1' => 1,
@@ -165,7 +199,7 @@ sub filter {
 	elsif ($args =~ /\btarget=(\S+)/i) { $target = $1; }
     $target =~ s/['"]//g;
     if ($target) {
-	$target = qq/TARGET="$target"/;
+	$target = qq/target="$target"/;
     }
     $defset =~ s/['"\s]//g;
 
@@ -204,9 +238,9 @@ sub filter {
 	    if ($nonfixed) {
 		return (&iso_2022_jp::jp2022_to_html($data, $nourl));
 	    } else {
-		return ('<PRE>' .
+		return ('<pre>' .
 			&iso_2022_jp::jp2022_to_html($data, $nourl).
-			'</PRE>');
+			'</pre>');
 	    }
 
 	# Latin 1-6, Greek, Hebrew, Arabic
@@ -253,6 +287,7 @@ sub esc_chars_inplace {
     $$foo =~ s/&/&amp;/g;
     $$foo =~ s/</&lt;/g;
     $$foo =~ s/>/&gt;/g;
+    $$foo =~ s/"/&quot;/g;
     1;
 }
 

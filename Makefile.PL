@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# @(#) Makefile.PL 1.3 99/06/25 14:40:58
+# @(#) Makefile.PL 1.4 00/10/28 11:26:52
 # Pseudo Makefile.PL:  Since MHonArc's history goes back to Perl 4 days,
 # it has its own installation process.  This file generates a simple
 # Makefile to (paritally) satisfy the standard Perl 5 way to install
@@ -35,7 +35,7 @@ PRGS		= mhonarc mha-dbrecover mha-dbedit mha-decode
 PERL		= perl
 INSTALLPRG	= install.me
 
-.PHONY		= default install install-ask pod2man test clean
+.PHONY		= default install install-ask pod2man test clean versions
 
 
 default: pod2man
@@ -55,6 +55,16 @@ pod2man:
 		pod2man \$\$i > man/\$\$i.1; \\
 	    ); \\
 	done
+
+versions:
+	\@echo "SCCS Version Numbers" > VERSIONS
+	\@echo "====================" >> VERSIONS
+	\@echo "Note: SCCS versions do not correspond to product version" \\
+	    >> VERSIONS
+	\@echo "--------------------------------------------------------" \\
+	    >> VERSIONS
+	\@what mhonarc mha-* lib/*.pl >> VERSIONS
+	\@echo "Created VERSIONS"
 
 test:
 	\@echo "No tests"

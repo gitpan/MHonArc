@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) readmail.pl 2.7 99/09/28 23:15:00
+##	@(#) readmail.pl 2.9 00/10/28 10:58:32
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -471,10 +471,10 @@ sub MAILread_body {
 
 	    ## Get boundary
 	    $boundary = "";
-	    if ($content =~ m%boundary\s*=\s*"([^"]*)"%i) {
+	    if ($content =~ m/boundary\s*=\s*"([^"]*)"/i) {
 		$boundary = $1;
 	    } else {
-		($boundary) = $content =~ m%boundary\s*=\s*(\S+)%i;
+		($boundary) = $content =~ m/boundary\s*=\s*(\S+)/i;
 		$boundary =~ s/;$//;  # chop ';' if grabbed
 	    }
 
@@ -521,7 +521,12 @@ sub MAILread_body {
 		} else {
 		    # no boundary separators in message!
 		    warn qq/Warning: No boundaries found in message body\n/;
-		    substr($body, 0, 1) = ""; # remove \n added above
+		    if ($body =~ m/\A\n[\w\-]+:\s/) {
+			# remove \n added above if part looks like it has
+			# headers.  we keep if it does not to avoid body
+			# data being parsed as a header below.
+			substr($body, 0, 1) = "";
+		    }
 		    push(@parts, $body);
 		}
 
@@ -545,7 +550,14 @@ sub MAILread_body {
 
 		$cid = $partfields{'content-id'} || $partfields{'message-id'};
 		$cid =~ s/[\s<>]//g;
-		$Cid{$cid} = $href  if $cid =~ /\S/;
+		$Cid{"cid:$cid"} = $href  if $cid =~ /\S/;
+		if ($cid = $partfields{'content-location'}) {
+		    $cid =~ s/^\s+//;
+		    $cid =~ s/\s+$//;
+		    if ($cid =~ /\S/ && !$Cid{$cid}) {
+			$Cid{$cid} = $href;
+		    }
+		}
 	    }
 
 	    my($entity);

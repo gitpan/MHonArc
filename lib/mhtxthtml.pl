@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxthtml.pl 2.12 00/02/05 19:33:31
+##	@(#) mhtxthtml.pl 2.13 00/10/28 10:55:44
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -94,7 +94,8 @@ sub filter {
 
     ## Strip out certain elements/tags to support proper inclusion
     $data =~ s|<!doctype\s[^>]*>||io;
-    $data =~ s|</?html[^>]*>||gio;
+    $data =~ s|</?html\b[^>]*>||gio;
+    $data =~ s|</?x-html\b[^>]*>||gio;
     $data =~ s|<head\s*>[\s\S]*</head\s*>||io;
 
     ## Strip out <font> tags if requested
@@ -123,13 +124,13 @@ sub filter {
 	    ## set visual properties.  We use a mixture of old attributes
 	    ## and CSS to set properties since browsers may not support
 	    ## all of the CSS settings via the STYLE attribute.
-	    my $tpre = '<TABLE><TR><TD ';
+	    my $tpre = '<table width="100%"><tr><td ';
 	    my $tsuf = "";
-	    $tpre .= qq|BACKGROUND="$attr{'background'}" |
+	    $tpre .= qq|background="$attr{'background'}" |
 		     if $attr{'background'};
-	    $tpre .= qq|BGCOLOR="$attr{'bgcolor'}" |
+	    $tpre .= qq|bgcolor="$attr{'bgcolor'}" |
 		     if $attr{'bgcolor'};
-	    $tpre .= qq|STYLE="|;
+	    $tpre .= qq|style="|;
 	    $tpre .= qq|background-color: $attr{'bgcolor'}; |
 		     if $attr{'bgcolor'};
 	    if ($attr{'background'}) {
@@ -142,18 +143,18 @@ sub filter {
 	    }
 	    $tpre .= qq|color: $attr{'text'}; |
 		     if $attr{'text'};
-	    $tpre .= qq|A:link { color: $attr{'link'} } |
+	    $tpre .= qq|a:link { color: $attr{'link'} } |
 		     if $attr{'link'};
-	    $tpre .= qq|A:active { color: $attr{'alink'} } |
+	    $tpre .= qq|a:active { color: $attr{'alink'} } |
 		     if $attr{'alink'};
-	    $tpre .= qq|A:visited { color: $attr{'vlink'} } |
+	    $tpre .= qq|a:visited { color: $attr{'vlink'} } |
 		     if $attr{'vlink'};
 	    $tpre .= '">';
 	    if ($attr{'text'}) {
-		$tpre .= qq|<FONT COLOR="$attr{'text'}">|;
-		$tsuf .= '</FONT>';
+		$tpre .= qq|<font color="$attr{'text'}">|;
+		$tsuf .= '</font>';
 	    }
-	    $tsuf .= '</TD></TR></TABLE>';
+	    $tsuf .= '</td></tr></table>';
 	    $data = $tpre . $data . $tsuf;
 	}
     }
@@ -166,9 +167,9 @@ sub filter {
     }
 
     ## Check for CID URLs (multipart/related HTML)
-    $data =~ s/((?:href|src|background)\s*=\s*['"])cid:([^'"]+)(['"])/
+    $data =~ s/((?:href|src|background)\s*=\s*['"])([^'"]+)(['"])/
 	       join("", $1, &resolve_cid($2), $3)/geix;
-    $data =~ s/((?:href|src|background)\s*=\s*)cid:([^\s>]+)/
+    $data =~ s/((?:href|src|background)\s*=\s*)([^'">][^\s>]+)/
 	       join("", $1, '"', &resolve_cid($2), '"')/geix;
 
     ($title.$data, @files);
@@ -212,7 +213,7 @@ sub addbase {
 sub resolve_cid {
     my $cid = shift;
     my $href = $readmail::Cid{$cid};
-    if (!defined($href)) { return "cid:$cid"; }
+    if (!defined($href)) { return $cid; }
 
     require 'mhmimetypes.pl';
     my $filename;
@@ -227,7 +228,7 @@ sub resolve_cid {
 			    $href->{'fields'}{'content-type'},
 			    \$href->{'body'});
     }
-    $href->{'filtered'} = 1;
+    $href->{'filtered'} = 1; # mark part filtered for readmail.pl
     push(@files, $filename); # @files defined in filter
     $filename;
 }

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhidxrc.pl 2.6 99/08/08 20:01:19
+##	@(#) mhidxrc.pl 2.7 00/10/28 10:47:42
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -50,49 +50,49 @@ $IdxTypeStr = $NOSORT ? 'Message' :
     unless ($IDXPGBEG) {
 	$IDXPGBEG =<<'EndOfStr';
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
-<HTML>
-<HEAD>
-<TITLE>$IDXTITLE$</TITLE>
-</HEAD>
-<BODY>
-<H1>$IDXTITLE$</H1>
+<html>
+<head>
+<title>$IDXTITLE$</title>
+</head>
+<body>
+<h1>$IDXTITLE$</h1>
 EndOfStr
 	$IsDefault{'IDXPGBEG'} = 1;
     }
 
     ##	End of main index page
     unless ($IDXPGEND) {
-	$IDXPGEND = "</BODY>\n</HTML>\n";
+	$IDXPGEND = "</body>\n</html>\n";
 	$IsDefault{'IDXPGEND'} = 1;
     }
 
     ##	Beginning of main index list
     unless ($LIBEG) {
 	$LIBEG  = '';
-	$LIBEG .= "<UL>\n" .
-		  '<LI><A HREF="$TIDXFNAME$">$TIDXLABEL$</A></LI>' .
-		  "\n</UL>\n"  if $THREAD;
+	$LIBEG .= "<ul>\n" .
+		  '<li><a href="$TIDXFNAME$">$TIDXLABEL$</a></li>' .
+		  "\n</ul>\n"  if $THREAD;
 	$LIBEG .= '$PGLINK(PREV)$$PGLINK(NEXT)$' . "\n"  if $MULTIIDX;
-	$LIBEG .= "<HR>\n<UL>\n";
+	$LIBEG .= "<hr>\n<ul>\n";
 	$IsDefault{'LIBEG'} = 1;
     }
 
     ## End of main index list
     unless ($LIEND) {
-	$LIEND  = "</UL>\n";
+	$LIEND  = "</ul>\n";
 	$IsDefault{'LIEND'} = 1;
     }
 
     ## Main index entry (start, content, and end)
     unless ($LITMPL) {
-	$LITMPL = qq|<LI><STRONG>\$SUBJECT\$</STRONG>\n| .
-		  qq|<UL><LI><EM>From</EM>: |;
+	$LITMPL = qq|<li><strong>\$SUBJECT\$</strong>\n| .
+		  qq|<ul><li><em>From</em>: |;
 	if ($SpamMode) {
 	    $LITMPL .= q|$FROMNAME$|;
 	} else {
 	    $LITMPL .= q|$FROM$|;
 	}
-	$LITMPL .= qq|</LI></UL>\n</LI>\n|;
+	$LITMPL .= qq|</li></ul>\n</li>\n|;
 	$IsDefault{'LITMPL'} = 1;
     }
 
@@ -131,42 +131,42 @@ EndOfStr
     unless ($TIDXPGBEG) {
 	$TIDXPGBEG =<<'EndOfStr';
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
-<HTML>
-<HEAD>
-<TITLE>$TIDXTITLE$</TITLE>
-</HEAD>
-<BODY>
-<H1>$TIDXTITLE$</H1>
+<html>
+<head>
+<title>$TIDXTITLE$</title>
+</head>
+<body>
+<h1>$TIDXTITLE$</h1>
 EndOfStr
 	$IsDefault{'TIDXPGBEG'} = 1;
     }
     ## End of thread index page
     unless ($TIDXPGEND) {
-	$TIDXPGEND = "</BODY>\n</HTML>\n";
+	$TIDXPGEND = "</body>\n</html>\n";
 	$IsDefault{'TIDXPGEND'} = 1;
     }
 
     ## Head of thread index page (also contains list start markup)
     unless ($THEAD) {
 	$THEAD  = '';
-	$THEAD .= "<UL>\n" .
-		  '<LI><A HREF="$IDXFNAME$">$IDXLABEL$</A></LI>' .
-		  "\n</UL>\n"  if $MAIN;
+	$THEAD .= "<ul>\n" .
+		  '<li><a href="$IDXFNAME$">$IDXLABEL$</a></li>' .
+		  "\n</ul>\n"  if $MAIN;
 	$THEAD .= '$PGLINK(TPREV)$$PGLINK(TNEXT)$' . "\n"  if $MULTIIDX;
-	$THEAD .= "<HR>\n<UL>\n";
+	$THEAD .= "<hr>\n<ul>\n";
 	$IsDefault{'THEAD'} = 1;
     }
     ## Foot of thread index page (also contains list end markup)
     unless ($TFOOT) {
-	$TFOOT  = "</UL>\n";
+	$TFOOT  = "</ul>\n";
 	$IsDefault{'TFOOT'} = 1;
     }
 
     ## Template for thread entry with no follow-ups
     unless ($TSINGLETXT) {
 	$TSINGLETXT =<<'EndOfStr';
-<LI><STRONG>$SUBJECT$</STRONG>,
-<EM>$FROMNAME$</EM></LI>
+<li><strong>$SUBJECT$</strong>,
+<em>$FROMNAME$</em></li>
 EndOfStr
 	$IsDefault{'TSINGLETXT'} = 1;
     }
@@ -174,45 +174,45 @@ EndOfStr
     ## Template for thread entry that is the start of a thread
     unless ($TTOPBEG) {
 	$TTOPBEG =<<'EndOfStr';
-<LI><STRONG>$SUBJECT$</STRONG>,
-<EM>$FROMNAME$</EM>
+<li><strong>$SUBJECT$</strong>,
+<em>$FROMNAME$</em>
 EndOfStr
 	$IsDefault{'TTOPBEG'} = 1;
     }
     ## Template for end of a thread
     unless ($TTOPEND) {
-	$TTOPEND = "</LI>\n";
+	$TTOPEND = "</li>\n";
 	$IsDefault{'TTOPEND'} = 1;
     }
 
     ## Template for the start of a sub-thread
     unless ($TSUBLISTBEG) {
-	$TSUBLISTBEG  = "<UL>\n";
+	$TSUBLISTBEG  = "<ul>\n";
 	$IsDefault{'TSUBLISTBEG'} = 1;
     }
     ## Template for the end of a sub-thread
     unless ($TSUBLISTEND) {
-	$TSUBLISTEND  = "</UL>\n";
+	$TSUBLISTEND  = "</ul>\n";
 	$IsDefault{'TSUBLISTEND'} = 1;
     }
 
     ## Template for the start and content of a regular thread entry
     unless ($TLITXT) {
 	$TLITXT =<<'EndOfStr';
-<LI><STRONG>$SUBJECT$</STRONG>,
-<EM>$FROMNAME$</EM>
+<li><strong>$SUBJECT$</strong>,
+<em>$FROMNAME$</em>
 EndOfStr
 	$IsDefault{'TLITXT'} = 1;
     }
     ## Template for end of a regular thread entry
     unless ($TLIEND) {
-	$TLIEND = "</LI>\n";
+	$TLIEND = "</li>\n";
 	$IsDefault{'TLIEND'} = 1;
     }
 
     ## Template for the start of subject based section
     unless ($TSUBJECTBEG) {
-	$TSUBJECTBEG  = "<LI>&lt;Possible follow-up(s)&gt;</LI>\n";
+	$TSUBJECTBEG  = "<li>&lt;Possible follow-up(s)&gt;</li>\n";
 	$IsDefault{'TSUBJECTBEG'} = 1;
     }
     ## Template for the end of subject based section
@@ -223,35 +223,35 @@ EndOfStr
 
     ## Template for start and content of missing message in thread
     unless ($TLINONE) {
-	$TLINONE = "<LI><EM>Message not available</EM>";
+	$TLINONE = "<li><em>Message not available</em>";
 	$IsDefault{'TLINONE'} = 1;
     }
     ## Template for end of missing message in thread
     unless ($TLINONEEND) {
-	$TLINONEEND = "</LI>\n";
+	$TLINONEEND = "</li>\n";
 	$IsDefault{'TLINONEEND'} = 1;
     }
 
     ## Template for opening an indent (for cross-page threads)
     unless ($TINDENTBEG) {
-	$TINDENTBEG = "<UL>\n";
+	$TINDENTBEG = "<ul>\n";
 	$IsDefault{'TINDENTBEG'} = 1;
     }
     ## Template for closing an indent (for cross-page threads)
     unless ($TINDENTEND) {
-	$TINDENTEND = "</UL>\n";
+	$TINDENTEND = "</ul>\n";
 	$IsDefault{'TINDENTEND'} = 1;
     }
 
     ## Template for start of a continued thread (for cross-page threads)
     unless ($TCONTBEG) {
-	$TCONTBEG = '<LI><STRONG>$SUBJECTNA$</STRONG>, ' .
-		    "<EM>(continued)</EM>\n";
+	$TCONTBEG = '<li><strong>$SUBJECTNA$</strong>, ' .
+		    "<em>(continued)</em>\n";
 	$IsDefault{'TCONTBEG'} = 1;
     }
     ## Template for end of a continued thread (for cross-page threads)
     unless ($TCONTEND) {
-	$TCONTEND = "</LI>\n";
+	$TCONTEND = "</li>\n";
 	$IsDefault{'TCONTEND'} = 1;
     }
 
@@ -260,11 +260,11 @@ EndOfStr
 ## }
 
 unless ($TSLICEBEG) {
-    $TSLICEBEG = "<BLOCKQUOTE><UL>\n";
+    $TSLICEBEG = "<blockquote><ul>\n";
     $IsDefault{'TSLICEBEG'} = 1;
 }
 unless ($TSLICEEND) {
-    $TSLICEEND = "</UL></BLOCKQUOTE>\n";
+    $TSLICEEND = "</ul></blockquote>\n";
     $IsDefault{'TSLICEEND'} = 1;
 }
 
@@ -277,8 +277,8 @@ unless (@DateFields) {
     $IsDefault{'DATEFIELDS'} = 1;
 }
 unless (@FromFields) {
-    @FromFields = ('from', 'reply-to', 'return-path', 'apparently-from',
-		   'sender', 'resent-sender');
+    @FromFields = ('from', 'mail-reply-to', 'reply-to', 'return-path',
+		   'apparently-from', 'sender', 'resent-sender');
     $IsDefault{'FROMFIELDS'} = 1;
 }
 
@@ -286,38 +286,38 @@ unless (@FromFields) {
 unless ($MSGPGBEG) {
     $MSGPGBEG =<<'EndOfStr';
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
-<HTML>
-<HEAD>
-<TITLE>$SUBJECTNA:72$</TITLE>
+<html>
+<head>
+<title>$SUBJECTNA:72$</title>
 EndOfStr
     
-    $MSGPGBEG .= qq|<LINK REV="made" HREF="mailto:\$FROMADDR\$">\n|
+    $MSGPGBEG .= qq|<link rev="made" href="mailto:\$FROMADDR\$">\n|
 		 unless $SpamMode;
-    $MSGPGBEG .= "</HEAD>\n<BODY>\n";
+    $MSGPGBEG .= "</head>\n<body>\n";
     $IsDefault{'MSGPGBEG'} = 1;
 }
 
 ## End of message page
 unless ($MSGPGEND) {
-    $MSGPGEND = "</BODY>\n</HTML>\n";
+    $MSGPGEND = "</body>\n</html>\n";
     $IsDefault{'MSGPGEND'} = 1;
 }
 
 ## Subject header
 unless ($SUBJECTHEADER) {
-    $SUBJECTHEADER = '<H1>$SUBJECTNA$</H1>' . "\n<HR>\n";
+    $SUBJECTHEADER = '<h1>$SUBJECTNA$</h1>' . "\n<hr>\n";
     $IsDefault{'SUBJECTHEADER'} = 1;
 }
 
 ## Separator between message data head and message data body
 unless ($HEADBODYSEP) {
-    $HEADBODYSEP = "<HR>\n";
+    $HEADBODYSEP = "<hr>\n";
     $IsDefault{'HEADBODYSEP'} = 1;
 }
 
 ## Separator between end of message data and rest of page
 unless ($MSGBODYEND) {
-    $MSGBODYEND = "<HR>\n";
+    $MSGBODYEND = "<hr>\n";
     $IsDefault{'MSGBODYEND'} = 1;
 }
 
@@ -325,21 +325,21 @@ unless ($MSGBODYEND) {
 ## Mail header formating resources ##
 ##---------------------------------##
 
-$FIELDSBEG = "<UL>\n",	$IsDefault{'FIELDSBEG'} = 1	unless $FIELDSBEG;
-$FIELDSEND = "</UL>\n",	$IsDefault{'FIELDSEND'} = 1	unless $FIELDSEND;
-$LABELBEG = "<LI>",	$IsDefault{'LABELBEG'} = 1  	unless $LABELBEG;
+$FIELDSBEG = "<ul>\n",	$IsDefault{'FIELDSBEG'} = 1	unless $FIELDSBEG;
+$FIELDSEND = "</ul>\n",	$IsDefault{'FIELDSEND'} = 1	unless $FIELDSEND;
+$LABELBEG = "<li>",	$IsDefault{'LABELBEG'} = 1  	unless $LABELBEG;
 $LABELEND = ":",	$IsDefault{'LABELEND'} = 1	unless $LABELEND;
 $FLDBEG  = " ", 	$IsDefault{'FLDBEG'} = 1	unless $FLDBEG;
-$FLDEND  = "</LI>",	$IsDefault{'FLDEND'} = 1    	unless $FLDEND;
+$FLDEND  = "</li>",	$IsDefault{'FLDEND'} = 1    	unless $FLDEND;
 
 ##-----------------------------------##
 ##  Next/prev message link resources ##
 ##-----------------------------------##
 
 ## Next/prev buttons
-$NEXTBUTTON = '[<A HREF="$MSG(NEXT)$">'.$IdxTypeStr.' Next</A>]',
+$NEXTBUTTON = '[<a href="$MSG(NEXT)$">'.$IdxTypeStr.' Next</a>]',
     $IsDefault{'NEXTBUTTON'} = 1	unless $NEXTBUTTON;
-$PREVBUTTON = '[<A HREF="$MSG(PREV)$">'.$IdxTypeStr.' Prev</A>]',
+$PREVBUTTON = '[<a href="$MSG(PREV)$">'.$IdxTypeStr.' Prev</a>]',
     $IsDefault{'PREVBUTTON'} = 1	unless $PREVBUTTON;
 $NEXTBUTTONIA = "[$IdxTypeStr Next]",
     $IsDefault{'NEXTBUTTONIA'} = 1	unless $NEXTBUTTONIA;
@@ -349,9 +349,9 @@ $PREVBUTTONIA = "[$IdxTypeStr Prev]",
 ## Next message link
 unless ($NEXTLINK) {
     $NEXTLINK =<<EndOfStr;
-<LI>Next by $IdxTypeStr:
-<STRONG><A HREF="\$MSG(NEXT)\$">\$SUBJECT(NEXT)\$</A></STRONG>
-</LI>
+<li>Next by $IdxTypeStr:
+<strong><a href="\$MSG(NEXT)\$">\$SUBJECT(NEXT)\$</a></strong>
+</li>
 EndOfStr
     $IsDefault{'NEXTLINK'} = 1;
 }
@@ -362,9 +362,9 @@ $NEXTLINKIA = '', $IsDefault{'NEXTLINKIA'} = 1	unless $NEXTLINKIA;
 ## Previous message link
 unless ($PREVLINK) {
     $PREVLINK =<<EndOfStr;
-<LI>Prev by $IdxTypeStr:
-<STRONG><A HREF="\$MSG(PREV)\$">\$SUBJECT(PREV)\$</A></STRONG>
-</LI>
+<li>Prev by $IdxTypeStr:
+<strong><a href="\$MSG(PREV)\$">\$SUBJECT(PREV)\$</a></strong>
+</li>
 EndOfStr
     $IsDefault{'PREVLINK'} = 1;
 }
@@ -373,9 +373,9 @@ EndOfStr
 $PREVLINKIA = '', $IsDefault{'PREVLINKIA'} = 1  unless $PREVLINKIA;
 
 ## Thread next/previous buttons
-$TNEXTBUTTON = '[<A HREF="$MSG(TNEXT)$">Thread Next</A>]',
+$TNEXTBUTTON = '[<a href="$MSG(TNEXT)$">Thread Next</a>]',
     $IsDefault{'TNEXTBUTTON'} = 1	unless $TNEXTBUTTON;
-$TPREVBUTTON = '[<A HREF="$MSG(TPREV)$">Thread Prev</A>]',
+$TPREVBUTTON = '[<a href="$MSG(TPREV)$">Thread Prev</a>]',
     $IsDefault{'TPREVBUTTON'} = 1	unless $TPREVBUTTON;
 $TNEXTBUTTONIA = '[Thread Next]',
     $IsDefault{'TNEXTBUTTONIA'} = 1	unless $TNEXTBUTTONIA;
@@ -385,9 +385,9 @@ $TPREVBUTTONIA = '[Thread Prev]',
 ## Next message in thread link
 unless ($TNEXTLINK) {
     $TNEXTLINK =<<'EndOfStr';
-<LI>Next by thread:
-<STRONG><A HREF="$MSG(TNEXT)$">$SUBJECT(TNEXT)$</A></STRONG>
-</LI>
+<li>Next by thread:
+<strong><a href="$MSG(TNEXT)$">$SUBJECT(TNEXT)$</a></strong>
+</li>
 EndOfStr
     $IsDefault{'TNEXTLINK'} = 1;
 }
@@ -398,9 +398,9 @@ $TNEXTLINKIA = '', $IsDefault{'TNEXTLINKIA'} = 1  unless $TNEXTLINKIA;
 ## Previous message in thread link
 unless ($TPREVLINK) {
     $TPREVLINK =<<'EndOfStr';
-<LI>Prev by thread:
-<STRONG><A HREF="$MSG(TPREV)$">$SUBJECT(TPREV)$</A></STRONG>
-</LI>
+<li>Prev by thread:
+<strong><a href="$MSG(TPREV)$">$SUBJECT(TPREV)$</a></strong>
+</li>
 EndOfStr
     $IsDefault{'TPREVLINK'} = 1;
 }
@@ -410,87 +410,87 @@ $TPREVLINKIA = '', $IsDefault{'TPREVLINKIA'} = 1  unless $TPREVLINKIA;
 
 ## Top links in message
 if (!$TOPLINKS) {
-    $TOPLINKS  = "<HR>\n";
+    $TOPLINKS  = "<hr>\n";
     $TOPLINKS .= '$BUTTON(PREV)$$BUTTON(NEXT)$'
 	if $MAIN;
     $TOPLINKS .= '$BUTTON(TPREV)$$BUTTON(TNEXT)$'
 	if $THREAD;
-    $TOPLINKS .= '[<A HREF="$IDXFNAME$#$MSGNUM$">$IDXLABEL$</A>]'
+    $TOPLINKS .= '[<a href="$IDXFNAME$#$MSGNUM$">$IDXLABEL$</a>]'
 	if $MAIN;
-    $TOPLINKS .= '[<A HREF="$TIDXFNAME$#$MSGNUM$">$TIDXLABEL$</A>]'
+    $TOPLINKS .= '[<a href="$TIDXFNAME$#$MSGNUM$">$TIDXLABEL$</a>]'
 	if $THREAD;
     $IsDefault{'TOPLINKS'} = 1;
 }
 
 ## Bottom links in message
 if (!$BOTLINKS) {
-    $BOTLINKS =  "<UL>\n";
+    $BOTLINKS =  "<ul>\n";
     $BOTLINKS .= '$LINK(PREV)$$LINK(NEXT)$'  if $MAIN;
     $BOTLINKS .= '$LINK(TPREV)$$LINK(TNEXT)$'  if $THREAD;
     if ($MAIN || $THREAD) {
-	$BOTLINKS .= "<LI>Index(es):\n<UL>\n";
-	$BOTLINKS .= '<LI><A HREF="$IDXFNAME$#$MSGNUM$">' .
-		     "<STRONG>$IdxTypeStr</STRONG></A></LI>\n"  if $MAIN;
-	$BOTLINKS .= '<LI><A HREF="$TIDXFNAME$#$MSGNUM$">' .
-		     "<STRONG>Thread</STRONG></A></LI>\n"  if $THREAD;
+	$BOTLINKS .= "<li>Index(es):\n<ul>\n";
+	$BOTLINKS .= '<li><a href="$IDXFNAME$#$MSGNUM$">' .
+		     "<strong>$IdxTypeStr</strong></a></li>\n"  if $MAIN;
+	$BOTLINKS .= '<li><a href="$TIDXFNAME$#$MSGNUM$">' .
+		     "<strong>Thread</strong></a></li>\n"  if $THREAD;
     }
-    $BOTLINKS .= "</UL>\n</LI>\n</UL>\n";
+    $BOTLINKS .= "</ul>\n</li>\n</ul>\n";
     $IsDefault{'BOTLINKS'} = 1;
 }
 
 ## Follow-up and References resources
 unless ($FOLUPBEGIN) {
     $FOLUPBEGIN =<<'EndOfVar';
-<UL><LI><STRONG>Follow-Ups</STRONG>:
-<UL>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
 EndOfVar
     $IsDefault{'FOLUPBEGIN'} = 1;
 }
 unless ($FOLUPLITXT) {
     if ($SpamMode) {
 	$FOLUPLITXT =<<'EndOfVar';
-<LI><STRONG>$SUBJECT$</STRONG>
-<UL><LI><EM>From:</EM> $FROMNAME$</LI></UL></LI>
+<li><strong>$SUBJECT$</strong>
+<ul><li><em>From:</em> $FROMNAME$</li></ul></li>
 EndOfVar
     } else {
 	$FOLUPLITXT =<<'EndOfVar';
-<LI><STRONG>$SUBJECT$</STRONG>
-<UL><LI><EM>From:</EM> $FROM$</LI></UL></LI>
+<li><strong>$SUBJECT$</strong>
+<ul><li><em>From:</em> $FROM$</li></ul></li>
 EndOfVar
     }
     $IsDefault{'FOLUPLITXT'} = 1;
 }
 unless ($FOLUPEND) {
     $FOLUPEND =<<'EndOfVar';
-</UL></LI></UL>
+</ul></li></ul>
 EndOfVar
     $IsDefault{'FOLUPEND'} = 1;
 }
 
 unless ($REFSBEGIN) {
     $REFSBEGIN =<<'EndOfVar';
-<UL><LI><STRONG>References</STRONG>:
-<UL>
+<ul><li><strong>References</strong>:
+<ul>
 EndOfVar
     $IsDefault{'REFSBEGIN'} = 1;
 }
 unless ($REFSLITXT) {
     if ($SpamMode) {
     $REFSLITXT =<<'EndOfVar';
-<LI><STRONG>$SUBJECT$</STRONG>
-<UL><LI><EM>From:</EM> $FROMNAME$</LI></UL></LI>
+<li><strong>$SUBJECT$</strong>
+<ul><li><em>From:</em> $FROMNAME$</li></ul></li>
 EndOfVar
     } else {
 	$REFSLITXT =<<'EndOfVar';
-<LI><STRONG>$SUBJECT$</STRONG>
-<UL><LI><EM>From:</EM> $FROM$</LI></UL></LI>
+<li><strong>$SUBJECT$</strong>
+<ul><li><em>From:</em> $FROM$</li></ul></li>
 EndOfVar
     }
     $IsDefault{'REFSLITXT'} = 1;
 }
 unless ($REFSEND) {
     $REFSEND =<<'EndOfVar';
-</UL></LI></UL>
+</ul></li></ul>
 EndOfVar
     $IsDefault{'REFSEND'} = 1;
 }
@@ -499,13 +499,13 @@ EndOfVar
 ## Next/previous main/thread index page links ##
 ##--------------------------------------------##
 
-$NEXTPGLINK  = '[<A HREF="$PG(NEXT)$">Next Page</A>]',
+$NEXTPGLINK  = '[<a href="$PG(NEXT)$">Next Page</a>]',
     $IsDefault{'NEXTPGLINK'} = 1	unless $NEXTPGLINK;
-$PREVPGLINK  = '[<A HREF="$PG(PREV)$">Prev Page</A>]',
+$PREVPGLINK  = '[<a href="$PG(PREV)$">Prev Page</a>]',
     $IsDefault{'PREVPGLINK'} = 1	unless $PREVPGLINK;
-$TNEXTPGLINK = '[<A HREF="$PG(TNEXT)$">Next Page</A>]',
+$TNEXTPGLINK = '[<a href="$PG(TNEXT)$">Next Page</a>]',
     $IsDefault{'TNEXTPGLINK'} = 1	unless $TNEXTPGLINK;
-$TPREVPGLINK = '[<A HREF="$PG(TPREV)$">Prev Page</A>]',
+$TPREVPGLINK = '[<a href="$PG(TPREV)$">Prev Page</a>]',
     $IsDefault{'TPREVPGLINK'} = 1	unless $TPREVPGLINK;
 
 $NEXTPGLINKIA  = '[Next Page]',
@@ -521,7 +521,7 @@ $TPREVPGLINKIA = '[Prev Page]',
 ## Miscellaneous ##
 ##---------------##
 
-$MSGIDLINK = '<A $A_HREF$>$MSGID$</A>',
+$MSGIDLINK = '<a $A_HREF$>$MSGID$</a>',
      $IsDefault{'MSGIDLINK'} = 1	unless $MSGIDLINK;
 
 $NOTE	    = '$NOTETEXT$',

@@ -84,6 +84,48 @@ the bug was fixed.
 </tr>
 <tr valign=top>
 <td align=right><strong>Version</strong></td>
+<td align=left>2.4.6, and earlier</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>ADDRESSMODIFYCODE not stored in database.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Fixed in mhdb.pl (a dumb typo)</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.7</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.4.6, and earlier</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>TPARENT message specifier for applicable resource variables will cause a resource variable to expand
+ to the empty string if there is no parent message
+ to the current message.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>If there is no parent message, TPARENT resolves to to the current message.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.7</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
 <td align=left>2.4.5, maybe earlier</td>
 </tr>
 <tr valign=top>
@@ -2156,7 +2198,7 @@ the bug was fixed.
 <!-- *************************************************************** -->
 <hr>
 <address>
-00/04/24 01:00:19<br>
+00/10/28 11:26:19<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.mhonarc.org"
 ><strong>MHonArc</strong></a><br>

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhmimetypes.pl 1.4 00/01/15 17:54:32
+##	@(#) mhmimetypes.pl 1.5 00/10/28 11:01:33
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -252,12 +252,14 @@ sub get_mime_ext {
 ##	to a file.
 ##
 sub write_attachment {
-    my $ctype	= lc shift;
+    my $content	= lc shift;
     my $sref	= shift;
     my $path	= shift;
     my $fname	= shift;
     my $inext	= shift;
-    my($cnt, $pre, $ext, $pathname);
+    my($ctype, $cnt, $pre, $ext, $pathname);
+
+    ($ctype) = $content =~ m%^\s*([\w-\./]+)%;	# Extract content-type
 
     local(*OUTFILE);
 
@@ -281,7 +283,7 @@ sub write_attachment {
     $pathname .= $DIRSEP . $fname;
 
     if (open(OUTFILE, "> $pathname")) {
-	binmode(OUTFILE);		# For MS-DOS
+	binmode(OUTFILE);		# For WinDog
 	print OUTFILE $$sref;
 	close(OUTFILE);
     } else {

@@ -1,5 +1,5 @@
 <!-- ================================================================== -->
-<!--    @(#) def-mime.mrc 1.7 99/10/01 01:13:14
+<!--    @(#) def-mime.mrc 1.8 00/10/28 11:14:10
         Earl Hood <mhonarc@pobox.com>
   -->
 <!--    MHonArc Resource File                                           --
@@ -33,6 +33,7 @@ default;        -ignore-
 </CharsetConverters>
 
 <MIMEFilters>
+application/ms-tnef;       m2h_null::filter;            mhnull.pl
 application/octet-stream;  m2h_external::filter;        mhexternal.pl
 application/*;             m2h_external::filter;        mhexternal.pl
 application/x-patch;       m2h_text_plain::filter;      mhtxtplain.pl

@@ -1,7 +1,7 @@
 Bug History for MHonArc
 =======================
 <URL:http://www.mhonarc.org/>
-@(#) BUGS 00/04/24 00:59:57
+@(#) BUGS 00/10/28 11:26:33
 
 Each bug listing has the following fields:
 
@@ -15,6 +15,20 @@ Each bug listing has the following fields:
 		    applicable.
 
 Bug List
+------------------------------------------------------------------------
+Version:	2.4.6, and earlier
+Problem:   	ADDRESSMODIFYCODE not stored in database.
+Solution:	Fixed in mhdb.pl (a dumb typo)
+Version Fixed:	2.4.7
+------------------------------------------------------------------------
+Version:	2.4.6, and earlier
+Problem:   	TPARENT message specifier for applicable resource
+		variables will cause a resource variable to expand
+		to the empty string if there is no parent message
+		to the current message.
+Solution:	If there is no parent message, TPARENT resolves to
+		to the current message.
+Version Fixed:	2.4.7
 ------------------------------------------------------------------------
 Version:	2.4.5, maybe earlier
 Problem:   	Using message-ids with -rmm does not remove messages.

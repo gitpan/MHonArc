@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhdb.pl 2.12 00/02/13 03:28:23
+##	@(#) mhdb.pl 2.13 00/10/28 10:46:37
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -91,8 +91,6 @@ print_var(\*DB,'readmail::MIMEFiltersSrc',
 print_var(\*DB,'readmail::MIMEFiltersArgs',
 		\%readmail::MIMEFiltersArgs);
 
-print_var(\*DB,'AddressModify', \@AddressModify)
-				unless $IsDefault{'AddressModify'};
 print_var(\*DB,'DateFields', \@DateFields) unless $IsDefault{'DATEFIELDS'};
 print_var(\*DB,'FieldOrder', \@FieldOrder);
 print_var(\*DB,'FromFields', \@FromFields) unless $IsDefault{'FROMFIELDS'};
@@ -105,6 +103,8 @@ print_var(\*DB,'weekdays',   \@weekdays)   if scalar(@weekdays);
 
 ## I should use a hash for this stuff instead of individual variables
 
+print_var(\*DB,'AddressModify',  \$AddressModify)
+				unless $IsDefault{'AddressModify'};
 print_var(\*DB,'CheckNoArchive', \$CheckNoArchive);
 print_var(\*DB,'DOCURL',         \$DOCURL);
 print_var(\*DB,'NODOC',          \$NODOC);

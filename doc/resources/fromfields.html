@@ -64,8 +64,15 @@ list of message header fields to check.
 <h2>Default Setting</h2>
 
 <pre>
-from:reply-to:return-path:apparently-from:sender:resent-sender
+from:mail-reply-to:reply-to:return-path:apparently-from:sender:resent-sender
 </pre>
+
+<p>This resource is intended to reflect who the author is and not necessarily
+where replies of the message should be directed.  This is why the
+<tt>From: </tt> field has higher precendence than the reply-to fields.
+However, if it is desired that it reflect where replies should be
+directed, then put <tt>mail-reply-to</tt> and <tt>reply-to</tt> first.
+</p>
 
 <!-- *************************************************************** -->
 <hr>
@@ -98,7 +105,7 @@ from:reply-to:return-path:apparently-from:sender:resent-sender
 <!-- *************************************************************** -->
 <hr>
 <address>
-99/10/01 01:19:21<br>
+00/10/28 11:13:01<br>
 <img align="top" src="../monicon.gif" alt="">
 <a href="http://www.pobox.com/~ehood/mhonarc.html"
 ><strong>MHonArc</strong></a><br>

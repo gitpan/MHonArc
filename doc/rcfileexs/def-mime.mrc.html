@@ -2,7 +2,7 @@
 <body>
 <pre>
 &lt;!-- ================================================================== --&gt;
-&lt;!--    @(#) def-mime.mrc 1.7 99/10/01 01:13:14
+&lt;!--    @(#) def-mime.mrc 1.8 00/10/28 11:14:10
         Earl Hood &lt;mhonarc@pobox.com&gt;
   --&gt;
 &lt;!--    MHonArc Resource File                                           --
@@ -36,6 +36,7 @@ default;        -ignore-
 <b>&lt;/CharsetConverters&gt;</b>
 
 <b><a href="../resources/mimefilters.html">&lt;MIMEFilters&gt;</a></b>
+application/ms-tnef;       m2h_null::filter;            mhnull.pl
 application/octet-stream;  m2h_external::filter;        mhexternal.pl
 application/*;             m2h_external::filter;        mhexternal.pl
 application/x-patch;       m2h_text_plain::filter;      mhtxtplain.pl

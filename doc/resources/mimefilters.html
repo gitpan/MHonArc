@@ -1422,6 +1422,16 @@ The default is "<tt>us-ascii:iso-8859-1</tt>".
 </p>
 </tr>
 <tr valign=top>
+<td><strong><tt>attachcheck</tt></strong></td>
+<td><p>Honor attachment disposition.  By default,
+all text/plain data is displayed inline on
+the message page.  If <tt>attachcheck</tt> is specified
+and Content-Disposition specifies the data as
+an attachment, the data is saved to a file
+with a link to it from the message page.
+</p>
+</tr>
+<tr valign=top>
 <td><strong><tt>default=</tt></strong><var>charset</var></td>
 <td><p>Character set to use as the default if no character set
 is defined for the message.  If option not specified,
@@ -1433,6 +1443,14 @@ is defined for the message.  If option not specified,
 <td><p>A comma separated list of message specified filename
 extensions to treat as inline data.
 Applicable only when <b><tt>uudecode</tt></b> is specified.
+</p>
+</tr>
+<tr valign=top>
+<td><strong><tt>htmlcheck</tt></strong></td>
+<td><p>Check if message is actually an HTML message
+(to get around abhorrent MUAs).  The message
+is treated as HTML if the first non-whitespace
+data looks like the start of an HTML document.
 </p>
 </tr>
 <tr valign=top>
@@ -1617,7 +1635,7 @@ sub addbase {
 <!-- *************************************************************** -->
 <hr>
 <address>
-00/02/13 03:32:34<br>
+00/10/28 11:13:03<br>
 <img align="top" src="../monicon.gif" alt="">
 <a href="http://www.pobox.com/~ehood/mhonarc.html"><strong>MHonArc</strong></a><br>
 Copyright &#169; 1997-1999 <a href="http://www.pobox.com/~ehood/">Earl Hood</a>, <a href="mailto:mhonarc@pobox.com">mhonarc@pobox.com</a><br>
