@@ -14,6 +14,32 @@ MM/DD/YYYY
 ============================================================================
 ############################################################################
 ============================================================================
+11/24/2001	(2.5.2)
+
+    (See BUGS for the list of bugs reported and fixed)
+
+    o	mha-dbrecover new options:
+
+	  -dbr-startnum # 
+	      The starting message number to recover data from. This
+	      option is useful if you have many message files in a
+	      directory, but you only want to recover a subset of the
+	      files. If this option is not specified, the starting
+	      number is 0.
+
+	  -dbr-endnum # 
+	      The ending message number to recover data from. This
+	      option is useful if you have many message files in a
+	      directory, but you only want to recover a subset of the
+	      files. If this option is not specified, all messages
+	      starting from -dbr-startnum will be recovered.
+
+    o	MSGPGBEGIN default value changed where $SUBJECTNA:72$ has
+	been replaced with $SUBJECTNA$.  This is so default values
+	do not have any possible conflicts with variable-width
+	character sets.
+
+============================================================================
 11/13/2001	(2.5.1)
 
     (See BUGS for the list of bugs reported and fixed)
@@ -1951,4 +1977,4 @@ MM/DD/YYYY
 #######################################################################
 =======================================================================
 Earl Hood, mhonarc@mhonarc.org
-@(#) CHANGES 01/11/13 23:24:05
+@(#) CHANGES 01/11/24 03:27:45

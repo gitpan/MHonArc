@@ -157,7 +157,7 @@ something like the following:
 <td><p>The
 <a href="install.html#sitelib"><b><tt>mhasiteinit.pl</tt></b></a>
 site initialization library can be used to register callbacks.
-The advantages for using <tt>mhasiteinit.pl</tt> is that is
+The advantages for using <tt>mhasiteinit.pl</tt> is that it is
 executed each time MHonArc is executed, and you do not have
 to create custom front-ends to MHonArc if all you want to
 do is register callbacks.  See
@@ -177,7 +177,10 @@ information about <tt>mhasiteinit.pl</tt>.
 
 <p>The callback function after a
 mail message header is read and before any other processing is done.
-Note, the function is called after any exclusion checks are
+Note, the function is called after any exclusion checks
+(<a href="resources/checknoarchive.html">CHECKNOARCHIVE</a> and
+<a href="resources/msgexcfilter.html">MSGEXCFILTER</a>)
+are
 performed by MHonArc.
 </p>
 <p><b>Synopsis:</b></p>
@@ -223,7 +226,6 @@ $boolean = &amp;$mhonarc::CBMessageHeadRead(
 	the message.
 	</dd>
     </dl>
-    <p>&nbsp;</p>
     </dd>
 
 <dt><tt>$raw_header_txt</tt></dt>
@@ -381,7 +383,7 @@ $boolean = &amp;$mhonarc::CBMessageHeadRead(
 
 <hr>
 <address>
-01/09/05 22:03:25<br>
+01/11/24 03:22:00<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.mhonarc.org/"
 ><strong>MHonArc</strong></a><br>

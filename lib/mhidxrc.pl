@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhidxrc.pl 2.10 01/09/17 22:09:15
+##	@(#) mhidxrc.pl 2.11 01/11/24 02:42:39
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -49,7 +49,7 @@ $IdxTypeStr = $NOSORT ? 'Message' :
     ##	Beginning of main index page
     unless ($IDXPGBEG) {
 	$IDXPGBEG =<<'EndOfStr';
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<!doctype html public "-//W3C//DTD HTML//EN">
 <html>
 <head>
 <title>$IDXTITLE$</title>
@@ -130,7 +130,7 @@ EndOfStr
     ##	Beginning of thread index page
     unless ($TIDXPGBEG) {
 	$TIDXPGBEG =<<'EndOfStr';
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<!doctype html public "-//W3C//DTD HTML//EN">
 <html>
 <head>
 <title>$TIDXTITLE$</title>
@@ -373,10 +373,10 @@ unless (@FromFields) {
 ## Beginning of message page
 unless ($MSGPGBEG) {
     $MSGPGBEG =<<'EndOfStr';
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<!doctype html public "-//W3C//DTD HTML//EN">
 <html>
 <head>
-<title>$SUBJECTNA:72$</title>
+<title>$SUBJECTNA$</title>
 EndOfStr
     
     $MSGPGBEG .= qq|<link rev="made" href="mailto:\$FROMADDR\$">\n|

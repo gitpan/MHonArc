@@ -20,7 +20,8 @@
 <!--X-TOC-Start-->
 <ul>
 <li><a href="#bugreport">Reporting Bugs</a>
-<li><a href="#buglist">Bug List</a>
+<li><a href="#open-bugs">Open Bugs</a>
+<li><a href="#fixed-bugs">Fixed Bugs</a>
 </ul>
 <!--X-TOC-End-->
 
@@ -70,17 +71,15 @@ of MHonArc.
 
 
 <hr>
-<h2><a name="buglist">Bug List</a></h2>
+<h2><a name="open-bugs">Open Bugs</a></h2>
 
-<p>The following gives a list of bugs reported against
+<p>The following gives a list of open bugs reported against
 MHonArc.  Each bug listing shows the version the
 bug was reported against (the bug may be applicable
-to earlier versions), a description of the problem,
-and if applicable, a solution and version of MHonArc
-the bug was fixed.
+to earlier versions), and a description of the problem.
 </p>
 
-<!--X-BugList-Start-->
+<!--X-Open-BugList-Start-->
 <table border=0 cellspacing=0 cellpadding=4 width="100%">
 
 <tr valign=top>
@@ -146,6 +145,47 @@ the bug was fixed.
 <td align=left>OPEN</td>
 </tr>
 
+</table>
+<!--X-Open-BugList-End-->
+
+<hr>
+<h2><a name="fixed-bugs">Fixed Bugs</a></h2>
+
+<p>The following gives a list of bugs reported against and fixed
+in MHonArc.  Each bug listing shows the version the bug was reported
+against (the bug may be applicable to earlier versions), a description
+of the problem, a summary of the solution, and the version of MHonArc
+the bug was fixed.
+</p>
+
+<!--X-BugList-Start-->
+<table border=0 cellspacing=0 cellpadding=4 width="100%">
+
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version:</strong></td>
+<td align=left>2.5.0, 2.5.1</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem:</strong></td>
+<td align=left>Messages with the "<tt>X-no-archive: yes</tt>" message
+header field are always excluded from an archive even if the
+<a href="resources/checknoarchive.html">CHECKNOARCHIVE</a> resource
+is off.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution:</strong></td>
+<td align=left>Fixed in mhamain.pl.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed:</strong></td>
+<td align=left>2.5.2</td>
+</tr>
+
 <tr valign=top>
 <td colspan=2><hr noshade size=0></td>
 </tr>
@@ -167,7 +207,7 @@ OTHERINDEXES list to not remove duplicate entries.
 </tr>
 <tr valign=top>
 <td align=right><strong>Fixed:</strong></td>
-<td align=left>v2.5.1</td>
+<td align=left>2.5.1</td>
 </tr>
 
 <tr valign=top>
@@ -192,7 +232,7 @@ with equivalent code to be compatible with older Perl releases.
 </tr>
 <tr valign=top>
 <td align=right><strong>Fixed:</strong></td>
-<td align=left>v2.5.1</td>
+<td align=left>2.5.1</td>
 </tr>
 
 <tr valign=top>
@@ -220,7 +260,7 @@ urls in v2.4.7.
 </tr>
 <tr valign=top>
 <td align=right><strong>Fixed:</strong></td>
-<td align=left>v2.5.0</td>
+<td align=left>2.5.0</td>
 </tr>
 
 <tr valign=top>
@@ -245,7 +285,7 @@ urls in v2.4.7.
 </tr>
 <tr valign=top>
 <td align=right><strong>Fixed:</strong></td>
-<td align=left>v2.5.0 (documented limitation)</td>
+<td align=left>2.5.0 (documented limitation)</td>
 </tr>
 
 <tr valign=top>
@@ -274,7 +314,7 @@ occurance.
 </tr>
 <tr valign=top>
 <td align=right><strong>Fixed:</strong></td>
-<td align=left>v2.5.0</td>
+<td align=left>2.5.0</td>
 </tr>
 
 <tr valign=top>
@@ -298,7 +338,7 @@ before TSUBJECTBEG to after TSUBJECTEND.
 </tr>
 <tr valign=top>
 <td align=right><strong>Fixed:</strong></td>
-<td align=left>v2.5.0</td>
+<td align=left>2.5.0</td>
 </tr>
 
 <tr valign=top>
@@ -321,7 +361,7 @@ before TSUBJECTBEG to after TSUBJECTEND.
 </tr>
 <tr valign=top>
 <td align=right><strong>Fixed:</strong></td>
-<td align=left>v2.5.0</td>
+<td align=left>2.5.0</td>
 </tr>
 <tr valign=top>
 <td colspan=2><hr noshade size=0></td>
@@ -343,7 +383,7 @@ before TSUBJECTBEG to after TSUBJECTEND.
 </tr>
 <tr valign=top>
 <td align=right><strong>Fixed:</strong></td>
-<td align=left>v2.5.0b2</td>
+<td align=left>2.5.0b2</td>
 </tr>
 <tr valign=top>
 <td colspan=2><hr noshade size=0></td>
@@ -368,7 +408,7 @@ before TSUBJECTBEG to after TSUBJECTEND.
 </tr>
 <tr valign=top>
 <td align=right><strong>Fixed:</strong></td>
-<td align=left>v2.5.0b2</td>
+<td align=left>2.5.0b2</td>
 </tr>
 <tr valign=top>
 <td colspan=2><hr noshade size=0></td>
@@ -388,7 +428,7 @@ before TSUBJECTBEG to after TSUBJECTEND.
 </tr>
 <tr valign=top>
 <td align=right><strong>Fixed:</strong></td>
-<td align=left>v2.5.0b2</td>
+<td align=left>2.5.0b2</td>
 </tr>
 <tr valign=top>
 <td colspan=2><hr noshade size=0></td>
@@ -2707,7 +2747,7 @@ before TSUBJECTBEG to after TSUBJECTEND.
 <!-- *************************************************************** -->
 <hr>
 <address>
-01/11/13 23:07:33<br>
+01/11/24 03:33:57<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.mhonarc.org"
 ><strong>MHonArc</strong></a><br>

@@ -49,3 +49,5 @@ Items are in no particular order:
    attachment disposition.  Would also require changes to how base
    parsing cooperates with content filters.
 
+=> Create a resource to control value of "[no subject]" given to
+   messages without a defined subject.

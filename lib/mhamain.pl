@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhamain.pl 2.30 01/11/13 23:09:14
+##	@(#) mhamain.pl 2.31 01/11/24 01:53:40
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -27,7 +27,7 @@
 
 package mhonarc;
 
-$VERSION = "2.5.1";
+$VERSION = "2.5.2";
 $VINFO =<<EndOfInfo;
   MHonArc v$VERSION (Perl $] $^O)
   Copyright (C) 1995-2001  Earl Hood, mhonarc\@mhonarc.org
@@ -702,10 +702,10 @@ sub read_mail_header {
     ## Check for no archive flag ##
     ##---------------------------##
     if ( $CheckNoArchive &&
-	 (defined($fields->{'restrict'}) &&
+	 ((defined($fields->{'restrict'}) &&
 	  grep { /no-external-archive/i } @{$fields->{'restrict'}}) ||
-	 (defined($fields->{'x-no-archive'}) &&
-	  grep { /yes/i } @{$fields->{'x-no-archive'}}) ) {
+	  (defined($fields->{'x-no-archive'}) &&
+	   grep { /yes/i } @{$fields->{'x-no-archive'}})) ) {
 	return undef;
     }
 

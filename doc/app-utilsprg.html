@@ -28,6 +28,9 @@ are installed with <b>mhonarc</b> during the installation process.
 <ul>
 <li><a href="#mha-dbedit">mha-dbedit</a>
 <li><a href="#mha-dbrecover">mha-dbrecover</a>
+<ul>
+<li><small><a href="#mha-dbrecover-options">Additional Options</a></small>
+</ul>
 <li><a href="#mha-decode">mha-decode</a>
 </ul>
 <!--X-TOC-End-->
@@ -77,6 +80,66 @@ invoking <b>mha-dbrecover</b>.  For example:
 <pre>
     shell&gt; <b>mha-dbrecover -rcfile <var>res.mrc</var> -outdir <var>/path/to/archive</var></b>
 </pre>
+
+<p><b>mha-dbrecover</b> will only recreate non-layout message related data.
+
+<h3><a name="mha-dbrecover-options">Additional Options</a></h3>
+
+<p><b>mha-dbrecover</b> supports the additional command-line options:
+</p>
+
+<dl>
+<dt><tt>-dbr-startnum <var>#</var></tt></dt>
+<dd>The starting message number to recover data from.  This option is
+    useful if you have many message files in a directory, but you only
+    want to recover a subset of the files.
+    If this option is not specified, the starting number is 0.
+    </dd>
+</dl>
+<dl>
+<dt><tt>-dbr-endnum <var>#</var></tt></dt>
+<dd>The ending message number to recover data from.  This option is
+    useful if you have many message files in a directory, but you only
+    want to recover a subset of the files.
+    If this option is not specified, all messages starting from
+    <tt>-dbr-startnum</tt> will be recovered.
+    </dd>
+</dl>
+
+<p>Using the number range options are typically not needed, but may
+be useful if the archive is maintained with a
+<a href="resources/maxsize.html">MAXSIZE</a> (or
+<a href="resources/expireage.html">EXPIREAGE</a>),
+and
+<a href="resources/keeponrmm.html">KEEPONRMM</a> is active.  The
+message number range options will allow you to minimize recovering
+processing by having <b>mha-dbrecover</b> skip messaages that will
+be dropped from the database due to the
+<a href="resources/maxsize.html">MAXSIZE</a>,
+or <a href="resources/expireage.html">EXPIREAGE</a>,
+setting.
+</p>
+<p>For example, say you have an archive directory with 1000 message
+pages numbered 0 through 999, and the maximum size of the archive
+is 200.  The following command will make recovering more efficient
+by skipping the first 800 messages since they will be dropped from
+the database anyway:
+</p>
+<pre>
+    shell&gt; <b>mha-dbrecover -dbr-startnum 800 -outdir <var>/path/to/archive</var></b>
+</pre>
+
+<table border=0 cellpadding=4>
+<tr valign=top>
+<td><strong>NOTE</strong></td>
+<td><p>It is possible that message number order may not exactly match
+date order.  You may want to increase the number range to take in
+account of possible anomolies where message number order may vary from
+message date order.
+</p>
+</td>
+</tr>
+</table>
 
 <hr>
 <H2><a name="mha-decode">mha-decode</a></H2>
@@ -136,7 +199,7 @@ separate directory:
 
 <HR>
 <address>
-01/09/05 22:03:28<br>
+01/11/24 03:21:59<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.mhonarc.org"
 ><strong>MHonArc</strong></a><br>

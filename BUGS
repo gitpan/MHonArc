@@ -5,7 +5,8 @@
 Appendix: Bugs
 
   * Reporting Bugs
-  * Bug List
+  * Open Bugs
+  * Fixed Bugs
 
 ---------------------------------------------------------------------------
 
@@ -41,12 +42,11 @@ version of MHonArc.
 
 ---------------------------------------------------------------------------
 
-Bug List
+Open Bugs
 
-The following gives a list of bugs reported against MHonArc. Each bug
+The following gives a list of open bugs reported against MHonArc. Each bug
 listing shows the version the bug was reported against (the bug may be
-applicable to earlier versions), a description of the problem, and if
-applicable, a solution and version of MHonArc the bug was fixed.
+applicable to earlier versions), and a description of the problem.
 
 ---------------------------------------------------------------------------
                                                                            
@@ -85,6 +85,27 @@ Solution: OPEN: A complete solution would require full HTML parsing, but
           Contributors welcome for developing a robust HTML filter.        
                                                                            
    Fixed: OPEN                                                             
+
+---------------------------------------------------------------------------
+
+Fixed Bugs
+
+The following gives a list of bugs reported against and fixed in MHonArc.
+Each bug listing shows the version the bug was reported against (the bug
+may be applicable to earlier versions), a description of the problem, a
+summary of the solution, and the version of MHonArc the bug was fixed.
+
+---------------------------------------------------------------------------
+                                                                           
+ Version: 2.5.0, 2.5.1                                                     
+                                                                           
+ Problem: Messages with the "X-no-archive: yes" message header field are   
+          always excluded from an archive even if the CHECKNOARCHIVE       
+          resource is off.                                                 
+                                                                           
+Solution: Fixed in mhamain.pl.                                             
+                                                                           
+   Fixed: 2.5.2                                                            
                                                                            
 ---------------------------------------------------------------------------
                                                                            
@@ -96,7 +117,7 @@ Solution: OPEN: A complete solution would require full HTML parsing, but
 Solution: Fixed in mhopt.pl: Typo in code prevented OTHERINDEXES list to   
           not remove duplicate entries.                                    
                                                                            
-   Fixed: v2.5.1                                                           
+   Fixed: 2.5.1                                                            
                                                                            
 ---------------------------------------------------------------------------
                                                                            
@@ -109,7 +130,7 @@ Solution: Fixed in readmail.pl: The 4 argument version is only supported in
           Perl 5.005 and later. Statement replaced with equivalent code to 
           be compatible with older Perl releases.                          
                                                                            
-   Fixed: v2.5.1                                                           
+   Fixed: 2.5.1                                                            
                                                                            
 ---------------------------------------------------------------------------
                                                                            
@@ -125,7 +146,7 @@ Solution: Fixed in mhtxthtml.pl: Code for setting the background-image
           style was not updated during the change of handling of CID urls  
           in v2.4.7.                                                       
                                                                            
-   Fixed: v2.5.0                                                           
+   Fixed: 2.5.0                                                            
                                                                            
 ---------------------------------------------------------------------------
                                                                            
@@ -139,7 +160,7 @@ Solution: This is really a limitation on how messages are tagged for update
           $TSLICE$ that differ from default values in TSLICE. Work-around  
           to problem is now documented in the TSLICE resource page.        
                                                                            
-   Fixed: v2.5.0 (documented limitation)                                   
+   Fixed: 2.5.0 (documented limitation)                                    
                                                                            
 ---------------------------------------------------------------------------
                                                                            
@@ -156,7 +177,7 @@ Solution: Fixed in mhamain.pl: All occurances of message header fields that
           denote archive intent or now checked and not just the first      
           occurance.                                                       
                                                                            
-   Fixed: v2.5.0                                                           
+   Fixed: 2.5.0                                                            
                                                                            
 ---------------------------------------------------------------------------
                                                                            
@@ -168,7 +189,7 @@ Solution: Fixed in mhamain.pl: All occurances of message header fields that
 Solution: Fixed in doc/layout.html: TSUBLISTEND moved from before          
           TSUBJECTBEG to after TSUBJECTEND.                                
                                                                            
-   Fixed: v2.5.0                                                           
+   Fixed: 2.5.0                                                            
                                                                            
 ---------------------------------------------------------------------------
                                                                            
@@ -180,7 +201,7 @@ Solution: Fixed in doc/layout.html: TSUBLISTEND moved from before
 Solution: Fixed in mhinit.pl: Source changed to match documentation, "http:
           //www.mhonarc.org/".                                             
                                                                            
-   Fixed: v2.5.0                                                           
+   Fixed: 2.5.0                                                            
                                                                            
 ---------------------------------------------------------------------------
                                                                            
@@ -192,7 +213,7 @@ Solution: Fixed in mhinit.pl: Source changed to match documentation, "http:
                                                                            
 Solution: Fixed in compute_msg_pos() in mhrcvars.pl.                       
                                                                            
-   Fixed: v2.5.0b2                                                         
+   Fixed: 2.5.0b2                                                          
                                                                            
 ---------------------------------------------------------------------------
                                                                            
@@ -208,7 +229,7 @@ Solution: Fixed in mhindex.pl. replace_li_var() still depends on some
           has to be used instead of my() for some variables if             
           replace_li_var() is to be called.                                
                                                                            
-   Fixed: v2.5.0b2                                                         
+   Fixed: 2.5.0b2                                                          
                                                                            
 ---------------------------------------------------------------------------
                                                                            
@@ -219,7 +240,7 @@ Solution: Fixed in mhindex.pl. replace_li_var() still depends on some
                                                                            
 Solution: Fixed.                                                           
                                                                            
-   Fixed: v2.5.0b2                                                         
+   Fixed: 2.5.0b2                                                          
                                                                            
 ---------------------------------------------------------------------------
                                                                            
@@ -1495,7 +1516,7 @@ Solution: Fixed.
 
 ---------------------------------------------------------------------------
 
-01/11/13 23:07:33
+01/11/24 03:33:57
 [monicon] MHonArc
 Copyright © 1997-1999, Earl Hood, mhonarc@mhonarc.org
 

@@ -7,7 +7,7 @@ mhonarc:
 mha-dbedit:
 	 mha-dbedit 1.5 01/09/18 00:16:54
 mha-dbrecover:
-	 mha-dbrecover 1.5 01/09/18 00:17:07
+	 mha-dbrecover 1.6 01/11/18 13:25:34
 mha-decode:
 	 mha-decode 1.5 01/09/18 00:17:10
 lib/base64.pl:
@@ -19,7 +19,7 @@ lib/iso2022jp.pl:
 lib/iso8859.pl:
 	 iso8859.pl 2.5 01/09/17 22:08:49
 lib/mhamain.pl:
-	 mhamain.pl 2.30 01/11/13 23:09:14
+	 mhamain.pl 2.31 01/11/24 01:53:40
 lib/mhdb.pl:
 	 mhdb.pl 2.17 01/09/05 21:47:04
 lib/mhdysub.pl:
@@ -29,7 +29,7 @@ lib/mhexternal.pl:
 lib/mhfile.pl:
 	 mhfile.pl 2.5 01/09/17 22:09:37
 lib/mhidxrc.pl:
-	 mhidxrc.pl 2.10 01/09/17 22:09:15
+	 mhidxrc.pl 2.11 01/11/24 02:42:39
 lib/mhindex.pl:
 	 mhindex.pl 1.8 01/09/05 21:57:29
 lib/mhinit.pl:

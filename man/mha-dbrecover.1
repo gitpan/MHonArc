@@ -93,7 +93,7 @@
 .nr % 0
 .rr F
 .\}
-.TH MHA-DBRECOVER 1 "MHonArc v2.5" "30/Sep/2001" "MHonArc Documentation"
+.TH MHA-DBRECOVER 1 "MHonArc v2.5" "24/Nov/2001" "MHonArc Documentation"
 .UC
 .if n .hy 0
 .if n .na
@@ -203,6 +203,26 @@ Due to its size and organization, it is not suited for manpage
 format.  Consult your system administrator for where the documentation
 has been installed, or see the section on \fIAVAILABILITY\fR on where you can
 access the documentation on the web.
+.SH "OPTIONS"
+\fBmha-dbrecover\fR takes all the options available to \fBmhonarc\fR along
+with the following additional options:
+.Ip "\f(CW-dbr-startnum\fR \fI#\fR" 5
+The starting message number to recover data from.  This option is
+useful if you have many message files in a directory, but you only
+want to recover a subset of the files.
+.Sp
+If this option is not specified, the starting number is 0.
+.Ip "\f(CW-dbr-endnum\fR \fI#\fR" 5
+The ending message number to recover data from.  This option is
+useful if you have many message files in a directory, but you only
+want to recover a subset of the files.
+.Sp
+If this option is not specified, all messages starting from
+\f(CW-dbr-startnum\fR will be recovered.
+.PP
+\fB\s-1NOTE\s0:\fR Only a subset of the options available to \fBmhonarc\fR
+are actually supported since many options are not applicable for
+recovering operations.
 .SH "AVAILABILITY"
 <\fIhttp://www.mhonarc.org/\fR>
 .SH "AUTHOR"
@@ -217,6 +237,12 @@ Earl Hood, mhonarc@mhonarc.org
 .IX Header "SYNOPSIS"
 
 .IX Header "DESCRIPTION"
+
+.IX Header "OPTIONS"
+
+.IX Item "\f(CW-dbr-startnum\fR \fI#\fR"
+
+.IX Item "\f(CW-dbr-endnum\fR \fI#\fR"
 
 .IX Header "AVAILABILITY"
 
