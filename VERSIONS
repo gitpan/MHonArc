@@ -19,7 +19,7 @@ lib/iso2022jp.pl:
 lib/iso8859.pl:
 	 iso8859.pl 2.4 99/08/13 22:10:35
 lib/mhamain.pl:
-	 mhamain.pl 2.20 00/04/24 00:05:57
+	 mhamain.pl 2.21 00/10/30 00:04:32
 lib/mhdb.pl:
 	 mhdb.pl 2.13 00/10/28 10:46:37
 lib/mhdysub.pl:

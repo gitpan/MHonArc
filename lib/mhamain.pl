@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhamain.pl 2.20 00/04/24 00:05:57
+##	@(#) mhamain.pl 2.21 00/10/30 00:04:32
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -27,7 +27,7 @@
 
 package mhonarc;
 
-$VERSION = "2.4.6";
+$VERSION = "2.4.7";
 $VINFO =<<EndOfInfo;
   MHonArc v$VERSION (Perl $])
   Copyright (C) 1995-2000  Earl Hood, mhonarc\@pobox.com
