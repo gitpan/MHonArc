@@ -143,7 +143,7 @@ resource.  Therefore, the value of <tt>Content-Length</tt> can be less
 than the actual message size, and message extraction will probably
 work as expected.  However, if <tt>Content-Length</tt> for a message
 has a value that is larger than the actual size, MHonArc may include
-the content of the next message in the message.
+the content of the next message as part of the current message.
 </p>
 
 <!-- ??????????????????????????????????????????????????????????????? -->
@@ -357,7 +357,21 @@ Or. you can use a tool like
 <b>Procmail</b>
 <a href="http://www.ii.com/internet/robots/procmail/"
 >&lt;http://www.ii.com/internet/robots/procmail/&gt;</a>.
-Here are a some messages from users about using Procmail:
+</p>
+
+<table border=0 cellpadding=4>
+<tr valign=top>
+<td><strong>NOTE</strong></td>
+<td><p>You may want to check out the following:
+<strong><a href="http://www.mhonarc.org/release/mharc/">mharc</a></strong>
+at <a href="http://www.mhonarc.org/release/mharc/"
+>&lt;http://www.mhonarc.org/release/mharc/&gt;</a>:
+Mharc is a web-based mail archiving system for multiple mailing
+lists using Procmail, MHonArc, and Namazu.
+</p>
+</td><tr></table>
+
+<p>Here are a some messages from users about using Procmail:
 </p>
 
 <blockquote>
@@ -393,6 +407,7 @@ P.S. Procmail itself comes with an example manual page. It's worth
 </blockquote>
 
 <blockquote>
+<hr noshade size=1>
 <UL>
 <LI><em>From</em>: "Eric D. Friedman" &lt;<A HREF="mailto:friedman@hydra.acs.uci.edu">friedman@hydra.acs.uci.edu</A>&gt;</LI>
 <LI><em>Date</em>: Wed, 13 Nov 1996 06:38:42 -0800</LI>
@@ -447,6 +462,7 @@ friedman@uci.edu
 </blockquote>
 
 <blockquote>
+<hr noshade size=1>
 <UL>
 <LI><em>From</em>: Paul McKinley &lt;<A HREF="mailto:mckinley@austin.asc.slb.com">mckinley@austin.asc.slb.com</A>&gt;</LI>
 <LI><em>Date</em>: Mon, 21 Apr 1997 15:29:08 -0500</LI>
@@ -544,7 +560,7 @@ Unix SysAdmin Contractor
 <p>If using an earlier version, or if you are already doing some preprocessing,
 you can use a pre-processor like <b>Procmail</b>
 to do the filtering.  Here is a message sent to the
-<a href="mailto:mhonarc@ncsa.uiuc.edu">MHonArc mailing list</a>:
+<a href="mailto:mhonarc-users@mhonarc.org">MHonArc mailing list</a>:
 </p>
 
 <blockquote>
@@ -720,7 +736,7 @@ the program, goto
 
 <hr>
 <address>
-$Date: 2002/04/04 05:00:24 $ <br>
+$Date: 2002/06/21 22:28:16 $ <br>
 <img align="top" src="monicon.png" alt="">
 <a href="http://www.mhonarc.org/"
 ><strong>MHonArc</strong></a><br>

@@ -96,11 +96,11 @@ MAILING LIST
     the latest news about MHonArc.
 
     To subscribe to the mailing list, send mail to
-    mhonarc-request@ncsa.uiuc.edu with the single word "subscribe"
+    majordomo@mhonarc.org with the text, "subscribe mhonarc-users"
     (without the quotes) as the message body.
 
-    Mail sent to mhonarc@ncsa.uiuc.edu will be distributed to all
-    subscribers.
+    Mail sent to mhonarc-users@mhonarc.org will be distributed to
+    all subscribers.
 
     The list is restricted to subscribers only.  Messages sent to the
     list by non-subscribers are manually screened before distribution;
@@ -111,7 +111,7 @@ MAILING LIST
     The WWW searchable archives of the mailing list are located at
     the following URLs:
       <http://www.xray.mpe.mpg.de/mailing-lists/mhonarc/>
-      <http://www.mail-archive.com/mhonarc@ncsa.uiuc.edu/>
+      <http://www.mail-archive.com/mhonarc-users@mhonarc.org/>
 
     For more information about the mailing list and contact
     information, see doc/contacts.html.
@@ -119,10 +119,10 @@ MAILING LIST
 ---------------------------------------------------------------------------
 BUGS/COMMENTS/SUGGESTIONS?
 
-    If you have any comments and suggestions about MHonArc, you may
-    send mail to the MHonArc mailing list,
-    <mailto:mhonarc@ncsa.uiuc.edu> or to <mailto:mhonarc@mhonarc.org>
-    if you are not subscribed to the list.
+    If you have any comments and suggestions about
+    MHonArc, you may send mail to the MHonArc mailing list,
+    <mailto:mhonarc-users@mhonarc.org>, or to the author at
+    <mailto:mhonarc@mhonarc.org> if you are not subscribed to the list.
 
     NOTE: The author of MHonArc *IS* subscribed to the list so there
 	  is no need to carbon-copy the author.
@@ -146,4 +146,4 @@ BUGS/COMMENTS/SUGGESTIONS?
 
 ---------------------------------------------------------------------------
 Earl Hood, mhonarc@mhonarc.org
-$Date: 2002/05/15 07:23:58 $
+$Date: 2002/06/21 22:28:16 $

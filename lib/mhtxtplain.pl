@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhtxtplain.pl,v 2.18 2002/05/14 01:08:57 ehood Exp $
+##	$Id: mhtxtplain.pl,v 2.19 2002/06/21 22:14:15 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -304,7 +304,7 @@ sub filter {
     }
 
     if ($textformat eq 'flowed') {
-	# Initial code for format=flowed by Ken Hirsch (May 2002).
+	# Initial code for format=flowed contributed by Ken Hirsch (May 2002).
 	# text/plain; format=flowed defined in RFC2646
 
 	my $currdepth = 0;
@@ -327,7 +327,10 @@ sub filter {
 		    # considered to have soft line breaks.
 		    # Lines that end with no spaces are
 		    # considered to have hard line breaks.
-		    $chunk =~ s/(?<! )(\r?\n|\Z)/<br>$1/g;
+		    # XXX: Negative look-behind assertion not supported
+		    #	   on older versions of Perl 5 (<5.6)
+		    #$chunk =~ s/(?<! )(\r?\n|\Z)/<br>$1/g;
+		    $chunk =~ s/(^|[^ ])(\r?\n|\Z)/$1<br>$2/mg;
 
 		} else {
 		    # Treat this chunk as format=fixed
@@ -352,9 +355,7 @@ sub filter {
 		$ret .= $chunk;
 
 	    } else {
-		# I think the above regex will always match, but
-		# I put this in here to catch any weird cases
-		# so there's no infinite loop
+		# The above regex should always match, but just in case...
 		warn qq/\n/,
 		     qq/Warning: Dequoting problem with format=flowed data\n/,
 		     qq/         Message-Id: <$MHAmsgid>\n/,

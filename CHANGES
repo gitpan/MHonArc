@@ -13,6 +13,20 @@
 
 YYYY/MM/DD
 ============================================================================
+2002/06/21	(2.5.7)
+
+* Bug Fixes: See
+    <http://savannah.gnu.org/bugs/index.php?group_id=1968
+     &set=custom&advsrch=0&msort=0&report_id=105&go_report=Go
+     &fix_release=2.5.7&chunksz=50>
+
+* Updated docs to reflect address change of users' mailing list:
+  mhonarc@ncsa.uiuc.edu -> mhonarc-users@mhonarc.org.
+
+* Some minor FAQ changes, mainly mentioning mharc as a possible
+  solution to some questions.
+
+============================================================================
 2002/06/18	(2.5.6)
 
 * Bug Fixes: See
@@ -1995,4 +2009,4 @@ YYYY/MM/DD
 
 =======================================================================
 Earl Hood, mhonarc@mhonarc.org
-$Id: CHANGES,v 1.70 2002/06/18 17:54:50 ehood Exp $
+$Id: CHANGES,v 1.71 2002/06/21 22:28:15 ehood Exp $
