@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhamain.pl,v 2.47 2002/09/04 04:09:30 ehood Exp $
+##	$Id: mhamain.pl,v 2.50 2002/10/21 17:02:06 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -29,7 +29,7 @@ package mhonarc;
 
 require 5;
 
-$VERSION = '2.5.12';
+$VERSION = '2.5.13';
 $VINFO =<<EndOfInfo;
   MHonArc v$VERSION (Perl $] $^O)
   Copyright (C) 1995-2002  Earl Hood, mhonarc\@mhonarc.org
@@ -789,11 +789,11 @@ sub read_mail_header {
 	## Treat received field specially
 	if ($field eq 'received') {
 	    @array = split(/;/, $value);
-	    if ((scalar(@array) <= 1) || (scalar(@array) > 2)) {
-		warn qq/\nWarning: Received header field looks improper:\n/,
-		       qq/         Received: $value\n/,
-		       qq/         Message-Id: <$msgid>\n/;
-	    }
+#	    if ((scalar(@array) <= 1) || (scalar(@array) > 2)) {
+#		warn qq/\nWarning: Received header field looks improper:\n/,
+#		       qq/         Received: $value\n/,
+#		       qq/         Message-Id: <$msgid>\n/;
+#	    }
 	    $date = pop @array;
 	## Any other field should just be a date
 	} else {

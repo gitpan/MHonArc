@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhtxthtml.pl,v 2.21 2002/09/04 04:09:30 ehood Exp $
+##	$Id: mhtxthtml.pl,v 2.22 2002/10/11 01:57:53 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -175,16 +175,17 @@ sub filter {
 	# for netscape 4.x browsers
 	$$data =~ s/(=\s*["']?\s*)\&\{/$1/g;
     }
+
+    ## Modify relative urls to absolute using BASE
+    if ($base =~ /\S/) {
+        $$data =~ s/($UAttr\s*=\s*['"])([^'"]+)(['"])/
+		   join("", $1, &addbase($base,$2), $3)/geoix;
+    }
     
-    if ($onlycid) {
-	# quoted attributes
-        $$data =~ s/($AElem[^>]+$UAttr\s*=\s*['"])([^'"]+)(['"])
-		   /&preserve_cid($1, $2, $3)
-		   /geoix;
-	# not-quoted attributes
-        $$data =~ s/($AElem[^>]+$UAttr\s*=\s*)([^'"\s>][^\s>]*)
-		   /&preserve_cid($1, $2, "")
-		   /geoix;
+    ## Check for frames: Do not support, so just show source
+    if ($$data =~ m/<frameset\b/i) {
+	$$data = join('', '<pre>', mhonarc::htmlize($$data), '</pre>');
+	return ($title.$$data, @files);
     }
 
     ## Check for body attributes
@@ -207,12 +208,10 @@ sub filter {
 	    $tpre .= qq|background-color: $attr{'bgcolor'}; |
 		     if $attr{'bgcolor'};
 	    if ($attr{'background'}) {
-		if ($attr{'background'} =~ /^cid:/i) {
-		    $attr{'background'} = &resolve_cid($attr{'background'});
-		} else {
-		    $attr{'background'} = &addbase($base, $attr{'background'});
+		if ($attr{'background'} =
+			&resolve_cid($onlycid, $attr{'background'})) {
+		    $tpre .= qq|background-image: url($attr{'background'}) |;
 		}
-		$tpre .= qq|background-image: url($attr{'background'}) |;
 	    }
 	    $tpre .= qq|color: $attr{'text'}; |
 		     if $attr{'text'};
@@ -233,17 +232,11 @@ sub filter {
     }
     $$data =~ s|</?body[^>]*>||ig;
 
-    ## Modify relative urls to absolute using BASE
-    if ($base =~ /\S/) {
-        $$data =~ s/($UAttr\s*=\s*['"])([^'"]+)(['"])/
-		   join("", $1, &addbase($base,$2), $3)/geoix;
-    }
-
     ## Check for CID URLs (multipart/related HTML)
     $$data =~ s/($UAttr\s*=\s*['"])([^'"]+)(['"])/
-	       join("", $1, &resolve_cid($2), $3)/geoix;
+	       join("", $1, &resolve_cid($onlycid, $2), $3)/geoix;
     $$data =~ s/($UAttr\s*=\s*)([^'">][^\s>]+)/
-	       join("", $1, '"', &resolve_cid($2), '"')/geoix;
+	       join("", $1, '"', &resolve_cid($onlycid, $2), '"')/geoix;
 
     ($title.$$data, @files);
 }
@@ -284,9 +277,23 @@ sub addbase {
 ##---------------------------------------------------------------------------
 
 sub resolve_cid {
+    my $onlycid = shift;
     my $cid = shift;
     my $href = $readmail::Cid{$cid};
-    if (!defined($href)) { return ($cid =~ /^cid:/i)? "": $cid; }
+    if (!defined($href)) {
+	my $basename = $cid;
+	$basename =~ s/.*\///;
+	if (!defined($href = $readmail::Cid{$basename})) {
+	    return ""  if $onlycid;
+	    return ($cid =~ /^cid:/i)? "": $cid;
+	}
+	$cid = $basename;
+    }
+
+    if ($href->{'uri'}) {
+	# Part already converted; multiple references to part
+	return $href->{'uri'};
+    }
 
     require 'mhmimetypes.pl';
     my $filename;
@@ -303,22 +310,12 @@ sub resolve_cid {
 			    $href->{'body'});
     }
     $href->{'filtered'} = 1; # mark part filtered for readmail.pl
+    $href->{'uri'}      = $filename;
+
     push(@files, $filename); # @files defined in filter!!
     $filename;
 }
 
-##---------------------------------------------------------------------------
-
-sub preserve_cid {
-    my $pre = shift;
-    my $url = shift;
-    my $post = shift;
-    if ($url =~ /^cid:/i) {
-	$pre . $url . $post;
-    } else {
-	$pre . 'javascript:void(0);' . $post;
-    }
-}
 ##---------------------------------------------------------------------------
 
 1;
