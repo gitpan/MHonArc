@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhtxtplain.pl,v 2.19 2002/06/21 22:14:15 ehood Exp $
+##	$Id: mhtxtplain.pl,v 2.21 2002/07/20 00:48:48 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -43,8 +43,8 @@ $QuoteChars	= '[>\|\]+:]';
 $HQuoteChars	= '&gt;|[\|\]+:]';
 
 $StartFlowedQuote =
-  '<blockquote style="border-left: #0000FF solid 0.2em; '.
-                     'margin-left: 0.2em; padding-left: 0.2em">';
+  '<blockquote style="border-left: #0000FF solid 0.1em; '.
+                     'margin-left: 0.0em; padding-left: 1.0em">';
 $EndFlowedQuote   = "</blockquote>";
 
 ##---------------------------------------------------------------------------##
@@ -275,19 +275,8 @@ sub filter {
 
     ## Convert data according to charset
     if (!$asis{$charset}) {
-	# Japanese we have to handle directly to support nourl flag
-	if ($charset =~ /iso-2022-jp/) {
-	    require "iso2022jp.pl";
-	    if ($nonfixed) {
-		return (&iso_2022_jp::jp2022_to_html($$data, $nourl));
-	    } else {
-		return ('<pre>' .
-			&iso_2022_jp::jp2022_to_html($$data, $nourl).
-			'</pre>');
-	    }
-
 	# Registered in CHARSETCONVERTERS
-	} elsif (defined($charcnv) && defined(&$charcnv)) {
+	if (defined($charcnv) && defined(&$charcnv)) {
 	    $$data = &$charcnv($$data, $charset);
 
 	# Other
@@ -377,7 +366,7 @@ sub filter {
     } else {
 	## Check for quoting
 	if ($doquote) {
-	    $$data =~ s@^( ?${HQuoteChars})(.*)$@$1<I>$2</I>@gom;
+	    $$data =~ s@^( ?${HQuoteChars})(.*)$@$1<i>$2</i>@gom;
 	}
 
 	## Check if using nonfixed font
@@ -392,7 +381,7 @@ sub filter {
     }
 
     ## Convert URLs to hyperlinks
-    $$data =~ s@($HUrlExp)@<A $target HREF="$1">$1</A>@gio
+    $$data =~ s@($HUrlExp)@<a $target href="$1">$1</a>@gio
 	unless $nourl;
 
     ($$data);

@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.1 2002/04/01 07:33:59 ehood Exp $
+# $Id: Makefile,v 1.2 2002/07/20 02:02:13 ehood Exp $
 
 .PHONY: default
 
@@ -6,6 +6,10 @@ TOP     = ../..
 SUBDIRS = \
 	  CharEnt \
 	  # End SUBDIRS
+
+PERL_PM_FILES = \
+		CharEnt.pm \
+		# End PERL_PM_FILES
 
 include $(TOP)/etc/variables.mk
 

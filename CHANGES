@@ -13,6 +13,63 @@
 
 YYYY/MM/DD
 ============================================================================
+2002/07/19	(2.5.9)
+
+* Bug Fixes: See
+    <http://savannah.gnu.org/bugs/index.php?group_id=1968
+     &set=custom&advsrch=0&msort=0&report_id=105&go_report=Go
+     &fix_release=2.5.9&chunksz=50>
+
+* Added MHonArc::UTF8 CHARSETCONVERTER module as recommended at
+  <http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=131512&repeatmerged=yes>.
+  However, module redone to use utf8 pragma in Perl where appropriate
+  and to remove unnecessary code.  Use of module does require that
+  the Unicode::MapUTF8 module is installed and the utf8 pragma is
+  supported in the version of Perl you are using.
+
+  A example resource file, "utf-8.mrc", has been added to the
+  resource file example appendix section on how UTF-8 output can
+  be done in MHonArc.
+
+  NOTE: The MHonArc core is still not UTF-8-aware, so some text
+	processing may not work as expected on UTF-8 data.
+	Possible problem points:
+
+	. Auto-URL hyperlinking in text/plain messages in
+	  mhtxtplain.pl.
+	. Auto-message-id detection in messages.
+	. Resource variable text clipping.
+
+	There may be others, but in general, if there is a problem,
+	it should be uncommon and should not affect the overall
+	functionality of MHonArc.  Problems can be avoided by
+	not using, or disabling, various resources.
+
+* mhtxtplain.pl:
+  . Removed exception case of iso-2022-jp character data since it
+    does not allow alternative iso-2022-jp character set conversion
+    functions via CHARSETCONVERTERS.
+
+    NOTE: This does eliminate the smart handling of URL detection
+	  for the variable-width character set.  Hence, the URL
+	  detection could technically match non-URLs, or munge
+	  a character at URL boundaries, but it is unknown on how
+	  likely this is.  If it is a problem, the "nourl" argument
+	  should be specified to this filter.
+
+    NOTE: The old-style "smart" URL functionality can be re-enabled by
+	  writing a custom CHARSETCONVERTER for iso-2022-jp that
+	  just calls iso_2022_jp::jp2022_to_html in iso2022jp.pl.
+
+  . Minor modification to flowed text/plain formatting that hopefully
+    makes quoted text look better than before.
+
+* FAQ changes:
+  + Added, "Does MHonArc support Unicode?"
+  * Changed, "Can MHonArc create non-English archives?"
+  + Added, "Can MHonArc process Evolution folders?"
+
+============================================================================
 2002/06/28	(2.5.8)
 
 * Added MIMEALTPREFS resource: Content-type preferences for
@@ -2047,4 +2104,4 @@ YYYY/MM/DD
 
 =======================================================================
 Earl Hood, mhonarc@mhonarc.org
-$Id: CHANGES,v 1.76 2002/06/29 02:59:21 ehood Exp $
+$Id: CHANGES,v 1.78 2002/07/20 00:48:48 ehood Exp $

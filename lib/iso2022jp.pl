@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: iso2022jp.pl,v 1.3 2001/09/17 16:10:44 ehood Exp $
+##	$Id: iso2022jp.pl,v 1.4 2002/07/20 00:47:05 ehood Exp $
 ##  Author(s):
 ##      Earl Hood       mhonarc@mhonarc.org
 ##      NIIBE Yutaka	gniibe@mri.co.jp
@@ -75,7 +75,7 @@ sub jp2022_to_html {
 		$ascii_text =~ s%<%\&lt;%g;
 		$ascii_text =~ s%>%\&gt;%g;
 		## Convert URLs to hyperlinks
-		$ascii_text =~ s%($HUrlExp)%<A HREF="$1">$1</A>%gio
+		$ascii_text =~ s%($HUrlExp)%<a href="$1">$1</a>%gio
 		    unless $nourl;
 
 		$ret .= $ascii_text;
@@ -101,7 +101,7 @@ sub jp2022_to_html {
 			$ascii_text =~ s%<%\&lt;%g;
 			$ascii_text =~ s%>%\&gt;%g;
 			## Convert URLs to hyperlinks
-			$ascii_text =~ s%($HUrlExp)%<A HREF="$1">$1</A>%gio
+			$ascii_text =~ s%($HUrlExp)%<a href="$1">$1</a>%gio
 			    unless $nourl;
 
 			$ret .= $ascii_text;

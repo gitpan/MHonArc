@@ -30,9 +30,10 @@
 </ul>
 <li><a href="#devlist">Development Mailing List</a>
 <ul>
-<li><small><a href="#subscribe">Subscribing</a></small>
-<li><small><a href="#problems">List Problems</a></small>
-<li><small><a href="#archives">Archives</a></small>
+<li><small><a href="#subscribe-dev">Subscribing</a></small>
+<li><small><a href="#unsubscribe-dev">Unsubscribing</a></small>
+<li><small><a href="#problems-dev">List Problems</a></small>
+<li><small><a href="#archives-dev">Archives</a></small>
 </ul>
 <li><a href="#people">People</a>
 </ul>
@@ -61,11 +62,7 @@ subscribe mhonarc-users</pre>
 your message will be distributed to all subscribers on the list.
 </P>
 
-<p>The list is restricted to subscribers only.  Messages sent
-to the list by non-subscribers are manually screened before distribution.
-Therefore, there may be a significant delay before the message is
-actually seen be subscribers.  Any spam messages are happily redirected
-to /dev/null.
+<p>The list is restricted to subscribers only.
 </p>
 
 <p>If you are subscriber and want to send messages to the list from
@@ -87,6 +84,18 @@ subscribe mhonarc-allow
 <A HREF="mailto:mhonarc-users@mhonarc.org">mhonarc-users@mhonarc.org</A>
 from the address you specified in the subscribe request.
 </p>
+
+<table border=0 cellpadding=4>
+<tr valign=top>
+<td><strong>NOTE</strong></td>
+<td><p>The special <tt>mhonarc-allow</tt> list applies to all
+<tt>mhonarc.org</tt> mailing lists.  For example, if you subscribe
+your address to <tt>mhonarc-allow</tt>, you can also send messages
+to the <a href="#dev-list">development list</a>.
+</p>
+</td>
+</tr>
+</table>
 
 <h3><a name="unsubscribe">Unsubscribing</a></h3>
 <p>If you want to unsubscribe to the list,
@@ -110,10 +119,12 @@ should be directed to
 URLs:
 </p>
 <ul>
-<li><A HREF="http://www.xray.mpe.mpg.de/mailing-lists/mhonarc/"
->&lt;http://www.xray.mpe.mpg.de/mailing-lists/mhonarc/&gt;</A></li>
-<li><A HREF="http://www.mail-archive.com/mhonarc-users%40mhonarc.org/"
->&lt;http://www.mail-archive.com/mhonarc-users@mhonarc.org/&gt;</A></li>
+<li><a href="http://www.mhonarc.org/archive/html/mhonarc-users/"
+>&lt;http://www.mhonarc.org/archive/html/mhonarc-users/&gt;</a></li>
+<li><a href="http://www.xray.mpe.mpg.de/mailing-lists/mhonarc/"
+>&lt;http://www.xray.mpe.mpg.de/mailing-lists/mhonarc/&gt;</a></li>
+<li><a href="http://www.mail-archive.com/mhonarc-users%40mhonarc.org/"
+>&lt;http://www.mail-archive.com/mhonarc-users@mhonarc.org/&gt;</a></li>
 </ul>
 
 <hr>
@@ -141,7 +152,7 @@ development list or keep it on the user's list.
 are able to send messages to the development list.
 </p>
 
-<h3><a name="subscribe">Subscribing</a></h3>
+<h3><a name="subscribe-dev">Subscribing</a></h3>
 <p>To subscribe to the mailing list,
 send mail to <a href="mailto:majordomo@mhonarc.org"
 >majordomo@mhonarc.org</a> with the command,
@@ -151,8 +162,16 @@ subscribe mhonarc-dev</pre>
 <p>as the message body.
 </p>
 
+<h3><a name="unsubscribe-dev">Unsubscribing</a></h3>
+<p>If you want to unsubscribe to the list,
+send mail to <a href="mailto:majordomo@mhonarc.org"
+>majordomo@mhonarc.org</a> with the command, </p>
+<pre>
+unsubscribe mhonarc-dev</pre>
+<P>as the message body.
+</P>
 
-<h3><a name="problems">List Problems</a></h3>
+<h3><a name="problems-dev">List Problems</a></h3>
 <p>If you are having problems with the mailing list -- e.g. problems
 subscribing, unsubscribing, not receiving messages -- your messages
 should be directed to
@@ -160,15 +179,20 @@ should be directed to
 >mhonarc-dev-owner@mhonarc.org</a>
 </p>
 
-<h3><a name="archives">Archives</a></h3>
+<h3><a name="archives-dev">Archives</a></h3>
 <P>Web archives of the development mailing list are available at the following
 URLs:
 </p>
 <ul>
-<li><A HREF="http://www.mhonarc.org/lists/mhonarc-dev/"
->&lt;http://www.mhonarc.org/lists/mhonarc-dev/&gt;</A></li>
-<li><A HREF="http://www.mail-archive.com/mhonarc-dev%40mhonarc.org/"
->&lt;http://www.mail-archive.com/mhonarc-dev@mhonarc.org/&gt;</A></li>
+<li><a href="http://www.mhonarc.org/archive/html/mhonarc-dev/"
+    >&lt;http://www.mhonarc.org/archive/html/mhonarc-dev/&gt;</a><br>
+    <a href="http://www.mhonarc.org/archive/html/mhonarc-dev.CVS/"
+    >&lt;http://www.mhonarc.org/archive/html/mhonarc-dev.CVS/&gt;</a>
+    (CVS commits)
+    </li>
+<li><a href="http://www.mail-archive.com/mhonarc-dev%40mhonarc.org/"
+    >&lt;http://www.mail-archive.com/mhonarc-dev@mhonarc.org/&gt;</a>
+    </li>
 </ul>
 
 <hr>
@@ -180,12 +204,14 @@ and support of MHonArc:
 <DL>
 <DT><STRONG>Achim Bohnet</STRONG> <BR>
 <A HREF="mailto:ach@mpe.mpg.de">ach@mpe.mpg.de</A> 
-<DD><P>Maintainer, of the MHonArc mailing list archive.
+<DD><P>Maintainer, of the original MHonArc mailing list archive,
+<a href="http://www.xray.mpe.mpg.de/mailing-lists/mhonarc/"
+>&lt;http://www.xray.mpe.mpg.de/mailing-lists/mhonarc/&gt;</a>.
 </P></DL>
 
 <DL>
 <DT><STRONG>Earl Hood</STRONG> <BR>
-<A HREF="mailto:mhonarc@mhonarc.org">mhonarc@mhonarc.org</A>
+<A HREF="mailto:earl@earlhood.com">earl@earlhood.com</A>
 <DD><P>Creator and developer of MHonArc.  Also author
 of the documention, for what it is worth.
 </P></DL>
@@ -221,7 +247,7 @@ to improve the quality of MHonArc.
 
 <HR>
 <address>
-$Date: 2002/06/27 00:03:23 $ <br>
+$Date: 2002/07/04 03:34:17 $ <br>
 <img align="top" src="monicon.png" alt="">
 <a href="http://www.mhonarc.org"><strong>MHonArc</strong></a><br>
 Copyright &#169; 1997-2002, <a href="http://www.mhonarc.org/~ehood/"

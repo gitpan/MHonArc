@@ -26,10 +26,12 @@
 <li><a href="#ezmlm">Can MHonArc process ezmlm archives?</a></li>
 <li><a href="#maildir">Can MHonArc process qmail's maildir style mail folders?</a></li>
 <li><a href="#netscape">Can MHonArc process Netscape Messenger folders?</a></li>
+<li><a href="#evolution">Can MHonArc process Evolution folders?</a></li>
 <li><a href="#compuserve">Can MHonArc process Compuserve messages?</a></li>
 <li><a href="#otherformats">What about other mailbox/folder formats?</a></li>
 <li><a href="#nonenglish">Can MHonArc create non-English archives?</a></li>
 <li><a href="#bilingual">Can I create bilingual archives?</a></li>
+<li><a href="#unicode">Does MHonArc support Unicode?</a></li>
 </ul>
 <!--X-TOC-End-->
 
@@ -168,6 +170,7 @@ Chris
 </PRE>
 </BLOCKQUOTE>
 <BLOCKQUOTE>
+<hr noshade size=1>
 <UL>
 <LI><em>Subject</em>: Majordomo Digests to mbox format for MHonarc (perl script)</LI>
 <LI><em>From</em>: The Hermit Hacker &lt;<A HREF="mailto:scrappy@hub.org">scrappy@hub.org</A>&gt;</LI>
@@ -403,6 +406,21 @@ show up in the archive create by MHonArc.
 <hr noshade size=1>
 <table border=0>
 <tr valign=top><td><img src="monicon.png" align="bottom" alt=""></td><td>
+<h3><b><a name="evolution">Can MHonArc process Evolution folders?</a></b></h3>
+</td></tr></table>
+
+<p>Yes.  Each Evolution folder has a corresponding mailbox file
+that stores the raw mail messages for the folder.  The location
+of the mailbox file will be in your mail directory which is
+typically <b><tt>$HOME/evolution/local/<em>folder-name</em></tt></b>.
+In the directory is a file called <tt>mbox</tt> which contains
+the raw messages that can be passed into MHonArc directly.
+</p>
+
+<!-- ??????????????????????????????????????????????????????????????? -->
+<hr noshade size=1>
+<table border=0>
+<tr valign=top><td><img src="monicon.png" align="bottom" alt=""></td><td>
 <h3><b><a name="compuserve">Can MHonArc process Compuserve messages?</a></b></h3>
 </td></tr></table>
 
@@ -490,10 +508,15 @@ provided from the URL can be applicable to MHonArc.
 <p>Yes.  With MHonArc's page layout customizations features,
 you can have MHonArc create pages in any language supported
 by Web client software.  Plus, messages containing non-English text
-is supported during message conversion.  For text messages,
-MHonArc supports the ISO-8859 character sets and the
-ISO-2022-JP character set.
+is supported during message conversion via the CHARSETCONVERTERS
+resource.
 </p>
+
+<dl>
+<dt>See also:</dt>
+<dd><a href="#unicde"
+    >Does MHonArc support Unicode?</a></dd>
+</dl>
 
 <!-- ??????????????????????????????????????????????????????????????? -->
 <hr noshade size=1>
@@ -525,6 +548,25 @@ message.  MHonArc has no built-in language translation.
 </dd>
 </dl>
 
+<dl>
+<dt>See also:</dt>
+<dd><a href="#unicde"
+    >Does MHonArc support Unicode?</a></dd>
+</dl>
+
+<!-- ??????????????????????????????????????????????????????????????? -->
+<hr noshade size=1>
+<table border=0>
+<tr valign=top><td><img src="monicon.png" align="bottom" alt=""></td><td>
+<h3><b><a name="unicode">Does MHonArc support Unicode?</a></b></h3>
+</td></tr></table>
+
+<p>Not directly, but it is possible to have MHonArc generate
+UTF-8 HTML pages.  See the <tt>utf-8.mrc</tt> example resource
+file in the <cite>Appendix: Resource File Examples</cite> section
+of the documentation for more information and caveats.
+</p>
+
 <!-- ===================================================================== -->
 <hr>
 
@@ -536,7 +578,7 @@ message.  MHonArc has no built-in language translation.
 
 <hr>
 <address>
-$Date: 2001/12/24 14:38:39 $ <br>
+$Date: 2002/07/20 00:48:48 $ <br>
 <img align="top" src="monicon.png" alt="">
 <a href="http://www.mhonarc.org/"
 ><strong>MHonArc</strong></a><br>

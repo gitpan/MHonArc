@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhamain.pl,v 2.43 2002/06/27 04:56:41 ehood Exp $
+##	$Id: mhamain.pl,v 2.44 2002/07/18 21:54:52 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -29,7 +29,7 @@ package mhonarc;
 
 require 5;
 
-$VERSION = "2.5.8";
+$VERSION = "2.5.9";
 $VINFO =<<EndOfInfo;
   MHonArc v$VERSION (Perl $] $^O)
   Copyright (C) 1995-2002  Earl Hood, mhonarc\@mhonarc.org
@@ -996,7 +996,7 @@ sub output_mail {
     my($msghandle, $msginfh, $drvfh);
 
     my $msgnum	     = $IndexNum{$index};
-    if (!defined($msgnum)) {
+    if (!$SINGLE && !defined($msgnum)) {
       # Something bad must have happened to message, so we just
       # quietly return.
       return;
