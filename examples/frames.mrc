@@ -1,8 +1,8 @@
 <!-- ================================================================== -->
-<!--	@(#) frames.rc 1.5 98/03/03 14:21:10
-	Earl Hood <ehood@medusa.acs.uci.edu>
+<!--	@(#) frames.mrc 1.6 98/08/10 23:13:15
+	Earl Hood <earlhood@usa.net>
   -->
-<!--	MHonArc Resource File						--
+<!--	MHonArc v2.3 Resource File					--
   --									--
   --	Description:							--
   --									--
@@ -85,11 +85,11 @@ NAV-LINKS
 <th colspan=3><strong>Date Links</strong></th>
 </tr>
 <tr align="center">
-<td>$TPREVBUTTON$</td>
-<td>$TNEXTBUTTON$</td>
+<td>$BUTTON(TPREV)$</td>
+<td>$BUTTON(TNEXT)$</td>
 <td><a $FRAME-IDX$ href="$TIDXFNAME$#$MSGNUM$">Index</a></td>
-<td>$PREVBUTTON$</td>
-<td>$NEXTBUTTON$</td>
+<td>$BUTTON(PREV)$</td>
+<td>$BUTTON(NEXT)$</td>
 <td><a $FRAME-IDX$ href="$IDXFNAME$#$MSGNUM$">Index</a></td>
 </tr>
 </tbody>
@@ -203,14 +203,14 @@ $MAIN-TITLE$ (thread)
 <!--	Define the appearances of the prev/next page links.
   -->
 <TNextPgLink chop>
-<A HREF="$TNEXTPG$">&gt;&gt;</A>
+<A HREF="$PG(TNEXT)$">&gt;&gt;</A>
 </TNextPgLink>
 <TNextPgLinkIA chop>
 &gt;&gt;
 </TNextPgLinkIA>
 
 <TPrevPgLink chop>
-<A HREF="$TPREVPG$">&lt;&lt;</A>
+<A HREF="$PG(TPREV)$">&lt;&lt;</A>
 </TPrevPgLink>
 <TPrevPgLinkIA chop>
 &lt;&lt;
@@ -231,10 +231,10 @@ $MAIN-TITLE$ (thread)
 <tr align="center">
 <th colspan=4><small>Page $PAGENUM$ of $NUMOFPAGES$</small></th>
 <tr>
-<td align="left"><a href="$TFIRSTPG$">&lt;&lt;&lt;&lt;</a>
-<td align="right">$TPREVPGLINK$
-<td align="left">$TNEXTPGLINK$
-<td align="right"><a href="$TLASTPG$">&gt;&gt;&gt;&gt;</a>
+<td align="left"><a href="$PG(TFIRST)$">&lt;&lt;&lt;&lt;</a>
+<td align="right">$PGLINK(TPREV)$
+<td align="left">$PGLINK(TNEXT)$
+<td align="right"><a href="$PG(TLAST)$">&gt;&gt;&gt;&gt;</a>
 </tbody>
 </table>
 <hr noshade size=1>
@@ -252,10 +252,10 @@ $MAIN-TITLE$ (thread)
 <table $IDXPG-TBL-LINKS-ATTRS$>
 <tbody>
 <tr>
-<td align="left"><a href="$TFIRSTPG$">&lt;&lt;&lt;&lt;</a>
-<td align="right">$TPREVPGLINK$
-<td align="left">$TNEXTPGLINK$
-<td align="right"><a href="$TLASTPG$">&gt;&gt;&gt;&gt;</a>
+<td align="left"><a href="$PG(TFIRST)$">&lt;&lt;&lt;&lt;</a>
+<td align="right">$PGLINK(TPREV)$
+<td align="left">$PGLINK(TNEXT)$
+<td align="right"><a href="$PG(TLAST)$">&gt;&gt;&gt;&gt;</a>
 <tr align="center">
 <th colspan=4><small>Page $PAGENUM$ of $NUMOFPAGES$</small></th>
 </tbody>
@@ -301,7 +301,7 @@ $MAIN-TITLE$ (thread)
 	is based on the subject of the message.
   -->
 <TSubjectBeg>
-<font size="-1">Possible follow-ups</font>
+<LI><font size="-1">Possible follow-ups</font></LI>
 </TSubjectBeg>
 
 <!--	TCONTBEGIN is used to show the continuation of a thread
@@ -350,7 +350,7 @@ $MAIN-TITLE$ (date)
 	the last page of the index.
   -->
 <NextPgLink chop>
-<A HREF="$NEXTPG$">&gt;&gt;</A>
+<A HREF="$PG(NEXT)$">&gt;&gt;</A>
 </NextPgLink>
 <NextPgLinkIA chop>
 &gt;&gt;
@@ -361,7 +361,7 @@ $MAIN-TITLE$ (date)
 	the first page of the index.
   -->
 <PrevPgLink chop>
-<A HREF="$PREVPG$">&lt;&lt;</A>
+<A HREF="$PG(PREV)$">&lt;&lt;</A>
 </PrevPgLink>
 <PrevPgLinkIA chop>
 &lt;&lt;
@@ -384,10 +384,10 @@ $MAIN-TITLE$ (date)
 <tr align="center">
 <th colspan=4><small>Page $PAGENUM$ of $NUMOFPAGES$</small></th>
 <tr>
-<td align="left"><a href="$FIRSTPG$">&lt;&lt;&lt;&lt;</a>
-<td align="right">$PREVPGLINK$
-<td align="left">$NEXTPGLINK$
-<td align="right"><a href="$LASTPG$">&gt;&gt;&gt;&gt;</a>
+<td align="left"><a href="$PG(FIRST)$">&lt;&lt;&lt;&lt;</a>
+<td align="right">$PGLINK(PREV)$
+<td align="left">$PGLINK(NEXT)$
+<td align="right"><a href="$PG(LAST)$">&gt;&gt;&gt;&gt;</a>
 </tbody>
 </table>
 <hr noshade size=1>
@@ -405,10 +405,10 @@ $MAIN-TITLE$ (date)
 <table $IDXPG-TBL-LINKS-ATTRS$>
 <tbody>
 <tr>
-<td align="left"><a href="$FIRSTPG$">&lt;&lt;&lt;&lt;</a>
-<td align="right">$PREVPGLINK$
-<td align="left">$NEXTPGLINK$
-<td align="right"><a href="$LASTPG$">&gt;&gt;&gt;&gt;</a>
+<td align="left"><a href="$PG(FIRST)$">&lt;&lt;&lt;&lt;</a>
+<td align="right">$PGLINK(PREV)$
+<td align="left">$PGLINK(NEXT)$
+<td align="right"><a href="$PG(LAST)$">&gt;&gt;&gt;&gt;</a>
 <tr align="center">
 <th colspan=4><small>Page $PAGENUM$ of $NUMOFPAGES$</small></th>
 </tbody>
@@ -562,7 +562,7 @@ $TSLICE$
 	actually utilized in the derived navigational files.
   -->
 <TNextButton chop>
-<a $FRAME-MAIN$ href="frm$TNEXTMSGNUM$.html">Next</a>
+<a $FRAME-MAIN$ href="frm$MSGNUM(TNEXT)$.html">Next</a>
 </TNextButton>
 
 <TNextButtonIA chop>
@@ -570,7 +570,7 @@ Next
 </TNextButtonIA>
 
 <TPrevButton chop>
-<a $FRAME-MAIN$ href="frm$TPREVMSGNUM$.html">Prev</a>
+<a $FRAME-MAIN$ href="frm$MSGNUM(TPREV)$.html">Prev</a>
 </TPrevButton>
 
 <TPrevButtonIA chop>
@@ -578,7 +578,7 @@ Prev
 </TPrevButtonIA>
 
 <NextButton chop>
-<a $FRAME-MAIN$ href="frm$NEXTMSGNUM$.html">Next</a>
+<a $FRAME-MAIN$ href="frm$MSGNUM(NEXT)$.html">Next</a>
 </NextButton>
 
 <NextButtonIA chop>
@@ -586,7 +586,7 @@ Next
 </NextButtonIA>
 
 <PrevButton chop>
-<a $FRAME-MAIN$ href="frm$PREVMSGNUM$.html">Prev</a>
+<a $FRAME-MAIN$ href="frm$MSGNUM(PREV)$.html">Prev</a>
 </PrevButton>
 
 <PrevButtonIA chop>

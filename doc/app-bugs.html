@@ -2,18 +2,62 @@
 <HTML>
 <HEAD>
 <TITLE>
-MHonArc -- Bugs
+MHonArc v2.3.0 -- Appendix: Bugs
 </TITLE></HEAD>
-<BODY>
+<BODY background="ssbg75.jpg"
+      text="#000000" link="#0000ee" vlink="#551a8b" alink="ff0000">
 
 <!--X-NavButtons-Start-->
 <p align=center>
-[<a href="diagnos.html">Prev</a>][<a href="contacts.html">Next</a>][<a href="mhonarc.html">TOC</a>][<a href="http://www.oac.uci.edu/indiv/ehood/MHonArc/faq/faq.html">FAQ</a>][<a href="bugs.html">Bugs</a>][<a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html">Home</a>]
+<a href="app-utilsprg.html"><img src="prev.gif" border=0 alt="[Prev]"></a><img src="blank.gif" border=0 alt="[Next]"><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"><img src="home.gif" border=0 alt="[Home]"></a>
 </p>
 <!--X-NavButtons-End-->
 <HR>
 
-<H1><a name="bugs">Bugs</a></H1>
+<H1><a name="bugs">Appendix: Bugs</a></H1>
+
+<hr>
+<h2><a name="bugreport">Reporting Bugs</a></h2>
+
+<p>To report a bug against MHonArc, send mail to
+<a href="mhonarc@ncsa.uiuc.edu">mhonarc@ncsa.uiuc.edu</a> and
+please include the following information:
+</p>
+
+<ul>
+<li>Version of Perl (can be retrievied by "<tt>perl -v</tt>").</li>
+<li>Version of the program (can be retrievied by "<tt>mhonarc -v</tt>").</li>
+<li>The operating system you are using (on Unix the output
+of "<tt>uname -a</tt>" is useful).</li>
+<li>The exact command-line used to invoke the program.</li>
+<li>Error/diagnostic messages from the program.</li>
+<li>Any other information that might prove useful (eg. input
+files, resource files, environment settings, etc).</li>
+</ul>
+
+<p>If possible, avoid sending a huge mail message.  Try to make the
+bug reproducable with the smallest amount of data that is possible.
+If this is difficult, then either provide URLs to any data needed
+to reproduce the bug, or state that data can be provided via
+private mail to any persons concerned.
+</p>
+
+<p>Note, some bug reports are not actual bugs, but usage errors.
+Make sure you have checked the problem against the documentation and FAQ
+before sending a report.  Also, check the
+<a href="#buglist">bug list</a>
+in the
+documentation to see if the bug has already been reported (and maybe
+fixed).  You may need to go the
+<a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html">MHonArc
+home page</a>
+to check the bug list in case you are not using the latest version
+of MHonArc.
+</p>
+
+
+<hr>
+<h2><a name="buglist">Bug List</a></h2>
 
 <p>The following gives a list of bugs reported against
 MHonArc.  Each bug listing shows the version the
@@ -23,10 +67,235 @@ and if applicable, a solution and version of MHonArc
 the bug was fixed.
 </p>
 
-<h2><a name="buglist">Bug List</a></h2>
-
 <!--X-BugList-Start-->
 <table border=0 cellspacing=0 cellpadding=4 width="100%">
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.x</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>A bogus TCONTBEGIN may get printed at the beginning of a thread index page.  Most common when TREVERSE
+ specified.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>@TListOrder now serves as the basis for list iteration when printing a thread index page instead of the list
+ returned by t_sort_messages().  Note, old method may
+ cause other minor errors in thread index page
+ generation.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.3.0</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.2.0, 2.3.0 beta</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Duplicate index list entries are generating for threads indexes generated via OTHERINDEXES with TREVERSE active.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>All key data structures are now reset when recomputing threads.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.3.0</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.2.0, 2.3.0 beta</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Threads are not listed in reverse order when THREAD and TREVERSE are set for an OTHERINDEXES resource file.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Thread data structures are now reset before each OTHERINDEXES index.  If an OTHERINDEXES resource file
+ specified THREAD, than threads will be recomputed
+ for the given index defined by resource file.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.3.0</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.3.0 beta</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Mail addresses in message headers are not getting converted to mailto links.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>MHonArc still uses typeglobs for passing data around by "reference" (left-over from Perl 4 days).  One
+ of the variables in the message header formatting
+ routine was changed back to a local() variable to
+ supporting passing it via a typeglob sub-routines.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.3.0</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.3.0 beta</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Cannot copy file error occurs during installation when copy documentation to destination location.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Updated install.cfg to reflect file changes to documentation.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.3.0</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.3.0 beta</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Author index generated via the OTHERINDEXES resource does not list messages in proper order.  Other main
+ indexes generated via OTHERINDEXES may suffer the
+ same problem.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>The write_main_index() did not reset %Index2MLoc properly, affecting resource variable resolution.  If
+ @MListOrder is recomputed, %Index2MLoc will be
+ redefined.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.3.0</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.3.0 beta</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>PG(PREV) and PG(TPREV) did not resolve to IDXFNAME and TIDXFNAME, respectively.  They resolved to (T)IDXPREFIX
+ with the page number 1.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Simple fix to page number check.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.3.0</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.2.0, 2.3.0 beta</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Messages grouped under wrong date in date-based index.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>The problem is related to a descrepency of GMT time and local time, and what time format is being used
+ in the DAYBEGIN resource.  The resource USINGLOCALTIME
+ has been added to give the choice betweem GMT or
+ local time for determining day groups.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.3.0</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.2.0</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Get "times not implemented at mhamain.pl line 74" error on Win32 systems.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Call to times is put in an eval block.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.3.0 alpha</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.2.0</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>When a message that gets automatically deleted via MAXSIZE or the message expiration, related message
+ sometimes do not get update -- causing messages to
+ have links to non-existent messages.  Problem manifiest
+ when main sort option is not by date.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Automatic message deletion now properly marks related message by specified main sort option.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.3.0 alpha</td>
+</tr>
 <tr valign=top>
 <td colspan=2><hr noshade size=0></td>
 </tr>
@@ -64,7 +333,7 @@ the bug was fixed.
 <tr valign=top>
 <td align=right><strong>Solution</strong></td>
 <td align=left>The cleanup of mhtxtplain.pl's iso-2022-jp code introduced a bug that caused an infinite loop and
- to gobble memoery until it ran out.  The fix was
+ to gobble memory until it ran out.  The fix was
  straight-forward.
 </td>
 </tr>
@@ -1088,20 +1357,20 @@ the bug was fixed.
 <HR>
 <!--X-NavButtons-Start-->
 <p align=center>
-[<a href="diagnos.html">Prev</a>][<a href="contacts.html">Next</a>][<a href="mhonarc.html">TOC</a>][<a href="http://www.oac.uci.edu/indiv/ehood/MHonArc/faq/faq.html">FAQ</a>][<a href="bugs.html">Bugs</a>][<a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html">Home</a>]
+<a href="app-utilsprg.html"><img src="prev.gif" border=0 alt="[Prev]"></a><img src="blank.gif" border=0 alt="[Next]"><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"><img src="home.gif" border=0 alt="[Home]"></a>
 </p>
 <!--X-NavButtons-End-->
 
 <!-- *************************************************************** -->
 <hr>
 <address>
-98/03/03 18:58:32<br>
+98/10/10 16:58:01<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"
 ><strong>MHonArc</strong></a><br>
 Copyright &#169; 1997-1998, <a href="http://www.oac.uci.edu/indiv/ehood/"
->Earl Hood</a>, <a href="mailto:ehood@medusa.acs.uci.edu"
->ehood@medusa.acs.uci.edu</a><br>
+>Earl Hood</a>, <a href="mailto:earlhood@usa.net"
+>earlhood@usa.net</a><br>
 </address>
 
 </BODY>

@@ -1,18 +1,25 @@
 INSTALL for MHonArc
-
-    http://www.oac.uci.edu/indiv/ehood/mhonarc.html
+===================
+<URL:http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
 
 ---------------------------------------------------------------------------
 
-    NOTE
-        Installation has changed slightly from 1.x releases.  Please
-        read the following instructions if you are familiar with
-        the 1.x installation process.
+    NOTE  Please read RELNOTES before installing MHonArc for any
+	  news about compatibility with previous versions and/or
+	  important usage information.
 
-This document gives the basic method for installing MHonArc on a Unix or
-MS-DOS/Windows system.
+    NOTE  Installation has changed slightly from 1.x releases.  Please
+          read the following instructions if you are familiar with
+          the 1.x installation process.
+
+---------------------------------------------------------------------------
+
+This document gives the basic method for installing MHonArc on a
+Unix or MS-DOS/Windows system.  Please read this entire document
+before installation.
 
 Instructions
+------------
 
     Interactive Installing:
 
@@ -35,6 +42,7 @@ Instructions
         is being installed and where it is being installed.
 
 Notes on Installation Program
+-----------------------------
 
     o The '#!' line in the installed mhonarc program is set to
       point to the Perl executable specified in the installation
@@ -50,10 +58,49 @@ Notes on Installation Program
       mode.  If running in batch mode, you must check that all paths
       specified exist.
 
-    o MSDOS/Windows users: You many need to create a batch file
-      for easy invocation of MHonArc.  An example batch file
-      exists in the bat/ directory of the distribution.
+
+Windows Notes
+-------------
+
+    o You many need to create a batch file for easy invocation of
+      MHonArc.  An example batch file exists in the bat/ directory of
+      the distribution.
+
+    o Note, on WinNT, you can rename the installed "mhonarc" program
+      to "mhonarc.pl" if the appropriate registry entries exist for
+      associating ".pl" files with perl (this should have been done
+      when perl was installed).  Therefore, you can invoke MHonArc
+      from anywhere as long as "mhonarc.pl" is in your search path
+      (you will need to use "mhonarc.pl" -- include the ".pl" --
+      to invoke MHonArc).
+
+    o In the logo/ directory of the distribution is a BMP file
+      "mhaicon.bmp".  You can copy the image into your Windows Icon
+      directory.  Then through the file types editor of the file
+      explorer, you can specify mhaicon.bmp as the icon for MHonArc
+      resource (.mrc) files.
+
+
+Resource File Editing
+---------------------
+
+If you are Vim user, <URL:http://www.vim.org/>, a syntax file
+for MHonArc resource files is included in the examples directory
+(mhonarc.vim).  Vim is known to run on a variety of operating systems,
+and is free software.
+
+To use mhonarc.vim, copy mhonarc.vim to an appropriate location
+and add something like the following to your .vimrc file:
+
+au BufNewFile,BufRead *.mrc	so $HOME/share/vim/syntax/mhonarc.vim
+
+Of course, change the pathname to mhonarc.vim to where ever you copied
+it to.
+
+Now, any file with ".mrc" extension will put Vim into MHonArc resource
+file highlighting mode.  The mode is best used with color-capable
+terminals.
 
 ---------------------------------------------------------------------------
-Copyright (C) 1997,     Earl Hood, ehood@medusa.acs.uci.edu
-@(#) INSTALL 97/05/15 16:59:14 @(#)
+Copyright (C) 1997-1998,	Earl Hood, earlhood@usa.net
+@(#) INSTALL 98/10/10 17:36:37

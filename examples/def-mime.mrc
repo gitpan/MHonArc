@@ -1,6 +1,6 @@
 <!-- ================================================================== -->
-<!--    @(#) def-mime.rc 1.1 98/03/03 14:26:26
-        Earl Hood <ehood@medusa.acs.uci.edu>
+<!--    @(#) def-mime.mrc 1.4 98/10/10 21:56:24
+        Earl Hood <earlhood@usa.net>
   -->
 <!--    MHonArc Resource File                                           --
   --                                                                    --
@@ -32,6 +32,7 @@ audio/*;                   m2h_external::filter;        mhexternal.pl
 chemical/*;                m2h_external::filter;        mhexternal.pl
 model/*;                   m2h_external::filter;        mhexternal.pl
 image/*;                   m2h_external::filter;        mhexternal.pl
+message/delivery-status;   m2h_text_plain::filter;      mhtxtplain.pl
 message/partial;           m2h_text_plain::filter;      mhtxtplain.pl
 text/*;                    m2h_text_plain::filter;      mhtxtplain.pl
 text/enriched;             m2h_text_enriched::filter;   mhtxtenrich.pl
@@ -43,6 +44,7 @@ text/tab-separated-values; m2h_text_tsv::filter;        mhtxttsv.pl
 text/x-html;               m2h_text_html::filter;       mhtxthtml.pl
 text/x-setext;             m2h_text_setext::filter;     mhtxtsetext.pl
 video/*;                   m2h_external::filter;        mhexternal.pl
+x-sun-attachment;          m2h_text_plain::filter;      mhtxtplain.pl
 </MIMEFilters>
 
 <MIMEArgs>

@@ -17,6 +17,8 @@
 <!--X-TOC-Start-->
 <ul>
 <li><a href="#resources">What are "resources"?</a></li>
+<li><a href="#rfileedit">Is there a resource file editor?</a></li>
+<li><a href="#nilresource">How do you set a resource to nil?</a></li>
 <li><a href="#newgetopt">I get an error that "newgetopt.pl" cannot be required, where is it?</a></li>
 <li><a href="#searching">Does MHonArc provide searching of archives?</a></li>
 <li><a href="#webui">Is there a Web interface for MHonArc?</a></li>
@@ -53,6 +55,50 @@ command-line option, the <strong>M2H_MAXSIZE</strong> envariable, or the
 <hr noshade size=1>
 <table border=0>
 <tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
+<h3><b><a name="rfileedit">Is there a resource file editor?</a></b></h3>
+</td></tr></table>
+
+<p>If you are Vim user,
+<a href="http://www.vim.org/">&lt;URL:http://www.vim.org/&gt;</a>,
+a syntax file
+for MHonArc resource files is included in the examples directory
+(<b>mhonarc.vim</b>).  To use it, copy mhonarc.vim to an appropriate location
+and add something like the following to your .vimrc file:
+</p>
+<pre>
+au BufNewFile,BufRead *.mrc     so $HOME/share/vim/syntax/mhonarc.vim
+</pre>
+<p>Of course, change the pathname to mhonarc.vim to where ever you copied
+it to.
+</p>
+<p>Now, any file with ".mrc" extension will put Vim into MHonArc resource
+file highlighting mode.  The mode is best used with color-capable
+terminals.
+</p>
+
+<!-- ??????????????????????????????????????????????????????????????? -->
+<hr noshade size=1>
+<table border=0>
+<tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
+<h3><b><a name="nilresource">How do you set a resource to nil?</a></b></h3>
+</td></tr></table>
+
+<p>For page layout resources, do something like the following in
+your resource file:
+</p>
+<pre>
+&lt;BotLinks&gt;
+
+&lt;/BotLinks&gt;
+</pre>
+<p>Notice the blank line.  If you specify no content, MHonArc will
+fallback to the default value of the resource.
+</p>
+
+<!-- ??????????????????????????????????????????????????????????????? -->
+<hr noshade size=1>
+<table border=0>
+<tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
 <h3><b><a name="newgetopt">I get an error that "newgetopt.pl" cannot be required, where is it?</a></b></h3>
 </td></tr></table>
 
@@ -60,6 +106,17 @@ command-line option, the <strong>M2H_MAXSIZE</strong> envariable, or the
 your sys admin on where it is located (it should be in the default Perl
 search path).
 </p>
+
+<table border=0 cellpadding=4>
+<tr valign=top>
+<td><strong>NOTE</strong></td>
+<td><p>v2.3 and later use <b>Getopt::Long</b>, which is included
+in the Perl 5 distribution.
+</p>
+</td>
+</tr>
+</table>
+
 
 <!-- ??????????????????????????????????????????????????????????????? -->
 <hr noshade size=1>
@@ -70,18 +127,18 @@ search path).
 
 <p>No, but a searching can be provided by another utility.  See
 the MHonArc home page
-(<a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"
->http://www.oac.uci.edu/indiv/ehood/mhonarc.html</a>) to
+<a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"
+>&lt;URL:http://www.oac.uci.edu/indiv/ehood/mhonarc.html&gt;</a> to
 some links to contributed programs for searching MHonArc
 archives.
 Also, any standard search engine can be used.  For example, the
 MHonArc mailing list archive
-(<A HREF="http://www.rosat.mpe-garching.mpg.de/mailing-lists/mhonarc/"
->http://www.rosat.mpe-garching.mpg.de/mailing-lists/mhonarc/</a>)
+<A HREF="http://www.rosat.mpe-garching.mpg.de/mailing-lists/mhonarc/"
+>&lt;URL:http://www.rosat.mpe-garching.mpg.de/mailing-lists/mhonarc/&gt;</a>
 provides a
 <strong>Glimpse</strong>
-(<a href="http://glimpse.cs.arizona.edu/"
->http://glimpse.cs.arizona.edu/</a>)
+<a href="http://glimpse.cs.arizona.edu/"
+>&lt;URL:http://glimpse.cs.arizona.edu/&gt;</a>
 search engine for searching messages.  For more information, see
 the respective documentation of the search engine software of
 interest.
@@ -91,8 +148,8 @@ interest.
 <dt><strong>NOTE</strong></dt>
 <dd><p>You may also want to check out
 <strong><a href="http://www.hpc.uh.edu/majordomo/#wilma">Wilma</a></strong>
-at (<a href="http://www.hpc.uh.edu/majordomo/#wilma"
->http://www.hpc.uh.edu/majordomo/#wilma</a>).
+at <a href="http://www.hpc.uh.edu/majordomo/#wilma"
+>&lt;URL:http://www.hpc.uh.edu/majordomo/#wilma&gt;</a>.
 Wilma is the Web Interface to List Mail Archives, written by Dave Wolfe
 and Jason Tibbitts with nods to Achim Bohnet and Tom Christiansen.
 WIlma is a relatively simple bit of Perl which links together the
@@ -286,7 +343,7 @@ and
 
 <hr>
 <address>
-98/02/18 18:56:47<br>
+98/10/03 15:44:56<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"
 ><strong>MHonArc</strong></a><br>

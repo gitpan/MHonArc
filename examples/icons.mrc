@@ -1,6 +1,6 @@
 <!--	MHonArc resource file
 
-	icons.rc 1.1 96/10/13
+	icons.mrc 1.2 98/08/10
 
 	This example file makes use of the icons feature of
 	MHonArc.
@@ -15,7 +15,7 @@
   -->
 <listbegin>
 <address>
-Last update: $CURDATE$<br>
+Last update: $LOCALDATE$<br>
 $NUMOFMSG$ messages<br>
 </address>
 <p>

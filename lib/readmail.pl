@@ -1,8 +1,8 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) readmail.pl 2.1 98/03/02 20:24:33
+##	@(#) readmail.pl 2.2 98/08/10 23:39:29
 ##  Author:
-##      Earl Hood       ehood@medusa.acs.uci.edu
+##      Earl Hood       earlhood@usa.net
 ##  Description:
 ##      Library defining routines to parse MIME e-mail messages.  The
 ##	library is designed so it may be reused for other e-mail
@@ -25,7 +25,7 @@
 ##	    &MAILhead_get_disposition(*fields);
 ##
 ##---------------------------------------------------------------------------##
-##    Copyright (C) 1996-1998	Earl Hood, ehood@medusa.acs.uci.edu
+##    Copyright (C) 1996-1998	Earl Hood, earlhood@usa.net
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -345,7 +345,7 @@ sub MAILdecode_1522_str {
 	# Do not decode, but convert
 	} elsif (($charcnv =~ /-pass-:(.*)/) &&
 		 (defined(&${1}))) {
-	    $ret .= &${1}($str_before,$lcharset);
+	    $ret .= &${1}($strtxt,$lcharset);
 
 	# Fallback is to ignore
 	} else {
@@ -411,28 +411,34 @@ sub MAILread_body {
     if ($filter && defined(&$filter)) {
 	local($tmphead, $encoding, $decodefunc, $decoded, $args);
 	$tmphead	= $header . "\n";
-	$encoding	= $encodingArg;
-	$decodefunc	= "";
-	$decoded	= "";
-	$args   	= "";
 
 	## Check for filter arguments
 	$args = $MIMEFiltersArgs{$ctype};
-	$args = $MIMEFiltersArgs{"$type/*"} if $args eq '';
-	$args = $MIMEFiltersArgs{$filter}   if $args eq '';
+	$args = $MIMEFiltersArgs{"$type/*"} if !defined($args) or $args eq '';
+	$args = $MIMEFiltersArgs{$filter}   if !defined($args) or $args eq '';
 
 	## Parse message header for filter
 	&MAILread_header(*tmphead, *partfields, *partl2o);
 
 	## Check encoding and decode data
-	$encoding =~ s/\s//g;  $encoding =~ tr/A-Z/a-z/;
-	$decodefunc = &load_decoder($encoding);
-	if (defined(&$decodefunc)) {
-	    $decoded = &$decodefunc($body);
-	    @array = &$filter($header, *partfields, *decoded, 1, $args);
+	if (defined($encodingArg)) {
+	    $encoding = lc $encodingArg;
+	    $encoding =~ s/\s//g;
+	    $decodefunc = &load_decoder($encoding);
 	} else {
-	    @array = &$filter($header, *partfields, *body,
-			      $decodefunc =~ /as-is/i, $args);
+	    $encoding = undef;
+	    $decodefunc = undef;
+	}
+	if (defined($decodefunc)) {
+	    if (defined(&$decodefunc)) {
+		$decoded = &$decodefunc($body);
+		@array = &$filter($header, *partfields, *decoded, 1, $args);
+	    } else {
+		@array = &$filter($header, *partfields, *body,
+				  $decodefunc =~ /as-is/i, $args);
+	    }
+	} else {
+	    @array = &$filter($header, *partfields, *body, 0, $args);
 	}
 
 	## Setup return variables
@@ -693,32 +699,29 @@ sub cantProcessPart {
 
     warn "Warning: Could not process part with given Content-Type: ",
 	 "$ctype\n";
-    join('',"<HR NOSHADE SIZE=1>\n",
-	    "Could not process part with Content-Type: <TT>$ctype</TT>.\n",
-	    "<HR NOSHADE SIZE=1>\n");
+    "<BR><TT>&lt;&lt;&lt; $ctype: Unrecognized &gt;&gt;&gt;</TT><BR>\n";
 }
 ##---------------------------------------------------------------------------##
 ##	Default function for unrecognizeable part in multipart/alternative.
 ##
 sub unrecognizedAltPart {
     warn "Warning: No recognizable part in multipart/alternative\n";
-    join('',"<HR NOSHADE SIZE=1>\n",
-	    "No recognizable part in <TT>multipart/alternative</TT>.\n",
-	    "<HR NOSHADE SIZE=1>\n");
+    "<BR><TT>&lt;&lt;&lt; multipart/alternative: ".
+    "No recognizable part &gt;&gt;&gt;</TT><BR>\n";
 }
 ##---------------------------------------------------------------------------##
 ##	Default function for beggining of embedded message
 ##	(ie message/rfc822 or message/news).
 ##
 sub beginEmbeddedMesg {
-    "<BR><EM>---- Begin included message ----</EM><BLOCKQUOTE>\n";
+    qq|<BLOCKQUOTE><BR><HR ALIGN="LEFT" WIDTH="80%">\n|;
 }
 ##---------------------------------------------------------------------------##
 ##	Default function for end of embedded message
 ##	(ie message/rfc822 or message/news).
 ##
 sub endEmbeddedMesg {
-    "</BLOCKQUOTE><EM>---- End included message ----</EM><BR>\n";
+    qq|<HR ALIGN="LEFT" WIDTH="80%"></BLOCKQUOTE><BR>\n|;
 	    
 }
 
@@ -726,17 +729,20 @@ sub endEmbeddedMesg {
 
 sub load_charset {
     require $MIMECharSetConvertersSrc{$_[0]}
-	if $MIMECharSetConvertersSrc{$_[0]};
+	if defined($MIMECharSetConvertersSrc{$_[0]}) &&
+	   $MIMECharSetConvertersSrc{$_[0]};
     $MIMECharSetConverters{$_[0]};
 }
 sub load_decoder {
     require $MIMEDecodersSrc{$_[0]}
-	if $MIMEDecodersSrc{$_[0]};
+	if defined($MIMEDecodersSrc{$_[0]}) &&
+	   $MIMEDecodersSrc{$_[0]};
     $MIMEDecoders{$_[0]};
 }
 sub load_filter {
     require $MIMEFiltersSrc{$_[0]}
-	if $MIMEFiltersSrc{$_[0]};
+	if defined($MIMEFiltersSrc{$_[0]}) &&
+	   $MIMEFiltersSrc{$_[0]};
     $MIMEFilters{$_[0]};
 }
 

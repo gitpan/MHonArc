@@ -1,8 +1,8 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhexternal.pl 2.2 98/03/03 18:47:20
+##	@(#) mhexternal.pl 2.4 98/09/19 16:09:04
 ##  Author:
-##      Earl Hood       ehood@medusa.acs.uci.edu
+##      Earl Hood       earlhood@usa.net
 ##  Description:
 ##	Library defines a routine for MHonArc to filter content-types
 ##	that cannot be directly filtered into HTML, but a linked to an
@@ -19,7 +19,7 @@
 ##
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1995-1998	Earl Hood, ehood@medusa.acs.uci.edu
+##    Copyright (C) 1995-1998	Earl Hood, earlhood@usa.net
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -67,13 +67,15 @@ $SubDir		= 0;
     'application/sgml',			'sgml:SGML document',
     'application/studiom',		'smp:Studio M file',
     'application/timbuktu',		'tbt:timbuktu file',
+    'application/vnd.framemaker',	'fm:FrameMaker document',
     'application/vnd.hp-hpgl',          'hpg,hpgl:HPGL file',
+    'application/vnd.mif', 		'mif:Frame MIF document',
     'application/vnd.ms-excel',         'xls:MS-Excel spreadsheet',
     'application/vnd.ms-powerpoint',    'ppt:MS-Powerpoint presentation',
     'application/vnd.ms-project',	'mpp:MS-Project file',
     'application/vis5d',		'v5d:Vis5D dataset',
     'application/winhlp',		'hlp:WinHelp document',
-    'application/wordperfect5.1',	'hlp:WordPerfect 5.1 document',
+    'application/wordperfect5.1',	'wp:WordPerfect 5.1 document',
     'application/x-net-install',	'ins:Net Install file',
     'application/x-asap',		'asp:asap file',
     'application/x-bcpio', 		'bcpio:BCPIO file',
@@ -134,6 +136,7 @@ $SubDir		= 0;
 
     'audio/basic', 			'snd:Basic audio',
     'audio/echospeech',			'es:Echospeech audio',
+    'audio/microsoft-wav', 		'wav:Wave audio',
     'audio/midi',			'midi:MIDI audio',
     'audio/x-aiff', 			'aif,aiff,aifc:AIF audio',
     'audio/x-epac',			'pae:epac audio',
@@ -253,21 +256,27 @@ $SubDir		= 0;
 ##			since it can lead to filename conflicts and
 ##			security problems.
 ##
+##	usenameext 	Use (file)name attribute for determining the
+##			extension for the derived file.  Use this option
+##			with caution since it can lead to security
+##			problems.
+##
 sub filter {
     local($header, *fields, *data, $isdecode, $args) = @_;
-    local($ret,
-	  $filename, $urlfile,
-	  $name, $nameparm,
-	  $path,
-	  $disp,
-	  $ctype, $type, $ext,
-	  $iconurl, $icon_mu,
-	  $inline,
-	  $target,
-	  $inext, $intype);
-    local($debug) = 0;
+    my($ret,
+       $filename, $urlfile,
+       $name, $nameparm,
+       $path,
+       $disp,
+       $ctype, $type, $ext,
+       $iconurl, $icon_mu,
+       $inline,
+       $target,
+       $inext, $intype);
+    my($debug) = 0;
 
     ## Init variables
+    $args	= ''  unless defined($args);
     $name	= '';
     $ctype	= '';
     $type	= '';
@@ -288,7 +297,7 @@ sub filter {
     $ctype =~ tr/A-Z/a-z/;
 
     ## Get disposition
-    ($disp, $nameparm) = &readmail'MAILhead_get_disposition(*fields);
+    ($disp, $nameparm) = &readmail::MAILhead_get_disposition(*fields);
 
     if ($debug) {
 	&debug("Content-type: $ctype",
@@ -297,34 +306,43 @@ sub filter {
     }
 
     ## Check if using name
-    if ($args =~ /usename/i) {
+    if ($args =~ /\busename\b/i) {
 	$name = $nameparm;
     } else {
 	$name = '';
     }
 
-    ## Chech if file goes in a subdirectory
-    if ($args =~ /subdir/i) {
-	$path = join('', $mhonarc'MsgPrefix, $mhonarc'MHAmsgnum, '.dir');
+    ## Check if file goes in a subdirectory
+    if ($args =~ /\bsubdir\b/i) {
+	$path = join('', $mhonarc::MsgPrefix, $mhonarc::MHAmsgnum, '.dir');
     } else {
 	$path = '';
     }
 
     ## Check if inlining (images only)
     if ($disp) {
-	$inline = ($disp =~ /inline/i);
+	$inline = ($disp =~ /\binline\b/i);
     } else {
-	$inline = ($args =~ /inline/i);
+	$inline = ($args =~ /\binline\b/i);
     }
 
     ## Check if extension and type description passed in
-    if ($args =~ /ext=(\S+)/i)      { $inext  = $1;  $inext =~ s/['"]//g; }
-    if ($args =~ /type="([^"]+)"/i) { $intype = $1; }
+    if ($args =~ /\bext=(\S+)/i)      { $inext  = $1;  $inext =~ s/['"]//g; }
+    if ($args =~ /\btype="([^"]+)"/i) { $intype = $1; }
+
+    ## Check if utilizing extension from mail header defined filename
+    if (($nameparm) &&			 # filename specified, and
+	($args =~ /\busenameext\b/i) &&	 # use filename ext option set, and
+	($nameparm !~ /^\./) &&		 # filename does not begin w/dot, and
+	($nameparm =~ /\.(\w+)/)) {	 # filename has an extention
+
+	$inext = $1;
+    }
 
     ## Check if using icon
-    if ($args =~ /useicon/i) {
-	$iconurl = $mhonarc'Icons{$ctype} || $mhonarc'Icons{'unknown'};
-	if ($args =~ /iconurl="([^"]+)"/i) { $iconurl = $1; }
+    if ($args =~ /\buseicon\b/i) {
+	$iconurl = $mhonarc::Icons{$ctype} || $mhonarc::Icons{'unknown'};
+	if ($args =~ /\biconurl="([^"]+)"/i) { $iconurl = $1; }
 	$icon_mu = qq{<IMG SRC="$iconurl" BORDER=0 ALT="">}
 	    if $iconurl;
     }
@@ -336,7 +354,7 @@ sub filter {
 	if (defined($CTExt{$ctype})) {
 	    ($ext, $type) = split(/:/, $CTExt{$ctype}, 2);
 	} else {
-	    local($ctype2) = $ctype;
+	    my($ctype2) = $ctype;
 	    $ctype2 =~ s%/x-%/%i;
 	    ($ext, $type) = split(/:/, $CTExt{$ctype2}, 2);
 	}
@@ -379,39 +397,52 @@ sub filter {
     ($ret, $path || $filename);
 }
 
-sub write_file {
-    local(*stuff, $path, $fname, $pre, $ext) = @_;
-    local($tmp, $cnt) = ('', '');
+##---------------------------------------------------------------------------
 
-    $tmp  = $mhonarc'OUTDIR;
+sub write_file {
+    local(*stuff) = shift;
+    my($path, $fname, $pre, $ext) = @_;
+    my($tmp, $cnt) = ('', 0);
+    local(*OUTFILE);
+
+    $tmp  = $mhonarc::OUTDIR;
     if ($path) {
-	$tmp .= $mhonarc'DIRSEP . $path;
-	mkdir($tmp, 0777);
+	$tmp .= $mhonarc::DIRSEP . $path;
+	mkdir($tmp, 0777);	# ignore return since it may already exist
     }
 
+    ## If no filename specified, generate it
     if (!$fname) {
 	if (!$ExtCnt{$ext}) { &set_cnt($tmp); }
 	$cnt = $ExtCnt{$ext}++;
 	$fname = $pre . sprintf("%05d.",$cnt) . $ext;
 	$ExtCnt{$ext} = 0  if $path;
+
+    ## Else, filename given
+    } else {
+	$fname =~ tr/ \t\n\r/_/;	# Convert space to underscore
     }
-    $tmp .= $mhonarc'DIRSEP . $fname;
+
+    ## Set pathname for file
+    $tmp .= $mhonarc::DIRSEP . $fname;
 
     if (open(OUTFILE, "> $tmp")) {
 	binmode(OUTFILE);		# For MS-DOS
 	print OUTFILE $stuff;
 	close(OUTFILE);
     } else {
-	warn "Warning: Unable to create $tmp\n";
+	warn qq/Warning: Unable to create "$tmp": $!\n/;
     }
 
     join("",
-	 ($mhonarc'SINGLE ? $mhonarc'OUTDIR.$mhonarc'DIRSEP : ""),
-	 ($path ? join($mhonarc'DIRSEP,$path,$fname) : $fname));
+	 ($mhonarc::SINGLE ? $mhonarc::OUTDIR.$mhonarc::DIRSEP : ""),
+	 ($path ? join($mhonarc::DIRSEP,$path,$fname) : $fname));
 }
 
+##---------------------------------------------------------------------------
+
 sub set_cnt {
-    local(@files) = ();
+    my(@files) = ();
     if (opendir(DIR, $_[0])) {
 	@files = sort numerically grep(/^$pre\d+\.$ext$/i, readdir(DIR));
 	close(DIR);
@@ -426,27 +457,39 @@ sub set_cnt {
     }
 }
 
+##---------------------------------------------------------------------------
+
 sub numerically {
     ($A) = $a =~ /(\d+)/;
     ($B) = $b =~ /(\d+)/;
     $A <=> $B;
 }
 
+##---------------------------------------------------------------------------
+
 sub htmlize {
-    local($txt) = shift;
+    my $txt = shift;
+    return ""  unless defined($txt);
+
     $txt =~ s/&/\&amp;/g;
     $txt =~ s/>/&gt;/g;
     $txt =~ s/</&lt;/g;
     $txt;
 }
 
+##---------------------------------------------------------------------------
+
 sub dump_ctext_hash {
+    local($_);
     foreach (sort keys %CTExt) {
 	print STDERR $_,":",$CTExt{$_},"\n";
     }
 }
 
+##---------------------------------------------------------------------------
+
 sub debug {
+    local($_);
     foreach (@_) {
 	print STDERR "m2h_external: ", $_;
 	print STDERR "\n"  unless /\n$/;
