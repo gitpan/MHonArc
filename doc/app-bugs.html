@@ -9,9 +9,9 @@
 <BODY>
 
 <!--X-NavButtons-Start-->
-<p align=center>
-<a href="app-mimeconf.html"><img src="prev.gif" border=0 alt="[Prev]"></a><img src="blank.gif" border=0 alt="[Next]"><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.mhonarc.org/"><img src="home.gif" border=0 alt="[Home]"></a>
-</p>
+<table width="100%">
+<tr valign="top">
+<td align="left"><nobr><a href="app-mimeconf.html"><img src="prev.gif"border=0 alt="[Prev]"></a>&nbsp;&nbsp;&nbsp;</nobr></td><td align="center" width="99%"><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.mhonarc.org/"><img src="home.gif" border=0 alt="[Home]"></a></td><td align="right"><nobr>&nbsp;&nbsp;&nbsp;<img src="blank.gif" border=0 alt="[Next]"></nobr></td></tr></table>
 <!--X-NavButtons-End-->
 <HR>
 
@@ -87,7 +87,7 @@ the bug was fixed.
 </tr>
 <tr valign=top>
 <td align=right><strong>Version</strong></td>
-<td align=left>2.4.9, and earlier</td>
+<td align=left>All (with MULTIPG and TREVERSE support)</td>
 </tr>
 <tr valign=top>
 <td align=right><strong>Problem</strong></td>
@@ -112,6 +112,73 @@ the bug was fixed.
 <tr valign=top>
 <td align=right><strong>Fixed</strong></td>
 <td align=left>OPEN</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.5.0b</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>If TREVERSE is active, the thread next button/link for the second message in a thread would link to
+ the next thread instead of the third message in the
+ thread, if present.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Fixed in compute_msg_pos() in mhrcvars.pl.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>v2.5.0b2</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.5.0b</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Resource variables dependent on current index page number and/or page size can expand to incorrect
+ values for main index pages.  The current page number
+ and page size would always evaluate to zero.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Fixed in mhindex.pl.  replace_li_var() still depends on some variables being defined by the calling context,
+ so local() still has to be used instead of my() for
+ some variables if replace_li_var() is to be called.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>v2.5.0b2</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.5.0b</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Use of -quiet does not suppress "This is MHonArc v..." start message.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Fixed.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>v2.5.0b2</td>
 </tr>
 <tr valign=top>
 <td colspan=2><hr noshade size=0></td>
@@ -2422,15 +2489,15 @@ the bug was fixed.
 
 <HR>
 <!--X-NavButtons-Start-->
-<p align=center>
-<a href="app-mimeconf.html"><img src="prev.gif" border=0 alt="[Prev]"></a><img src="blank.gif" border=0 alt="[Next]"><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.mhonarc.org/"><img src="home.gif" border=0 alt="[Home]"></a>
-</p>
+<table width="100%">
+<tr valign="top">
+<td align="left"><nobr><a href="app-mimeconf.html"><img src="prev.gif"border=0 alt="[Prev]"></a>&nbsp;&nbsp;&nbsp;</nobr></td><td align="center" width="99%"><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.mhonarc.org/"><img src="home.gif" border=0 alt="[Home]"></a></td><td align="right"><nobr>&nbsp;&nbsp;&nbsp;<img src="blank.gif" border=0 alt="[Next]"></nobr></td></tr></table>
 <!--X-NavButtons-End-->
 
 <!-- *************************************************************** -->
 <hr>
 <address>
-01/08/26 14:16:46<br>
+01/09/05 22:03:26<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.mhonarc.org"
 ><strong>MHonArc</strong></a><br>

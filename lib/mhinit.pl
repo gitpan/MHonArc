@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhinit.pl 2.25 01/08/26 02:19:52
+##	@(#) mhinit.pl 2.26 01/09/05 21:52:38
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -328,6 +328,8 @@ $DBPathName	= '';	# Full pathname of database file
     "latin4",   			"MHonArc::CharEnt::str2sgml",
     "latin5",   			"MHonArc::CharEnt::str2sgml",
     "latin6",   			"MHonArc::CharEnt::str2sgml",
+    "windows-1250",   			"MHonArc::CharEnt::str2sgml",
+    "windows-1252",   			"MHonArc::CharEnt::str2sgml",
     "default",     			"-ignore-",
 );
 %readmail::MIMECharSetConvertersSrc = (
@@ -352,6 +354,8 @@ $DBPathName	= '';	# Full pathname of database file
     "latin4",   			"MHonArc/CharEnt.pm",
     "latin5",   			"MHonArc/CharEnt.pm",
     "latin6",   			"MHonArc/CharEnt.pm",
+    "windows-1250",   			"MHonArc/CharEnt.pm",
+    "windows-1252",   			"MHonArc/CharEnt.pm",
     "default",     			undef,
 );
 
@@ -394,6 +398,8 @@ $LOCKTRIES = $ENV{'M2H_LOCKTRIES'}  || 10;
 $LOCKDELAY = $ENV{'M2H_LOCKDELAY'}  || 3;
 $MAXSIZE   = $ENV{'M2H_MAXSIZE'}    || 0;
 $TLEVELS   = $ENV{'M2H_TLEVELS'}    || 3;
+$TSLICELEVELS =
+	     $ENV{'M2H_TSLICELEVELS'} || -1;
 $MHPATTERN = $ENV{'M2H_MHPATTERN'}  || '^\d+$';
 $DefRcFile = $ENV{'M2H_DEFRCFILE'}  || '';
 $HtmlExt   = $ENV{'M2H_HTMLEXT'}    || "html";

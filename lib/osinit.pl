@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) osinit.pl 2.4 99/07/13 00:46:45
+##	@(#) osinit.pl 2.5 01/09/05 22:12:29
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -65,6 +65,7 @@ sub OSinit {
     } elsif (($^O !~ /cygwin/i) &&
     	     (($^O =~ /mswin/i) ||
 	      ($^O =~ /\bdos\b/i) ||
+	      ($^O =~ /\bos2\b/i) ||
     	      (($tmp = $ENV{'COMSPEC'}) &&
 	       ($tmp =~ /^[a-zA-Z]:\\/) &&
 	       (-e $tmp))) ) {
@@ -84,7 +85,7 @@ sub OSinit {
     }
 
     ##	Store name of program
-    if ($MSDOS || $WINDOWS) {
+    if ($MSDOS) {
         $DIRSEPREX = "\\\\\\/";
     } else {
         ($DIRSEPREX = $DIRSEP) =~ s/(\W)/\\$1/g;
@@ -111,7 +112,7 @@ sub OSinit {
 ##
 sub OSis_absolute_path {
  
-    if ($MSDOS || $WINDOWS) {
+    if ($MSDOS) {
         return $_[0] =~ /^([a-z]:)?[\\\/]/i;
     }
     if ($MACOS) {               ## Not sure about Mac

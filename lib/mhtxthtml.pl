@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxthtml.pl 2.17 01/08/26 02:10:34
+##	@(#) mhtxthtml.pl 2.18 01/09/05 21:56:13
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -80,13 +80,33 @@ my $UAttr = q/(?:href|src|background|classid|data|longdesc)/;
 ##			to scripting.  The default is to delete any
 ##			scripting markup for security reasons.
 ##
+##	attachcheck	Honor attachment disposition.  By default,
+##			all text/html data is displayed inline on
+##			the message page.  If attachcheck is specified
+##			and Content-Disposition specifies the data as
+##			an attachment, the data is saved to a file
+##			with a link to it from the message page.
+##
 ##	nofont  	Remove <FONT> tags.
 ##
 ##	notitle  	Do not print title.
 ##
 sub filter {
     my($fields, $data, $isdecode, $args) = @_;
-    local(@files) = ();	# !!!Used by resolve_cid!!!
+    $args = ''  unless defined $args;
+
+    ## Check if content-disposition should be checked
+    if ($args =~ /\battachcheck\b/i) {
+	my($disp, $nameparm) = readmail::MAILhead_get_disposition($fields);
+	if ($disp =~ /\battachment\b/i) {
+	    require 'mhexternal.pl';
+	    return (m2h_external::filter(
+		      $fields, $data, $isdecode,
+		      readmail::get_filter_args('m2h_external::filter')));
+	}
+    }
+
+    local(@files) = ();	# XXX: Used by resolve_cid!!!
     my $base 	 = '';
     my $title	 = '';
     my $noscript = 1;

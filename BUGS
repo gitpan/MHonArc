@@ -1,7 +1,7 @@
 Bug History for MHonArc
 =======================
 <URL:http://www.mhonarc.org/>
-@(#) BUGS 01/08/26 12:55:26
+@(#) BUGS 01/09/05 22:02:59
 
 Each bug listing has the following fields:
 
@@ -16,7 +16,7 @@ Each bug listing has the following fields:
 
 Bug List
 ------------------------------------------------------------------------
-Version:	2.4.9, and earlier
+Version:	All (with MULTIPG and TREVERSE support)
 Problem:   	Links to thread index from message page do not
 		link to the correct thread index page when MULTIPG
 		and TREVERSE is active.
@@ -32,6 +32,31 @@ Solution:	OPEN: The problem is that a listing for a message
 		would cause a performance hit, but it may be
 		unavoidable inorder to fix the problem.
 Version Fixed:	OPEN
+------------------------------------------------------------------------
+Version:	2.5.0b
+Problem:	If TREVERSE is active, the thread next button/link
+		for the second message in a thread would link to
+		the next thread instead of the third message in the
+		thread, if present.
+Solution:	Fixed in compute_msg_pos() in mhrcvars.pl.
+Version Fixed:	v2.5.0b2
+------------------------------------------------------------------------
+Version:	2.5.0b
+Problem:	Resource variables dependent on current index page
+		number and/or page size can expand to incorrect
+		values for main index pages.  The current page number
+		and page size would always evaluate to zero.
+Solution:	Fixed in mhindex.pl.  replace_li_var() still depends
+		on some variables being defined by the calling context,
+		so local() still has to be used instead of my() for
+		some variables if replace_li_var() is to be called.
+Version Fixed:	v2.5.0b2
+------------------------------------------------------------------------
+Version:	2.5.0b
+Problem:	Use of -quiet does not suppress
+		"This is MHonArc v..." start message.
+Solution:	Fixed.
+Version Fixed:	v2.5.0b2
 ------------------------------------------------------------------------
 Version:	2.4.5 - 2.4.9
 Problem:   	Numerous '$' characters are scattered throughout

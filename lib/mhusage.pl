@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhusage.pl 2.15 01/08/26 02:06:25
+##      @(#) mhusage.pl 2.16 01/09/05 21:47:13
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -189,6 +189,8 @@ Options:
                              (def: "3")
   -treverse                : List threads in reverse order
   -tslice <#:#:#>          : Set size of thread slice listing
+  -tslicelevels <#>        : Maximum # of nested lists in thread slices
+                             (def: TLEVELS resource value)
   -tsort                   : List threads by date (the default)
   -tsubsort                : List threads by subject
   -ttitle <string>         : Title of thread index page

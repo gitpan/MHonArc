@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcvars.pl 2.14 01/08/26 02:25:22
+##	@(#) mhrcvars.pl 2.15 01/09/05 21:55:12
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -259,6 +259,11 @@ sub replace_li_var {
 	    } else {
 		$tmp = "";
 	    }
+	    last REPLACESW;
+	}
+    	if ($var eq 'TLEVEL') {		## Thread level
+	    ($lref, $key, $pos) = compute_msg_pos($index, $var, $arg);
+	    $tmp = $ThreadLevel{$key};
 	    last REPLACESW;
 	}
 
@@ -625,8 +630,18 @@ sub replace_li_var {
 	}
 
 	# Check for clipping
-	$ret = join("", ($ret =~ /(\&[^;\s]*;|.)/g)[0 .. $len - 1])
-	    if ($len > 0 && $canclip);
+	if ($len > 0 && $canclip && (length($ret) > 0)) {
+	    if ($ret =~ /\&/) {
+		my @chars = $ret =~ /(\&[^;\s]*;|.)/g;
+		if (scalar(@chars) < $len) {
+		    $ret = join('', @chars);
+		} else {
+		    $ret = join('', @chars[0 .. $len-1])
+		}
+	    } else {
+		$ret = substr($ret, 0, $len);
+	    }
+	}
 
 	# Check if JavaScript string
 	if ($jstr) {
@@ -691,7 +706,7 @@ sub compute_msg_pos {
 	}
 
 	$ofs =  0, last SW
-	    if $arg eq "" or $arg eq 'CUR';
+	    if (!defined($arg)) || ($arg eq '') || ($arg eq 'CUR');
 	$ofs = ($flip ? -$arg : $arg), last SW
 	    if $arg =~ /^-?\d+$/;
 
@@ -718,10 +733,12 @@ sub compute_msg_pos {
 	    }
 	    # get here, it is thread and reverse
 	    undef $ofs;
-	    $pos = $href->{$idx};
-	    if (($pos > 0) && ($ThreadLevel{$aref->[$pos-1]} > 0)) {
-		--$pos;
-		last SW;
+	    if ($ThreadLevel{$idx} > 0) {
+		$pos = $href->{$idx};
+		if (($pos > 0) && ($ThreadLevel{$aref->[$pos-1]} >= 0)) {
+		    --$pos;
+		    last SW;
+		}
 	    }
 	    # get here, must goto physical next top
 	    # note no `last SW' statement

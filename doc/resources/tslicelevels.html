@@ -1,15 +1,15 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
 <html>
 <head>
-<title>MHonArc Resources: DOC</title>
+<title>MHonArc Resources: TSLICELEVELS</title>
 </head>
 <body>
 
-<em><a href="../resources.html#doc">MHonArc Resource List</a></em> |
+<em><a href="../resources.html#tslicelevels">MHonArc Resource List</a></em> |
 <a href="../mhonarc.html">TOC</a>
 
 <hr>
-<h1>DOC</h1>
+<h1>TSLICELEVELS</h1>
 
 <!-- *************************************************************** -->
 <hr>
@@ -19,21 +19,21 @@
 
 <dt><strong>Envariable</strong><dt>
 <dd><p>
-<code>M2H_DOC=</code>[ <code>0</code> | <code>1</code> ]
+<code>M2H_TSLICELEVELS=</code><var>number</var>
 </p>
 </dd>
 
-<dt><strong>Element(s)</strong><dt>
+<dt><strong>Element</strong><dt>
 <dd><p><br>
-<code>&lt;DOC&gt;</code><br>
-<code>&lt;NODOC&gt;</code>
+<code>&lt;TSLICELEVELS&gt;</code><br>
+<var>number</var><br>
+<code>&lt;/TSLICELEVELS&gt;</code><br>
 </p>
 </dd>
 
-<dt><strong>Command-line Option(s)</strong><dt>
+<dt><strong>Command-line Option</strong><dt>
 <dd><p><br>
-<code>-doc</code><br>
-<code>-nodoc</code>
+<code>-tslicelevels </code><var>number</var>
 </p>
 </dd>
 
@@ -43,15 +43,18 @@
 <hr>
 <h2>Description</h2>
 
-<p>When set, a link to the <em>MHonArc</em> documentation will be included
-at the bottom of each index page.</p>
-
+<p>TSLICELEVELS defines the maximum number of nested listings in thread
+slices.  Any threads that go over TSLICELEVELS in depth are flattened to
+the value of TSLICELEVELS.  This resource is helpful in preventing huge
+indentations in deep threads which may cause text to be squished on the
+right-side of an HTML viewer.
+</p>
 
 <!-- *************************************************************** -->
 <hr>
 <h2>Default Setting</h2>
 
-<p>On
+<p>Value of <a href="tlevels.html">TLEVELS</a>.
 </p>
 
 <!-- *************************************************************** -->
@@ -72,7 +75,7 @@ at the bottom of each index page.</p>
 <hr>
 <h2>Version</h2>
 
-<p>1.0
+<p>2.5.0
 </p>
 
 <!-- *************************************************************** -->
@@ -80,16 +83,19 @@ at the bottom of each index page.</p>
 <h2>See Also</h2>
 
 <p>
-<a href="docurl.html">DOCURL</a>
+<a href="tlevels.html">TLEVELS</a>,
+<a href="tslice.html">TSLICE</a>
 </p>
 
 <!-- *************************************************************** -->
 <hr>
 <address>
-01/09/05 21:43:09<br>
+01/09/05 21:37:28<br>
 <img align="top" src="../monicon.gif" alt="">
 <a href="http://www.mhonarc.org/"><strong>MHonArc</strong></a><br>
-Copyright &#169; 1997-1998, <a href="http://www.earlhood.com/">Earl Hood</a>, <a href="mailto:mhonarc@mhonarc.org">mhonarc@mhonarc.org</a><br>
+Copyright &#169; 2001, <a href="http://www.earlhood.com/"
+>Earl Hood</a>, <a href="mailto:mhonarc@mhonarc.org"
+>mhonarc@mhonarc.org</a><br>
 </address>
 
 </body>

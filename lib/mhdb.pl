@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhdb.pl 2.16 01/08/26 02:24:49
+##	@(#) mhdb.pl 2.17 01/09/05 21:47:04
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -236,6 +236,8 @@ print_var(\*DB,'TSLICESUBLISTBEG', \$TSLICESUBLISTBEG)
 				unless $IsDefault{'TSLICESUBLISTBEG'};
 print_var(\*DB,'TSLICESUBLISTEND', \$TSLICESUBLISTEND)
 				unless $IsDefault{'TSLICESUBLISTEND'};
+print_var(\*DB,'TSLICELEVELS', \$TSLICELEVELS)
+				unless $IsDefault{'TSLICELEVELS'};
 print_var(\*DB,'TSLICELITXT', \$TSLICELITXT)
 				unless $IsDefault{'TSLICELITXT'};
 print_var(\*DB,'TSLICELIEND', \$TSLICELIEND)

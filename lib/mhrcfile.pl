@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcfile.pl 2.16 01/08/26 02:25:20
+##	@(#) mhrcfile.pl 2.17 01/09/05 21:58:20
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -903,6 +903,12 @@ sub read_resource_file {
 	}
 	if ($elem eq 'tsliceend') {		# End of thread slice
 	    $TSLICEEND = &get_elem_content($handle, $elem, $chop);
+	    last FMTSW;
+	}
+	if ($elem eq 'tslicelevels') {		# Level of slice threading
+	    if (($tmp = &get_elem_int($handle, $elem, 1)) ne '') {
+		$TSLICELEVELS = $tmp;
+	    }
 	    last FMTSW;
 	}
         if ($elem eq 'tslicesingletxt') {

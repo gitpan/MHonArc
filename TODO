@@ -7,6 +7,8 @@ Items are in no particular order:
    index changed to a different page.  This can occur when MULTIPG
    is active.
 
+=> Add resource to disable use of MD5 if no message-id.
+
 => Generalize message page layout so converted header and body can
    be placed in any order.  XXX: Old versions did not delimit
    converted head and body, so what should be done for this case

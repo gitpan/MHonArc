@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhmsgextbody.pl 1.2 01/08/26 01:56:23
+##	@(#) mhmsgextbody.pl 1.3 01/09/05 21:48:15
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -43,6 +43,7 @@ package m2h_msg_extbody;
 ##
 sub filter {
     my($fields, $data, $isdecode, $args) = @_;
+    $args = ''  unless defined $args;
 
     # grab content-type
     my $ctype = $fields->{'content-type'}[0];

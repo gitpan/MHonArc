@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxtplain.pl 2.13 01/08/26 02:14:39
+##	@(#) mhtxtplain.pl 2.14 01/09/05 21:56:33
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -105,7 +105,8 @@ sub filter {
 	if ($disp =~ /\battachment\b/i) {
 	    require 'mhexternal.pl';
 	    return (m2h_external::filter(
-		      $fields, $data, $isdecode, $args));
+		      $fields, $data, $isdecode,
+		      readmail::get_filter_args('m2h_external::filter')));
 	}
     }
 

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) CharEnt.pm 1.1 01/08/19 15:53:16
+##	@(#) CharEnt.pm 1.2 01/09/05 20:44:05
 ##  Author:
 ##      Earl Hood       earl@earlhood.com
 ##  Description:
@@ -81,6 +81,8 @@ my %CharsetMaps = (
     'latin4'      =>	'MHonArc/CharEnt/ISO8859_4.pm',
     'latin5'      =>	'MHonArc/CharEnt/ISO8859_9.pm',
     'latin6'      =>	'MHonArc/CharEnt/ISO8859_10.pm',
+    'windows-1250'=>	'MHonArc/CharEnt/CP1250.pm',
+    'windows-1252'=>	'MHonArc/CharEnt/CP1252.pm',
 );
 
 my %ReverseCharsetMaps = (

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) readmail.pl 2.12 01/08/26 03:06:37
+##	@(#) readmail.pl 2.13 01/09/05 21:53:29
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -465,10 +465,7 @@ sub MAILread_body {
     }
 
     ## Check for filter arguments
-    $args = $MIMEFiltersArgs{$ctype};
-    $args = $MIMEFiltersArgs{"$type/*"} if !defined($args) || $args eq '';
-    $args = $MIMEFiltersArgs{$filter}   if defined($filter) &&
-					   (!defined($args) || $args eq '');
+    $args = get_filter_args($ctype, "$type/*", $filter);
 
     ## Check encoding
     if (defined($fields->{'content-transfer-encoding'})) {
@@ -588,8 +585,10 @@ sub MAILread_body {
 			!&MAILis_excluded($partfields->{'content-type'}[0])) {
 		    $cid = $partfields->{'content-id'}[0] ||
 			   $partfields->{'message-id'}[0];
-		    $cid =~ s/[\s<>]//g;
-		    $Cid{"cid:$cid"} = $href  if $cid =~ /\S/;
+		    if (defined($cid)) {
+			$cid =~ s/[\s<>]//g;
+			$Cid{"cid:$cid"} = $href  if $cid =~ /\S/;
+		    }
 		    if (defined($partfields->{'content-location'}) &&
 			    ($cid = $partfields->{'content-location'}[0])) {
 			$cid =~ s/^\s+//;
@@ -701,7 +700,7 @@ sub MAILread_header {
     my $fields = { };
     my $label = '';
     my $header = '';
-    my($label, $value, $tmp, $header, $pos);
+    my($value, $tmp, $pos);
 
     ## Read a line at a time.
     for ($pos=0; $pos >= 0; ) {
@@ -820,8 +819,7 @@ sub MAILhead_get_disposition {
 	    ($filename = $1) =~ s/;\s*$//g;
 	}
     }
-    if (!$filename) {
-	$_ = $hfields->{'content-type'}->[0];
+    if (!$filename && defined($_ = $hfields->{'content-type'}[0])) {
 	if (/name="([^"]+)"/i) {
 	    $filename = $1;
 	} elsif (/name=(\S+)/i) {
@@ -909,9 +907,10 @@ sub MAILparse_parameter_str {
         $parm->{$name}{'vlist'}[$part] = $value;
     }
 
-    ## Now we loop thru each parameter an define the final values from
+    ## Now we loop thru each parameter and define the final values from
     ## the parts
     foreach $name (keys %$parm) {
+	next  if $name eq 'x-main';
         $parm->{$name}{'value'} = join("", @{$parm->{$name}{'vlist'}});
     }
 
@@ -982,6 +981,16 @@ sub load_filter {
 	if defined($MIMEFiltersSrc{$_[0]}) &&
 	   $MIMEFiltersSrc{$_[0]};
     $MIMEFilters{$_[0]};
+}
+sub get_filter_args {
+    my $args	= '';
+    my $s;
+    foreach $s (@_) {
+	next  unless defined $s;
+	$args = $MIMEFiltersArgs{$s};
+	last  if defined($args) && ($args ne '');
+    }
+    $args;
 }
 
 ##---------------------------------------------------------------------------##

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhopt.pl 2.21 01/08/26 02:25:24
+##      @(#) mhopt.pl 2.22 01/09/05 21:47:25
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -178,6 +178,8 @@ sub get_resources {
 	"tlevels=i",	# Maximum # of nested lists in threaded index
 	"treverse",	# Reverse order of thread listing
 	"tslice=s",	# Set size of thread slice listing
+	"tslicelevels=i",
+			# Maximum # of nested lists in thread slices
 	"tsort",	# List threads by date
 	"tsubsort",	# List threads by subject
 	"umask=i",	# Set umask of process
@@ -280,7 +282,7 @@ sub get_resources {
     require 'mhrmm.pl'  	if $RMM;
     require 'mhnote.pl'  	if $ANNOTATE;
 
-    print STDOUT "This is MHonArc v$VERSION, Perl $]\n";
+    print STDOUT "This is MHonArc v$VERSION, Perl $]\n"  unless $QUIET;
 
     ## Evaluate site local initialization
     delete($INC{'mhasiteinit.pl'});      # force re-evaluation
@@ -465,6 +467,7 @@ sub get_resources {
     $GzipExe	= $opt{'gzipexe'}    if $opt{'gzipexe'};
     $VarExp	= $opt{'varregex'}   if $opt{'varregex'} &&
 				        ($opt{'varregex'} =~ /\S/);
+    $TSLICELEVELS = $opt{'tslicelevels'}  if $opt{'tslicelevels'};
 
     $IDXNAME	= $opt{'idxfname'} || $IDXNAME || $ENV{'M2H_IDXFNAME'} ||
 		  "maillist.$HtmlExt";

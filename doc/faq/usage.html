@@ -6,7 +6,7 @@
 
 <!--X-NavButtons-Start-->
 <p align=center>
-[<a href="envs.html">Prev</a>][<a href="archives.html">Next</a>][<a href="faq.html">TOC</a>][<a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html">Home</a>]
+[<a href="envs.html">Prev</a>][<a href="archives.html">Next</a>][<a href="faq.html">TOC</a>][<a href="http://www.mhonarc.org/">Home</a>]
 </p>
 <!--X-NavButtons-End-->
 
@@ -19,6 +19,7 @@
 <li><a href="#resources">What are "resources"?</a></li>
 <li><a href="#rfileedit">Is there a resource file editor?</a></li>
 <li><a href="#nilresource">How do you set a resource to nil?</a></li>
+<li><a href="#todefaults">How do I reset an archive's resources to the default values?</a></li>
 <li><a href="#newgetopt">I get an error that "newgetopt.pl" cannot be required, where is it?</a></li>
 <li><a href="#searching">Does MHonArc provide searching of archives?</a></li>
 <li><a href="#webui">Is there a Web interface for MHonArc?</a></li>
@@ -93,6 +94,38 @@ your resource file:
 </pre>
 <p>Notice the blank line.  If you specify no content, MHonArc will
 fallback to the default value of the resource.
+</p>
+<table border=0 cellpadding=4>
+<tr valign=top>
+<td><strong><font color="red">WARNING</font></strong></td>
+<td><p>Only do the above for page layout related resources.
+For other resources, the above technique will have no effect, or
+it may cause unexpected results.  See
+<a href="#todefaults">How do I reset an archive's resources to the default
+values?</a> for more information on reseting resources to default
+values.
+</p>
+</td>
+</tr>
+</table>
+
+<!-- ??????????????????????????????????????????????????????????????? -->
+<hr noshade size=1>
+<table border=0>
+<tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
+<h3><b><a name="todefaults">How do I reset an archive's resources to the default values?</a></b></h3>
+</td></tr></table>
+
+<p>The following two commands will reset an archive to use default
+resource values:
+</p>
+<pre>
+shell&gt; <b>mha-dbedit -nosaveresources -outdir <var>/path/to/your/archive</var></b>
+shell&gt; <b>mhonarc -saveresources -editidx -outdir <var>/path/to/your/archive</var></b>
+</pre>
+<p>You could also include <tt>-rcfile</tt> option(s) to the last step if
+you want to modify some resources from the default in case you want
+to reset some resources and not all of them.
 </p>
 
 <!-- ??????????????????????????????????????????????????????????????? -->
@@ -341,17 +374,17 @@ and
 
 <!--X-NavButtons-Start-->
 <p align=center>
-[<a href="envs.html">Prev</a>][<a href="archives.html">Next</a>][<a href="faq.html">TOC</a>][<a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html">Home</a>]
+[<a href="envs.html">Prev</a>][<a href="archives.html">Next</a>][<a href="faq.html">TOC</a>][<a href="http://www.mhonarc.org/">Home</a>]
 </p>
 <!--X-NavButtons-End-->
 
 <hr>
 <address>
-01/06/10 17:47:21<br>
+01/09/05 21:44:18<br>
 <img align="top" src="monicon.gif" alt="">
-<a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"
+<a href="http://www.mhonarc.org/"
 ><strong>MHonArc</strong></a><br>
-Copyright &#169; 1997-1999, <a href="http://www.oac.uci.edu/indiv/ehood/"
+Copyright &#169; 1997-1999, <a href="http://www.earlhood.com/"
 >Earl Hood</a>, <a href="mailto:mhonarc@mhonarc.org"
 >mhonarc@mhonarc.org</a><br>
 </address>

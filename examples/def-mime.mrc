@@ -1,5 +1,5 @@
 <!-- ================================================================== -->
-<!--    @(#) def-mime.mrc 1.9 01/08/19 15:45:43
+<!--    @(#) def-mime.mrc 1.10 01/09/05 20:18:46
         Earl Hood <earl@earlhood.com>
   -->
 <!--    MHonArc Resource File                                           --
@@ -29,6 +29,8 @@ latin3;         MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
 latin4;         MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
 latin5;         MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
 latin6;         MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
+windows-1250;   MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
+windows-1252;   MHonArc::CharEnt::str2sgml;	MHonArc/CharEnt.pm
 default;        -ignore-
 </CharsetConverters>
 

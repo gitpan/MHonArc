@@ -1405,6 +1405,20 @@ care.
 </p></td>
 </tr>
 <tr valign=top>
+<td><strong><tt>attachcheck</tt></strong></td>
+<td><p>Honor attachment disposition.  By default,
+all text/html data is displayed inline on
+the message page.  If <tt>attachcheck</tt> is specified
+and Content-Disposition specifies the data as
+an attachment, the data is saved to a file
+with a link to it from the message page.
+</p>
+<p><b>CAUTION:</b> If <tt>attachcheck</tt> is specified, the HTML
+data is saved "as-is".  For example, no stripping of scripting-based
+markup is performed and no resolution of cid URLs are performed.
+</p>
+</tr>
+<tr valign=top>
 <td><strong><tt>nofont</tt></strong></td>
 <td><p>Remove font tags.
 </p></td>
@@ -1715,7 +1729,7 @@ sub addbase {
 <!-- *************************************************************** -->
 <hr>
 <address>
-01/08/26 01:21:14<br>
+01/09/05 21:43:13<br>
 <img align="top" src="../monicon.gif" alt="">
 <a href="http://www.mhonarc.org"><strong>MHonArc</strong></a><br>
 Copyright &#169; 1997-2001 <a href="http://www.mhonarc.org/~ehood/">Earl Hood</a>, <a href="mailto:mhonarc@mhonarc.org">mhonarc@mhonarc.org</a><br>

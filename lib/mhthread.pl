@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhthread.pl 2.7 01/08/26 02:25:26
+##      @(#) mhthread.pl 2.8 01/09/05 21:58:48
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -469,8 +469,8 @@ sub make_thread_slice {
     my($lastlevel) = $ThreadLevel{$a[0]};
     my($tmpl, $index, $tlevel, $iscont, $i);
 
-    local($level)     = 0;  	## !!!Used in make_thread!!!
-    local(%Printed)   = ();	## !!!Used in make_thread!!!
+    local($level)     = 0;  	## XXX: Used in make_thread!!!
+    local(%Printed)   = ();	## XXX: Used in make_thread!!!
 
     ($tmpl = $TSLICEBEG) =~ s/$VarExp/&replace_li_var($1,'')/geo;
     $slicetxt .= $tmpl;
@@ -486,7 +486,7 @@ sub make_thread_slice {
     # perform any indenting
     for ($i=0; $i < $lastlevel; ++$i) {
 	++$level;
-	if ($level <= $TLEVELS) {
+	if ($level <= $TSLICELEVELS) {
 	    ($tmpl = $TSLICEINDENTBEG) =~ s/$VarExp/&replace_li_var($1,'')/geo;
 	    $slicetxt .= $tmpl;
 	}
@@ -496,7 +496,7 @@ sub make_thread_slice {
 	$tlevel = $ThreadLevel{$index};
 	if (($lastlevel > 0) && ($tlevel < $lastlevel)) {
 	    for ($i=$tlevel; $i < $lastlevel; ++$i) {
-		if ($level <= $TLEVELS) {
+		if ($level <= $TSLICELEVELS) {
 		    ($tmpl = $TSLICEINDENTEND) =~
 			s/$VarExp/&replace_li_var($1,'')/geo;
 		    $slicetxt .= $tmpl;
@@ -518,7 +518,7 @@ sub make_thread_slice {
     }
     # unindent if required
     for ($i=0; $i < $lastlevel; ++$i) {
-	if ($level <= $TLEVELS) {
+	if ($level <= $TSLICELEVELS) {
 	    ($tmpl = $TSLICEINDENTEND) =~ s/$VarExp/&replace_li_var($1,'')/geo;
 	    $slicetxt .= $tmpl;
 	}
@@ -541,6 +541,7 @@ sub make_thread_slice {
 
 ##---------------------------------------------------------------------------
 ##	Routine to generate text representing a thread.
+##	Used by make_thread_slice().
 ##	Uses %Printed and $level defined by caller.
 ##
 sub make_thread {
@@ -584,7 +585,7 @@ sub make_thread {
 		$level++;
 		$ret .= &expand_thread_var($idx, \$TSLICELINONE);
 		$ret .= &expand_thread_var($idx, \$TSLICESUBLISTBEG)
-		    if $level <= $TLEVELS;
+		    if $level <= $TSLICELEVELS;
 	    }
 	}
 	$ret .= &expand_thread_var($idx,
@@ -602,23 +603,23 @@ sub make_thread {
     ## Print sub-threads
     if (@repls) {
 	$ret .= &expand_thread_var($idx, \$TSLICESUBLISTBEG)
-	    if $level <= $TLEVELS;
+	    if $level <= $TSLICELEVELS;
 	foreach (@repls) {
 	    $ret .= &make_thread($_, 0, $refidx);
 	}
 	$ret .= &expand_thread_var($idx, \$TSLICESUBLISTEND)
-	    if $level <= $TLEVELS;
+	    if $level <= $TSLICELEVELS;
     }
     if (@srepls) {
 	$ret .= &expand_thread_var($idx, \$TSLICESUBLISTBEG)
-	    if $level <= $TLEVELS;
+	    if $level <= $TSLICELEVELS;
 	$ret .= &expand_thread_var($idx, \$TSLICESUBJECTBEG);
 	foreach (@srepls) {
 	    $ret .= &make_thread($_, 0, $refidx);
 	}
 	$ret .= &expand_thread_var($idx, \$TSLICESUBJECTEND);
 	$ret .= &expand_thread_var($idx, \$TSLICESUBLISTEND)
-	    if $level <= $TLEVELS;
+	    if $level <= $TSLICELEVELS;
     }
 
     ## Decrement level count if their were replies
@@ -630,7 +631,7 @@ sub make_thread {
 	for ($i = $depth; $i > 0; $i--) {
 	    $ret .= &expand_thread_var($idx, \$TSLICELINONEEND);
 	    $ret .= &expand_thread_var($idx, \$TSLICESUBLISTEND)
-		if $level <= $TLEVELS;
+		if $level <= $TSLICELEVELS;
 	    $level--;
 	}
     }

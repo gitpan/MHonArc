@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhamain.pl 2.25 01/08/26 12:52:32
+##	@(#) mhamain.pl 2.26 01/09/05 22:00:24
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -27,7 +27,7 @@
 
 package mhonarc;
 
-$VERSION = "2.5.0b";
+$VERSION = "2.5.0b2";
 $VINFO =<<EndOfInfo;
   MHonArc v$VERSION (Perl $])
   Copyright (C) 1995-2001  Earl Hood, mhonarc\@mhonarc.org
@@ -275,7 +275,7 @@ sub doit {
 	## Read mail head
 	($index, $fields) = read_mail_header($handle);
 
-	if ($index ne '') {
+	if ($index) {
 	    $AddIndex{$index} = 1;
 	    $IndexNum{$index} = &getNewMsgNum();
 
@@ -316,7 +316,7 @@ sub doit {
 		    ($index, $fields) = read_mail_header($fh);
 
 		    #  Process message if valid
-		    if ($index ne '') {
+		    if ($index) {
 			if ($ADD && !$SLOW) { $AddIndex{$index} = 1; }
 			$IndexNum{$index} = &getNewMsgNum();
 			$Message{$index} = &read_mail_body(
@@ -353,7 +353,7 @@ sub doit {
 		    print STDOUT "."  unless $QUIET;
 		    ($index, $fields) = read_mail_header($fh);
 
-		    if ($index ne '') {
+		    if ($index) {
 			if ($ADD && !$SLOW) { $AddIndex{$index} = 1; }
 			$IndexNum{$index} = &getNewMsgNum();
 			$Message{$index} = read_mail_body(
@@ -686,7 +686,7 @@ sub write_mail {
 ##
 sub read_mail_header {
     my $handle = shift;
-    my($header, $index, $date, $tmp);
+    my($index, $date, $tmp);
     my($from, $sub, $msgid, $ctype);
     local($_);
 
@@ -746,7 +746,7 @@ sub read_mail_header {
     ##----------##
     ## Get date ##
     ##----------##
-    $date = "";  $index = "";
+    $date = "";
     foreach (@DateFields) {
 	next  unless defined($fields->{$_});
 
@@ -766,7 +766,7 @@ sub read_mail_header {
 	    last;
 	}
     }
-    if ($index eq "") {
+    if (!$index) {
 	warn qq/\nWarning: Could not parse date for message\n/,
 	       qq/         Message-Id: <$msgid>\n/;
 	# Use current time
@@ -825,7 +825,7 @@ sub read_mail_header {
     ## Get Content-Type ##
     ##------------------##
     if (defined($fields->{'content-type'})) {
-	($ctype = $fields->{'content-type'}[0]) =~ m%^\s*([\w-\./]+)%;
+	($ctype = $fields->{'content-type'}[0]) =~ m%^\s*([\w\-\./]+)%;
 	$ctype = lc ($1 || 'text/plain');
     } else {
 	$ctype = 'text/plain';

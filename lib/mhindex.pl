@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhindex.pl 1.7 01/08/26 02:18:32
+##	@(#) mhindex.pl 1.8 01/09/05 21:57:29
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -34,7 +34,8 @@ sub write_main_index {
     my $onlypg = shift;
     my($outhandle, $i, $i_p0, $filename, $tmpl, $isfirst, $tmp,
 	  $offstart, $offend);
-    my($PageNum, $PageSize, $totalpgs);
+    local($PageNum, $PageSize); # XXX: Use in replace_li_vars()
+    my($totalpgs);
     local(*a);
 
     &compute_page_total();

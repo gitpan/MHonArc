@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhutil.pl 2.10 01/08/26 02:17:15
+##	@(#) mhutil.pl 2.11 01/09/05 21:51:42
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -59,7 +59,8 @@ my %HFieldsAddr = (
 ##	Get an e-mail address from (HTML) $str.
 ##
 sub extract_email_address {
-    my($str) = shift;
+    return ''  unless defined $_[0];
+    my $str = shift;
     my($ret);
 
     if ($str =~ /<(\S+)>/) {
@@ -255,8 +256,8 @@ sub get_base_author {
 ##	Determine time from date.  Use %Zone for timezone offsets
 ##
 sub get_time_from_date {
-    local($mday, $mon, $yr, $hr, $min, $sec, $zone) = @_;
-    local($time) = 0;
+    my($mday, $mon, $yr, $hr, $min, $sec, $zone) = @_;
+    my($time) = 0;
 
     $yr -= 1900  if $yr >= 1900;  # if given full 4 digit year
     $yr += 100   if $yr <= 37;    # in case of 2 digit years
@@ -458,7 +459,10 @@ sub newsurl {
 ##	$html = mailUrl($email_addr, $msgid, $subject, $from);
 ##
 sub mailUrl {
-    my($eaddr, $msgid, $sub, $from) = @_;
+    my $eaddr = shift || '';
+    my $msgid = shift || '';
+    my $sub = shift || '';
+    my $from = shift || '';
 
     local $_;
     my($url) = ($MAILTOURL);
@@ -471,8 +475,8 @@ sub mailUrl {
     my($subjectl);
 
     # Add "Re:" to subject if not present
-    if ($sub !~ /^\s*Re:/) {
-	$subjectl = &urlize("Re: ") . &urlize($sub);
+    if ($sub !~ /^$SubReplyRxp/io) {
+	$subjectl = 'Re:%20' . &urlize($sub);
     } else {
 	$subjectl = &urlize($sub);
     }

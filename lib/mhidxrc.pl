@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhidxrc.pl 2.7 00/10/28 10:47:42
+##	@(#) mhidxrc.pl 2.9 01/09/05 21:59:18
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -267,6 +267,11 @@ unless ($TSLICEBEG) {
 unless ($TSLICEEND) {
     $TSLICEEND = "</ul></blockquote>\n";
     $IsDefault{'TSLICEEND'} = 1;
+}
+
+if ($TSLICELEVELS < 0) {
+    $TSLICELEVELS = $TLEVELS;
+    $IsDefault{'TSLICELEVELS'} = 1;
 }
 
 unless ($TSLICESINGLETXT) {

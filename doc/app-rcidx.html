@@ -9,9 +9,9 @@
 <BODY>
 
 <!--X-NavButtons-Start-->
-<p align=center>
-<a href="contacts.html"><img src="prev.gif" border=0 alt="[Prev]"></a><a href="app-rcfileexs.html"><img src="next.gif" border=0 alt="[Next]"></a><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.mhonarc.org/"><img src="home.gif" border=0 alt="[Home]"></a>
-</p>
+<table width="100%">
+<tr valign="top">
+<td align="left"><nobr><a href="contacts.html"><img src="prev.gif"border=0 alt="[Prev]"></a>&nbsp;&nbsp;&nbsp;</nobr></td><td align="center" width="99%"><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.mhonarc.org/"><img src="home.gif" border=0 alt="[Home]"></a></td><td align="right"><nobr>&nbsp;&nbsp;&nbsp;<a href="app-rcfileexs.html"><img src="next.gif" border=0 alt="[Next]"></a></nobr></td></tr></table>
 <!--X-NavButtons-End-->
 <HR>
 
@@ -111,6 +111,7 @@ and command-line options.
 <tr valign="top"><td align="right"><b><a href="resources/tlevels.html"><tt>M2H_TLEVELS</tt></a></b></td><td>&nbsp;Maximum number of levels to indent in thread index.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/treverse.html"><tt>M2H_TREVERSE</tt></a></b></td><td>&nbsp;List thread in reverse order.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/tslice.html"><tt>M2H_TSLICE</tt></a></b></td><td>&nbsp;Size of thread listing slice for message pages.</td></tr>
+<tr valign="top"><td align="right"><b><a href="resources/tslicelevels.html"><tt>M2H_TSLICELEVELS</tt></a></b></td><td>&nbsp;Maximum number of levels to indent in thread slices.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/tsort.html"><tt>M2H_TSORT</tt></a></b></td><td>&nbsp;List threads by date.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/tsubsort.html"><tt>M2H_TSUBSORT</tt></a></b></td><td>&nbsp;List threads by subject.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/ttitle.html"><tt>M2H_TTITLE</tt></a></b></td><td>&nbsp;Title of thread index.</td></tr>
@@ -308,6 +309,7 @@ and command-line options.
 <tr valign="top"><td align="right"><b><a href="resources/tsliceend.html"><tt>&lt;TSLICEEND&gt;</tt></a></b></td><td>&nbsp;Markup for the end of a thread slice.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/tsliceindentbeg.html"><tt>&lt;TSLICEINDENTBEGIN&gt;</tt></a></b></td><td>&nbsp;Thread slice markup for opening a level when continuing a broken thread.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/tsliceindentend.html"><tt>&lt;TSLICEINDENTEND&gt;</tt></a></b></td><td>&nbsp;Thread slice markup for closing a level when continuing a broken thread.</td></tr>
+<tr valign="top"><td align="right"><b><a href="resources/tslicelevels.html"><tt>&lt;TSLICELEVELS&gt;</tt></a></b></td><td>&nbsp;Maximum number of levels to indent in thread slices.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/tsliceliend.html"><tt>&lt;TSLICELIEND&gt;</tt></a></b></td><td>&nbsp;Ending markup for a thread slice message listing.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/tsliceliendcur.html"><tt>&lt;TSLICELIENDCUR&gt;</tt></a></b></td><td>&nbsp;Ending markup for a thread slice message listing if current message.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/tslicelinone.html"><tt>&lt;TSLICELINONE&gt;</tt></a></b></td><td>&nbsp;Thread slice markup for a missing message in thread slice.</td></tr>
@@ -434,6 +436,7 @@ and command-line options.
 <tr valign="top"><td align="right"><b><a href="resources/tlevels.html"><tt>-tlevels</tt></a></b></td><td>&nbsp;Maximum number of levels to indent in thread index.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/treverse.html"><tt>-treverse</tt></a></b></td><td>&nbsp;List thread in reverse order.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/tslice.html"><tt>-tslice</tt></a></b></td><td>&nbsp;Size of thread listing slice for message pages.</td></tr>
+<tr valign="top"><td align="right"><b><a href="resources/tslicelevels.html"><tt>-tslicelevels</tt></a></b></td><td>&nbsp;Maximum number of levels to indent in thread slices.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/tsort.html"><tt>-tsort</tt><br><tt>-notsort</tt></a></b></td><td>&nbsp;List threads by date.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/tsubsort.html"><tt>-tsubsort</tt><br><tt>-notsubsort</tt></a></b></td><td>&nbsp;List threads by subject.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/ttitle.html"><tt>-ttitle</tt></a></b></td><td>&nbsp;Title of thread index.</td></tr>
@@ -448,15 +451,15 @@ and command-line options.
 <!-- *************************************************************** -->
 <HR>
 <!--X-NavButtons-Start-->
-<p align=center>
-<a href="contacts.html"><img src="prev.gif" border=0 alt="[Prev]"></a><a href="app-rcfileexs.html"><img src="next.gif" border=0 alt="[Next]"></a><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.mhonarc.org/"><img src="home.gif" border=0 alt="[Home]"></a>
-</p>
+<table width="100%">
+<tr valign="top">
+<td align="left"><nobr><a href="contacts.html"><img src="prev.gif"border=0 alt="[Prev]"></a>&nbsp;&nbsp;&nbsp;</nobr></td><td align="center" width="99%"><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.mhonarc.org/"><img src="home.gif" border=0 alt="[Home]"></a></td><td align="right"><nobr>&nbsp;&nbsp;&nbsp;<a href="app-rcfileexs.html"><img src="next.gif" border=0 alt="[Next]"></a></nobr></td></tr></table>
 <!--X-NavButtons-End-->
 
 <!-- *************************************************************** -->
 <hr>
 <address>
-01/08/26 14:16:46<br>
+01/09/05 22:03:27<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.mhonarc.org"><strong>MHonArc</strong></a><br>
 Copyright &#169; 1999, <a href="http://www.mhonarc.org/~ehood/"
