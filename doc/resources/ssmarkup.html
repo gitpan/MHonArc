@@ -23,7 +23,7 @@
 </dd>
 
 <dt><strong>Element</strong></dt>
-<dd><p><br>
+<dd><p>
 <code>&lt;SSMARKUP&gt;</code><br>
 <var>markup...</var><br>
 <code>&lt;/SSMARKUP&gt;</code><br>
@@ -41,10 +41,18 @@
 <hr>
 <h2>Description</h2>
 
-<p>SSMARKUP defines any markup that occurs at the <strong>very</strong>
+<p>SSMARKUP defines the default markup that occurs at the <strong>very</strong>
 beginning of <strong>all</strong> created HTML pages.  This resource
 may be used to include any server-side processing markup that must
 occur before any HTML-related markup.
+</p>
+
+<p>If you require to have different initial markup for the different
+types of pages that MHonArc generates, then you can use the
+<a href="msgpgssmarkup.html">MSGPGSSMARKUP</a>,
+<a href="idxpgssmarkup.html">IDXPGSSMARKUP</a>, and
+<a href="tidxpgssmarkup.html">TIDXPGSSMARKUP</a>
+resources.
 </p>
 
 <!-- *************************************************************** -->
@@ -91,16 +99,22 @@ If Not Session("LoginOK") Then Response.redirect "/default.htm"
 <h2>See Also</h2>
 
 <p>
+<a href="idxpgssmarkup.html">IDXPGSSMARKUP</a>,
+<a href="msgpgssmarkup.html">MSGPGSSMARKUP</a>,
+<a href="tidxpgssmarkup.html">TIDXPGSSMARKUP</a>
+</p>
+<p>
+<a href="../layout.html"><strong>Page Layout</strong></a>
 </p>
 
 <!-- *************************************************************** -->
 <hr>
 <address>
-$Date: 2002/04/01 20:37:31 $ <br>
+$Date: 2002/06/27 00:06:14 $ <br>
 <img align="top" src="../monicon.png" alt="">
 <a href="http://www.mhonarc.org/"
 ><strong>MHonArc</strong></a><br>
-Copyright &#169; 1999, <a href="http://www.earlhood.com/"
+Copyright &#169; 1999-2002 <a href="http://www.earlhood.com/"
 >Earl Hood</a>, <a href="mailto:mhonarc@mhonarc.org"
 >mhonarc@mhonarc.org</a><br>
 </address>

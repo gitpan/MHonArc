@@ -1,5 +1,5 @@
 <!-- ================================================================== -->
-<!--    $Id: def-mime.mrc,v 1.12 2002/05/04 04:52:40 ehood Exp $
+<!--    $Id: def-mime.mrc,v 1.13 2002/06/28 03:28:10 ehood Exp $
         Earl Hood <earl@earlhood.com>
   -->
 <!--    MHonArc Resource File                                           --
@@ -64,6 +64,9 @@ x-sun-attachment;          m2h_text_plain::filter;      mhtxtplain.pl
 <MIMEArgs>
 m2h_external::filter; inline
 </MIMEArgs>
+
+<MIMEAltPrefs>
+</MIMEAltPrefs>
 
 <MIMEDecoders>
 7bit;   	  as-is;

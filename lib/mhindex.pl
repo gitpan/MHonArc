@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhindex.pl,v 1.8 2001/09/05 15:57:29 ehood Exp $
+##	$Id: mhindex.pl,v 1.10 2002/06/27 04:56:41 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -185,8 +185,11 @@ sub output_maillist_head {
     local $index = "";
     my($tmp);
 
-    ($tmp = $SSMARKUP) =~ s/$VarExp/&replace_li_var($1,'')/geo;
-    print $handle $tmp;
+    $tmp = ($IDXPGSSMARKUP ne '') ? $IDXPGSSMARKUP : $SSMARKUP;
+    if ($tmp ne '') {
+	$tmp =~ s/$VarExp/&replace_li_var($1,'')/geo;
+	print $handle $tmp;
+    }
 
     print $handle "<!-- ", &commentize("MHonArc v$VERSION"), " -->\n";
 

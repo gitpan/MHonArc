@@ -13,6 +13,44 @@
 
 YYYY/MM/DD
 ============================================================================
+2002/06/28	(2.5.8)
+
+* Added MIMEALTPREFS resource: Content-type preferences for
+  multipart/alternative data.  You can now tell MHonArc to use the
+  text/plain part over a text/html part in multipart/alternative
+  messages.
+
+* Added the following resources:
+
+    IDXPGSSMARKUP   Markup at the beginning of all index pages.
+    MSGPGSSMARKUP   Markup at the beginning of all message pages.
+    TIDXPGSSMARKUP  Markup at the beginning of all thread index pages.
+
+  Each resource will default to the value of the SSMARKUP resource
+  if not defined.
+
+* Removed <DBFILE> resource element since it useless since an archive
+  database is read before any resource files are parsed.  The proper
+  way to specify an alternative DBFILE is via the -dbfile command-line
+  option or the M2H_DBFILE envariable.
+
+* Release notes updated about upgrading from v2.1.x, or earlier archive.
+  Running a later version is safe, but all MIME-related resources will
+  be reset to default values.  For v2.5.8, and later, the MIMEARGS
+  setting will preserved.
+
+* Removed references to HEADER and FOOTER resources in the docs.
+  Resources removed in v2.5.0.
+
+* Updated default resource layout settings in docs to use lowercase
+  tag names since MHonArc changed to use lowercase in defaults
+  in v2.4.7.
+
+* FAQ updates:
+    . Mention MIMEALTPREFS.
+    . Added MIMEARGS examples in MIME section.
+
+============================================================================
 2002/06/21	(2.5.7)
 
 * Bug Fixes: See
@@ -2009,4 +2047,4 @@ YYYY/MM/DD
 
 =======================================================================
 Earl Hood, mhonarc@mhonarc.org
-$Id: CHANGES,v 1.71 2002/06/21 22:28:15 ehood Exp $
+$Id: CHANGES,v 1.76 2002/06/29 02:59:21 ehood Exp $

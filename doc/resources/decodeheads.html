@@ -24,14 +24,14 @@
 </dd>
 
 <dt><strong>Element(s)</strong><dt>
-<dd><p><br>
+<dd><p>
 <code>&lt;DECODEHEADS&gt;</code><br>
 <code>&lt;NODECODEHEADS&gt;</code>
 </p>
 </dd>
 
 <dt><strong>Command-line Option(s)</strong><dt>
-<dd><p><br>
+<dd><p>
 <code>-decodeheads</code><br>
 <code>-nodecodeheads</code>
 </p>
@@ -77,8 +77,18 @@ data for inclusion in generated pages.
 <hr>
 <h2>Examples</h2>
 
-<p>None
+<p>The following will tell MHonArc to just decode all non-ASCII
+encoded data, causing all character data to be treated by the
+default locale setting:
 </p>
+<pre>
+<b>&lt;DecodeHeads&gt;</b>
+<b><a href="charsetconverters.html">&lt;CharsetConverters override&gt;</a></b>
+plain;          mhonarc::htmlize;
+default;        -decode-
+<b>&lt;/CharsetConverters&gt;</b>
+</pre>
+
 
 <!-- *************************************************************** -->
 <hr>
@@ -98,7 +108,7 @@ data for inclusion in generated pages.
 <!-- *************************************************************** -->
 <hr>
 <address>
-$Date: 2002/04/01 20:37:30 $ <br>
+$Date: 2002/06/29 00:57:07 $ <br>
 <img align="top" src="../monicon.png" alt="">
 <a href="http://www.mhonarc.org/"><strong>MHonArc</strong></a><br>
 Copyright &#169; 1997-1998, <a href="http://www.earlhood.com/">Earl Hood</a>, <a href="mailto:mhonarc@mhonarc.org">mhonarc@mhonarc.org</a><br>

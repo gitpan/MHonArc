@@ -57,13 +57,11 @@ and command-line options.
 <tr valign="top"><td align="right"><b><a href="resources/expireage.html"><tt>M2H_EXPIREAGE</tt></a></b></td><td>&nbsp;Length of time to keep a message in an archive.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/expiredate.html"><tt>M2H_EXPIREDATE</tt></a></b></td><td>&nbsp;Expiration of date of message.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/folrefs.html"><tt>M2H_FOLREFS</tt></a></b></td><td>&nbsp;Print links links to explicit follow-ups and references.</td></tr>
-<tr valign="top"><td align="right"><b><a href="resources/footer.html"><tt>M2H_FOOTER</tt></a></b></td><td>&nbsp;File to include at the foot of main index pages.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/fromfields.html"><tt>M2H_FROMFIELDS</tt></a></b></td><td>&nbsp;List of fields to extract author of a message.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/gmtdatefmt.html"><tt>M2H_GMTDATEFMT</tt></a></b></td><td>&nbsp;Conversion specification for GMT dates.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/gzipexe.html"><tt>M2H_GZIPEXE</tt></a></b></td><td>&nbsp;Pathname to gzip executable.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/gzipfiles.html"><tt>M2H_GZIPFILES</tt></a></b></td><td>&nbsp;Gzip files.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/gziplinks.html"><tt>M2H_GZIPLINKS</tt></a></b></td><td>&nbsp;Assume files are gzipped when creating links.</td></tr>
-<tr valign="top"><td align="right"><b><a href="resources/header.html"><tt>M2H_HEADER</tt></a></b></td><td>&nbsp;File to include at the top of main index pages.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/htmlext.html"><tt>M2H_HTMLEXT</tt></a></b></td><td>&nbsp;Extension to use for HTML files.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/idxfname.html"><tt>M2H_IDXFNAME</tt></a></b></td><td>&nbsp;Filename for main (first) index page.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/idxprefix.html"><tt>M2H_IDXPREFIX</tt></a></b></td><td>&nbsp;Filename prefix for multi-page main index.</td></tr>
@@ -145,7 +143,6 @@ and command-line options.
 <tr valign="top"><td align="right"><b><a href="resources/datefields.html"><tt>&lt;DATEFIELDS&gt;</tt></a></b></td><td>&nbsp;List of fields to extract date of message.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/daybegin.html"><tt>&lt;DAYBEGIN&gt;</tt></a></b></td><td>&nbsp;Markup at the start of a day group.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/dayend.html"><tt>&lt;DAYEND&gt;</tt></a></b></td><td>&nbsp;Markup at the end of a day group.</td></tr>
-<tr valign="top"><td align="right"><b><a href="resources/dbfile.html"><tt>&lt;DBFILE&gt;</tt></a></b></td><td>&nbsp;Name of archive database file.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/decodeheads.html"><tt>&lt;DECODEHEADS&gt;</tt><br><tt>&lt;NODECODEHEADS&gt;</tt></a></b></td><td>&nbsp;Store "decode-only" characters sets in raw form.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/definederived.html"><tt>&lt;DEFINEDERIVED&gt;</tt></a></b></td><td>&nbsp;Define extra file(s) to generate for each message page.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/definevar.html"><tt>&lt;DEFINEVAR&gt;</tt></a></b></td><td>&nbsp;Define a custom resource variable.</td></tr>
@@ -165,20 +162,19 @@ and command-line options.
 <tr valign="top"><td align="right"><b><a href="resources/folupbegin.html"><tt>&lt;FOLUPBEGIN&gt;</tt></a></b></td><td>&nbsp;Beginning markup of follow-up links in message pages.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/folupend.html"><tt>&lt;FOLUPEND&gt;</tt></a></b></td><td>&nbsp;Ending markup of follow-up links in message pages.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/foluplitxt.html"><tt>&lt;FOLUPLITXT&gt;</tt></a></b></td><td>&nbsp;Markup for a follow-up link.</td></tr>
-<tr valign="top"><td align="right"><b><a href="resources/footer.html"><tt>&lt;FOOTER&gt;</tt></a></b></td><td>&nbsp;File to include at the foot of main index pages.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/fromfields.html"><tt>&lt;FROMFIELDS&gt;</tt></a></b></td><td>&nbsp;List of fields to extract author of a message.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/gmtdatefmt.html"><tt>&lt;GMTDATEFMT&gt;</tt></a></b></td><td>&nbsp;Conversion specification for GMT dates.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/gzipexe.html"><tt>&lt;GZIPEXE&gt;</tt></a></b></td><td>&nbsp;Pathname to gzip executable.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/gzipfiles.html"><tt>&lt;GZIPFILES&gt;</tt><br><tt>&lt;NOGZIPFILES&gt;</tt></a></b></td><td>&nbsp;Gzip files.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/gziplinks.html"><tt>&lt;GZIPLINKS&gt;</tt><br><tt>&lt;NOGZIPLINKS&gt;</tt></a></b></td><td>&nbsp;Assume files are gzipped when creating links.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/headbodysep.html"><tt>&lt;HEADBODYSEP&gt;</tt></a></b></td><td>&nbsp;Markup separating the message head from the body.</td></tr>
-<tr valign="top"><td align="right"><b><a href="resources/header.html"><tt>&lt;HEADER&gt;</tt></a></b></td><td>&nbsp;File to include at the top of main index pages.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/htmlext.html"><tt>&lt;HTMLEXT&gt;</tt></a></b></td><td>&nbsp;Extension to use for HTML files.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/icons.html"><tt>&lt;ICONS&gt;</tt></a></b></td><td>&nbsp;Content-type to icon mapping.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/idxfname.html"><tt>&lt;IDXFNAME&gt;</tt></a></b></td><td>&nbsp;Filename for main (first) index page.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/idxlabel.html"><tt>&lt;IDXLABEL&gt;</tt></a></b></td><td>&nbsp;Label for main index.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/idxpgbegin.html"><tt>&lt;IDXPGBEGIN&gt;</tt></a></b></td><td>&nbsp;Beginning markup for main index pages.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/idxpgend.html"><tt>&lt;IDXPGEND&gt;</tt></a></b></td><td>&nbsp;Ending markup for main index pages.</td></tr>
+<tr valign="top"><td align="right"><b><a href="resources/idxpgssmarkup.html"><tt>&lt;IDXPGSSMARKUP&gt;</tt></a></b></td><td>&nbsp;Markup at the beginning of all index pages.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/idxprefix.html"><tt>&lt;IDXPREFIX&gt;</tt></a></b></td><td>&nbsp;Filename prefix for multi-page main index.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/idxsize.html"><tt>&lt;IDXSIZE&gt;</tt></a></b></td><td>&nbsp;Size of each index page.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/include.html"><tt>&lt;INCLUDE&gt;</tt></a></b></td><td>&nbsp;Include a resource file.</td></tr>
@@ -196,6 +192,7 @@ and command-line options.
 <tr valign="top"><td align="right"><b><a href="resources/main.html"><tt>&lt;MAIN&gt;</tt><br><tt>&lt;NOMAIN&gt;</tt></a></b></td><td>&nbsp;Create main index.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/maxsize.html"><tt>&lt;MAXSIZE&gt;</tt></a></b></td><td>&nbsp;Maximum number of messages in an archive.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/mhpattern.html"><tt>&lt;MHPATTERN&gt;</tt></a></b></td><td>&nbsp;Regex for matching message files in an MH folder (directory).</td></tr>
+<tr valign="top"><td align="right"><b><a href="resources/mimealtprefs.html"><tt>&lt;MIMEALTPREFS&gt;</tt></a></b></td><td>&nbsp;Content-type preferences for <tt>multipart/alternative</tt> data.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/mimeargs.html"><tt>&lt;MIMEARGS&gt;</tt></a></b></td><td>&nbsp;Arguments to MIME filters.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/mimedecoders.html"><tt>&lt;MIMEDECODERS&gt;</tt></a></b></td><td>&nbsp;Content-Transfer-Encoding decoding functions.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/mimeexcs.html"><tt>&lt;MIMEEXCS&gt;</tt></a></b></td><td>&nbsp;Content-types to exclude.</td></tr>
@@ -213,6 +210,7 @@ and command-line options.
 <tr valign="top"><td align="right"><b><a href="resources/msgpgbegin.html"><tt>&lt;MSGPGBEGIN&gt;</tt></a></b></td><td>&nbsp;Starting markup for each message page.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/msgpgend.html"><tt>&lt;MSGPGEND&gt;</tt></a></b></td><td>&nbsp;Ending markup for each message page.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/msgpgs.html"><tt>&lt;MSGPGS&gt;</tt><br><tt>&lt;NOMSGPGS&gt;</tt></a></b></td><td>&nbsp;Print message pages.</td></tr>
+<tr valign="top"><td align="right"><b><a href="resources/msgpgssmarkup.html"><tt>&lt;MSGPGSSMARKUP&gt;</tt></a></b></td><td>&nbsp;Markup at the beginning of all message pages.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/msgprefix.html"><tt>&lt;MSGPREFIX&gt;</tt></a></b></td><td>&nbsp;Prefix for message page filenames.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/msgsep.html"><tt>&lt;MSGSEP&gt;</tt></a></b></td><td>&nbsp;Regex for matching message separator in mailbox files.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/multipg.html"><tt>&lt;MULTIPG&gt;</tt></a></b></td><td>&nbsp;Create multi-page indexes.</td></tr>
@@ -243,7 +241,7 @@ and command-line options.
 <tr valign="top"><td align="right"><b><a href="resources/saveresources.html"><tt>&lt;SAVERESOURCES&gt;</tt><br><tt>&lt;NOSAVERESOURCES&gt;</tt></a></b></td><td>&nbsp;Save resource values in database.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/sort.html"><tt>&lt;SORT&gt;</tt><br><tt>&lt;NOSORT&gt;</tt></a></b></td><td>&nbsp;List messages by date in main index.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/spammode.html"><tt>&lt;SPAMMODE&gt;</tt><br><tt>&lt;NOSPAMMODE&gt;</tt></a></b></td><td>&nbsp;Perform actions to deter email address harvesters.</td></tr>
-<tr valign="top"><td align="right"><b><a href="resources/ssmarkup.html"><tt>&lt;SSMARKUP&gt;</tt></a></b></td><td>&nbsp;Markup at the beginning of all generated pages.</td></tr>
+<tr valign="top"><td align="right"><b><a href="resources/ssmarkup.html"><tt>&lt;SSMARKUP&gt;</tt></a></b></td><td>&nbsp;Default markup at the beginning of all generated pages.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/subjectarticlerxp.html"><tt>&lt;SUBJECTARTICLERXP&gt;</tt></a></b></td><td>&nbsp;Regex for matching leading articles in message subjects.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/subjectbegin.html"><tt>&lt;SUBJECTBEGIN&gt;</tt></a></b></td><td>&nbsp;Beginning markup for a subject group in the main index.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/subjectend.html"><tt>&lt;SUBJECTEND&gt;</tt></a></b></td><td>&nbsp;Ending markup for a subject group in the main index.</td></tr>
@@ -262,6 +260,7 @@ and command-line options.
 <tr valign="top"><td align="right"><b><a href="resources/tidxlabel.html"><tt>&lt;TIDXLABEL&gt;</tt></a></b></td><td>&nbsp;Label string for the thread index.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/tidxpgbegin.html"><tt>&lt;TIDXPGBEGIN&gt;</tt></a></b></td><td>&nbsp;Beginning markup for the thread index pages.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/tidxpgend.html"><tt>&lt;TIDXPGEND&gt;</tt></a></b></td><td>&nbsp;Ending markup for the thread index pages.</td></tr>
+<tr valign="top"><td align="right"><b><a href="resources/tidxpgssmarkup.html"><tt>&lt;TIDXPGSSMARKUP&gt;</tt></a></b></td><td>&nbsp;Markup at the beginning of all thread index pages.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/tidxprefix.html"><tt>&lt;TIDXPREFIX&gt;</tt></a></b></td><td>&nbsp;Filename prefix for thread index pages beyond the first page.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/timezones.html"><tt>&lt;TIMEZONES&gt;</tt></a></b></td><td>&nbsp;Hour offsets for timezones.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/tindentbegin.html"><tt>&lt;TINDENTBEGIN&gt;</tt></a></b></td><td>&nbsp;Markup for opening a level when continuing a broken thread.</td></tr>
@@ -372,7 +371,6 @@ and command-line options.
 <tr valign="top"><td align="right"><b><a href="resources/expireage.html"><tt>-expireage</tt></a></b></td><td>&nbsp;Length of time to keep a message in an archive.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/expiredate.html"><tt>-expiredate</tt></a></b></td><td>&nbsp;Expiration of date of message.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/folrefs.html"><tt>-folrefs</tt><br><tt>-nofolrefs</tt></a></b></td><td>&nbsp;Print links links to explicit follow-ups and references.</td></tr>
-<tr valign="top"><td align="right"><b><a href="resources/footer.html"><tt>-footer</tt></a></b></td><td>&nbsp;File to include at the foot of main index pages.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/force.html"><tt>-force</tt></a></b></td><td>&nbsp;Force archive operation even if lock cannot be obtained.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/fromfields.html"><tt>-fromfields</tt></a></b></td><td>&nbsp;List of fields to extract author of a message.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/genidx.html"><tt>-genidx</tt></a></b></td><td>&nbsp;Generate a message index to standard output.</td></tr>
@@ -380,7 +378,6 @@ and command-line options.
 <tr valign="top"><td align="right"><b><a href="resources/gzipexe.html"><tt>-gzipexe</tt></a></b></td><td>&nbsp;Pathname to gzip executable.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/gzipfiles.html"><tt>-gzipfiles</tt><br><tt>-nogzipfiles</tt></a></b></td><td>&nbsp;Gzip files.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/gziplinks.html"><tt>-gziplinks</tt><br><tt>-nogziplinks</tt></a></b></td><td>&nbsp;Assume files are gzipped when creating links.</td></tr>
-<tr valign="top"><td align="right"><b><a href="resources/header.html"><tt>-header</tt></a></b></td><td>&nbsp;File to include at the top of main index pages.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/htmlext.html"><tt>-htmlext</tt></a></b></td><td>&nbsp;Extension to use for HTML files.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/idxfname.html"><tt>-idxfname</tt></a></b></td><td>&nbsp;Filename for main (first) index page.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/idxprefix.html"><tt>-idxprefix</tt></a></b></td><td>&nbsp;Filename prefix for multi-page main index.</td></tr>
@@ -417,7 +414,7 @@ and command-line options.
 <tr valign="top"><td align="right"><b><a href="resources/posixstrftime.html"><tt>-posixstrftime</tt></a></b></td><td>&nbsp;Use POSIX's strftime() for converted time format strings.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/quiet.html"><tt>-quiet</tt></a></b></td><td>&nbsp;Do not output status.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/rcfile.html"><tt>-rcfile</tt></a></b></td><td>&nbsp;Resource file to read before processing input.</td></tr>
-<tr valign="top"><td align="right"><b><a href="resources/reverse.html"><tt>-reverse</tt></a></b></td><td>&nbsp;Reverse the listing order in the main index.</td></tr>
+<tr valign="top"><td align="right"><b><a href="resources/reverse.html"><tt>-reverse</tt><br><tt>-noreverse</tt></a></b></td><td>&nbsp;Reverse the listing order in the main index.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/rmm.html"><tt>-rmm</tt></a></b></td><td>&nbsp;Remove specified messages from an archive.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/saveresources.html"><tt>-saveresources</tt><br><tt>-nosaveresources</tt></a></b></td><td>&nbsp;Save resource values in database.</td></tr>
 <tr valign="top"><td align="right"><b><a href="resources/scan.html"><tt>-scan</tt></a></b></td><td>&nbsp;List archive messages to standard output.</td></tr>
@@ -462,7 +459,7 @@ and command-line options.
 <!-- *************************************************************** -->
 <hr>
 <address>
-$Date: 2002/06/07 17:45:08 $ <br>
+$Date: 2002/06/29 00:57:07 $ <br>
 <img align="top" src="monicon.png" alt="">
 <a href="http://www.mhonarc.org"><strong>MHonArc</strong></a><br>
 Copyright &#169; 1999, <a href="http://www.mhonarc.org/~ehood/"

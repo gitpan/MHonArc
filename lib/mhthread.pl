@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      $Id: mhthread.pl,v 2.8 2001/09/05 15:58:48 ehood Exp $
+##      $Id: mhthread.pl,v 2.10 2002/06/27 04:56:41 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -93,8 +93,11 @@ sub write_thread_index {
 	}
 	print STDOUT "Writing $TIDXPATHNAME ...\n"  unless $QUIET;
 
-	($tmpl = $SSMARKUP) =~ s/$VarExp/&replace_li_var($1,'')/geo;
-	print $handle $tmpl;
+	$tmpl = ($TIDXPGSSMARKUP ne '') ? $TIDXPGSSMARKUP : $SSMARKUP;
+	if ($tmpl ne '') {
+	    $tmpl =~ s/$VarExp/&replace_li_var($1,'')/geo;
+	    print $handle $tmpl;
+	}
 
 	print $handle "<!-- ", &commentize("MHonArc v$VERSION"), " -->\n";
 

@@ -26,6 +26,7 @@
 <li><a href="#removepre">Can the &lt;PRE&gt; tags be removed from converted messages?</a></li>
 <li><a href="#lineclip">Can long lines be wrapped in converted messages?</a></li>
 <li><a href="#exclude">Can I exclude specific media-types?</a></li>
+<li><a href="#alternative">Can I tell MHonArc to use the text/plain part over a text/html part in a multipart/alternative message?</a></li>
 </ul>
 <!--X-TOC-End-->
 
@@ -128,7 +129,13 @@ solutions.
 <p>Yes.  See the <b><tt>m2h_external::filter</tt></b> options documented
 in the MIMEFILTERS page of the documentation.  Make note of the
 security cautions in the documentation.
+Example:
 </p>
+<pre>
+&lt;MIMEArgs&gt;
+m2h_external::filter; usename
+&lt;/MIMEArgs&gt;
+</pre>
 
 <dl>
 <dt>See also:</dt>
@@ -146,7 +153,13 @@ security cautions in the documentation.
 
 <p>Yes.  See the options available for the <b>m2h_text_plain::filter</b>
 described in the MIMEFILTERS resource page of the documentation.
+Example:
 </p>
+<pre>
+&lt;MIMEArgs&gt;
+m2h_text_plain::filter; nonfixed
+&lt;/MIMEArgs&gt;
+</pre>
 
 <!-- ??????????????????????????????????????????????????????????????? -->
 <hr noshade size=1>
@@ -157,7 +170,14 @@ described in the MIMEFILTERS resource page of the documentation.
 
 <p>Yes.  See the options available for the <b>m2h_text_plain::filter</b>
 described in the MIMEFILTERS resource page of the documentation.
+Example:
 </p>
+<pre>
+&lt;-- Make sure lines are no longer than 80 characters --&gt;
+&lt;MIMEArgs&gt;
+m2h_text_plain::filter; maxwidth=80
+&lt;/MIMEArgs&gt;
+</pre>
 
 <!-- ??????????????????????????????????????????????????????????????? -->
 <hr noshade size=1>
@@ -167,7 +187,32 @@ described in the MIMEFILTERS resource page of the documentation.
 </td></tr></table>
 
 <p>Yes.  See the MIMEEXCS resource.
+Example:
 </p>
+<pre>
+&lt;-- Exclude all HTML and binary data --&gt;
+&lt;MIMEExcs&gt;
+text/html
+application/octet-steam
+&lt;/MIMEExcs&gt;
+</pre>
+
+<!-- ??????????????????????????????????????????????????????????????? -->
+<hr noshade size=1>
+<table border=0>
+<tr valign=top><td><img src="monicon.png" align="bottom" alt=""></td><td>
+<h3><b><a name="alternative">Can I tell MHonArc to use the text/plain part over a text/html part in a multipart/alternative message?</a></b></h3>
+</td></tr></table>
+
+<p>Yes, in v2.5.8, and later, via the MIMEALTPREFS resource.
+Example:
+</p>
+<pre>
+&lt;MIMEAltPrefs&gt;
+text/plain
+text/html
+&lt;/MIMEAltPrefs&gt;
+</pre>
 
 <!-- ===================================================================== -->
 <hr>
@@ -180,7 +225,7 @@ described in the MIMEFILTERS resource page of the documentation.
 
 <HR>
 <address>
-$Date: 2002/04/18 06:19:27 $ <br>
+$Date: 2002/06/28 03:28:10 $ <br>
 <img align="top" src="monicon.png" alt="">
 <a href="http://www.mhonarc.org/"
 ><strong>MHonArc</strong></a><br>

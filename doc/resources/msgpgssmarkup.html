@@ -1,15 +1,15 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
 <html>
 <head>
-<title>MHonArc Resources: DAYBEGIN</title>
+<title>MHonArc Resources: MSGPGSSMARKUP</title>
 </head>
 <body>
 
-<em><a href="../resources.html#daybegin">MHonArc Resource List</a></em> |
+<em><a href="../resources.html#msgpgssmarkup">MHonArc Resource List</a></em> |
 <a href="../mhonarc.html">TOC</a>
 
 <hr>
-<h1>DAYBEGIN</h1>
+<h1>MSGPGSSMARKUP</h1>
 
 <!-- *************************************************************** -->
 <hr>
@@ -18,22 +18,20 @@
 <dl>
 
 <dt><strong>Envariable</strong></dt>
-<dd><p>
-N/A
+<dd><p>N/A
 </p>
 </dd>
 
 <dt><strong>Element</strong></dt>
 <dd><p>
-<code>&lt;DAYBEGIN&gt;</code><br>
-<var>markup ...</var><br>
-<code>&lt;/DAYBEGIN&gt;</code><br>
+<code>&lt;MSGPGSSMARKUP&gt;</code><br>
+<var>markup...</var><br>
+<code>&lt;/MSGPGSSMARKUP&gt;</code><br>
 </p>
 </dd>
 
 <dt><strong>Command-line Option</strong></dt>
-<dd><p>
-N/A
+<dd><p>N/A
 </p>
 </dd>
 
@@ -43,23 +41,19 @@ N/A
 <hr>
 <h2>Description</h2>
 
-<p>DAYBEGIN defines the beginning markup of a day group
-in the main index if the
-<a href="sort.html">SORT</a>
-reosource is set.
-A day group is a group of messages all from the
-same day.
-</p>
-
-<p>Any message related resource variables available for the DAYBEGIN
-evaluate based on information from the first message in the group.
+<p>MSGPGSSMARKUP defines the markup that occurs at the <strong>very</strong>
+beginning of message pages.  This resource
+may be used to include any server-side processing markup that must
+occur before any HTML-related markup.
 </p>
 
 <!-- *************************************************************** -->
 <hr>
 <h2>Default Setting</h2>
 
-<p>Nil.
+<p>The value of the
+<a href="ssmarkup.html">SSMARKUP</a>
+resource.
 </p>
 
 <!-- *************************************************************** -->
@@ -71,16 +65,8 @@ evaluate based on information from the first message in the group.
 <th>Variable</th><th>Value</th>
 </tr>
 <tr valign=top>
-<td align=center><a name="A_ATTR" href="../rcvars.html#A_ATTR"><strong><code>$A_ATTR$</code></strong></a></td>
-<td>The <tt>NAME</tt> and <tt>HREF</tt> attributes to use in an anchor to link to the archived message. The <tt>NAME</tt> attribute links the messages to the index page.</td>
-</tr>
-<tr valign=top>
-<td align=center><a name="A_HREF" href="../rcvars.html#A_HREF"><strong><code>$A_HREF$</code></strong></a></td>
-<td>The <tt>HREF</tt> attribute to use in an anchor to link to the archived message.</td>
-</tr>
-<tr valign=top>
-<td align=center><a name="A_NAME" href="../rcvars.html#A_NAME"><strong><code>$A_NAME$</code></strong></a></td>
-<td>The <tt>NAME</tt> attribute to use in an anchor for messages to link to the index page.</td>
+<td align=center><a name="BUTTON" href="../rcvars.html#BUTTON"><strong><code>$BUTTON$</code></strong></a></td>
+<td>Button markup linking to a message.</td>
 </tr>
 <tr valign=top>
 <td align=center><a name="DATE" href="../rcvars.html#DATE"><strong><code>$DATE$</code></strong></a></td>
@@ -89,6 +75,10 @@ evaluate based on information from the first message in the group.
 <tr valign=top>
 <td align=center><a name="DDMMYYYY" href="../rcvars.html#DDMMYYYY"><strong><code>$DDMMYYYY$</code></strong></a></td>
 <td>Message date in dd/mm/yyyy format.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="DOCURL" href="../rcvars.html#DOCURL"><strong><code>$DOCURL$</code></strong></a></td>
+<td>URL to documentation.</td>
 </tr>
 <tr valign=top>
 <td align=center><a name="ENV" href="../rcvars.html#ENV"><strong><code>$ENV$</code></strong></a></td>
@@ -115,6 +105,10 @@ evaluate based on information from the first message in the group.
 <td>The human name of the person in the <tt>From:</tt> field of the message. If no human name is found, the username specified in the e-mail address is used.</td>
 </tr>
 <tr valign=top>
+<td align=center><a name="GMTDATE" href="../rcvars.html#GMTDATE"><strong><code>$GMTDATE$</code></strong></a></td>
+<td>Current GMT date.</td>
+</tr>
+<tr valign=top>
 <td align=center><a name="ICON" href="../rcvars.html#ICON"><strong><code>$ICON$</code></strong></a></td>
 <td>The context-type sensitive icon.</td>
 </tr>
@@ -123,8 +117,40 @@ evaluate based on information from the first message in the group.
 <td>The URL to the context-type sensitive icon.</td>
 </tr>
 <tr valign=top>
+<td align=center><a name="IDXFNAME" href="../rcvars.html#IDXFNAME"><strong><code>$IDXFNAME$</code></strong></a></td>
+<td>Filename of main index page.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="IDXLABEL" href="../rcvars.html#IDXLABEL"><strong><code>$IDXLABEL$</code></strong></a></td>
+<td>Label for main index page.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="IDXPREFIX" href="../rcvars.html#IDXPREFIX"><strong><code>$IDXPREFIX$</code></strong></a></td>
+<td>Prefix of filenames of main index pages.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="IDXSIZE" href="../rcvars.html#IDXSIZE"><strong><code>$IDXSIZE$</code></strong></a></td>
+<td>Max number of messages that may be listed in index page.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="IDXTITLE" href="../rcvars.html#IDXTITLE"><strong><code>$IDXTITLE$</code></strong></a></td>
+<td>The title of the main index page.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="LINK" href="../rcvars.html#LINK"><strong><code>$LINK$</code></strong></a></td>
+<td>Link markup linking to a message.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="LOCALDATE" href="../rcvars.html#LOCALDATE"><strong><code>$LOCALDATE$</code></strong></a></td>
+<td>Current local date.</td>
+</tr>
+<tr valign=top>
 <td align=center><a name="MMDDYYYY" href="../rcvars.html#MMDDYYYY"><strong><code>$MMDDYYYY$</code></strong></a></td>
 <td>Message date in mm/dd/yyyy format.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="MSG" href="../rcvars.html#MSG"><strong><code>$MSG$</code></strong></a></td>
+<td>Filename of message.</td>
 </tr>
 <tr valign=top>
 <td align=center><a name="MSGGMTDATE" href="../rcvars.html#MSGGMTDATE"><strong><code>$MSGGMTDATE$</code></strong></a></td>
@@ -159,8 +185,24 @@ evaluate based on information from the first message in the group.
 <td>Number of explicit follow-ups to the message.</td>
 </tr>
 <tr valign=top>
+<td align=center><a name="NUMOFMSG" href="../rcvars.html#NUMOFMSG"><strong><code>$NUMOFMSG$</code></strong></a></td>
+<td>Number of messages in the archive.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="NUMOFPAGES" href="../rcvars.html#NUMOFPAGES"><strong><code>$NUMOFPAGES$</code></strong></a></td>
+<td>Number of index pages.</td>
+</tr>
+<tr valign=top>
 <td align=center><a name="ORDNUM" href="../rcvars.html#ORDNUM"><strong><code>$ORDNUM$</code></strong></a></td>
 <td>The current listing number of the message.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="OUTDIR" href="../rcvars.html#OUTDIR"><strong><code>$OUTDIR$</code></strong></a></td>
+<td>Pathname of archive.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="PROG" href="../rcvars.html#PROG"><strong><code>$PROG$</code></strong></a></td>
+<td>Program name</td>
 </tr>
 <tr valign=top>
 <td align=center><a name="SUBJECT" href="../rcvars.html#SUBJECT"><strong><code>$SUBJECT$</code></strong></a></td>
@@ -169,6 +211,34 @@ evaluate based on information from the first message in the group.
 <tr valign=top>
 <td align=center><a name="SUBJECTNA" href="../rcvars.html#SUBJECTNA"><strong><code>$SUBJECTNA$</code></strong></a></td>
 <td>The subject text of the message without the anchor element.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="TIDXFNAME" href="../rcvars.html#TIDXFNAME"><strong><code>$TIDXFNAME$</code></strong></a></td>
+<td>Filename of thread index page.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="TIDXLABEL" href="../rcvars.html#TIDXLABEL"><strong><code>$TIDXLABEL$</code></strong></a></td>
+<td>Label for thread index page.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="TIDXPREFIX" href="../rcvars.html#TIDXPREFIX"><strong><code>$TIDXPREFIX$</code></strong></a></td>
+<td>Prefix of filenames of thread index pages.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="TIDXTITLE" href="../rcvars.html#TIDXTITLE"><strong><code>$TIDXTITLE$</code></strong></a></td>
+<td>Title of thread index.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="TLEVEL" href="../rcvars.html#TLEVEL"><strong><code>$TLEVEL$</code></strong></a></td>
+<td>Numeric level of message in thread, starting with 0.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="TSLICE" href="../rcvars.html#TSLICE"><strong><code>$TSLICE$</code></strong></a></td>
+<td>A <em>slice</em> of the thread listing relative to the current message.  Size of slice determined by the TSLICE resource.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="VERSION" href="../rcvars.html#VERSION"><strong><code>$VERSION$</code></strong></a></td>
+<td>Program version.</td>
 </tr>
 <tr valign=top>
 <td align=center><a name="YYYYMMDD" href="../rcvars.html#YYYYMMDD"><strong><code>$YYYYMMDD$</code></strong></a></td>
@@ -180,36 +250,14 @@ evaluate based on information from the first message in the group.
 <hr>
 <h2>Examples</h2>
 
-<p>The following example resource settings cause the main index
-to be sorted by date.  The listing will contain each different day
-followed by a sub-listing of the messages for that day:
+<p>None.
 </p>
-
-<pre>
-<b>&lt;<a href="sort.html">Sort</a>&gt;</b>
-<b>&lt;<a href="msggmtdatefmt.html">MsgGMTDateFmt</a>&gt;</b>
-%B %d, %Y
-<b>&lt;/MsgGMTDateFmt&gt;</b>
-
-<b>&lt;DayBegin&gt;</b>
-&lt;li&gt;&lt;strong&gt;<a href="#MSGGMTDATE">$MSGGMTDATE$</a>&lt;/strong&gt;
-&lt;ul&gt;
-<b>&lt;/DayBegin&gt;</b>
-
-<b>&lt;<a href="dayend.html">DayEnd</a>></b>
-&lt;/ul&gt;&lt;/li&gt;
-<b>&lt;/DayEnd&gt;</b>
-
-<b>&lt;<a href="litemplate.html">LITemplate</a>&gt;</b>
-&lt;li&gt;<a href="#SUBJECT">$SUBJECT$</a>, <a href="#FROMNAME">$FROMNAME$</a>&lt;/li&gt;
-<b>&lt;/LITemplate></b>
-</pre>
 
 <!-- *************************************************************** -->
 <hr>
 <h2>Version</h2>
 
-<p>2.0
+<p>2.5.8
 </p>
 
 <!-- *************************************************************** -->
@@ -217,19 +265,21 @@ followed by a sub-listing of the messages for that day:
 <h2>See Also</h2>
 
 <p>
-<a href="dayend.html">DAYEND</a>,
-<a href="sort.html">SORT</a>,
-<a href="uselocaltime.html">USELOCALTIME</a>
+<a href="idxpgssmarkup.html">IDXPGSSMARKUP</a>,
+<a href="ssmarkup.html">SSMARKUP</a>,
+<a href="tidxpgssmarkup.html">TIDXPGSSMARKUP</a>
+</p>
+<p>
+<a href="../layout.html"><strong>Page Layout</strong></a>
 </p>
 
 <!-- *************************************************************** -->
 <hr>
 <address>
-$Date: 2002/06/29 00:57:07 $ <br>
+$Date: 2002/06/27 00:06:14 $<br>
 <img align="top" src="../monicon.png" alt="">
-<a href="http://www.mhonarc.org/"
-><strong>MHonArc</strong></a><br>
-Copyright &#169; 1997-1999, <a href="http://www.earlhood.com/"
+<a href="http://www.mhonarc.org/"><strong>MHonArc</strong></a><br>
+Copyright &#169; 2002, <a href="http://www.earlhood.com/"
 >Earl Hood</a>, <a href="mailto:mhonarc@mhonarc.org"
 >mhonarc@mhonarc.org</a><br>
 </address>

@@ -24,14 +24,14 @@
 </dd>
 
 <dt><strong>Element</strong></dt>
-<dd><p><br>
+<dd><p>
 <code>&lt;SPAMMODE&gt;</code><br>
 <code>&lt;NOSPAMMODE&gt;</code><br>
 </p>
 </dd>
 
 <dt><strong>Command-line Option</strong></dt>
-<dd><p><br>
+<dd><p>
 <code>-spammode</code><br>
 <code>-nospammode</code>
 </p>
@@ -50,28 +50,38 @@ following default resource values are affected:
 </p>
 <dl>
 <dt><a href="litemplate.html">LITEMPLATE</a></dt>
-<dd><a href="../rcvars.html#FROMNAME"><tt>$FROMNAME$</tt></a> is used
-instead of <a href="../rcvars.html#FROM"><tt>$FROM$</tt></a>.</dd>
+<dd><p><a href="../rcvars.html#FROMNAME"><tt>$FROMNAME$</tt></a> is used
+instead of <a href="../rcvars.html#FROM"><tt>$FROM$</tt></a>.</p></dd>
 <dt><a href="msgpgbegin.html">MSGPGBEGIN</a></dt>
-<dd>The <tt>&lt;LINK REV="made" ...&gt;</tt> is removed.</dd>
+<dd><p>The <tt>&lt;link rev="made" ...&gt;</tt> is removed.</p></dd>
 <dt><a href="foluplitxt.html">FOLUPLITXT</a></dt>
-<dd><a href="../rcvars.html#FROMNAME"><tt>$FROMNAME$</tt></a> is used
-instead of <a href="../rcvars.html#FROM"><tt>$FROM$</tt></a>.</dd>
+<dd><p><a href="../rcvars.html#FROMNAME"><tt>$FROMNAME$</tt></a> is used
+instead of <a href="../rcvars.html#FROM"><tt>$FROM$</tt></a>.</p></dd>
 <dt><a href="refslitxt.html">REFSLITXT</a></dt>
-<dd><a href="../rcvars.html#FROMNAME"><tt>$FROMNAME$</tt></a> is used
-instead of <a href="../rcvars.html#FROM"><tt>$FROM$</tt></a>.</dd>
+<dd><p><a href="../rcvars.html#FROMNAME"><tt>$FROMNAME$</tt></a> is used
+instead of <a href="../rcvars.html#FROM"><tt>$FROM$</tt></a>.</p></dd>
 <dt><a href="addressmodifycode.html">ADDRESSMODIFYCODE</a></dt>
-<dd>Is defined as
+<dd><p>Is defined as
 "<tt>s|([\!\%\w\.\-+=/]+@)([\w\.\-]+)|$1.('x' x length($2))|ge"</tt>
 (this has the effect of preserving the local-part of the address and
-complete masking out the domain portion).</dd>
+complete masking out the domain portion).</p></dd>
 <dt><a href="mailtourl.html">MAILTOURL</a></dt>
-<dd>Is defined as
-"<tt>mailto:<a href="../rcvars.html#TOADDRNAME">$TOADDRNAME$</a>@DOMAIN.HIDDEN</tt>"</dd>
+<dd><p>Is defined as
+"<tt>mailto:<a href="../rcvars.html#TOADDRNAME">$TOADDRNAME$</a>@DOMAIN.HIDDEN</tt>"</p></dd>
 </dl>
-<p>Note, a user defined setting of an above resource will override
-any effects that SPAMMODE has on the resource.
+
+<table border=0 cellpadding=4>
+<tr valign=top>
+<td><strong>NOTE</strong></td>
+<td><p>A user defined setting of an above resource will override
+any effects that SPAMMODE has on the resource.  SPAMMODE is mainly
+a convenience to set the above resources to default values that
+hide email addresses.  The same effect can be achieved by explicitly
+modifying each resource.
 </p>
+</td>
+</tr>
+</table>
 
 <!-- *************************************************************** -->
 <hr>
@@ -117,7 +127,7 @@ any effects that SPAMMODE has on the resource.
 <!-- *************************************************************** -->
 <hr>
 <address>
-$Date: 2002/04/01 20:37:31 $ <br>
+$Date: 2002/06/28 15:34:56 $ <br>
 <img align="top" src="../monicon.png" alt="">
 <a href="http://www.mhonarc.org/"
 ><strong>MHonArc</strong></a><br>

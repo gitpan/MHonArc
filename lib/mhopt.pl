@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      $Id: mhopt.pl,v 2.27 2002/06/07 17:45:09 ehood Exp $
+##      $Id: mhopt.pl,v 2.29 2002/06/28 03:28:10 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -378,12 +378,16 @@ sub get_resources {
 		print STDOUT "Updating database $DbVERSION data ...\n"
 		    unless $QUIET;
 		&update_data_1_to_2();
+		&update_data_2_1_to_later();
 		&update_data_2_4_to_later();
 	    }
 	    ## Check for 2.[0-4] archive
 	    if ($DbVERSION =~ /^2\.[0-4]\./) {
 		print STDOUT "Updating database $DbVERSION data ...\n"
 		    unless $QUIET;
+		if ($DbVERSION =~ /^2\.[01]\./) {
+		    &update_data_2_1_to_later();
+		}
 		&update_data_2_4_to_later();
 	    }
 
@@ -449,6 +453,8 @@ sub get_resources {
 	require 'readmail.pl' || die("ERROR: Unable to require readmail.pl\n");
 	$readmail::FormatHeaderFunc = \&mhonarc::htmlize_header;
 	$MHeadCnvFunc = \&readmail::MAILdecode_1522_str;
+	readmail::MAILset_alternative_prefs(@MIMEAltPrefs);
+	$IsDefault{'MIMEALTPREFS'} = !scalar(@MIMEAltPrefs);
     }
 
     ## Get other command-line options
@@ -673,6 +679,11 @@ sub get_resources {
     delete($ContentType{''});
     delete($Refs{''});
 
+    # update DOCURL if default old value
+    if ($DOCURL eq 'http://www.oac.uci.edu/indiv/ehood/mhonarc.html') {
+	$DOCURL = 'http://www.mhonarc.org/';
+    }
+
     ## Check if printing process time
     $TIME = $opt{'time'};
 
@@ -737,9 +748,22 @@ sub update_data_1_to_2 {
 }
 
 ##---------------------------------------------------------------------------
+##	Update 2.1, or earlier, data.
+##
+sub update_data_2_1_to_later {
+    # we can preserve filter arguments
+    if (defined(%main::MIMEFiltersArgs)) {
+	warn qq/         preserving MIMEARGS...\n/;
+	%readmail::MIMEFiltersArgs = %main::MIMEFiltersArgs;
+	$IsDefault{'MIMEARGS'} = 0;
+    }
+}
+
+##---------------------------------------------------------------------------
 ##	Update 2.4, or earlier, data.
 ##
 sub update_data_2_4_to_later {
+    # convert Perl 4 style data to Perl 5 style
     my($index, $value);
     while (($index, $value) = each(%Refs)) {
 	next  if ref($value);

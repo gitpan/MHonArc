@@ -37,14 +37,14 @@ while (<>) {
 </dd>
 
 <dt><strong>Element</strong></dt>
-<dd><p><br>
+<dd><p>
 <code>&lt;$Name&gt;</code><br>
 <code>&lt;/$Name&gt;</code><br>
 </p>
 </dd>
 
 <dt><strong>Command-line Option</strong></dt>
-<dd><p><br>
+<dd><p>
 <code>-$name </code>
 </p>
 </dd>

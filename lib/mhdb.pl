@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhdb.pl,v 2.19 2002/06/07 17:45:09 ehood Exp $
+##	$Id: mhdb.pl,v 2.21 2002/06/28 03:28:10 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -107,6 +107,10 @@ if (%readmail::MIMEExcs) {
 		    \%readmail::MIMEExcs)
 		    unless $IsDefault{'MIMEEXCS'};
 }
+unless ($IsDefault{'MIMEALTPREFS'}) {
+    print_var(\*DB,'MIMEAltPrefs',
+		    \@MIMEAltPrefs);
+}
 
 print_var(\*DB,'DateFields', \@DateFields) unless $IsDefault{'DATEFIELDS'};
 print_var(\*DB,'FieldOrder', \@FieldOrder);
@@ -167,6 +171,9 @@ print_var(\*DB,'UseLocalTime',   \$UseLocalTime);
 print_var(\*DB,'UsingLASTPG',    \$UsingLASTPG);
 print_var(\*DB,'VarExp',    	 \$VarExp);
 
+print_var(\*DB,'MSGPGSSMARKUP',  \$MSGPGSSMARKUP);
+print_var(\*DB,'IDXPGSSMARKUP',  \$IDXPGSSMARKUP);
+print_var(\*DB,'TIDXPGSSMARKUP', \$TIDXPGSSMARKUP);
 print_var(\*DB,'SSMARKUP',       \$SSMARKUP);
 print_var(\*DB,'SpamMode',       \$SpamMode);
 

@@ -23,8 +23,7 @@
 </dd>
 
 <dt><strong>Element</strong></dt>
-<dd><p><br>
-<code>&lt;TTOPBEGIN&gt;<br></code>
+<dd><p><code>&lt;TTOPBEGIN&gt;<br></code>
 <var>markup ...</var><br>
 <code>&lt;/TTOPBEGIN&gt;<br></code>
 </p>
@@ -52,8 +51,8 @@ for the thread and markup for the root message of the thread.
 
 <pre>
 <b>&lt;TTopBegin&gt;</b>
-&lt;LI>&lt;STRONG><a href="#SUBJECT">$SUBJECT$</a>&lt;/STRONG>,
-&lt;EM><a href="#FROMNAME">$FROMNAME$</a>&lt;/EM>
+&lt;li&gt;&lt;strong&gt;<a href="#SUBJECT">$SUBJECT$</a>&lt;/strong&gt;,
+&lt;em&gt;<a href="#FROMNAME">$FROMNAME$</a>&lt;/em&gt;
 <b>&lt;/TTopBegin&gt;</b>
 </pre>
 
@@ -197,45 +196,45 @@ Unique messages are show in normal text.
 <pre>
 &lt;!--    TTOPBEGIN is the markup for the beginning of a thread, and the
         first message in a thread.
-  -->
+  --&gt;
 <b>&lt;TTOPBEGIN&gt;</b>
-&lt;p>
-&lt;li>&lt;a <a href="#A_NAME">$A_NAME$</a>>&lt;strong><a href="#SUBJECTNA">$SUBJECTNA$</a>&lt;/strong>&lt;/a>&lt;br>
-&lt;a <a href="#A_HREF">$A_HREF$</a>><a href="#FROMNAME">$FROMNAME$</a>&lt;/a>
+&lt;p&gt;
+&lt;li&gt;&lt;a <a href="#A_NAME">$A_NAME$</a>&gt;&lt;strong&gt;<a href="#SUBJECTNA">$SUBJECTNA$</a>&lt;/strong&gt;&lt;/a&gt;&lt;br&gt;
+&lt;a <a href="#A_HREF">$A_HREF$</a>&gt;<a href="#FROMNAME">$FROMNAME$</a>&lt;/a&gt;
 <b>&lt;/TTOPBEGIN></b>
  
 &lt;!--    <a href="ttopend.html">TTOPEND</a> is the markup for closing a main thread.
-  -->
+  --&gt;
 <b>&lt;<a href="ttopend.html">TTOPEND</a>></b>
-&lt;/li>
-&lt;/p>
+&lt;/li&gt;
+&lt;/p&gt;
 <b>&lt;/TTOPEND></b>
  
 &lt;!--    <a href="tlitxt.html">TLITXT</a> is the markup for a message *within* a thread
-  -->
+  --&gt;
 <b>&lt;<a href="tlitxt.html">TLITXT</a>></b>
-&lt;li>&lt;a <a href="#A_ATTR">$A_ATTR$</a>><a href="#FROMNAME">$FROMNAME$</a>&lt;/a>
+&lt;li&gt;&lt;a <a href="#A_ATTR">$A_ATTR$</a>&gt;<a href="#FROMNAME">$FROMNAME$</a>&lt;/a&gt;
 <b>&lt;/TLITXT></b>
  
 <b>&lt;<a href="tliend.html">TLIEND</a>></b>
-&lt;/li>
+&lt;/li&gt;
 <b>&lt;/TLIEND></b>
  
 &lt;!--    <a href="tsingletxt.html">TSINGLETXT</a> is the markup for a message not in a thread.  I.e.
         it does not start a thread or is part of a thread.
-  -->
+  --&gt;
 <b>&lt;<a href="tsingletxt.html">TSINGLETXT</a>></b>
-&lt;li>&lt;a <a href="#A_NAME">$A_NAME$</a>><a href="#SUBJECTNA">$SUBJECTNA$</a>&lt;/a>,
-&lt;a <a href="#A_HREF">$A_HREF$</a>><a href="#FROMNAME">$FROMNAME$</a>&lt;/a>
-&lt;/li>
+&lt;li&gt;&lt;a <a href="#A_NAME">$A_NAME$</a>&gt;<a href="#SUBJECTNA">$SUBJECTNA$</a>&lt;/a&gt;,
+&lt;a <a href="#A_HREF">$A_HREF$</a>&gt;<a href="#FROMNAME">$FROMNAME$</a>&lt;/a&gt;
+&lt;/li&gt;
 <b>&lt;/TSINGLETXT></b>
  
 &lt;!--    <a href="tsubjectbeg.html">TSUBJECTBEG</a> is any markup at the beginning of a sub-thread that
         is based on the subject of the message.  We just put in a
 	comment declaration so the reader will see nothing.
-  -->
+  --&gt;
 <b>&lt;<a href="tsubjectbeg.html">TSUBJECTBEG</a>></b>
-&lt;!-- Possible follow-ups -->
+&lt;!-- Possible follow-ups --&gt;
 <b>&lt;/TSUBJECTBEG></b>
 </pre>
 
@@ -268,7 +267,7 @@ index hyperlinks in messages to behave properly.
 <!-- *************************************************************** -->
 <hr>
 <address>
-$Date: 2002/04/01 20:46:17 $ <br>
+$Date: 2002/06/29 00:57:08 $ <br>
 <img align="top" src="../monicon.png" alt="">
 <a href="http://www.mhonarc.org/"><strong>MHonArc</strong></a><br>
 Copyright &#169; 1997-1998, <a href="http://www.earlhood.com/">Earl Hood</a>, <a href="mailto:mhonarc@mhonarc.org">mhonarc@mhonarc.org</a><br>

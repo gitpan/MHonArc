@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhrcfile.pl,v 2.21 2002/06/07 17:45:09 ehood Exp $
+##	$Id: mhrcfile.pl,v 2.24 2002/06/29 00:57:08 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -146,13 +146,6 @@ sub read_resource_file {
 	if ($elem eq 'docurl') {		# Doc URL
 	    if ($line = &get_elem_last_line($handle, $elem)) {
 		$DOCURL = $line;
-	    }
-	    last FMTSW;
-	}
-	if ($elem eq 'dbfile') {		# Database file
-	    if ($line = &get_elem_last_line($handle, $elem)) {
-		$line =~ s/\s//g;
-		$DBFILE = $line;
 	    }
 	    last FMTSW;
 	}
@@ -415,6 +408,16 @@ sub read_resource_file {
 	if ($elem eq 'mhpattern') {		# File pattern MH-like dirs
 	    if ($line = &get_elem_last_line($handle, $elem)) {
 		$MHPATTERN = $line;
+	    }
+	    last FMTSW;
+	}
+	if ($elem eq 'mimealtprefs') {		# Mime alternative prefs
+	    $IsDefault{'MIMEALTPREFS'} = 0;
+	    @MIMEAltPrefs = ();
+	    while (defined($line = <$handle>)) {
+		last  if $line =~ /^\s*<\/mimealtprefs\s*>/i;
+		$line =~ s/\s//g;
+		push(@MIMEAltPrefs, lc($line))  if $line;
 	    }
 	    last FMTSW;
 	}
@@ -764,6 +767,18 @@ sub read_resource_file {
 	}
 	if ($elem eq 'ssmarkup') {		# Initial page markup
 	    $SSMARKUP = &get_elem_content($handle, $elem, $chop);
+	    last FMTSW;
+	}
+	if ($elem eq 'msgpgssmarkup') {		# Initial message page markup
+	    $MSGPGSSMARKUP = &get_elem_content($handle, $elem, $chop);
+	    last FMTSW;
+	}
+	if ($elem eq 'idxpgssmarkup') {		# Initial index page markup
+	    $IDXPGSSMARKUP = &get_elem_content($handle, $elem, $chop);
+	    last FMTSW;
+	}
+	if ($elem eq 'tidxpgssmarkup') {	# Initial thread idx page markup
+	    $TIDXPGSSMARKUP = &get_elem_content($handle, $elem, $chop);
 	    last FMTSW;
 	}
 	if ($elem eq 'subjectarticlerxp') {	# Regex for language articles

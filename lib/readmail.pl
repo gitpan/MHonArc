@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: readmail.pl,v 2.17 2002/05/31 02:54:10 ehood Exp $
+##	$Id: readmail.pl,v 2.18 2002/06/28 03:28:10 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -42,6 +42,17 @@
 ##---------------------------------------------------------------------------##
 
 package readmail;
+
+###############################################################################
+##	Private Globals							     ##
+###############################################################################
+
+my @_MIMEAltPrefs = ();
+my %_MIMEAltPrefs = ();
+
+###############################################################################
+##	Public Globals							     ##
+###############################################################################
 
 ##---------------------------------------------------------------------------##
 ##	Constants
@@ -540,14 +551,9 @@ sub MAILread_body {
 			next;
 		    }
 		    $found = 1;
-		    if ($isalt) {
-			# if alternative, do things in reverse
-			unshift(@parts, substr($$body, 0, $pos));
-			$parts[0] =~ s/^\r//;
-		    } else {
-			push(@parts, substr($$body, 0, $pos));
-			$parts[$#parts] =~ s/^\r//;
-		    }
+		    push(@parts, substr($$body, 0, $pos));
+		    $parts[$#parts] =~ s/^\r//;
+
 		    # prune out part data just grabbed
 		    substr($$body, 0, $pos+$blen) = "";
 
@@ -560,7 +566,7 @@ sub MAILread_body {
 		}
 		if ($found) {
 		    # discard front-matter
-		    if ($isalt) { pop(@parts); } else { shift(@parts); }
+		    shift(@parts);
 		} else {
 		    # no boundary separators in message!
 		    warn qq/Warning: No boundaries found in message body\n/;
@@ -580,18 +586,36 @@ sub MAILread_body {
 
 	    ## Process parts
 	    my(@entity) = ();
-	    my($cid, $href);
+	    my($cid, $href, $pctype);
+	    my %alt_exc = ( );
+	    my $have_alt_prefs = $isalt && scalar(@_MIMEAltPrefs);
 	    @parts = \(@parts);
 	    while (defined($part = shift(@parts))) {
 		$href = { };
 		$partfields = $href->{'fields'} = (MAILread_header($part))[0];
 		$href->{'body'} = $part;
 		$href->{'filtered'} = 0;
+		$pctype = extract_ctype(
+		    $partfields->{'content-type'}, $ctype);
+
+		## check alternative preferences
+		if ($have_alt_prefs) {
+		  next  if ($alt_exc{$pctype});
+		  my $pos = $_MIMEAltPrefs{$pctype};
+		  if (defined($pos)) {
+		      for (++$pos; $pos <= $#_MIMEAltPrefs; ++$pos) {
+			  $alt_exc{$_MIMEAltPrefs[$pos]} = 1;
+		      }
+		  }
+		}
 
 		## only add to %Cid if not excluded
-		if (!defined($partfields->{'content-type'}) ||
-			!&MAILis_excluded($partfields->{'content-type'}[0])) {
-		    push(@entity, $href);
+		if (!&MAILis_excluded($pctype)) {
+		    if ($isalt) {
+			unshift(@entity, $href);
+		    } else {
+			push(@entity, $href);
+		    }
 		    $cid = $partfields->{'content-id'}[0] ||
 			   $partfields->{'message-id'}[0];
 		    if (defined($cid)) {
@@ -629,7 +653,7 @@ sub MAILread_body {
 			    $isalt);
 
 		## Only use last filterable part in alternate
-		if ($subtype =~ /alternative/) {
+		if ($isalt) {
 		    $ret = shift @array;
 		    if ($ret) {
 			push(@files, @array);
@@ -648,7 +672,7 @@ sub MAILread_body {
 	    }
 
 	    ## Check if multipart/alternative, and no success
-	    if (!$ret && ($subtype =~ /alternative/)) {
+	    if (!$ret && $isalt) {
 		warn qq|Warning: No recognized part in multipart/alternative; |,
 		     qq|will try to decode last part\n|;
 		$entity = $entity[0];
@@ -798,9 +822,7 @@ sub MAILread_file_header {
 ##	specified to be excluded.
 ##
 sub MAILis_excluded {
-    my $content = $_[0] || 'text/plain';
-    my($ctype) = $content =~ m|^\s*([\w\-\./]+)|;
-    $ctype =~ tr/A-Z/a-z/;
+    my $content = lc($_[0]) || 'text/plain';
     if ($MIMEExcs{$ctype}) {
 	return 1;
     }
@@ -928,6 +950,31 @@ sub MAILparse_parameter_str {
     $parm;
 }
 
+##---------------------------------------------------------------------------##
+##	MAILset_alternative_prefs() is used to set content-type
+##	preferences for multipart/alternative entities.  The list
+##	specified will supercede the prefered format as denoted by
+##	the ording of parts in the entity.
+##
+##	A content-type listed earlier in the array will be prefered
+##	over one later.  For example:
+##
+##	  MAILset_alternative_prefs('text/plain', 'text/html');
+##
+##	States that if a multipart/alternative entity contains a
+##	text/plain part and a text/html part, the text/plain part will
+##	be prefered over the text/html part.
+##
+sub MAILset_alternative_prefs {
+    @_MIMEAltPrefs = map { lc } @_;
+    %_MIMEAltPrefs = ();
+    my $i = 0;
+    my $ctype;
+    foreach $ctype (@_MIMEAltPrefs) {
+	$_MIMEAltPrefs{$ctype} = $i++;
+    }
+}
+
 ###############################################################################
 ##	Private Routines
 ###############################################################################
@@ -1002,6 +1049,26 @@ sub get_filter_args {
 	last  if defined($args) && ($args ne '');
     }
     $args;
+}
+
+##---------------------------------------------------------------------------##
+##	extract_ctype() extracts the content-type specification from
+##	the beginning of given string.
+##
+sub extract_ctype {
+    if (!defined($_[0]) ||
+	  (ref($_[0]) && ($_[0][0] !~ /\S/)) ||
+	  ($_[0] !~ /\S/)) {
+	return 'message/rfc822'
+	    if (defined($_[1]) && ($_[1] eq 'multipart/digest'));
+	return 'text/plain';
+    }
+    if (ref($_[0])) {
+	$_[0][0] =~ m|^\s*([\w\-\./]+)|;
+	return lc($1);
+    }
+    $_[0] =~ m|^\s*([\w\-\./]+)|;
+    lc($1);
 }
 
 ##---------------------------------------------------------------------------##

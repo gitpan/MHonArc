@@ -42,6 +42,7 @@ appearence you desire for your mail archives.
 <li><small><a href="#msgpglayout">Message page resource layout</a></small>
 <li><small><a href="#msgheaderlayout">Converted message header</a></small>
 <li><small><a href="#msgbodylayout">Converted message body</a></small>
+<li><small><a href="#tslice">Thread slices</a></small>
 </ul>
 </ul>
 <!--X-TOC-End-->
@@ -92,6 +93,7 @@ main index is commonly referred to as the date index.
 <h3><a name="mainidxlayout">Main index page resource layout</a></h3>
 
 <pre>
+<a href="resources/idxpgssmarkup.html"><b>IDXPGSSMARKUP</b></a>
 <a href="resources/idxpgbegin.html"><b>IDXPGBEGIN</b></a>
     <a href="resources/listbegin.html"><b>LISTBEGIN</b></a>
 	<b>(</b><a href="resources/authorbegin.html"><b>AUTHORBEGIN</b></a> <b>|</b>
@@ -125,6 +127,7 @@ flexibility for customizing thread listing layout.
 <h3><a name="tidxlayout">Thread index page resource layout</a></h3>
 
 <pre>
+<a href="resources/tidxpgssmarkup.html"><b>TIDXPGSSMARKUP</b></a>
 <a href="resources/tidxpgbegin.html"><b>TIDXPGBEGIN</b></a>
     <a href="resources/thead.html"><b>THEAD</b></a>
 	<b>((</b><a href="resources/ttopbegin.html"><b>TTOPBEGIN</b></a>
@@ -175,6 +178,7 @@ to HTML and archive navigational links.
 <h3><a name="msgpglayout">Message page resource layout</a></h3>
 
 <pre>
+<a href="resources/msgpgssmarkup.html"><b>MSGPGSSMARKUP</b></a>
 <a href="resources/msgpgbegin.html"><b>MSGPGBEGIN</b></a>
     <a href="resources/msghead.html"><b>MSGHEAD</b></a>
     <a href="resources/toplinks.html"><b>TOPLINKS</b></a>
@@ -253,6 +257,54 @@ See the <a href="resources/mimefilters.html">MIMEFILTERS</a> resource
 page for more information.
 </p>
 
+<h3><a name="tslice">Thread slices</a></h3>
+
+<p>MHonArc supports the ability to include thread listings on messages
+pages via the
+<a href="rcvars.html#TSLICE"><tt>$TSLICE$</tt></a> resource variable.
+The formatting of the <tt>$TSLICE$</tt> resource variable is controled
+by the following resources:
+<a href="resources/tslicebeg.html">TSLICEBEG</a>,
+<a href="resources/tslicecontbeg.html">TSLICECONTBEG</a>,
+<a href="resources/tslicecontend.html">TSLICECONTEND</a>,
+<a href="resources/tsliceend.html">TSLICEEND</a>,
+<a href="resources/tsliceindentbeg.html">TSLICEINDENTBEG</a>,
+<a href="resources/tsliceindentend.html">TSLICEINDENTEND</a>,
+<a href="resources/tsliceliend.html">TSLICELIEND</a>,
+<a href="resources/tsliceliendcur.html">TSLICELIENDCUR</a>,
+<a href="resources/tslicelinone.html">TSLICELINONE</a>,
+<a href="resources/tslicelinoneend.html">TSLICELINONEEND</a>,
+<a href="resources/tslicelitxt.html">TSLICELITXT</a>,
+<a href="resources/tslicelitxtcur.html">TSLICELITXTCUR</a>,
+<a href="resources/tslicesingletxt.html">TSLICESINGLETXT</a>,
+<a href="resources/tslicesingletxtcur.html">TSLICESINGLETXTCUR</a>,
+<a href="resources/tslicesubjectbeg.html">TSLICESUBJECTBEG</a>,
+<a href="resources/tslicesubjectend.html">TSLICESUBJECTEND</a>,
+<a href="resources/tslicesublistbeg.html">TSLICESUBLISTBEG</a>,
+<a href="resources/tslicesublistend.html">TSLICESUBLISTEND</a>,
+<a href="resources/tslicetopbeg.html">TSLICETOPBEG</a>,
+<a href="resources/tslicetopbegcur.html">TSLICETOPBEGCUR</a>,
+<a href="resources/tslicetopend.html">TSLICETOPEND</a>, and
+<a href="resources/tslicetopendcur.html">TSLICETOPENDCUR</a>
+</p>
+
+<p>The structure of the resources parallels the thread resource
+layout structure described for the <a href="#threadidxpg">thread
+index page</a>, and the above thread slice resources will default to
+the corresponding non-tslice resources, allowing you to provide a
+consistent look to all thread listings without having to define two
+sets of resources.
+</p>
+
+<p>One key difference to the <tt>TSLICE</tt>* resources is the ability
+to customize the look for current message item in the
+the slice listing.  I.e.  You can actually highlight, grey-out, etc,
+the current message to give the reader a visual cue of where they are
+in the thread.  See
+<a href="resources/tslicetopbegcur.html">TSLICETOPBEGCUR</a> for
+an example.
+</p>
+
 <hr>
 <!--X-NavButtons-Start-->
 <table width="100%">
@@ -263,7 +315,7 @@ page for more information.
 <!-- ******************************************************************** -->
 <HR>
 <address>
-$Date: 2002/06/07 17:40:40 $ <br>
+$Date: 2002/06/27 00:06:14 $ <br>
 <img align="top" src="monicon.png" alt="">
 <a href="http://www.mhonarc.org"
 ><strong>MHonArc</strong></a><br>

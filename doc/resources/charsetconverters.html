@@ -23,7 +23,7 @@
 </dd>
 
 <dt><strong>Element</strong></dt>
-<dd><p><br>
+<dd><p>
 <code>&lt;CHARSETCONVERTERS&gt;</code><br>
 <var>charset-filter-specification</var><br>
 <code>&lt;/CHARSETCONVERTERS&gt;</code><br>
@@ -76,17 +76,6 @@ source file is optional if the routine is known to be define in
 an already listed source file.
 </p>
 
-<table border=0 cellpadding=4>
-<tr valign=top>
-<td><strong>NOTE</strong></td>
-<td><p>For backwards compatibility, the values of a converter specification
-can be separated with a colon, "<tt>:</tt>".  However, if you use a colon,
-package qualification of a function must use Perl 4 syntax.
-</p>
-</td>
-</tr>
-</table>
-
 <p>There are some special character set specifications.  They are
 as follows:
 </p>
@@ -127,9 +116,9 @@ the characters set is the native character set for the system.
 <tr valign=top>
 <td><strong><font color=red>WARNING</font></strong></td>
 <td><p>If the decoded data contains the characters '&lt;', '&gt;',
-and '&amp', this may conflict with HTML markup.  See
+and '&amp;', this may conflict with HTML markup.  See
 <a href="decodeheads.html">DECODEHEADS</a>
-where "-decode-" can be used.
+when "-decode-" can be used.
 </td>
 </tr>
 </table>
@@ -227,7 +216,7 @@ iso-8859-1;-decode-
 <!-- *************************************************************** -->
 <hr>
 <address>
-$Date: 2002/04/01 20:37:30 $ <br>
+$Date: 2002/06/29 00:57:07 $ <br>
 <img align="top" src="../monicon.png" alt="">
 <a href="http://www.mhonarc.org/"><strong>MHonArc</strong></a><br>
 Copyright &#169; 1997-2001, <a href="http://www.earlhood.com/">Earl Hood</a>, <a href="mailto:mhonarc@mhonarc.org">mhonarc@mhonarc.org</a><br>

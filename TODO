@@ -9,8 +9,6 @@ Items are in no particular order:
 
 => Enhance locale support, especially for message sorting.
 
-=> Provide preference configuration for multipart/alternative data.
-
 => Add resource to disable use of MD5 if no message-id.
 
 => Generalize message page layout so converted header and body can
@@ -83,4 +81,4 @@ Items are in no particular order:
    Should be configurable?
 
 ===========================================================================
-$Id: TODO,v 1.20 2002/06/07 17:47:33 ehood Exp $
+$Id: TODO,v 1.21 2002/06/28 03:28:09 ehood Exp $

@@ -23,7 +23,7 @@
 </dd>
 
 <dt><strong>Element</strong></dt>
-<dd><p><br>
+<dd><p>
 <code>&lt;TNEXTLINK&gt;<br></code>
 <var>markup ...</var><br>
 <code>&lt;/TNEXTLINK&gt;<br></code>
@@ -60,9 +60,9 @@ value of <code>$LINK(TNEXT)$</code> when there is no next message.
 
 <pre>
 <b>&lt;TNextLink&gt;</b>
-&lt;LI>Next by Thread:
-&lt;STRONG>&lt;A HREF="<a href="#MSG">$MSG(TNEXT)$</a>"><a href="#SUBJECT">$SUBJECT(TNEXT)$</a>&lt;/A>&lt;/STRONG>
-&lt;/LI>
+&lt;li&gt;Next by Thread:
+&lt;strong&gt;&lt;a href="<a href="#MSG">$MSG(TNEXT)$</a>"&gt;<a href="#SUBJECT">$SUBJECT(TNEXT)$</a>&lt;/a&gt;&lt;/strong&gt;
+&lt;/li&gt;
 <b>&lt;/TNextLink&gt;</b>
 </pre>
 
@@ -266,10 +266,10 @@ add the author of the next message:
 
 <pre>
 <b>&lt;TNextLink&gt;</b>
-&lt;LI>Next by Thread:
-&lt;STRONG>&lt;A HREF="<a href="#MSG">$MSG(TNEXT)$</a>"><a href="#SUBJECT">$SUBJECT(TNEXT)$</a>&lt;/A>&lt;/STRONG>,
-&lt;EM><a href="#FROMNAME">$FROMNAME(TNEXT)$</a>&lt;/EM>
-&lt;/LI>
+&lt;li&gt;Next by Thread:
+&lt;strong&gt;&lt;a href="<a href="#MSG">$MSG(TNEXT)$</a>"&gt;<a href="#SUBJECT">$SUBJECT(TNEXT)$</a>&lt;/a&gt;&lt;/strong&gt;,
+&lt;em&gt;<a href="#FROMNAME">$FROMNAME(TNEXT)$</a>&lt;/em&gt;
+&lt;/li&gt;
 <b>&lt;/TNextLink&gt;</b>
 </pre>
 
@@ -294,7 +294,7 @@ add the author of the next message:
 <!-- *************************************************************** -->
 <hr>
 <address>
-$Date: 2002/04/01 20:46:16 $ <br>
+$Date: 2002/06/29 00:57:07 $ <br>
 <img align="top" src="../monicon.png" alt="">
 <a href="http://www.mhonarc.org/"><strong>MHonArc</strong></a><br>
 Copyright &#169; 1997-1998, <a href="http://www.earlhood.com/">Earl Hood</a>, <a href="mailto:mhonarc@mhonarc.org">mhonarc@mhonarc.org</a><br>
