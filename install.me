@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) install.me 1.12 99/06/25 16:45:29
+##	@(#) install.me 1.13 99/07/13 01:00:07
 ##  Author:
 ##      Earl Hood, ehood@pobox.com
 ##  Summary:
@@ -419,15 +419,16 @@ my %OptValues	= ();
 	}
     }
     if ($doman) {
-	my $sect;
+	my($sect, $msubdir);
 	print STDOUT qq(Installing manpages to "$OptValues{'manpath'}":\n);
 	if (create_dir($OptValues{'manpath'}, 1) <= 0) { die "\n"; }
 	foreach (@{$Files{'man'}}) {
 	    print STDOUT "    $_ => ";
 	    ($file = $_)    =~ s%.*/%%o;
 	    ($sect = $file) =~ s%.*\.%%o;
-	    $destfile = join('', $OptValues{'manpath'},
-			     $DIRSEP, "man", $sect, $DIRSEP, $file);
+	    $msubdir  = join($DIRSEP, $OptValues{'manpath'}, "man$sect");
+	    if (create_dir($msubdir, 1) <= 0) { die "\n"; }
+	    $destfile = join($DIRSEP, $msubdir, $file);
 	    print STDOUT $destfile, "\n";
 	    cp($_, $destfile);
 	}

@@ -14,12 +14,24 @@
 
 <H1><a name="bugs">Appendix: Bugs</a></H1>
 
+<!--X-TOC-Start-->
+<ul>
+<li><a href="#bugreport">Reporting Bugs</a></li>
+<li><a href="#buglist">Bug List</a></li>
+</ul>
+<!--X-TOC-End-->
+
 <hr>
 <h2><a name="bugreport">Reporting Bugs</a></h2>
 
-<p>To report a bug against MHonArc, send mail to
-<a href="mhonarc@ncsa.uiuc.edu">mhonarc@ncsa.uiuc.edu</a> and
-please include the following information:
+<p>To report a bug against MHonArc, send mail to the MHonArc
+mailing list,
+<a href="mhonarc@ncsa.uiuc.edu">mhonarc@ncsa.uiuc.edu</a>.  The list
+is closed to subscribers, so if you are not subscribed, you can
+send mail to <a href="mhonarc@pobox.com">mhonarc@pobox.com</a>.
+</p>
+
+<p>Please include the following information in your message:
 </p>
 
 <ul>
@@ -67,6 +79,65 @@ the bug was fixed.
 
 <!--X-BugList-Start-->
 <table border=0 cellspacing=0 cellpadding=4 width="100%">
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.4.0, and earlier</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>DOC resource setting not stored in database.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Fixed.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.1</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.4.0</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Default filehandle changed to STDERR after call to get_resources().  Can cause problems for Perl apps
+ calling MHonArc via API.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Fixed.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.1</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.4.0</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>MHonArc under BSD OS would go into Win/MS-DOS mode.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Make check for "dos" platform stricter in osinit.pl.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.1</td>
+</tr>
 <tr valign=top>
 <td colspan=2><hr noshade size=0></td>
 </tr>
@@ -1719,7 +1790,7 @@ the bug was fixed.
 <!-- *************************************************************** -->
 <hr>
 <address>
-99/06/25 23:19:18<br>
+99/07/26 00:07:22<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"
 ><strong>MHonArc</strong></a><br>

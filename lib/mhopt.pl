@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhopt.pl 2.13 99/06/25 23:06:25
+##      @(#) mhopt.pl 2.15 99/07/25 02:05:22
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -26,8 +26,6 @@
 ##---------------------------------------------------------------------------##
 
 package mhonarc;
-
-no strict;
 
 use Getopt::Long;
 use Time::Local;
@@ -92,6 +90,8 @@ sub get_resources {
 	"modtime",	# Set modification time on files to message date
 	"months=s",	# Month names
 	"monthsabr=s",	# Abbreviated month names
+	"msgexcfilter=s",
+			# Perl expression(s) for selective message exclusion
 	"msgpgs",	# Create message pages
 	"msgsep=s",	# Message separator for mailbox files
 	"msgprefix=s",	# Filename prefix for message files
@@ -116,6 +116,8 @@ sub get_resources {
 	"nomultipg",	# Do not generate multi-page indexes
 	"nonews",	# Do not add links to newsgroups
 	"noreverse",	# List messages in normal order
+	"nosaveresources",
+			# Do not save resource values in db
 	"nosort",	# Do not sort
 	"nospammode",	# Do not run in (anti)spam mode
 	"nosubsort",	# Do not sort by subject
@@ -136,6 +138,8 @@ sub get_resources {
 	"reverse",	# List messages in reverse order
 	"rmm",		# Remove messages from an archive
 	"savemem",	# Write message data while processing
+	"saveresources",
+			# Save resource values in db
 	"scan",		# List out archive contents to terminal
 	"single",	# Convert a single message to HTML
 	"sort",		# Sort messages in increasing date order
@@ -196,8 +200,9 @@ sub get_resources {
 	    open(STDERR, ">>$opt{'stderr'}") ||
 		die qq/ERROR: Unable to create "$opt{'stderr'}": $!\n/;
 	}
-	select(STDOUT); $| = 1;
-	select(STDERR); $| = 1;
+	my $curfh = select(STDOUT);  $| = 1;
+		    select(STDERR);  $| = 1;
+	select($curfh);
     }
 
     ## Initialize variables
@@ -228,7 +233,7 @@ sub get_resources {
     $DoArchive	= 1  if $opt{'archive'};
     $DoArchive	= 0  if $opt{'noarchive'};
 
-    my $dolock	= !$opt{'nolock'};
+    my $dolock	= !$NoArg && !$opt{'nolock'};
 
     ## Check argv
     unless (($#ARGV >= 0) || $ADD || $SINGLE || $EDITIDX || $SCAN ||
@@ -435,6 +440,7 @@ sub get_resources {
     $SubArtRxp     = $opt{'subjectarticlerxp'}  if $opt{'subjectarticlerxp'};
     $SubReplyRxp   = $opt{'subjectreplyrxp'}    if $opt{'subjectreplyrxp'};
     $SubStripCode  = $opt{'subjectstripcode'}   if $opt{'subjectstripcode'};
+    $MsgExcFilter  = $opt{'msgexcfilter'}    if defined($opt{'msgexcfilter'});
 
     $IdxPageNum  = $opt{'pagenum'}   if defined($opt{'pagenum'});
 
@@ -485,6 +491,8 @@ sub get_resources {
     $GzipLinks	= 0  if $opt{'nogziplinks'};
     $NoMsgPgs	= 0  if $opt{'msgpgs'};
     $NoMsgPgs	= 1  if $opt{'nomsgpgs'};
+    $SaveRsrcs	= 1  if $opt{'saveresources'};
+    $SaveRsrcs	= 0  if $opt{'nosaveresources'};
     $SpamMode	= 1  if $opt{'spammode'};
     $SpamMode	= 0  if $opt{'nospammode'};
 
@@ -556,7 +564,7 @@ sub get_resources {
     }
 
     ## Set date names
-    &set_date_names(*weekdays, *Weekdays, *months, *Months);
+    &set_date_names(\@weekdays, \@Weekdays, \@months, \@Months);
 
     ## Set %Zone with user-specified timezones
     while (($zone, $offset) = each(%ZoneUD)) {

@@ -42,11 +42,12 @@
 <hr>
 <h2>Description</h2>
 
-<p>PREVBUTTON defines the value for the <code>$BUTTON(PREV)$</code>
-resource variable when there is a previous message to the current message
-according to the message list order of the main index.  See the
-<a href="prevbuttonia.html">PREVBUTTONIA</a> for defining the
-value of <code>$BUTTON(PREV)$</code> when there is no next message.
+<p>PREVBUTTON defines the value of the <code>$BUTTON(PREV)$</code>
+resource when a message has a predecessor.  That is, if the
+main index message list lists a message before the current
+message, <code>$BUTTON(PREV)$</code> will take on the value
+of PREVBUTTON.  If a previous message doesn't exist, the <a
+href="prevbuttonia.html">PREVBUTTONIA</a> value will be used instead.
 </p>
 
 <!-- *************************************************************** -->
@@ -82,10 +83,6 @@ value of <code>$BUTTON(PREV)$</code> when there is no next message.
 <tr valign=top>
 <td align=center><a name="DOCURL" href="../rcvars.html#DOCURL"><strong><code>$DOCURL$</code></strong></a></td>
 <td>URL to documentation.</td>
-</tr>
-<tr valign=top>
-<td align=center><a name="FIRSTPG" href="../rcvars.html#FIRSTPG"><strong><code>$FIRSTPG$</code></strong></a></td>
-<td>Filename of first page of main index.</td>
 </tr>
 <tr valign=top>
 <td align=center><a name="FROM" href="../rcvars.html#FROM"><strong><code>$FROM$</code></strong></a></td>
@@ -140,10 +137,6 @@ value of <code>$BUTTON(PREV)$</code> when there is no next message.
 <td>The title of the main index page.</td>
 </tr>
 <tr valign=top>
-<td align=center><a name="LASTPG" href="../rcvars.html#LASTPG"><strong><code>$LASTPG$</code></strong></a></td>
-<td>Filename of last page in of main index.</td>
-</tr>
-<tr valign=top>
 <td align=center><a name="LINK" href="../rcvars.html#LINK"><strong><code>$LINK$</code></strong></a></td>
 <td>Link markup linking to a message.</td>
 </tr>
@@ -178,6 +171,10 @@ value of <code>$BUTTON(PREV)$</code> when there is no next message.
 <tr valign=top>
 <td align=center><a name="MSGPREFIX" href="../rcvars.html#MSGPREFIX"><strong><code>$MSGPREFIX$</code></strong></a></td>
 <td>Filename prefix for message files.</td>
+</tr>
+<tr valign=top>
+<td align=center><a name="NOTE" href="../rcvars.html#NOTE"><strong><code>$NOTE$</code></strong></a></td>
+<td>Message annotation.</td>
 </tr>
 <tr valign=top>
 <td align=center><a name="NUMFOLUP" href="../rcvars.html#NUMFOLUP"><strong><code>$NUMFOLUP$</code></strong></a></td>
@@ -274,10 +271,10 @@ linking to the previous message in an archive:
 <!-- *************************************************************** -->
 <hr>
 <address>
-99/06/25 17:56:31<br>
+99/07/25 02:14:40<br>
 <img align="top" src="../monicon.gif" alt="">
-<a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"><strong>MHonArc</strong></a><br>
-Copyright &#169; 1997-1998, <a href="http://www.oac.uci.edu/indiv/ehood/">Earl Hood</a>, <a href="mailto:mhonarc@pobox.com">mhonarc@pobox.com</a><br>
+<a href="http://www.pobox.com/~ehood/mhonarc.html"><strong>MHonArc</strong></a><br>
+Copyright &#169; 1997-1998, <a href="http://www.pobox.com/~ehood/">Earl Hood</a>, <a href="mailto:mhonarc@pobox.com">mhonarc@pobox.com</a><br>
 </address>
 
 </body>

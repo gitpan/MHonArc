@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhinit.pl 2.12 99/06/25 23:06:16
+##	@(#) mhinit.pl 2.13 99/07/25 02:02:56
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -424,6 +424,8 @@ $UseLocalTime= defined($ENV{'M2H_USELOCALTIME'}) ?
 		       $ENV{'M2H_USELOCALTIME'} : 0;
 $NoSubjectThreads = defined($ENV{'M2H_SUBJECTTHREADS'}) ?
 			   !$ENV{'M2H_SUBJECTTHREADS'} : 0;
+$SaveRsrcs   = defined($ENV{'M2H_SAVERESOURCES'}) ?
+		       $ENV{'M2H_SAVERESOURCES'} : 1;
 
 if ($UNIX) {
     eval {
@@ -465,6 +467,8 @@ $SubReplyRxp = $ENV{'M2H_SUBJECTREPLYRXP'} ||
 
 ##	Code for stripping subjects
 $SubStripCode = $ENV{'M2H_SUBJECTSTRIPCODE'} || "";
+
+$MsgExcFilter = $ENV{'M2H_MSGEXCFILTER'} || "";
 
 ##	Arrays for months and weekdays.  If empty, the default settings
 ##	in mhtime.pl are used.

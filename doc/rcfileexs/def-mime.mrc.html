@@ -1,0 +1,63 @@
+<html>
+<body>
+<pre>
+&lt;!-- ================================================================== --&gt;
+&lt;!--    @(#) def-mime.mrc 1.5 99/06/25 13:25:42
+        Earl Hood &lt;mhonarc@pobox.com&gt;
+  --&gt;
+&lt;!--    MHonArc Resource File                                           --
+  --                                                                    --
+  --    Description:                                                    --
+  --	    Default resource settings related to MIME processing	--
+  --									--&gt;
+&lt;!-- ================================================================== --&gt;
+
+<b><a href="../resources/charsetconverters.html">&lt;CharsetConverters&gt;</a></b>
+plain;          mhonarc::htmlize;
+us-ascii;       mhonarc::htmlize;
+iso-8859-1;     mhonarc::htmlize;
+iso-8859-2;     iso_8859::str2sgml;     iso8859.pl
+iso-8859-3;     iso_8859::str2sgml;     iso8859.pl
+iso-8859-4;     iso_8859::str2sgml;     iso8859.pl
+iso-8859-5;     iso_8859::str2sgml;     iso8859.pl
+iso-8859-6;     iso_8859::str2sgml;     iso8859.pl
+iso-8859-7;     iso_8859::str2sgml;     iso8859.pl
+iso-8859-8;     iso_8859::str2sgml;     iso8859.pl
+iso-8859-9;     iso_8859::str2sgml;     iso8859.pl
+iso-8859-10;    iso_8859::str2sgml;     iso8859.pl
+iso-2022-jp;    iso_2022_jp::str2html;  iso2022jp.pl
+default;        -ignore-
+<b>&lt;/CharsetConverters&gt;</b>
+
+<b><a href="../resources/mimefilters.html">&lt;MIMEFilters&gt;</a></b>
+application/*;             m2h_external::filter;        mhexternal.pl
+application/x-patch;       m2h_text_plain::filter;      mhtxtplain.pl
+audio/*;                   m2h_external::filter;        mhexternal.pl
+chemical/*;                m2h_external::filter;        mhexternal.pl
+model/*;                   m2h_external::filter;        mhexternal.pl
+image/*;                   m2h_external::filter;        mhexternal.pl
+message/delivery-status;   m2h_text_plain::filter;      mhtxtplain.pl
+message/partial;           m2h_text_plain::filter;      mhtxtplain.pl
+text/*;                    m2h_text_plain::filter;      mhtxtplain.pl
+text/enriched;             m2h_text_enriched::filter;   mhtxtenrich.pl
+text/html;                 m2h_text_html::filter;       mhtxthtml.pl
+text/plain;                m2h_text_plain::filter;      mhtxtplain.pl
+text/richtext;             m2h_text_enriched::filter;   mhtxtenrich.pl
+text/setext;               m2h_text_setext::filter;     mhtxtsetext.pl
+text/tab-separated-values; m2h_text_tsv::filter;        mhtxttsv.pl
+text/x-html;               m2h_text_html::filter;       mhtxthtml.pl
+text/x-setext;             m2h_text_setext::filter;     mhtxtsetext.pl
+video/*;                   m2h_external::filter;        mhexternal.pl
+x-sun-attachment;          m2h_text_plain::filter;      mhtxtplain.pl
+<b>&lt;/MIMEFilters&gt;</b>
+
+<b><a href="../resources/mimeargs.html">&lt;MIMEArgs&gt;</a></b>
+image/gif;       inline
+image/jpeg;      inline
+image/x-xbitmap; inline
+image/x-xbm;     inline
+<b>&lt;/MIMEArgs&gt;</b>
+
+</pre>
+</body>
+</html>

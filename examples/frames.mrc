@@ -1,8 +1,8 @@
 <!-- ================================================================== -->
-<!--	@(#) frames.mrc 1.7 99/06/25 13:25:43
+<!--	@(#) frames.mrc 1.8 99/07/25 01:01:43
 	Earl Hood <mhonarc@pobox.com>
   -->
-<!--	MHonArc v2.3 Resource File					--
+<!--	MHonArc Resource File					--
   --									--
   --	Description:							--
   --									--
@@ -435,10 +435,7 @@ href="frm$MSGNUM$.html"><strong>$SUBJECTNA$</strong></a>
 <!-- 	Message Page Resources						-->
 <!-- ================================================================== -->
 
-<!--	Have the main subject header centered.  Due to design
-	limitations of earlier versions of mhonarc, this setting
-	cannot be editted for messages already converted.  So
-	we need to be sure this is what we want.
+<!--	Have the main subject header centered.
   -->
 <SubjectHeader>
 <h2 align="center">$SUBJECTNA$</h2>
@@ -499,10 +496,7 @@ xref
 </table>
 </FieldsEnd>
 
-<!--	Define markup between mail message header and body. Due
-	to design limitations of earlier versions of mhonarc, this
-	setting cannot be editted for messages already converted.
-	So we need to be sure this is what we want.
+<!--	Define markup between mail message header and body.
   -->
 <HeadBodySep>
 <hr noshade size=1>

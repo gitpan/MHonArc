@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhusage.pl 2.8 99/06/25 23:06:22
+##      @(#) mhusage.pl 2.9 99/07/25 02:04:47
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -105,6 +105,7 @@ Options:
   -msgpgs                  : Create message pages (the default)
   -msgprefix <prefix>      : Filename prefix for message HTML files
                              (def: "msg")
+  -msgexcfilter <exp>      : Perl expression(s) for selective message exclusion
   -msgsep <exp>            : Message separator (Perl) regex for mbox files
                              (def: "^From ")
   -multipg                 : Generate multi-page indexes
@@ -117,6 +118,7 @@ Options:
   -nodoc                   : Do not print link to doc at end of index page
   -nofolrefs               : Do not print links to follow-ups/references
   -nogzipfiles             : Do not Gzip files (the default)
+  -nosaveresources         : Do not save resource values in DB
   -notgziplinks            : Do not add ".gz" to filenames in links
   -nolock                  : Do not lock archive
   -nomailto                : Do not add in mailto links for e-mail addresses
@@ -144,6 +146,7 @@ Options:
   -reverse                 : List messages in reverse order
   -rmm                     : Remove messages from archive
   -savemem                 : Write message data while processing
+  -saveresources           : Save resource values in DB (the default)
   -scan                    : List out archive contents to stdout
   -single                  : Convert a single message to HTML (no archive ops)
   -sort                    : Sort messages by date (the default)

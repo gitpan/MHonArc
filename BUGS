@@ -1,7 +1,7 @@
 Bug History for MHonArc
 =======================
 <URL:http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
-@(#) BUGS 99/06/25 17:11:16
+@(#) BUGS 99/07/26 00:07:30
 
 Each bug listing has the following fields:
 
@@ -15,6 +15,23 @@ Each bug listing has the following fields:
 		    applicable.
 
 Bug List
+------------------------------------------------------------------------
+Version:	2.4.0, and earlier
+Problem:   	DOC resource setting not stored in database.
+Solution:	Fixed.
+Version Fixed:	2.4.1
+------------------------------------------------------------------------
+Version:	2.4.0
+Problem:   	Default filehandle changed to STDERR after call to
+		get_resources().  Can cause problems for Perl apps
+		calling MHonArc via API.
+Solution:	Fixed.
+Version Fixed:	2.4.1
+------------------------------------------------------------------------
+Version:	2.4.0
+Problem:   	MHonArc under BSD OS would go into Win/MS-DOS mode.
+Solution:	Make check for "dos" platform stricter in osinit.pl.
+Version Fixed:	2.4.1
 ------------------------------------------------------------------------
 Version:	2.3.3
 Problem:   	Duplicate message-ids in a message's reference list

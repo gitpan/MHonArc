@@ -1,7 +1,7 @@
 #!/usr/local/bin/perl
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mha-decode 1.1 99/06/25 14:35:38
+##	@(#) mha-decode 1.2 99/07/25 02:27:07
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -91,7 +91,7 @@ software package.  B<mha-decode> provides basic MIME decoding for
 mail messages.
 
 If given mail folders as input, all messages within in the mail
-folders will be coded.  All message parts are written to files.  If a
+folders will be decoded.  All message parts are written to files.  If a
 filename is specified for a message part, that filename will be used
 when writing the part to a file.  If no filename is specified in the
 message, a unique name will be used based upon the content-type of
@@ -121,7 +121,7 @@ access the documentation on the web.
 
 =head1 AVAILABILITY
 
-E<lt>URL:I<http://www.oac.uci.edu/indiv/ehood/mhonarc.html>E<gt>
+E<lt>URL:I<http://www.pobox.com/~ehood/mhonarc.html>E<gt>
 
 =head1 AUTHOR
 

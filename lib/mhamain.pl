@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhamain.pl 2.13 99/06/25 23:06:29
+##	@(#) mhamain.pl 2.15 99/07/26 00:00:24
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -29,7 +29,7 @@ package mhonarc;
 
 no strict;
 
-$VERSION = "2.4.0";
+$VERSION = "2.4.1";
 $VINFO =<<EndOfInfo;
   MHonArc v$VERSION (Perl $])
   Copyright (C) 1995-1999  Earl Hood, mhonarc\@pobox.com
@@ -125,7 +125,7 @@ sub open_archive {
 ##
 sub close_archive {
     ## Remove lock
-    &$UnlockFunc();
+    &$UnlockFunc()  if defined(&$UnlockFunc);
 
     ## Reset signal handlers
     reset_handler();
@@ -715,6 +715,13 @@ sub read_mail_header {
 	 ($fields{'restrict'} =~ /no-external-archive/i ||
 	  $fields{'x-no-archive'} =~ /yes/i) ) {
 	return ("", "", "", "", "");
+    }
+
+    ##----------------------------------##
+    ## Check for user-defined exclusion ##
+    ##----------------------------------##
+    if ( $MsgExcFilter ) {
+	return ("", "", "", "", "") if &mhonarc::message_exclude($header);
     }
 
     ##------------##

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhdysub.pl 2.3 99/06/25 13:58:44
+##	@(#) mhdysub.pl 2.4 99/07/25 02:02:34
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -141,6 +141,22 @@ EndOfRoutine
     $sub .= "# $_sub_eval_cnt\n";  ++$_sub_eval_cnt;
     eval $sub;
     die("ERROR: Unable to create rewrite_address routine:\n$@\n") if $@;
+
+    ##-----------------------------------------------------------------------
+    ## message_exclude: User-defined code to check if a message should
+    ## be added or not.
+    ##
+    $sub  =<<EndOfRoutine;
+    sub message_exclude {
+	package mhonarc::Pkg_message_exclude;
+	local(\$_) = shift;
+	$MsgExcFilter;
+    }
+EndOfRoutine
+
+    $sub .= "# $_sub_eval_cnt\n";  ++$_sub_eval_cnt;
+    eval $sub;
+    die("ERROR: Unable to create subject_strip routine:\n$@\n") if $@;
 
 }
 

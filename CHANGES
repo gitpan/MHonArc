@@ -9,6 +9,31 @@ possible that not all changes are documented here.
 MM/DD/YYYY
 =======================================================================
 #######################################################################
+=======================================================================
+07/25/1999	(2.4.1)
+
+    Enhancements/Changes
+    --------------------
+    o	Added the following resources:
+
+	    MSGEXCFILTER	Perl expressions for excluding
+				messages from archive.
+	    SAVERESOURCES	Flag if resource values should be
+				saved in database.
+
+    o	Added the following resource variables:
+
+	    $HTMLEXT$	Value of HTMLEXT resource.
+
+    o	Documentation corrections an additions.
+
+    o	Use of typeglobs removed from mhdb.pl.
+
+    o	mhtime.pl explicitly defined in mhonarc package.
+
+    Bug Fixes
+    ---------
+    See BUGS.
 
 =======================================================================
 06/25/1999	(2.4.0)
@@ -1555,4 +1580,4 @@ MM/DD/YYYY
 #######################################################################
 =======================================================================
 Earl Hood, mhonarc@bigfoot.com
-@(#) CHANGES 99/06/25 23:23:04
+@(#) CHANGES 99/07/25 02:29:18

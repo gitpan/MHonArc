@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcfile.pl 2.9 99/06/25 23:06:19
+##	@(#) mhrcfile.pl 2.10 99/07/25 02:03:22
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -397,6 +397,10 @@ sub read_resource_file {
 	    $MSGBODYEND = &get_elem_content($handle, $elem, $chop);
 	    last FMTSW;
 	}
+	if ($elem eq "msgexcfilter") {		# Code selectively exclude msgs
+	    $MsgExcFilter = &get_elem_content($handle, $elem, $chop);
+	    last FMTSW;
+	}
 	if ($elem eq "msgpgs") {		# Output message pages
 	    $NoMsgPgs = 0; last FMTSW;
 	}
@@ -580,6 +584,10 @@ sub read_resource_file {
 	if ($elem eq "noreverse") {		# Sort in normal order
 	    $REVSORT = 0; last FMTSW;
 	}
+	if ($elem eq "nosaveresources") {	# 
+	    $SaveRsrcs = 0;
+	    last FMTSW;
+	}
 	if ($elem eq "nosort") {		# Do not sort messages
 	    $NOSORT = 1;
 	    last FMTSW;
@@ -680,6 +688,10 @@ sub read_resource_file {
 	}
 	if ($elem eq "reverse") {		# Reverse sort
 	    $REVSORT = 1;
+	    last FMTSW;
+	}
+	if ($elem eq "saveresources") {		# Save resources in db
+	    $SaveRsrcs = 1;
 	    last FMTSW;
 	}
 	if ($elem eq "sort") {			# Sort messages by date

@@ -14,11 +14,21 @@
 <hr>
 <h1><a name="rcvars">Resource Variables</a></h1>
 
+<!--X-TOC-Start-->
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#rcvar_syntax">Resource Variable Syntax</a></li>
+<li><a href="#rcvar_index">Resource Variable Index</a></li>
+</ul>
+<!--X-TOC-End-->
+
+<hr>
+<h2><a name="overview">Overview</a></h2>
 <p><em>Resource variables</em> are used to represent dynamic data
 in MHonArc <a href="resources.html">resources</a>.  Take the following
 <a href="resources/litemplate.html">LITEMPLATE</a> resource setting
 for example:
-    </p>
+</p>
 
 <PRE>
 &lt;LiTemplate&gt;
@@ -186,7 +196,7 @@ are used to represent argument values:
 
 <dl>
 
-<dt><a name="mesg_spec"><i><tt>mesg_spec</tt></i></a></dt>
+<dt><a name="mesg_spec"><b><i><tt>mesg_spec</tt></b></i></a></dt>
 <dd><p>A message specification determines which message the variable's
 expanded will be based upon. Possible values are:
 </p>
@@ -219,7 +229,8 @@ expanded will be based upon. Possible values are:
 <td align=right><tt>TNEXT</tt></td><td>- Next message by thread.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TPARENT</tt></td><td>- Parent message by thread.</td>
+<td align=right><tt>TPARENT</tt></td><td>- Parent message of current
+thread.</td>
 </tr>
 <tr valign=top>
 <td align=right><tt>TPREV</tt></td><td>- Previous message by thread.</td>
@@ -231,7 +242,7 @@ expanded will be based upon. Possible values are:
 </dd>
 
 
-<dt><a name="idx_page_spec"><i><tt>idx_page_spec</tt></i></a></dt>
+<dt><a name="idx_page_spec"><b><i><tt>idx_page_spec</tt></i></b></a></dt>
 <dd><p>An index page specification denoting the index page to use
 when determing the value of the variable.  The possible values are:
 </p>
@@ -269,7 +280,7 @@ variable's value is undefined.
 </p>
 </dd>
 
-<dt><a name="time_fmt_str"><i><tt>time_fmt_str</tt></i></a></dt>
+<dt><a name="time_fmt_str"><b><i><tt>time_fmt_str</tt></i></b></a></dt>
 <dd><p>A time format string specifies how a date/time will be
 printed for a date/time related variable.  The syntax of the format
 string is the same as the conversion specification as defined in
@@ -328,7 +339,15 @@ links to the index page.</td>
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Button markup linking to a message.</td>
+<td>Button markup linking to a message. The value of $BUTTON$ is determined
+by the following resources:
+<a href="resources/nextbutton.html">NEXTBUTTON</a>,
+<a href="resources/nextbuttonia.html">NEXTBUTTONIA</a>,
+<a href="resources/prevbutton.html">PREVBUTTON</a>,
+<a href="resources/prevbuttonia.html">PREVBUTTONIA</a>,
+<a href="resources/tnextbutton.html">TNEXTBUTTON</a>,
+<a href="resources/tnextbuttonia.html">TNEXTBUTTONIA</a>.
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="DATE"><tt>$DATE$</tt></a></strong></dt>
@@ -350,7 +369,7 @@ links to the index page.</td>
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Message date in dd/mm/yyyy format.</td>
+<td>Message date (according to local time) in dd/mm/yyyy format.</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="DOCURL"><tt>$DOCURL$</tt></a></strong></dt>
@@ -361,18 +380,8 @@ links to the index page.</td>
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>URL to documentation.</td>
-</tr>
-</table><br></dd>
-<dt><strong><a name="FIRSTPG"><tt>$FIRSTPG$</tt></a></strong></dt>
-<dd><table border=0>
-<tr valign=top>
-<td align=right><b>Arguments:</b></td>
-<td>N/A</td>
-</tr>
-<tr valign=top>
-<td align=right><b>Description:</b></td>
-<td>Filename of first page of main index.</td>
+<td>URL to MHonArc documentation.  Value of variable set by the
+<a href="resources/docurl.html">DOCURL</a> resource.</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="FROM"><tt>$FROM$</tt></a></strong></dt>
@@ -394,7 +403,7 @@ links to the index page.</td>
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>The e-mail address in the <tt>From:</tt> field of the message.</td>
+<td>The full mail address in the <tt>From:</tt> field of the message.</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="FROMADDRNAME"><tt>$FROMADDRNAME$</tt></a></strong></dt>
@@ -405,7 +414,7 @@ links to the index page.</td>
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>The username/local-part of the e-mail address in the <tt>From:</tt>
+<td>The username/local-part of the mail address in the <tt>From:</tt>
 field of the message.  For example, given the address "someuser@foo.com",
 <tt>$FROMADDRNAME$</tt> would equal "someuser".</td>
 </tr>
@@ -418,7 +427,7 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>The domain part of the e-mail address in the <tt>From:</tt>
+<td>The domain part of the mail address in the <tt>From:</tt>
 field of the message.  For example, given the address "someuser@foo.com",
 <tt>$FROMADDRDOMAIN$</tt> would equal "foo.com".</td>
 </tr>
@@ -431,18 +440,24 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>The human name of the person in the <tt>From:</tt> field of the message. If no human name is found, the username specified in the e-mail address is used.</td>
+<td>The human name of the person in the <tt>From:</tt> field of the message.
+If no human name is found, the local-part specified in the mail address
+is used.</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="GMTDATE"><tt>$GMTDATE$</tt></a></strong></dt>
 <dd><table border=0>
 <tr valign=top>
 <td align=right><b>Arguments:</b></td>
-<td>N/A</td>
+<td><tt><i><a href="#time_fmt_str">time_fmt_str</a></i></tt></td>
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Current GMT date.</td>
+<td>Current GMT date.
+Default format of date set by the
+<a href="resources/gmtdatefmt.html">GMTDATEFMT</a>
+resource.
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="ICON"><tt>$ICON$</tt></a></strong></dt>
@@ -453,7 +468,8 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>The context-type sensistive icon.</td>
+<td>The context-type sensistive icon.  The type of icon displayed
+is determined by the <a href="resources/icons.html">ICONS</a> resource.</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="ICONURL"><tt>$ICONURL$</tt></a></strong></dt>
@@ -464,7 +480,8 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>The URL to the context-type sensistive icon.</td>
+<td>The URL to the context-type sensistive icon. The URL value is
+determined by the <a href="resources/icons.html">ICONS</a> resource.</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="IDXFNAME"><tt>$IDXFNAME$</tt></a></strong></dt>
@@ -475,7 +492,13 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Filename of main index page.</td>
+<td>Filename of main index page.  The value is set by the
+<a href="resources/idxfname.html">IDXFNAME</a> or
+<a href="resources/idxprefix.html">IDXPREFIX</a> and
+<a href="resources/htmlext.html">HTMLEXT</a>
+resources.  If the first page, IDXFNAME is used.  For other pages,
+the filename is <var>IDXPREFIXpage-number</var><tt>.</tt><var>HTMLEXT</var>.
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="IDXLABEL"><tt>$IDXLABEL$</tt></a></strong></dt>
@@ -486,7 +509,8 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Label for main index page.</td>
+<td>Label for main index page.  Value set by the
+<a href="resources/idxlabel.html">IDXLABEL</a> resource.</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="IDXPREFIX"><tt>$IDXPREFIX$</tt></a></strong></dt>
@@ -497,7 +521,9 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Prefix of filenames of main index pages.</td>
+<td>Prefix of filenames of main index pages.
+Value set by the <a href="resources/idxprefix.html">IDXPREFIX</a> resource.
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="IDXSIZE"><tt>$IDXSIZE$</tt></a></strong></dt>
@@ -508,7 +534,9 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Max number of messages that may be listed in index page.</td>
+<td>Max number of messages that may be listed in index page.
+Value set by the <a href="resources/idxsize.html">IDXSIZE</a> resource.
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="IDXTITLE"><tt>$IDXTITLE$</tt></a></strong></dt>
@@ -519,18 +547,9 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>The title of the main index page.</td>
-</tr>
-</table><br></dd>
-<dt><strong><a name="LASTPG"><tt>$LASTPG$</tt></a></strong></dt>
-<dd><table border=0>
-<tr valign=top>
-<td align=right><b>Arguments:</b></td>
-<td>N/A</td>
-</tr>
-<tr valign=top>
-<td align=right><b>Description:</b></td>
-<td>Filename of last page in of main index.</td>
+<td>The title of the main index page.
+Value set by the <a href="resources/title.html">TITLE</a> resource.
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="LINK"><tt>$LINK$</tt></a></strong></dt>
@@ -541,18 +560,33 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Link markup linking to a message.</td>
+<td>Link markup linking to a message.
+Value set by the
+<a href="resources/nextlink.html">NEXTLINK</a>,
+<a href="resources/nextlinkia.html">NEXTLINKIA</a>,
+<a href="resources/prevlink.html">PREVLINK</a>,
+<a href="resources/prevlinkia.html">PREVLINKIA</a>,
+<a href="resources/tnextlink.html">TNEXTLINK</a>,
+<a href="resources/tnextlinkia.html">TNEXTLINKIA</a>,
+<a href="resources/tprevlink.html">TPREVLINK</a>, and
+<a href="resources/tprevlinkia.html">TPREVLINKIA</a>
+resources.
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="LOCALDATE"><tt>$LOCALDATE$</tt></a></strong></dt>
 <dd><table border=0>
 <tr valign=top>
 <td align=right><b>Arguments:</b></td>
-<td>N/A</td>
+<td><tt><i><a href="#time_fmt_str">time_fmt_str</a></i></tt></td>
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Current local date.</td>
+<td>Current local date.
+Default format of date set by the
+<a href="resources/localdatefmt.html">LOCALDATEFMT</a>
+resource.
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="MMDDYYYY"><tt>$MMDDYYYY$</tt></a></strong></dt>
@@ -563,7 +597,7 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Message date in mm/dd/yyyy format.</td>
+<td>Message (local) date in mm/dd/yyyy format.</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="MSG"><tt>$MSG$</tt></a></strong></dt>
@@ -574,7 +608,11 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Filename of message.</td>
+<td>Filename of message. Filename of the message is determined by the
+following resources:
+<a href="resources/htmlext.html">HTMLEXT</a>,
+<a href="resources/msgprefix.html">MSGPREFIX</a>.
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="MSGGMTDATE"><tt>$MSGGMTDATE$</tt></a></strong></dt>
@@ -629,7 +667,37 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Filename prefix for message files.</td>
+<td>Filename prefix for message files.
+Value set by the
+<a href="resources/msgprefix.html">MSGPREFIX</a>
+resource.
+</td>
+</tr>
+</table><br></dd>
+<dt><strong><a name="NOTE"><tt>$NOTE$</tt></a></strong></dt>
+<dd><table border=0>
+<tr valign=top>
+<td align=right><b>Arguments:</b></td>
+<td><tt><i><a href="#mesg_spec">mesg_spec</a></i></tt></td>
+</tr>
+<tr valign=top>
+<td align=right><b>Description:</b></td>
+<td>Message annotation. If annotation text exists for the message,
+the <a href="resources/note.html">NOTE</a> resource determines the
+value of $NOTE$.  When no annotation text is defined,
+<a href="resources/noteia.html">NOTEIA</a> is used.</td>
+</tr>
+</table><br></dd>
+<dt><strong><a name="NOTETEXT"><tt>$NOTETEXT$</tt></a></strong></dt>
+<dd><table border=0>
+<tr valign=top>
+<td align=right><b>Arguments:</b></td>
+<td><tt><i><a href="#mesg_spec">mesg_spec</a></i></tt></td>
+</tr>
+<tr valign=top>
+<td align=right><b>Description:</b></td>
+<td>Base text of message annotation.  Variable should be used only
+within the <a href="resource/note.html">NOTE</a> resource.</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="NUMFOLUP"><tt>$NUMFOLUP$</tt></a></strong></dt>
@@ -640,7 +708,8 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Number of explicit follow-ups to the message.</td>
+<td>Number of explicit follow-ups to the message.  This number does
+<b>NOT</b> include subject-based follow-ups.</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="NUMOFIDXMSG"><tt>$NUMOFIDXMSG$</tt></a></strong></dt>
@@ -651,7 +720,7 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Number of message listed.</td>
+<td>Number of message listed for the current page.</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="NUMOFMSG"><tt>$NUMOFMSG$</tt></a></strong></dt>
@@ -662,7 +731,7 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Number of messages in the archive.</td>
+<td>Total number of messages in the archive.</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="NUMOFPAGES"><tt>$NUMOFPAGES$</tt></a></strong></dt>
@@ -673,7 +742,7 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Number of index pages.</td>
+<td>Total number of index pages for a given index type.</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="ORDNUM"><tt>$ORDNUM$</tt></a></strong></dt>
@@ -695,7 +764,11 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Pathname of archive.</td>
+<td>Pathname of archive.
+Value set by the
+<a href="resources/outdir.html">OUTDIR</a>
+resource.
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="PAGENUM"><tt>$PAGENUM$</tt></a></strong></dt>
@@ -713,22 +786,43 @@ field of the message.  For example, given the address "someuser@foo.com",
 <dd><table border=0>
 <tr valign=top>
 <td align=right><b>Arguments:</b></td>
-<td><tt><i><a href="#page_spec">mesg_spec</a></i></tt></td>
+<td><tt><i><a href="#idx_page_spec">idx_page_spec</a></i></tt></td>
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Filename of an index page.</td>
+<td>Filename of an index page.
+Value determined by the
+<a href="resources/htmlext.html">HTMLEXT</a>,
+<a href="resources/idxfname.html">IDXFNAME</a>,
+<a href="resources/idxprefix.html">IDXPREFIX</a>,
+<a href="resources/tidxfname.html">TIDXFNAME</a>, and
+<a href="resources/tidxprefix.html">TIDXPREFIX</a>
+resources.  Which resources are in effect depends on the current
+context.
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="PGLINK"><tt>$PGLINK$</tt></a></strong></dt>
 <dd><table border=0>
 <tr valign=top>
 <td align=right><b>Arguments:</b></td>
-<td><tt><i><a href="#page_spec">mesg_spec</a></i></tt></td>
+<td><tt><i><a href="#idx_page_spec">idx_page_spec</a></i></tt></td>
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Markup linking to a main index page.</td>
+<td>Markup linking to a main index page.
+Value determined by the
+<a href="resources/nextpglink.html">NEXTPGLINK</a>,
+<a href="resources/nextpglinkia.html">NEXTPGLINKIA</a>,
+<a href="resources/prevpglink.html">PREVPGLINK</a>,
+<a href="resources/prevpglinkia.html">PREVPGLINKIA</a>,
+<a href="resources/tnextpglink.html">TNEXTPGLINK</a>,
+<a href="resources/tnextpglinkia.html">TNEXTPGLINKIA</a>,
+<a href="resources/tprevpglink.html">TPREVPGLINK</a>, and
+<a href="resources/tprevpglinkia.html">TPREVPGLINKIA</a>,
+resources.  The resource used depends on
+<i><a href="#idx_page_spec">idx_page_spec</a></i> and context.
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="PROG"><tt>$PROG$</tt></a></strong></dt>
@@ -772,7 +866,13 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Filename of thread index page.</td>
+<td>Filename of thread index page.  The value is set by the
+<a href="resources/tidxfname.html">TIDXFNAME</a> or
+<a href="resources/tidxprefix.html">TIDXPREFIX</a> and
+<a href="resources/htmlext.html">HTMLEXT</a>
+resources.  If the first page, TIDXFNAME is used.  For other pages,
+the filename is <var>TIDXPREFIXpage-number</var><tt>.</tt><var>HTMLEXT</var>.
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="TIDXLABEL"><tt>$TIDXLABEL$</tt></a></strong></dt>
@@ -783,7 +883,8 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Label for thread index page.</td>
+<td>Label for thread index page.  Value set by the
+<a href="resources/tidxlabel.html">TIDXLABEL</a> resource.</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="TIDXPREFIX"><tt>$TIDXPREFIX$</tt></a></strong></dt>
@@ -794,7 +895,11 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Prefix of filenames of thread index pages.</td>
+<td>Prefix of filenames of thread index pages.
+Value set by the
+<a href="resources/tidxprefix.html">TIDXPREFIX</a>
+resource.
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="TIDXTITLE"><tt>$TIDXTITLE$</tt></a></strong></dt>
@@ -805,7 +910,9 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Title of thread index.</td>
+<td>The title of the thread index page.
+Value set by the <a href="resources/ttitle.html">TTITLE</a> resource.
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="TO"><tt>$TO$</tt></a></strong></dt>
@@ -816,7 +923,7 @@ field of the message.  For example, given the address "someuser@foo.com",
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>The email address.
+<td>The mail address.
 This variable is only applicable for use in the
 <a href="resources/mailtourl.html">MAILTOURL</a>.</td>
 </tr>
@@ -861,7 +968,17 @@ This variable is only applicable for use in the
 <td align=right><b>Description:</b></td>
 <td>A <em>slice</em> of the thread listing relative to the current message.
 Size of slice determined by the <a href="resources/tslice.html">TSLICE</a>
-resource.</td>
+resource.  Layout appearance of <tt>$TSLICE$</tt> determined by
+<a href="tslicebeg.html">TSLICEBEG</a>,
+<a href="tsliceend.html">TSLICEEND</a>,
+<a href="ttopbegin.html">TTOPBEGIN</a>,
+<a href="tlitxt.html">TLITXT</a>,
+<a href="tliend.html">TLIEND</a>,
+<a href="tsingletxt.html">TSINGLETXT</a>,
+<a href="tsubjectbeg.html">TSUBJECTBEG</a>, and
+<a href="ttopend.html">TTOPEND</a>
+resources.
+</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="VERSION"><tt>$VERSION$</tt></a></strong></dt>
@@ -883,7 +1000,7 @@ resource.</td>
 </tr>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
-<td>Message date in yyyy/mm/dd format.</td>
+<td>Message (local) date in yyyy/mm/dd format.</td>
 </tr>
 </table><br></dd>
 </dl>
@@ -900,7 +1017,7 @@ resource.</td>
 <!-- *************************************************************** -->
 <hr>
 <address>
-99/06/25 23:19:21<br>
+99/07/25 02:15:59<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"
 ><strong>MHonArc</strong></a><br>

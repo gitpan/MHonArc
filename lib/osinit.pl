@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) osinit.pl 2.3 99/06/25 14:10:50
+##	@(#) osinit.pl 2.4 99/07/13 00:46:45
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -63,8 +63,8 @@ sub OSinit {
 	$PATHSEP = ':';
 
     } elsif (($^O !~ /cygwin/i) &&
-    	     (($^O =~ /win/i) ||
-	      ($^O =~ /dos/i) ||
+    	     (($^O =~ /mswin/i) ||
+	      ($^O =~ /\bdos\b/i) ||
     	      (($tmp = $ENV{'COMSPEC'}) &&
 	       ($tmp =~ /^[a-zA-Z]:\\/) &&
 	       (-e $tmp))) ) {
