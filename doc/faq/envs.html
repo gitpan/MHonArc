@@ -25,6 +25,7 @@
 <li><a href="#listprocessor">Can MHonArc process Listprocessor archives?</a></li>
 <li><a href="#ezmlm">Can MHonArc process ezmlm archives?</a></li>
 <li><a href="#maildir">Can MHonArc process qmail's maildir style mail folders?</a></li>
+<li><a href="#netscape">Can MHonArc process Netscape Messenger folders?</a></li>
 <li><a href="#compuserve">Can MHonArc process Compuserve messages?</a></li>
 <li><a href="#otherformats">What about other mailbox/folder formats?</a></li>
 <li><a href="#nonenglish">Can MHonArc create non-English archives?</a></li>
@@ -369,6 +370,39 @@ to respecify each time you invoke mhonarc.  Examples:
 <hr noshade size=1>
 <table border=0>
 <tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
+<h3><b><a name="netscape">Can MHonArc process Netscape Messenger folders?</a></b></h3>
+</td></tr></table>
+
+<p>Yes.  Each Netscape Messenger folder has a corresponding mailbox file
+that stores the raw mail messages for the folder.  The location
+of the mailbox file will be in your mail directory.  Under Unix, this
+is normally <b><tt>$HOME/nsmail</tt></b>.  For Windows, this is
+typically
+<b><tt>C:\Program Files\Netscape\Users\<var>&lt;username&gt;</var>\Mail</tt></b>.
+</p>
+
+<p>For each Netscape folder, there are two files: 
+<b><tt><i>&lt;folder-name&gt;</i></tt></b> and 
+<b><tt><i>&lt;folder-name&gt;</i>.summary</tt></b> (or
+<b><tt><i>&lt;folder-name&gt;</i>.snm</tt></b> under Windows).
+The <b><tt>.summary</tt></b> can be ignored with respect to MHonArc.
+The other file contains the raw mail messages and can be passed
+directly to MHonArc for processing.  For example, to process all the
+mail in your Inbox, do something like the following:
+</p>
+<pre>
+    shell&gt; <b>mhonarc $HOME/nsmail/Inbox</b>
+</pre>
+
+<p>Note, you may need to compress/compact folders in Netscape before
+running MHonArc.  If not, messages you have deleted from a folder may
+show up in the archive create by MHonArc.
+</p>
+
+<!-- ??????????????????????????????????????????????????????????????? -->
+<hr noshade size=1>
+<table border=0>
+<tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
 <h3><b><a name="compuserve">Can MHonArc process Compuserve messages?</a></b></h3>
 </td></tr></table>
 
@@ -502,7 +536,7 @@ message.  MHonArc has no built-in language translation.
 
 <hr>
 <address>
-99/08/11 22:48:05<br>
+99/10/01 01:20:47<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"
 ><strong>MHonArc</strong></a><br>

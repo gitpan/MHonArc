@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) readmail.pl 2.6 99/08/15 21:22:46
+##	@(#) readmail.pl 2.7 99/09/28 23:15:00
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -23,6 +23,10 @@
 ##
 ##	($disposition, $filename) =
 ##	    &MAILhead_get_disposition(*fields);
+##	$parm_hash_ref =
+##	    &MAILparse_parameter_str($header_field);
+##	$parm_hash_ref =
+##	    &MAILparse_parameter_str($header_field, 1);
 ##
 ##---------------------------------------------------------------------------##
 ##    Copyright (C) 1996-1999	Earl Hood, mhonarc@pobox.com
@@ -70,7 +74,7 @@ $DecodeHeader	= 0;
 ##	of main.
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-##  MIMEDecoders is the associative array for storing functions for
+##  %MIMEDecoders is the associative array for storing functions for
 ##  decoding mime data.
 ##
 ##	Keys => content-transfer-encoding (should be in lowercase)
@@ -120,7 +124,7 @@ $MIMEDecodersSrc{"uuencode"}  	 	= "base64.pl"
     unless defined($MIMEDecodersSrc{"uuencode"});
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-##  MIMECharSetConverters is the associative array for storing functions
+##  %MIMECharSetConverters is the associative array for storing functions
 ##  for converting data in a particular charset to a destination format
 ##  within the MAILdecode_1522_str() routine. Destination format is defined
 ##  by the function.
@@ -163,7 +167,7 @@ $MIMECharSetConverters{"default"}	= "-ignore-"
     unless defined($MIMECharSetConverters{"default"});
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-##  MIMEFilters is the associative array for storing functions that
+##  %MIMEFilters is the associative array for storing functions that
 ##  process various content-types in the MAILread_body routine.
 ##
 ##	Keys => Content-type (should be in lowercase)
@@ -190,7 +194,7 @@ $MIMECharSetConverters{"default"}	= "-ignore-"
     unless defined(%MIMEFiltersSrc);
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-##  MIMEFiltersArgs is the associative array for storing any optional
+##  %MIMEFiltersArgs is the associative array for storing any optional
 ##  arguments to functions specified in MIMEFilters (the
 ##  $optional_filter_arguments from above).
 ##
@@ -274,19 +278,18 @@ $FormatHeaderFunc		= undef
 ##	the charsets specified as "-decode-".
 ##
 sub MAILdecode_1522_str {
-    local($str) = shift;
-    local($justdecode) = shift;
-    local($charset,
-	  $lcharset,
-	  $encoding,
-	  $dec,
-	  $charcnv,
-	  $defcharcnv,
-	  $plaincnv,
-	  $strtxt,
-	  $str_before
-	 );
-    local($ret) = ('');
+    my($str) = shift;
+    my($justdecode) = shift;
+    my($charset,
+       $lcharset,
+       $encoding,
+       $dec,
+       $charcnv,
+       $defcharcnv,
+       $plaincnv,
+       $strtxt,
+       $str_before);
+    my($ret) = ('');
 
     $defcharcnv = '-bogus-';
 
@@ -758,6 +761,88 @@ sub MAILhead_get_disposition {
     $filename =~ s/^\s+//;	# Remove leading whitespace
     $filename =~ s/\s+$//;	# Remove trailing whitespace
     ($disp, $filename);
+}
+
+##---------------------------------------------------------------------------##
+##	MAILparse_parameter_str(): parses a parameter/value string.
+##	Support for RFC 2184 extensions exists.  The $hasmain flag tells
+##	the method if there is an intial main value for the sting.  For
+##      example:
+##
+##          text/plain; charset=us-ascii
+##      ----^^^^^^^^^^
+##
+##      The "text/plain" part is not a parameter/value pair, but having
+##      an initial value is common among some header fields that can have
+##      parameter/value pairs (egs: Content-Type, Content-Disposition).
+##
+##	Return Value:
+##	    Reference to a hash.  Each key is the attribute name.
+##	    The special key, 'x-main', is the main value if the
+##	    $hasmain flag is set.
+##
+##	    Each hash value is a hash reference with three keys: 'charset',
+##	    'lang', 'value'.  'charset' and 'lang' may be undef.
+##
+##	Example Usage:
+##
+##	    $content_type_field = 'text/plain; charset=us-ascii';
+##	    $parms = MAILparse_parameter_str($content_type_field, 1);
+##	    $ctype = $parms->{'x-main'};
+##	    $mesg_body_charset = $parms->{'charset'}{'value'};
+##
+sub MAILparse_parameter_str {
+    my $str     = shift;        # Input string
+    my $hasmain = shift;        # Flag if there is a main value to extract
+
+    require 'rfc822.pl';
+
+    my $parm	= { };
+    my(@toks)   = (rfc822::uncomment($str));
+    my($tok, $name, $value, $charset, $lang, $part);
+
+    $parm->{'x-main'} = shift @toks  if $hasmain;
+
+    ## Loop thru token list
+    while ($tok = shift @toks) {
+        next if $tok eq ";";
+        ($name, $value) = split(/=/, $tok, 2);
+        ## Check if charset/lang specified
+        if ($name =~ s/\*$//) {
+            if ($value =~ s/^([^']*)'([^']*)'//) {
+                ($charset, $lang) = ($1, $2);
+            } else {
+                ($charset, $lang) = (undef, undef);
+            }
+        }
+        ## Check if parameter is only part
+        if ($name =~ s/\*(\d+)$//) {
+            $part = $1 - 1;     # we start at 0 internally
+        } else {
+            $part = 0;
+        }
+        ## Set values for parameter
+        $name = lc $name;
+        $parm->{$name} = {
+            'charset'	=> $charset,
+            'lang'   	=> $lang,
+        };
+        ## Check if value is next token
+        if ($value eq "") {
+            ## If value next token, than it must be quoted
+            $value = shift @toks;
+            $value =~ s/^"//;  $value =~ s/"$//;  $value =~ s/\\//g;
+        }
+        $parm->{$name}{'vlist'}[$part] = $value;
+    }
+
+    ## Now we loop thru each parameter an define the final values from
+    ## the parts
+    foreach $name (keys %$parm) {
+        $parm->{$name}{'value'} = join("", @{$parm->{$name}{'vlist'}});
+    }
+
+    $parm;
 }
 
 ###############################################################################

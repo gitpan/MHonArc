@@ -120,7 +120,7 @@ The installation program will ask you a series of questions on where the
 perl executable is and where to put MHonArc files. Just hit <CR> to accept
 the default values listed in ()'s. Note, the default values are determined
 by the configuration of perl on your system. If you choose the defaults, you
-may need to have root/admin privileges to have a successful install.
+may need to possess root/admin privileges to have a successful install.
 
 install.me can take several options on the command-line to affect what is
 done during installation. The following is the list of options available:
@@ -181,7 +181,7 @@ install.me Notes
      $HOME/bin and ~/bin.
 
    * The -afs option should only be needed if installing MHonArc onto AFS
-     and using an older version of Perl 5. It should not be need for Perl
+     and using an older version of Perl 5. It should not be needed for Perl
      5.005 or later.
 
    * If you want to abort the installation, just enter the termination
@@ -222,7 +222,7 @@ Win32 Notes
 
          shell> mhonarc.pl ...
 
-     This is known to work under WinNT.
+     This is known to work under WinNT and under the Cygwin bash shell.
 
      This is better than going though the batch file mechanism since I/O
      redirection does not work when invoking a batch file.
@@ -318,5 +318,4 @@ Now, any file with .mrc extension will put Vim into MHonArc resource file
 highlighting mode. The mode is best used with color-capable terminals.
 
 ----------------------------------------------------------------------------
-
 Copyright © 1997-1999, Earl Hood, mhonarc@pobox.com

@@ -57,11 +57,25 @@ instruct MHonArc to use a stricter test detecting a message
 separator. The following <strong>MSGSEP</strong> resource setting is
 known to work well: </P>
 
-<PRE>
+<pre>
 <b>&lt;MsgSep&gt;</b>
 ^From \S+\s+\S+\s+\S+\s+\d+\s+\d+:\d+:\d+\s+\d+
 <b>&lt;/MsgSep&gt;</b>
-</PRE>
+</pre>
+
+<p>In case you have message separates with quoted local parts in
+the address part of the separator, you can use the following:
+</p>
+
+<pre>
+<b>&lt;MsgSep></b>
+^From\s+(?:"[^"]+"@\S+|\S+)\s+\S+\s+\S+\s+\d+\s+\d+:\d+:\d+\s+\d+
+<b>&lt;/MsgSep></b>
+</pre>
+
+<p>Make sure to test things out before using in production
+environments.
+</p>
 
 <p>If this fails, you can try the <strong>CONLEN</strong>
 resource available in v2.0 and later.  The CONLEN resource, when set, tells
@@ -612,7 +626,7 @@ and examples.
 
 <hr>
 <address>
-99/08/11 22:48:05<br>
+99/10/01 01:20:47<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"
 ><strong>MHonArc</strong></a><br>

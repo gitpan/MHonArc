@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhutil.pl 2.6 99/08/08 20:01:54
+##	@(#) mhutil.pl 2.8 99/10/01 00:26:45
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -117,9 +117,11 @@ sub sort_messages {
 
     } elsif ($subsort) {
 	## Subject order
-	my $hs = scalar(%Subject);  $hs =~ s|^[^/]/||;
 	my(%sub, $idx, $sub);
-	keys(%sub) = $hs;
+	eval {
+	    my $hs = scalar(%Subject);  $hs =~ s|^[^/]+/||;
+	    keys(%sub) = $hs;
+	};
 	while (($idx, $sub) = each(%Subject)) {
 	    $sub = lc $sub;
 	    1 while $sub =~ s/$SubReplyRxp//io;
@@ -138,9 +140,11 @@ sub sort_messages {
 	
     } elsif ($authsort) {
 	## Author order
-	my $hs = scalar(%From);  $hs =~ s|^[^/]/||;
 	my(%from, $idx, $from);
-	keys(%from) = $hs;
+	eval {
+	    my $hs = scalar(%From);  $hs =~ s|^[^/]+/||;
+	    keys(%from) = $hs;
+	};
 	while (($idx, $from) = each(%From)) {
 	    $from = lc extract_email_name($from);
 	    $from{$idx} = $from;
@@ -266,15 +270,28 @@ sub get_time_from_date {
 	$time = &timegm($sec,$min,$hr,$mday,$mon,$yr);
 
 	# try to modify time/date based on timezone
-	if ($zone =~ /^[\+-]\d+$/) {	# numeric timezone
-	    $time -= &zone_offset_to_secs($zone);
+	OFFSET: {
+	    # numeric timezone
+	    if ($zone =~ /^[\+-]\d+$/) {
+		$time -= &zone_offset_to_secs($zone);
+		last OFFSET;
+	    }
+	    # Zone
+	    if (defined($Zone{$zone})) {
+		# timezone abbrev
+		$time += &zone_offset_to_secs($Zone{$zone});
+		last OFFSET;
 
-	# timezone abbrev
-	} elsif (defined($Zone{$zone})) {
-	    $time += &zone_offset_to_secs($Zone{$zone});
-
-	# undefined timezone
-	} else {
+	    }
+	    # Zone[+-]DDDD
+	    if ($zone =~ /^([A-Z]\w+)([\+-]\d+)$/) {
+		$time -= &zone_offset_to_secs($2);
+		if (defined($Zone{$1})) {
+		    $time += &zone_offset_to_secs($Zone{$1});
+		    last OFFSET;
+		}
+	    }
+	    # undefined timezone
 	    warn qq|Warning: Unrecognized time zone, "$zone"\n|;
 	}
 

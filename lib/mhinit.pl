@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhinit.pl 2.17 99/08/15 21:20:28
+##	@(#) mhinit.pl 2.18 99/09/28 23:11:45
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -242,6 +242,7 @@ $DBPathName	= '';	# Full pathname of database file
     "application/octet-stream",		"m2h_external::filter",
     "application/x-patch",		"m2h_text_plain::filter",
     "message/delivery-status",  	"m2h_text_plain::filter",
+    "message/external-body",   		"m2h_msg_extbody::filter",
     "message/partial",   		"m2h_text_plain::filter",
     "text/enriched",    		"m2h_text_enriched::filter",
     "text/html",			"m2h_text_html::filter",
@@ -267,6 +268,8 @@ $DBPathName	= '';	# Full pathname of database file
     #-------------------------------------------------------------------
     "application/octet-stream",		"mhexternal.pl",
     "application/x-patch",		"mhtxtplain.pl",
+    "message/delivery-status",  	"mhtxtplain.pl",
+    "message/external-body",   		"mhmsgextbody.pl",
     "message/partial",   		"mhtxtplain.pl",
     "text/enriched",    		"mhtxtenrich.pl",
     "text/html",			"mhtxthtml.pl",

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxthtml.pl 2.9 99/08/14 19:38:33
+##	@(#) mhtxthtml.pl 2.10 99/09/28 23:13:13
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -162,6 +162,8 @@ sub filter {
 
 sub addbase {
     my($b, $u) = @_;
+    return $u  if !defined($b) || $b !~ /\S/;
+
     my($ret);
     $u =~ s/^\s+//;
     if ($u =~ m%^$Url%o || $u =~ m/^#/) {
@@ -175,7 +177,8 @@ sub addbase {
 	    $b =~ s/\/$//;
 	    my @a = split(/\//, $b);
 	    my $cnt = 0;
-	    while ($u =~ s|^(\.{1,2})/||) { ++$cnt  if length($1) == 2; }
+	    while ( $cnt <= scalar(@a) &&
+		    $u =~ s|^(\.{1,2})/|| ) { ++$cnt  if length($1) == 2; }
 	    splice(@a, -$cnt)  if $cnt > 0;
 	    $b = join('/', @a, "");
 

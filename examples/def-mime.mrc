@@ -1,5 +1,5 @@
 <!-- ================================================================== -->
-<!--    @(#) def-mime.mrc 1.6 99/08/15 18:17:37
+<!--    @(#) def-mime.mrc 1.7 99/10/01 01:13:14
         Earl Hood <mhonarc@pobox.com>
   -->
 <!--    MHonArc Resource File                                           --
@@ -41,6 +41,7 @@ chemical/*;                m2h_external::filter;        mhexternal.pl
 model/*;                   m2h_external::filter;        mhexternal.pl
 image/*;                   m2h_external::filter;        mhexternal.pl
 message/delivery-status;   m2h_text_plain::filter;      mhtxtplain.pl
+message/external-body;     m2h_msg_extbody::filter;     mhmsgextbody.pl
 message/partial;           m2h_text_plain::filter;      mhtxtplain.pl
 text/*;                    m2h_text_plain::filter;      mhtxtplain.pl
 text/enriched;             m2h_text_enriched::filter;   mhtxtenrich.pl
@@ -62,3 +63,13 @@ image/x-xbitmap; inline
 image/x-xbm;     inline
 </MIMEArgs>
 
+<MIMEDecoders>
+7bit;   	  as-is;
+8bit;   	  as-is;
+binary;   	  as-is;
+base64;   	  base64::b64decode;		base64.pl
+quoted-printable; quoted_printable::qprdecode;	qprint.pl
+x-uuencode;   	  base64::uudecode;		base64.pl
+xuue;   	  base64::uudecode;		base64.pl
+uuencode;   	  base64::uudecode;		base64.pl
+</MIMEDecoders>

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhindex.pl 1.4 99/06/25 14:21:22
+##	@(#) mhindex.pl 1.6 99/10/01 02:03:44
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -69,13 +69,14 @@ sub write_main_index {
 	} else {
 	    if ($IDXSIZE && (($i = ($#MListOrder+1) - $IDXSIZE) > 0)) {
 		if ($REVSORT) {
-		    splice(@MListOrder, $IDXSIZE);
+		    @a = @MListOrder[0..($IDXSIZE-1)];
 		} else {
-		    splice(@MListOrder, 0, $i);
+		    @a = @MListOrder[$i..$#MListOrder];
 		}
+	    } else {
+		*a = *MListOrder;
 	    }
 	    $IDXPATHNAME = join($DIRSEP, $OUTDIR, $IDXNAME);
-	    *a = *MListOrder;
 	}
 	$PageSize = scalar(@a);
 	    

@@ -16,11 +16,11 @@
 
 <!--X-TOC-Start-->
 <ul>
-<li><a href="#overview">Overview</a></li>
-<li><a href="#rcvar_syntax">Resource Variable Syntax</a></li>
-<li><a href="#rcvar_index">Resource Variable Index</a></li>
+<li><a href="#overview">Overview</a>
+<li><a href="#rcvar_syntax">Resource Variable Syntax</a>
+<li><a href="#rcvar_index">Resource Variable Index</a>
 <ul>
-<li><small><a href="#variables">Variables</a></small></li>
+<li><small><a href="#variables">Variables</a></small>
 </ul>
 </ul>
 <!--X-TOC-End-->
@@ -841,6 +841,25 @@ resources.  The resource used depends on
 </td>
 </tr>
 </table><br></dd>
+<dt><strong><a name="PGLINKLIST"><tt>$PGLINKLIST$</tt></a></strong></dt>
+<dd><table border=0>
+<tr valign=top>
+<td align=right><b>Arguments:</b></td>
+<td><tt><i>num</i>;<i>num</i></tt></td>
+</tr>
+<tr valign=top>
+<td align=right><b>Description:</b></td>
+<td><p>Markup linking to a list of index pages.  <tt>$PGLINKLIST$</tt> takes
+two arguments: the first is the number of pages before the current page
+to create links to; the second is the number of pages after the
+current page to create links to.  If either number argument is prefixed
+with a '<tt><b>T</b></tt>', then the list of links apply to the thread index.
+Examples: <tt>$PGLINKLIST(3;3)$</tt>, <tt>$PGLINKLIST(T2;T3)$</tt>.  The
+link text for to a give page is the page number.
+</p>
+</td>
+</tr>
+</table><br></dd>
 <dt><strong><a name="PROG"><tt>$PROG$</tt></a></strong></dt>
 <dd><table border=0>
 <tr valign=top>
@@ -1033,7 +1052,7 @@ resources.
 <!-- *************************************************************** -->
 <hr>
 <address>
-99/08/15 21:19:30<br>
+99/10/01 01:22:09<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"
 ><strong>MHonArc</strong></a><br>

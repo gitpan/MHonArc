@@ -25,10 +25,10 @@
 
 <dt><strong>Element</strong><dt>
 <dd><p>
-<code>&lt;MIMEFILTERS&gt;<br></code>
+<code>&lt;MIMEFILTERS&gt;</code></br>
 <var>filter-specification</var><br>
 <var>...</var><br>
-<code>&lt;/MIMEFILTERS&gt;<br></code>
+<code>&lt;/MIMEFILTERS&gt;</code></br>
 </p>
 </dd>
 
@@ -313,6 +313,7 @@ chemical/*;		   <a href="#m2h_external">m2h_external::filter</a>;	mhexternal.pl
 model/*;		   <a href="#m2h_external">m2h_external::filter</a>;	mhexternal.pl
 image/*;		   <a href="#m2h_external">m2h_external::filter</a>;	mhexternal.pl
 message/delivery-status;   <a href="#m2h_text_plain">m2h_text_plain::filter</a>;	mhtxtplain.pl
+message/external-body;     <a href="#m2h_msg_extbody">m2h_msg_extbody::filter</a>;	mhmsgextbody.pl
 message/partial;	   <a href="#m2h_text_plain">m2h_text_plain::filter</a>;	mhtxtplain.pl
 text/*;			   <a href="#m2h_text_plain">m2h_text_plain::filter</a>;	mhtxtplain.pl
 text/enriched;		   <a href="#m2h_text_enriched">m2h_text_enriched::filter</a>;	mhtxtenrich.pl
@@ -1177,6 +1178,35 @@ recognizes:
 </center>
 
 <hr size=0 noshade width="50%">
+<H3><a name="m2h_msg_extbody">m2h_msg_extbody::filter</a></h3>
+
+<p>This filter is designed to process <tt>message/external-body</tt>
+data.
+The filter attempts to translate the external-body paramaters
+into a linked URL with some descriptive information,
+if provided.  The following access-types are supported:
+ANON-FTP, FTP, TFTP, LOCAL-FILE, and URL.  Note, LOCAL-FILE is
+only supported if the <tt>local-file</tt> option is specified.
+</p>
+
+<p><strong><tt>m2h_msg_extbody::filter</tt></strong> can take the
+following
+<a href="mimeargs.html">arguments</a>:
+</p>
+
+<table cellspacing=1 border=0 cellpadding=4>
+<tr valign=top>
+<td><strong><tt>local-file</tt></strong></td>
+<td><p>Support LOCAL-FILE access-type.  This option
+is best used for internal local mail archives
+where it is known that readers will have
+direct access to the file.
+</p>
+</tr>
+</table>
+
+
+<hr size=0 noshade width="50%">
 <H3><a name="m2h_text_enriched">m2h_text_enriched::filter</a></h3>
 
 <p>This filter is designed to process text/enriched, or
@@ -1190,63 +1220,63 @@ translation of text/enriched commands to HTML tags:
 <th>Text/Enriched Command</th><th>HTML Translation</th>
 </tr>
 <tr valign=top>
-<td><strong>&lt;Bold></strong></td>
-<td>&lt;B></td>
+<td><strong>&lt;Bold&gt;</strong></td>
+<td>&lt;B&gt;</td>
 </tr>
 <tr valign=top>
-<td><strong>&lt;Italic></strong></td>
-<td>&lt;I></td>
+<td><strong>&lt;Italic&gt;</strong></td>
+<td>&lt;I&gt;</td>
 </tr>
 <tr valign=top>
-<td><strong>&lt;Underline></strong></td>
-<td>&lt;U></td>
+<td><strong>&lt;Underline&gt;</strong></td>
+<td>&lt;U&gt;</td>
 </tr>
 <tr valign=top>
-<td><strong>&lt;Fixed></strong></td>
-<td>&lt;TT></td>
+<td><strong>&lt;Fixed&gt;</strong></td>
+<td>&lt;TT&gt;</td>
 </tr>
 <tr valign=top>
-<td><strong>&lt;Smaller></strong></td>
-<td>&lt;SMALL></td>
+<td><strong>&lt;Smaller&gt;</strong></td>
+<td>&lt;SMALL&gt;</td>
 </tr>
 <tr valign=top>
-<td><strong>&lt;Bigger></strong></td>
-<td>&lt;BIG></td>
+<td><strong>&lt;Bigger&gt;</strong></td>
+<td>&lt;BIG&gt;</td>
 </tr>
 <tr valign=top>
-<td><strong>&lt;FontFamily>&lt;Param><var>family</var>&lt;/Param></strong></td>
-<td>&lt;FONT face="<var>family</var>"></td>
+<td><strong>&lt;FontFamily&gt;&lt;Param&gt;<var>family</var>&lt;/Param&gt;</strong></td>
+<td>&lt;FONT face="<var>family</var>"&gt;</td>
 </tr>
 <tr valign=top>
-<td><strong>&lt;Color>&lt;Param><var>color</var>&lt;/Param></strong></td>
-<td>&lt;FONT color="<var>color</var>"></td>
+<td><strong>&lt;Color&gt;&lt;Param&gt;<var>color</var>&lt;/Param&gt;</strong></td>
+<td>&lt;FONT color="<var>color</var>"&gt;</td>
 </tr>
 <tr valign=top>
 <td><strong>&lt;Center></strong></td>
-<td>&lt;P align="center"></td>
+<td>&lt;P align="center"&gt;</td>
 </tr>
 <tr valign=top>
-<td><strong>&lt;FlushLeft></strong></td>
-<td>&lt;P align="left"></td>
+<td><strong>&lt;FlushLeft&gt;</strong></td>
+<td>&lt;P align="left"&gt;</td>
 </tr>
 <tr valign=top>
-<td><strong>&lt;FlushRight></strong></td>
-<td>&lt;P align="right"></td>
+<td><strong>&lt;FlushRight&gt;</strong></td>
+<td>&lt;P align="right"&gt;</td>
 </tr>
 <tr valign=top>
-<td><strong>&lt;FlushBoth></strong></td>
-<td>&lt;P align="both"> <em>(not supported in HTML)</em></td>
+<td><strong>&lt;FlushBoth&gt;</strong></td>
+<td>&lt;P align="both"&gt; <em>(not supported in HTML)</em></td>
 </tr>
 <tr valign=top>
-<td><strong>&lt;ParaIndent></strong></td>
-<td>&lt;BLOCKQUOTE></td>
+<td><strong>&lt;ParaIndent&gt;</strong></td>
+<td>&lt;BLOCKQUOTE&gt;</td>
 </tr>
 <tr valign=top>
-<td><strong>&lt;Excerpt></strong></td>
-<td>&lt;BLOCKQUOTE></td>
+<td><strong>&lt;Excerpt&gt;</strong></td>
+<td>&lt;BLOCKQUOTE&gt;</td>
 </tr>
 <tr valign=top>
-<td><strong>&lt;Lang></strong></td>
+<td><strong>&lt;Lang&gt;</strong></td>
 <td><em>Stripped</em></td>
 </tr>
 </table>
@@ -1544,13 +1574,14 @@ sub addbase {
 <p>
 <a href="charsetconverters.html">CHARSETCONVERTERS</a>,
 <a href="mimeargs.html">MIMEARGS</a>,
+<a href="mimedecoders.html">MIMEDECODERS</a>,
 <a href="perlinc.html">PERLINC</a>
 </p>
 
 <!-- *************************************************************** -->
 <hr>
 <address>
-99/08/15 21:11:38<br>
+99/10/01 01:19:24<br>
 <img align="top" src="../monicon.gif" alt="">
 <a href="http://www.pobox.com/~ehood/mhonarc.html"><strong>MHonArc</strong></a><br>
 Copyright &#169; 1997-1999 <a href="http://www.pobox.com/~ehood/">Earl Hood</a>, <a href="mailto:mhonarc@pobox.com">mhonarc@pobox.com</a><br>

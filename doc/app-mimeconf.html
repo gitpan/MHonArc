@@ -25,8 +25,8 @@ Also, additional MIME-related features are summarized.
 
 <!--X-TOC-Start-->
 <ul>
-<li><a href="#mime-conformance">MIME-Conformance</a></li>
-<li><a href="#otherstuff">Other Stuff Supported</a></li>
+<li><a href="#mime-conformance">MIME-Conformance</a>
+<li><a href="#otherstuff">Other Stuff Supported</a>
 </ul>
 <!--X-TOC-End-->
 
@@ -495,6 +495,9 @@ by MHonArc:</p>
 that support).  For a complete list, along with more
 information, see the
 <a href="resources/mimefilters.html">MIMEFILTERS</a> resource.
+Note, many media-types cannot be directly converted into HTML.  For
+these types, they are saved to a separate file with a link to the
+file inserted in the converted HTML message data.
 </p>
 </li>
 
@@ -507,7 +510,15 @@ message parts via content-ids.
 <li><p>Support for <b><tt>cid:</tt></b> URLs in <b><tt>text/html</tt></b>
 data.  The provides support for things like MHTML:
 <em>MIME E-mail Encapsulation of Aggregate Documents</em>,
-RFC 2110.
+<a href="http://www.ietf.org/rfc/rfc2110.txt">RFC 2110</a>.
+</p>
+</li>
+
+<li><p>Support for
+<a href="http://www.ietf.org/rfc/rfc2369.txt">RFC 2369</a>,
+<em>The Use of URLs as Meta-Syntax for Core Mail List Commands
+and their Transport through Message Header Fields</em>.  The
+URLs in list header fields will be converted into hypertext links.
 </p>
 </li>
 
@@ -522,7 +533,7 @@ RFC 2110.
 
 <HR>
 <address>
-99/08/15 21:19:39<br>
+99/10/01 01:22:06<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.pobox.com/~ehood/mhonarc.html"
 ><strong>MHonArc</strong></a><br>

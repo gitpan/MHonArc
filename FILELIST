@@ -17,6 +17,7 @@ lib:lib/mhindex.pl
 lib:lib/mhinit.pl
 lib:lib/mhlock.pl
 lib:lib/mhmimetypes.pl
+lib:lib/mhmsgextbody.pl
 lib:lib/mhmsgfile.pl
 lib:lib/mhnote.pl
 lib:lib/mhnull.pl

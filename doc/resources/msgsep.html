@@ -84,6 +84,18 @@ a more specific regular expression.  For example:
 <b>&lt;/MSGSEP></b>
 </pre>
 
+<p>or</p>
+
+<pre>
+<b>&lt;MSGSEP></b>
+^From\s+(?:"[^"]+"@\S+|\S+)\s+\S+\s+\S+\s+\d+\s+\d+:\d+:\d+\s+\d+
+<b>&lt;/MSGSEP></b>
+</pre>
+
+<p>The second version deals with some systems that have quoted
+local parts in the address listed in the separator.
+</p>
+
 <p>It is still possible to get bogus splitting if a message
 contains a line that matches the regexp.
 Therefore, you may
@@ -109,7 +121,7 @@ if applicable.
 <!-- *************************************************************** -->
 <hr>
 <address>
-99/08/08 23:14:30<br>
+99/10/01 01:19:26<br>
 <img align="top" src="../monicon.gif" alt="">
 <a href="http://www.pobox.com/~ehood/mhonarc.html"><strong>MHonArc</strong></a><br>
 Copyright &#169; 1997-1998, <a href="http://www.pobox.com/~ehood/">Earl Hood</a>, <a href="mailto:mhonarc@pobox.com">mhonarc@pobox.com</a><br>

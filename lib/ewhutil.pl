@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) ewhutil.pl 2.5 99/08/08 20:00:40
+##	@(#) ewhutil.pl 2.6 99/09/28 23:07:44
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -94,7 +94,7 @@ sub dehtmlize {
 ##
 sub urlize {
     my($url) = shift || "";
-    $url =~ s/([^\w@\.])/sprintf("%%%X",unpack("C",$1))/ge;
+    $url =~ s/([^\w@\.\-])/sprintf("%%%X",unpack("C",$1))/ge;
     $url;
 }
 

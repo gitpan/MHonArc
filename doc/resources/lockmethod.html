@@ -62,7 +62,7 @@ will first try to create a directory in the archive directory
 with a name determined by the
 <a href="lockfile.html">LOCKFILE</a> resource.  MHonArc will try
 <a href="locktries.html">LOCKTRIES</a> times to create
-the directory (obtains the lock).
+the directory (obtains the lock) before timing out.
 </p>
 </dd>
 
@@ -71,7 +71,7 @@ the directory (obtains the lock).
 <a href="lockfile.html">LOCKFILE</a> will be created in the archive
 directory if does not already exist.  Then MHonArc will try to
 <a href="locktries.html">LOCKTRIES</a> times to obtain
-an exclusive lock on the file via flock().
+an exclusive lock on the file via flock() before timing out.
 </p>
 </dd>
 
@@ -83,6 +83,12 @@ an exclusive lock on the file via flock().
 <td><p>Each locking method is incompatible with each other.  Therefore,
 make sure the same method is specified for all MHonArc processes that
 will be accessing a given archive.
+If you want to change the default
+lock method so it will affect all MHonArc processes, you can set
+it via the default resource file or through <b><tt>mhasiteinit.pl</tt></b>.
+See
+<a href="../install.html#postinstall">Post Installation Configuration</a>
+for more information.
 </p>
 </td>
 </tr>
@@ -152,8 +158,8 @@ eliminating the stale lock problem.
 <li><p>Not availabe on all platforms.
 </p>
 </li>
-<li><p>May not work over NFS.  Read the documentation
-on flock() in the Perl documentation for more information.
+<li><p>May not work over NFS reliably.  Read the documentation
+for flock() in the Perl documentation for more information.
 </p>
 </ul>
 
@@ -179,6 +185,12 @@ on flock() in the Perl documentation for more information.
 <td><p>Each locking method is incompatible with each other.  Therefore,
 make sure the same method is specified for all MHonArc processes that
 will be accessing a given archive.
+If you want to change the default
+lock method so it will affect all MHonArc processes, you can set
+it via the default resource file or through <b><tt>mhasiteinit.pl</tt></b>.
+See
+<a href="../install.html#postinstall">Post Installation Configuration</a>
+for more information.
 </p>
 </td>
 </tr>
@@ -221,7 +233,7 @@ will be accessing a given archive.
 <!-- *************************************************************** -->
 <hr>
 <address>
-99/08/08 23:14:29<br>
+99/10/01 01:19:23<br>
 <img align="top" src="../monicon.gif" alt="">
 <a href="http://www.pobox.com/~ehood/mhonarc.html"
 ><strong>MHonArc</strong></a><br>

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhdb.pl 2.10 99/08/13 22:16:18
+##	@(#) mhdb.pl 2.11 99/09/28 23:07:55
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -80,6 +80,10 @@ print_var(\*DB,'readmail::MIMECharSetConverters',
 		\%readmail::MIMECharSetConverters);
 print_var(\*DB,'readmail::MIMECharSetConvertersSrc',
 		\%readmail::MIMECharSetConvertersSrc);
+print_var(\*DB,'readmail::MIMEDecoders',
+		\%readmail::MIMEDecoders);
+print_var(\*DB,'readmail::MIMEDecodersSrc',
+		\%readmail::MIMEDecodersSrc);
 print_var(\*DB,'readmail::MIMEFilters',
 		\%readmail::MIMEFilters);
 print_var(\*DB,'readmail::MIMEFiltersSrc',

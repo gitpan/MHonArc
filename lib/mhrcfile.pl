@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcfile.pl 2.11 99/08/13 22:17:26
+##	@(#) mhrcfile.pl 2.12 99/09/28 23:12:20
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -414,6 +414,26 @@ sub read_resource_file {
 	if ($elem eq "mhpattern") {		# File pattern MH-like dirs
 	    if ($line = &get_elem_last_line($handle, $elem)) {
 		$MHPATTERN = $line;
+	    }
+	    last FMTSW;
+	}
+	if ($elem eq "mimedecoders") {		# Mime decoders
+	    if ($override) {
+		%readmail::MIMEDecoders = ();
+		%readmail::MIMEDecodersSrc = ();
+	    }
+	    while (defined($line = <$handle>)) {
+		last  if     $line =~ /^\s*<\/mimedecoders\s*>/i;
+		next  unless $line =~ /\S/;
+		$line =~ s/\s//g;
+		if ($line =~ /;/) {	# using Perl 5 qualification
+		    ($type,$routine,$plfile) = split(/;/,$line,3);
+		} else {
+		    ($type,$routine,$plfile) = split(/:/,$line,3);
+		}
+		$type =~ tr/A-Z/a-z/;
+		$readmail::MIMEDecoders{$type}    = $routine;
+		$readmail::MIMEDecodersSrc{$type} = $plfile  if $plfile =~ /\S/;
 	    }
 	    last FMTSW;
 	}
@@ -1044,7 +1064,7 @@ sub get_list_content {
 	last  if /^\s*<\/$gi\s*>/i;
 	next  unless /\S/;
 	s/\r?\n?$//;
-	push(@items, split(/[:;]/, $_));
+	push(@items, split(/[:]/, $_));
     }
     @items;
 }

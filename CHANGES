@@ -10,6 +10,35 @@ MM/DD/YYYY
 =======================================================================
 #######################################################################
 =======================================================================
+10/01/1999	(2.4.4)
+
+    Enhancements/Changes
+    --------------------
+    o	Added the following resources:
+    
+	    MIMEDECODERS	Content-Transfer-Encoding decoding
+				functions.
+
+    o	Added the following resource variables:
+
+	    $PGLINKLIST$	Print out a list of index page links.
+
+    o	New content filter for message/external-body.
+
+    o	Message/delivery-status content handled by mhtxtplain.pl
+
+    o	Support for "Zone[+-]DDDD" timezone specification.
+
+    o	MAILparse_parameter_str() function added to readmail.pl.
+	Function supports parsing parameter value strings with support
+	for RFC 2184 extensions.  Function added to provide
+	support for message/external-body filter.
+
+    Bug Fixes
+    ---------
+    See BUGS.
+
+=======================================================================
 08/15/1999	(2.4.3)
 
     Enhancements/Changes
@@ -1348,4 +1377,4 @@ MM/DD/YYYY
 #######################################################################
 =======================================================================
 Earl Hood, mhonarc@pobox.com
-@(#) CHANGES 99/08/15 21:48:34
+@(#) CHANGES 99/10/01 01:24:24

@@ -1,7 +1,7 @@
 Bug History for MHonArc
 =======================
 <URL:http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
-@(#) BUGS 99/08/15 22:23:47
+@(#) BUGS 99/10/01 01:24:23
 
 Each bug listing has the following fields:
 
@@ -15,6 +15,36 @@ Each bug listing has the following fields:
 		    applicable.
 
 Bug List
+------------------------------------------------------------------------
+Version:	2.4.3, and earlier
+Problem:   	Text/html filter died with a "Modification of
+		non-creatable array" error when a relative URL
+		exists in body data, but no base URL defined for
+		the html data.
+Solution:	Fixed in mhtxthtml.pl
+Version Fixed:	2.4.4
+------------------------------------------------------------------------
+Version:	2.4.0 - 2.4.3
+Problem:   	Error "Can't modify keys in scalar assignment" occurs
+		when using older version of Perl 5.
+Solution:	Later Perl 5 releases support keys operator as an
+		lvalue to preallocate a hash.  Assignment put in
+		an eval block to avoid program termination.
+Version Fixed:	2.4.4
+------------------------------------------------------------------------
+Version:	2.3.0 - 2.4.3
+Problem:   	Setting IDXSIZE < MAXSIZE for a single page index
+		causes the generation of incorrect list entries and
+		null list entries.
+Solution:	Fixed in mhindex.pl
+Version Fixed:	2.4.4
+------------------------------------------------------------------------
+Version:	2.4.3, and earlier
+Problem:   	Using entity references within MONTHS, WEEKDAYS, et al,
+		not supported and caused names to be incorrect.
+Solution:	The semi-colon, ';', was treated as an undocumented
+		list separator in resource files.  "Feature" removed.
+Version Fixed:	2.4.4
 ------------------------------------------------------------------------
 Version:	2.4.2
 Problem:   	$*GMTDATE$ and $*LOCALDATE$ expand to the empty string

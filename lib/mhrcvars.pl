@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcvars.pl 2.8 99/08/08 20:01:37
+##	@(#) mhrcvars.pl 2.9 99/09/28 23:12:57
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -412,6 +412,34 @@ sub replace_li_var {
 		if ($arg eq 'TPREV') {
 		    $tmp = $PageNum > 1 ? $TPREVPGLINK : $TPREVPGLINKIA;
 		    last SW; }
+	    }
+	    last REPLACESW;
+	}
+	if ($var eq 'PGLINKLIST') {
+	    my $num = $PageNum;
+	    my($before, $after) = split(/;/, $arg);
+	       $t = $t =~ s/T//i;
+	    my $prefix  = $t ? $TIDXPREFIX : $IDXPREFIX;
+	    my $suffix  = $HtmlExt;
+	       $suffix .= '.gz'  if $GzipLinks;
+	    $before = $num - abs($before);
+	    $after  = $num + abs($after);
+	    $tmp = "";
+	    for ($i=$before; $i < $num; ++$i) {
+		next  if $i < 1;
+		if ($i < 2) {
+		    $tmp .= sprintf('<A HREF="%s%s">%d</A> | ',
+				    ($t ? $TIDXNAME : $IDXNAME),
+				    ($GzipLinks ? '.gz' : ""), $i);
+		    next;
+		}
+		$tmp .= sprintf('<A HREF="%s%d.%s">%d</A> | ',
+			        $prefix, $i, $suffix, $i);
+	    }
+	    $tmp .= $num;
+	    for ($i=$num+1; $i <= $after && $i <= $NumOfPages; ++$i) {
+		$tmp .= sprintf(' | <A HREF="%s%d.%s">%d</A>',
+			        $prefix, $i, $suffix, $i);
 	    }
 	    last REPLACESW;
 	}
