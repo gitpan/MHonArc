@@ -1,97 +1,107 @@
-<HTML>
-<HEAD>
-<TITLE>mha-decode - Decode MIME messages</TITLE>
-<LINK REV="made" HREF="mailto:lindsey@imladris.mallorn.com">
-</HEAD>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>mha-decode - Decode MIME messages</title>
+<link rev="made" href="mailto:lindsey@valinor.mallorn.com" />
+</head>
 
-<BODY>
-<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%>
-<TR><TD CLASS=block VALIGN=MIDDLE WIDTH=100% BGCOLOR="#cccccc">
-<FONT SIZE=+1><STRONG><P CLASS=block>&nbsp;mha-decode - Decode MIME messages</P></STRONG></FONT>
-</TD></TR>
-</TABLE>
+<body style="background-color: white">
+<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<tr><td class="block" style="background-color: #cccccc" valign="middle">
+<big><strong><span class="block">&nbsp;mha-decode - Decode MIME messages</span></strong></big>
+</td></tr>
+</table>
 
-<A NAME="__index__"></A>
+<p><a name="__index__"></a></p>
 <!-- INDEX BEGIN -->
 
-<UL>
+<ul>
 
-	<LI><A HREF="#name">NAME</A></LI>
-	<LI><A HREF="#synopsis">SYNOPSIS</A></LI>
-	<LI><A HREF="#description">DESCRIPTION</A></LI>
-	<LI><A HREF="#options">OPTIONS</A></LI>
-	<LI><A HREF="#notes">NOTES</A></LI>
-	<LI><A HREF="#availability">AVAILABILITY</A></LI>
-	<LI><A HREF="#author">AUTHOR</A></LI>
-</UL>
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#notes">NOTES</a></li>
+	<li><a href="#availability">AVAILABILITY</a></li>
+	<li><a href="#author">AUTHOR</a></li>
+</ul>
 <!-- INDEX END -->
 
-<HR>
-<P>
-<H1><A NAME="name">NAME</A></H1>
-<P>mha-decode - Decode MIME messages</P>
-<P>
-<HR>
-<H1><A NAME="synopsis">SYNOPSIS</A></H1>
-<P><STRONG>mha-decode</STRONG>&nbsp;[<EM>options</EM>]&nbsp;<EM>mailfolder</EM>&nbsp;...</P>
-<P><STRONG>mha-decode</STRONG>&nbsp;[<EM>options</EM>]&nbsp;-single&nbsp;<EM>msg.822</EM></P>
-<P>
-<HR>
-<H1><A NAME="description">DESCRIPTION</A></H1>
-<P><STRONG>mha-decode</STRONG> is a utility program that is part of the <STRONG>MHonArc</STRONG>
-software package.  <STRONG>mha-decode</STRONG> provides basic MIME decoding for
-mail messages.</P>
-<P>If given mail folders as input, all messages within in the mail
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p>mha-decode - Decode MIME messages</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>mha-decode</strong>&nbsp;[<em>options</em>]&nbsp;<em>mailfolder</em>&nbsp;...</p>
+<p><strong>mha-decode</strong>&nbsp;[<em>options</em>]&nbsp;-single&nbsp;<em>msg.822</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p><strong>mha-decode</strong> is a utility program that is part of the <strong>MHonArc</strong>
+software package.  <strong>mha-decode</strong> provides basic MIME decoding for
+mail messages.</p>
+<p>If given mail folders as input, all messages within in the mail
 folders will be decoded.  All message parts are written to files.  If a
 filename is specified for a message part, that filename will be used
 when writing the part to a file.  If no filename is specified in the
 message, a unique name will be used based upon the content-type of
-the message part.</P>
-<P>A single message can be decoded by using the <CODE>-single</CODE> option.</P>
-<P>
-<HR>
-<H1><A NAME="options">OPTIONS</A></H1>
-<P><STRONG>mha-decode</STRONG> takes options available to <STRONG>mhonarc</STRONG>, but only those
+the message part.</p>
+<p>A single message can be decoded by using the <code>-single</code> option.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p><strong>mha-decode</strong> takes options available to <strong>mhonarc</strong>, but only those
 options affect parsing of mail folders are applicable:
-<CODE>-conlen</CODE>,
-<CODE>-mhpattern</CODE>,
-<CODE>-msgsep</CODE>,
-<CODE>-noconlen</CODE>,
-<CODE>-outdir</CODE>,
-<CODE>-perlinc</CODE>,
-<CODE>-rcfile</CODE>,
-<CODE>-single</CODE>,
-<CODE>-umask</CODE>.</P>
-<P>Also, <STRONG>mha-decode</STRONG> supports the following additional options:</P>
-<DL>
-<DT><STRONG><A NAME="item_%2Ddcd%2Ddigest"><CODE>-dcd-digest</CODE></A></STRONG><BR>
-<DD>
+<code>-conlen</code>,
+<code>-mhpattern</code>,
+<code>-msgsep</code>,
+<code>-noconlen</code>,
+<code>-outdir</code>,
+<code>-perlinc</code>,
+<code>-rcfile</code>,
+<code>-single</code>,
+<code>-umask</code>.</p>
+<p>Also, <strong>mha-decode</strong> supports the following additional options:</p>
+<dl>
+<dt><strong><a name="item_%2ddcd%2ddigest"><code>-dcd-digest</code></a></strong><br />
+</dt>
+<dd>
 Run in message digest mode.  When this option is specified, any
-embedded <CODE>message/rfc822</CODE> and <CODE>message/news</CODE> parts will be saved
+embedded <code>message/rfc822</code> and <code>message/news</code> parts will be saved
 instead of recursively decoding any parts contained within.
-<P></P></DL>
-<P>
-<HR>
-<H1><A NAME="notes">NOTES</A></H1>
-<P>The documentation for <STRONG>MHonArc</STRONG> is distributed in HTML format.
+</dd>
+<p></p></dl>
+<p>
+</p>
+<hr />
+<h1><a name="notes">NOTES</a></h1>
+<p>The documentation for <strong>MHonArc</strong> is distributed in HTML format.
 Due to its size and organization, it is not suited for manpage
 format.  Consult your system administrator for where the documentation
-has been installed, or see <A HREF="#availability">AVAILABILITY</A> on where you can
-access the documentation on the web.</P>
-<P>
-<HR>
-<H1><A NAME="availability">AVAILABILITY</A></H1>
-<P>&lt;<EM><A HREF="http://www.mhonarc.org/">http://www.mhonarc.org/</A></EM>&gt;</P>
-<P>
-<HR>
-<H1><A NAME="author">AUTHOR</A></H1>
-<P>Earl Hood, <A HREF="mailto:mhonarc@mhonarc.org">mhonarc@mhonarc.org</A></P>
-<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 WIDTH=100%>
-<TR><TD CLASS=block VALIGN=MIDDLE WIDTH=100% BGCOLOR="#cccccc">
-<FONT SIZE=+1><STRONG><P CLASS=block>&nbsp;mha-decode - Decode MIME messages</P></STRONG></FONT>
-</TD></TR>
-</TABLE>
+has been installed, or see <a href="#availability">AVAILABILITY</a> on where you can
+access the documentation on the web.</p>
+<p>
+</p>
+<hr />
+<h1><a name="availability">AVAILABILITY</a></h1>
+<p>&lt;<em><a href="http://www.mhonarc.org/">http://www.mhonarc.org/</a></em>&gt;</p>
+<p>
+</p>
+<hr />
+<h1><a name="author">AUTHOR</a></h1>
+<p>Earl Hood, <a href="mailto:mhonarc@mhonarc.org">mhonarc@mhonarc.org</a></p>
+<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<tr><td class="block" style="background-color: #cccccc" valign="middle">
+<big><strong><span class="block">&nbsp;mha-decode - Decode MIME messages</span></strong></big>
+</td></tr>
+</table>
 
-</BODY>
+</body>
 
-</HTML>
+</html>

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: UTF8.pm,v 1.1 2002/07/20 00:48:48 ehood Exp $
+##	$Id: UTF8.pm,v 1.2 2002/07/27 05:13:14 ehood Exp $
 ##  Author:
 ##      Earl Hood       earl@earlhood.com
 ##  Description:
@@ -29,6 +29,7 @@
 package MHonArc::UTF8;
 
 use strict;
+use Unicode::String;
 use Unicode::MapUTF8 qw(
     to_utf8 utf8_charset_alias utf8_supported_charset
 );
@@ -74,6 +75,68 @@ sub str2sgml{
 	($str = $_[0]) =~ s/(["&<>])/$HTMLSpecials{$1}/g;
     }
     $str;
+}
+
+sub clip {
+    use utf8;
+    my $str      = \shift;  # Prevent unnecessary copy.
+    my $len      = shift;   # Clip length
+    my $is_html  = shift;   # If entity references should be considered
+    my $has_tags = shift;   # If html tags should be stripped
+
+    my $u = Unicode::String::utf8($$str);
+
+    if (!$is_html) {
+      return $u->substr(0, $len);
+    }
+
+    my $text = Unicode::String::utf8("");
+    my $subtext;
+    my $html_len = $u->length;
+    my($pos, $sublen, $erlen, $real_len);
+    my $er_len = 0;
+    
+    for ( $pos=0, $sublen=$len; $pos < $html_len; ) {
+	$subtext = $u->substr($pos, $sublen);
+	$pos += $sublen;
+
+	# strip tags
+	if ($has_tags) {
+	    $subtext =~ s/\A[^<]*>//; # clipped tag
+	    $subtext =~ s/<[^>]*>//g;
+	    $subtext =~ s/<[^>]*\Z//; # clipped tag
+	}
+
+	# check for clipped entity reference
+	if (($pos < $html_len) && ($subtext =~ /\&[^;]*\Z/)) {
+	    my $semi = $u->index(';', $pos);
+	    if ($semi < 0) {
+		# malformed entity reference
+		$subtext .= $u->substr($pos);
+		$pos = $html_len;
+	    } else {
+		$subtext .= $u->substr($pos, $semi-$pos+1)
+		    if $semi > $pos;
+		$pos = $semi+1;
+	    }
+	}
+
+	# compute entity reference lengths to determine "real" character
+	# count and not raw character count.
+	while ($subtext =~ /(\&[^;]+);/g) {
+	    $er_len += length($1);
+	}
+
+	$text .= $subtext;
+
+	# done if we have enough
+	$real_len = $text->length - $er_len;
+	if ($real_len >= $len) {
+	    last;
+	}
+	$sublen = $len - ($text->length - $er_len);
+    }
+    $text;
 }
 
 ##---------------------------------------------------------------------------##

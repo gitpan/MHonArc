@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhtxtplain.pl,v 2.21 2002/07/20 00:48:48 ehood Exp $
+##	$Id: mhtxtplain.pl,v 2.22 2002/07/20 03:07:35 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -264,6 +264,9 @@ sub filter {
 
     ## Check MIMECharSetConverters if charset should be left alone
     my $charcnv = &readmail::load_charset($charset);
+    if (!defined($charcnv)) {
+      $charcnv = &readmail::load_charset('default');
+    }
     if (defined($charcnv) && $charcnv eq '-decode-') {
 	$asis{$charset} = 1;
     }

@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:	MHonArc Resource File
 " Maintainer:	Earl Hood <mhonarc@pobox.com>
-" Last change:	$Date: 2002/06/29 00:57:08 $ 
+" Last change:	$Date: 2002/07/27 05:13:13 $ 
 
 "	Adapted from the following:
 " Language:	HTML
@@ -180,6 +180,7 @@ syn keyword mhaTagName contained subsort
 syn keyword mhaTagName contained nosubsort
 syn keyword mhaTagName contained tcontbegin
 syn keyword mhaTagName contained tcontend
+syn keyword mhaTagName contained textclipfunc
 syn keyword mhaTagName contained tfirstpglink
 syn keyword mhaTagName contained tfoot
 syn keyword mhaTagName contained thead

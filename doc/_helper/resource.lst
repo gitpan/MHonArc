@@ -143,6 +143,7 @@ subjectthreads::M2H_SUBJECTTHREADS:<SUBJECTTHREADS>,<NOSUBJECTTHREADS>:-subjectt
 subsort::M2H_SUBSORT:<SUBSORT>,<NOSUBSORT>:-subsort:List messages by subjext in main index.
 tcontbegin:T::<TCONTBEGIN>::Markup before the continuation of a broken thread.
 tcontend:::<TCONTEND>::Markup after the continuation of a broken thread.
+textclipfunc:::<TEXTCLIPFUNC>::Perl function to use for text clipping operations.
 tfirstpglink:t::<TFIRSTPGLINK>::Link markup for first page of thread index.
 tfoot:t::<TFOOT>::Footer markup for thread index page.
 thead:t::<THEAD>::Header markup for thread index page.

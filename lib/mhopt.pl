@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      $Id: mhopt.pl,v 2.29 2002/06/28 03:28:10 ehood Exp $
+##      $Id: mhopt.pl,v 2.30 2002/07/27 05:13:13 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -641,6 +641,19 @@ sub get_resources {
     require 'mhindex.pl';
     require 'mhthread.pl';
     require 'mhdb.pl'	    unless $SCAN || $IDXONLY || !$DoArchive;
+
+    ## Load text clipping function
+    if (defined($TextClipSrc)) {
+	eval { require $TextClipSrc; };
+	if ($@) { warn qq/Warning: $@\n/; }
+    }
+    if (!defined($TextClipFunc) || !defined(&$TextClipFunc)) {
+	$TextClipFunc = \&clip_text;
+	$TextClipSrc  = undef;
+	$IsDefault{'TEXTCLIPFUNC'} = 1;
+    } else {
+	$IsDefault{'TEXTCLIPFUNC'} = 0;
+    }
 
     ## Predefine %Index2TLoc in case of message deletion
     if (@TListOrder) {

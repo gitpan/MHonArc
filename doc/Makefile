@@ -1,6 +1,6 @@
-# $Id: Makefile,v 1.11 2002/05/04 04:59:14 ehood Exp $
+# $Id: Makefile,v 1.12 2002/07/27 05:13:10 ehood Exp $
 
-.PHONY: default residx toc pagetocs buttons rcfileexs utildocs vim
+.PHONY: default rcpages residx toc pagetocs buttons rcfileexs utildocs vim
 
 TOP	  = ..
 
@@ -35,7 +35,10 @@ RCLIST	  = _helper/resource.lst
 RCVARLIST = _helper/rcvars.lst
 
 
-default: residx rcfileexs toc pagetocs buttons utildocs vim
+default: rcpages residx rcfileexs toc pagetocs buttons utildocs vim
+
+rcpages:
+	$(MAKE) -C resources all
 
 residx:
 	$(PERL) _helper/addrcindex.pl $(RCLIST) resources.html app-rcidx.html

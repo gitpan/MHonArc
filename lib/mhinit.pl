@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhinit.pl,v 2.35 2002/06/28 03:28:10 ehood Exp $
+##	$Id: mhinit.pl,v 2.36 2002/07/27 05:13:13 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -286,6 +286,10 @@ $VarExp    = '\$([^\$]*)\$'  if !defined($VarExp) || $VarExp !~ /\S/;
 
 ##  Regexp for address/msg-id detection (looks like cussing in cartoons)
 $AddrExp = '[^()<>@,;:\/\s"\'&|]+@[^()<>@,;:\/\s"\'&|]+';
+
+##  Text clipping function and source file: Set in mhopt.pl.
+$TextClipFunc	= undef;
+$TextClipSrc	= undef;
 
 ##	Grab environment variable settings
 ##

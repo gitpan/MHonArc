@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhdb.pl,v 2.21 2002/06/28 03:28:10 ehood Exp $
+##	$Id: mhdb.pl,v 2.22 2002/07/27 05:13:13 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -176,6 +176,11 @@ print_var(\*DB,'IDXPGSSMARKUP',  \$IDXPGSSMARKUP);
 print_var(\*DB,'TIDXPGSSMARKUP', \$TIDXPGSSMARKUP);
 print_var(\*DB,'SSMARKUP',       \$SSMARKUP);
 print_var(\*DB,'SpamMode',       \$SpamMode);
+
+if (!$IsDefault{'TEXTCLIPFUNC'}) {
+    print_var(\*DB,'TextClipFunc', \$TextClipFunc);
+    print_var(\*DB,'TextClipSrc',  \$TextClipSrc);
+};
 
 # Main index resources
 print_var(\*DB,'AUTHSORT',     \$AUTHSORT);

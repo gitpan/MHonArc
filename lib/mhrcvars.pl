@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhrcvars.pl,v 2.20 2002/06/07 17:45:09 ehood Exp $
+##	$Id: mhrcvars.pl,v 2.21 2002/07/27 05:13:13 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -638,16 +638,7 @@ sub replace_li_var {
 
 	# Check for clipping
 	if ($len > 0 && $canclip && (length($ret) > 0)) {
-	    if ($ret =~ /\&/) {
-		my @chars = $ret =~ /(\&[^;\s]*;|.)/g;
-		if (scalar(@chars) < $len) {
-		    $ret = join('', @chars);
-		} else {
-		    $ret = join('', @chars[0 .. $len-1])
-		}
-	    } else {
-		$ret = substr($ret, 0, $len);
-	    }
+	    $ret = &$TextClipFunc($ret, $len, 1);
 	}
 
 	# Check if JavaScript string

@@ -62,10 +62,6 @@ Items are in no particular order:
    the standard and supported by Mozilla's Site Navigation Toolbar.
    (see http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=115991)
 
-=> Add UTF8 charsetconverter.
-   (see
-    http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=131512&repeatmerged=yes)
-
 => Add a reasource (ICONURLPREFIX?) to prepend to icon url to support
    relative-based archives (see message from Oliver Creighton).
 
@@ -81,4 +77,4 @@ Items are in no particular order:
    Should be configurable?
 
 ===========================================================================
-$Id: TODO,v 1.21 2002/06/28 03:28:09 ehood Exp $
+$Id: TODO,v 1.22 2002/07/28 23:25:39 ehood Exp $

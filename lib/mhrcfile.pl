@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhrcfile.pl,v 2.24 2002/06/29 00:57:08 ehood Exp $
+##	$Id: mhrcfile.pl,v 2.25 2002/07/27 05:13:13 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -825,6 +825,16 @@ sub read_resource_file {
 	if ($elem eq 'tcontend') {		# Thread cont. end
 	    $TCONTEND = &get_elem_content($handle, $elem, $chop);
 	    last FMTSW;
+	}
+	if ($elem eq 'textclipfunc') {		# Text clipping function
+	    $TextClipFunc = undef;
+	    $TextClipSrc = undef;
+	    while (defined($line = <$handle>)) {
+		last  if $line =~ /^\s*<\/textclipfunc\s*>/i;
+		next  if $line =~ /^\s*$/;
+		$line =~ s/\s//g;
+		($TextClipFunc,$TextClipSrc) = split(/;/,$line,2);
+	    }
 	}
 	if ($elem eq 'tfirstpglink') {		# First thread page link
 	    $TFIRSTPGLINK = &get_elem_content($handle, $elem, $chop);

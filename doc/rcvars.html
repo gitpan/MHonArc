@@ -132,22 +132,42 @@ next <tt>$</tt> is part of the resource variable.
 <dd><p>The optional grouping starting with a colon are variable
 modifiers.  The definition of each modifier is as follows:
 </p>
-    <dl compact>
-    <dt><i>N</i></dt>
-    <dd>Length specification.  MHonArc will clip the expanded text
+<table border=0 cellpadding=4>
+<tr valign="top">
+    <td><i>N</i></td>
+    <td><p>Length specification.  MHonArc will clip the expanded text
     to <i>N</i> if the text length is greater than <i>N</i>.
-    </dd>
-    <dt><tt>U</tt></dt>
-    <dd>Treat the text as part of a URL string.  MHonArc will escape
+    </p>
+    <table border=0 cellpadding=4>
+    <tr valign=top>
+    <td><strong>NOTE</strong></td>
+    <td>Not all resource variables support clipping.
+	If a length specification is given for these variables, then
+	it will be ignored.
+    </td></tr>
+    </table>
+    <p>How MHonArc clips text is determined by the
+    <a href="resources/textclipfunc.html">TEXTCLIPFUNC</a> resource.
+    </p>
+    </td>
+</tr>
+<tr valign="top">
+    <td><tt>U</tt></td>
+    <td><p>Treat the text as part of a URL string.  MHonArc will escape
     any characters that are considered special in a URL.
-    </dd>
-    <dt><tt>J</tt></dt>
-    <dd>Treat the text as a JavaScript string.  MHonArc will escape
+    </p>
+    </td>
+</tr>
+<tr valign="top">
+    <td><tt>J</tt></td>
+    <td><p>Treat the text as a JavaScript string.  MHonArc will escape
     any quote characters so the text can be part of a JavaScript
     string.
-    </dd>
-    </dl>
-<p></p>
+    </p>
+    </td>
+</tr>
+</table>
+</dd>
 
 <dt><tt>(<i>arglist</i>)</tt> <em>(optional)</em></dt>
 <dd>An optional argument list delimited by parentheses: <tt>(&nbsp;)</tt>.
@@ -1197,7 +1217,7 @@ resources.
 <!-- *************************************************************** -->
 <hr>
 <address>
-$Date: 2002/06/07 17:43:18 $ <br>
+$Date: 2002/07/27 05:13:10 $ <br>
 <img align="top" src="monicon.png" alt="">
 <a href="http://www.mhonarc.org"
 ><strong>MHonArc</strong></a><br>

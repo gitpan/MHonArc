@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhutil.pl,v 2.14 2002/03/05 08:03:03 ehood Exp $
+##	$Id: mhutil.pl,v 2.15 2002/07/27 05:13:13 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -54,6 +54,69 @@ my %HFieldsAddr = (
     'sender'		=> 1,
     'to'		=> 1,
 );
+
+
+##---------------------------------------------------------------------------
+##    Clip text to specified length.
+##
+sub clip_text {
+    my $str      = \shift;  # Prevent unnecessary copy.
+    my $len      = shift;   # Clip length
+    my $is_html  = shift;   # If entity references should be considered
+    my $has_tags = shift;   # If html tags should be stripped
+
+    if (!$is_html) {
+      return substr($$str, 0, $len);
+    }
+
+    my $text = "";
+    my $subtext = "";
+    my $html_len = length($$str);
+    my($pos, $sublen, $erlen, $real_len);
+    my $er_len = 0;
+    
+    for ( $pos=0, $sublen=$len; $pos < $html_len; ) {
+	$subtext = substr($$str, $pos, $sublen);
+	$pos += $sublen;
+
+	# strip tags
+	if ($has_tags) {
+	    $subtext =~ s/\A[^<]*>//; # clipped tag
+	    $subtext =~ s/<[^>]*>//g;
+	    $subtext =~ s/<[^>]*\Z//; # clipped tag
+	}
+
+	# check for clipped entity reference
+	if (($pos < $html_len) && ($subtext =~ /\&[^;]*\Z/)) {
+	    my $semi = index($$str, ';', $pos);
+	    if ($semi < 0) {
+		# malformed entity reference
+		$subtext .= substr($$str, $pos);
+		$pos = $html_len;
+	    } else {
+		$subtext .= substr($$str, $pos, $semi-$pos+1)
+		    if $semi > $pos;
+		$pos = $semi+1;
+	    }
+	}
+
+	# compute entity reference lengths to determine "real" character
+	# count and not raw character count.
+	while ($subtext =~ /(\&[^;]+);/g) {
+	    $er_len += length($1);
+	}
+
+	$text .= $subtext;
+
+	# done if we have enough
+	$real_len = length($text)-$er_len;
+	if ($real_len >= $len) {
+	    last;
+	}
+	$sublen = $len - (length($text)-$er_len);
+    }
+    $text;
+}
 
 ##---------------------------------------------------------------------------
 ##	Get an e-mail address from (HTML) $str.

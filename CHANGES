@@ -13,6 +13,28 @@
 
 YYYY/MM/DD
 ============================================================================
+2002/07/28	(2.5.10)
+
+* Bug Fixes: See
+    <http://savannah.gnu.org/bugs/index.php?group_id=1968
+     &set=custom&advsrch=0&msort=0&report_id=105&go_report=Go
+     &fix_release=2.5.10&chunksz=50>
+
+* Added TEXTCLIPFUNC resource: Defines the text clipping function
+  that should be used by MHonArc.  This function is mainly used
+  in resource variable expansion where clipping has been specified,
+  for example, "$SUBJECT:72$".
+
+* Added clip() function in MHonArc::UTF8 that can be registed via
+  TEXTCLIPFUNC resource to handling clipping of UTF-8 text.
+
+* Example utf-8.mrc updated to include some corrections and to
+  define TEXTCLIPFUNC resource.
+
+* Improved navigation links to resource reference pages which should
+  help their usability.
+
+============================================================================
 2002/07/19	(2.5.9)
 
 * Bug Fixes: See
@@ -2104,4 +2126,4 @@ YYYY/MM/DD
 
 =======================================================================
 Earl Hood, mhonarc@mhonarc.org
-$Id: CHANGES,v 1.78 2002/07/20 00:48:48 ehood Exp $
+$Id: CHANGES,v 1.80 2002/07/28 23:21:53 ehood Exp $
