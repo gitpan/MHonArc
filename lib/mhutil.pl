@@ -1,13 +1,13 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#)  mhutil.pl 1.12 97/06/03 @(#)
+##	@(#) mhutil.pl 2.1 98/03/02 20:24:31
 ##  Author:
 ##      Earl Hood       ehood@medusa.acs.uci.edu
 ##  Description:
 ##      Utility routines for MHonArc
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1995-1997	Earl Hood, ehood@medusa.acs.uci.edu
+##    Copyright (C) 1995-1998	Earl Hood, ehood@medusa.acs.uci.edu
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -25,43 +25,7 @@
 ##    02111-1307, USA
 ##---------------------------------------------------------------------------##
 
-##	Regular expression variables for sorting routines
-$PreSubjectStripExp = q{^\s*(re|sv|fwd|fw)(\[[\d+]\])?[:>-]+\s*};
-$ArtSubjectStripExp = q{^(the|a|an)\s+};
-
-##---------------------------------------------------------------------------
-##	convert_line() translates a line to HTML.  Checks are made for
-##	embedded URLs.
-##
-sub convert_line {
-    local($str, $charset) = ($_[0], $_[1]);
-    local($item, $item2, $item2h, @array);
-
-    if (!$NOURL &&
-	(@array = split(m%($Url[^\s\(\)\|<>"']*[^\.\?;,"'\|\[\]\(\)\s<>])%o,
-		  $str))
-       ) {
-	    $str = '';
-	    while($#array > 0) {
-		$item = &entify(shift @array);      # Get non-URL text
-		$item2 = shift @array;              # Get URL
-		$item2h = &entify($item2);          # Variable for <A> content
-
-		$str .= join('',
-			     $item,
-			     '<A HREF="', $item2, '">', $item2h, '</A>');
-
-		# The next line is needed since Perl's split function also
-		# returns extra entries for nested ()'s in the split pattern.
-		shift @array  if $array[0] =~ m%^$Url$%o;
-	    }
-	    $item = &entify(shift @array);          # Last item in array
-	    $str .= $item;
-    } else {
-	$str = &htmlize($str);
-    }
-    $str;
-}
+package mhonarc;
 
 ##---------------------------------------------------------------------------
 ##	Get an e-mail address from (HTML) $str.
@@ -166,17 +130,17 @@ sub decrease_index {
 sub increase_subject {
     local($A, $B) = ($Subject{$a}, $Subject{$b});
     $A =~ tr/A-Z/a-z/;  $B =~ tr/A-Z/a-z/; 
-    1 while $A =~ s/$PreSubjectStripExp//io;
-    1 while $B =~ s/$PreSubjectStripExp//io;
-    $A =~ s/$ArtSubjectStripExp//io;  $B =~ s/$ArtSubjectStripExp//io;
+    1 while $A =~ s/$SubReplyRxp//io;
+    1 while $B =~ s/$SubReplyRxp//io;
+    $A =~ s/$SubArtRxp//io;  $B =~ s/$SubArtRxp//io;
     ($A cmp $B) || (&get_time_from_index($a) <=> &get_time_from_index($b));
 }
 sub decrease_subject {
     local($A, $B) = ($Subject{$a}, $Subject{$b});
     $A =~ tr/A-Z/a-z/;  $B =~ tr/A-Z/a-z/; 
-    1 while $A =~ s/$PreSubjectStripExp//io;
-    1 while $B =~ s/$PreSubjectStripExp//io;
-    $A =~ s/$ArtSubjectStripExp//io;  $B =~ s/$ArtSubjectStripExp//io;
+    1 while $A =~ s/$SubReplyRxp//io;
+    1 while $B =~ s/$SubReplyRxp//io;
+    $A =~ s/$SubArtRxp//io;  $B =~ s/$SubArtRxp//io;
     ($A cmp $B) || (&get_time_from_index($b) <=> &get_time_from_index($a));
 }
 sub increase_author {
@@ -196,7 +160,8 @@ sub decrease_author {
 ##	Routine to determine last message number in use.
 ##
 sub get_last_msg_num {
-    opendir(DIR, $'OUTDIR) || die("ERROR: Unable to open $'OUTDIR\n");
+    opendir(DIR, $mhonarc'OUTDIR) ||
+	die("ERROR: Unable to open $mhonarc'OUTDIR\n");
     local($max) = -1;
 
     local($htmlext) = $HtmlExt;
@@ -243,7 +208,7 @@ sub get_filename_from_index {
 ##	Routine to get time component from index
 ##
 sub get_time_from_index {
-    (split(/$'X/o, $_[0]))[0];
+    (split(/$X/o, $_[0]))[0];
 }
 
 ##---------------------------------------------------------------------------
@@ -260,7 +225,7 @@ sub get_base_author {
 ##
 sub get_base_subject {
     local($ret) = ($Subject{$_[0]});
-    1 while $ret =~ s/$PreSubjectStripExp//io;
+    1 while $ret =~ s/$SubReplyRxp//io;
     $ret;
 }
 
@@ -271,10 +236,16 @@ sub get_time_from_date {
     local($mday, $mon, $yr, $hr, $min, $sec, $zone) = @_;
     local($time) = 0;
 
+    $yr -= 1900  if $yr >= 1900;
+    if (($yr < 70) || ($yr > 137)) {
+	warn "Warning: Bad year (", $yr+1900, ") using current\n";
+	$yr = (localtime(time))[5];
+    }
+    $zone =~ tr/a-z/A-Z/;
+
     ## If $zone, grab gmt time, else grab local
     if ($zone) {
-	$time = &timegm($sec,$min,$hr,$mday,$mon,
-			($yr > 1900 ? $yr-1900 : $yr));
+	$time = &timegm($sec,$min,$hr,$mday,$mon,$yr);
 
 	# try to modify time/date based on timezone
 	if ($zone =~ /^[\+-]\d+$/) {	# numeric timezone
@@ -290,8 +261,7 @@ sub get_time_from_date {
 	}
 
     } else {
-	$time = &timelocal($sec,$min,$hr,$mday,$mon,
-			   ($yr > 1900 ? $yr-1900 : $yr));
+	$time = &timelocal($sec,$min,$hr,$mday,$mon,$yr);
     }
     $time;
 }
@@ -340,6 +310,7 @@ sub htmlize_header {
 	  @array,
 	  %hf);
 
+    $mesg = "";
     %hf = %fields;
     foreach $item (@FieldOrder) {
 	if ($item eq '-extra-') {
@@ -379,6 +350,74 @@ sub htmlize_header {
     $mesg;
 }
 
+##---------------------------------------------------------------------------
+##	Routine to add mailto/news links to a message header string.
+##
+sub field_add_links {
+    local($label, *fld_text) = @_;
+    &mailto(*fld_text)
+	if !$NOMAILTO &&
+	    $label =~ /^(to|from|cc|sender|reply-to|resent-to|resent-cc)/i;
+    &newsurl(*fld_text)
+	if !$NONEWS && $label =~ /^newsgroup/i;
+}
+
+
+##---------------------------------------------------------------------------
+##	Routine to add news links of newsgroups names
+##
+sub newsurl {
+    local(*str) = shift;
+    local($h, @groups);
+    $str =~ s/^([^:]*:\s*)//;  $h = $1;
+    $str =~ s/\s//g;			# Strip whitespace
+    @groups = split(/,/, $str);		# Split groups
+    foreach (@groups) {			# Make hyperlinks
+	s|(.*)|<A HREF="news:$1">$1</A>|;
+    }
+    $str = $h . join(', ', @groups);	# Rejoin string
+}
+
+##---------------------------------------------------------------------------
+##	Add mailto URLs to $str.
+##
+sub mailto {
+    local(*str) = shift;
+    if ($MAILTOURL) {
+	$str =~ s|([\!\%\w\.\-+=/]+@[\w\.\-]+)|&mailUrl($1)|ge;
+    } else {
+	$str =~ s|([\!\%\w\.\-+=/]+@[\w\.\-]+)|<A HREF="mailto:$1">$1</A>|g;
+    }
+}
+
+##---------------------------------------------------------------------------
+##	$sub, $msgid, $from come from read_mail_header() (ugly!!!!)
+##
+sub mailUrl {
+    local($eaddr) = shift;
+
+    local($url) = ($MAILTOURL);
+    local($to) = (&urlize($eaddr));
+    local($froml, $msgidl) = (&urlize($from), &urlize($msgid));
+    local($fromaddrl) = (&urlize(&extract_email_address($from)));
+    local($subjectl);
+
+    # Add "Re:" to subject if not present
+    if ($sub !~ /^\s*Re:/) {
+	$subjectl = &urlize("Re: ") . &urlize($sub);
+    } else {
+	$subjectl = &urlize($sub);
+    }
+    $url =~ s/\$FROM\$/$froml/g;
+    $url =~ s/\$FROMADDR\$/$froml/g;
+    $url =~ s/\$MSGID\$/$msgidl/g;
+    $url =~ s/\$SUBJECT\$/$subjectl/g;
+    $url =~ s/\$SUBJECTNA\$/$subjectl/g;
+    $url =~ s/\$TO\$/$to/g;
+    $url =~ s/\$ADDR\$/$to/g;
+    qq|<A HREF="$url">$eaddr</A>|;
+}
+
 ##---------------------------------------------------------------------------##
 ##	Routine to parse variable definitions in a string.  The
 ##	function returns a list of variable/value pairs.  The format of
@@ -388,11 +427,11 @@ sub htmlize_header {
 sub parse_vardef_str {
     local($org) = shift;
     local(%hash) = ();
+    local($str, $q, $var, $value);
 
     ($str = $org) =~ s/^\s+//;
-    while ($str =~ /^([^=\s]+)\s*=\s*/) {
+    while ($str =~ s/^([^=\s]+)\s*=\s*//) {
 	$var = $1;
-	$str = $';
 	if ($str =~ s/^(['"])//) {
 	    $q = $1;
 	    if (!($q eq "'" ? $str =~ s/^([^']*)'// :

@@ -1,12 +1,19 @@
 ---------------------------------------------------------------------------
                             README for MHonArc
-                                 v2.1.0
+                                 v2.2.0
 
              http://www.oac.uci.edu/indiv/ehood/mhonarc.html
 
 ---------------------------------------------------------------------------
+	*IMPORTANT* *IMPORTANT* *IMPORTANT* *IMPORTANT* *IMPORTANT*
+
+		Please read the RELNOTES file for important
+		 information regarding upgrading to v2.2.0
+			 from previous releases.
+
+---------------------------------------------------------------------------
     MHonArc -- Internet mail-to-HTML converter
-    Copyright (C) 1995-1997   Earl Hood, ehood@medusa.acs.uci.edu
+    Copyright (C) 1995-1998   Earl Hood, ehood@medusa.acs.uci.edu
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -42,6 +49,13 @@ install.me      Installation program for MHonArc
 lib/            Libraries/MIME filters used by MHonArc
 logo/           Gifs of the MHonArc logo
 mhonarc*        The MHonArc program
+
+---------------------------------------------------------------------------
+	*IMPORTANT* *IMPORTANT* *IMPORTANT* *IMPORTANT* *IMPORTANT*
+
+		Please read the RELNOTES file for important
+		 information regarding upgrading to v2.2.0
+			 from previous releases.
 
 ---------------------------------------------------------------------------
 INSTALLATION
@@ -125,5 +139,5 @@ USING/COPYING
     file COPYING.
 
 ---------------------------------------------------------------------------
-Copyright (C) 1995-1997,	Earl Hood, ehood@medusa.acs.uci.edu
-@(#) README 97/06/06 19:47:08 @(#)
+Copyright (C) 1995-1998,	Earl Hood, ehood@medusa.acs.uci.edu
+@(#) README 98/03/03 19:06:23

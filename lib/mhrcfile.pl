@@ -1,13 +1,13 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcfile.pl 1.14 97/06/06 19:24:30 @(#)
+##	@(#) mhrcfile.pl 2.2 98/03/03 14:30:49
 ##  Author:
 ##      Earl Hood       ehood@medusa.acs.uci.edu
 ##  Description:
 ##      Routines for parsing resource files
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1996,1997	Earl Hood, ehood@medusa.acs.uci.edu
+##    Copyright (C) 1996-1998	Earl Hood, ehood@medusa.acs.uci.edu
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -25,6 +25,8 @@
 ##    02111-1307, USA
 ##---------------------------------------------------------------------------##
 
+package mhonarc;
+
 ##---------------------------------------------------------------------------
 ##	read_resource_file() parses the resource file.
 ##	(The code for this routine could probably be simplified).
@@ -34,12 +36,13 @@ sub read_resource_file {
     local($line, $tag, $label, $acro, $hr, $type, $routine, $plfile,
 	  $url, $arg, $tmp, @a);
     local($elem, $attr, $override, $handle, $pathhead, $chop);
+    $override = 0;
 
     if (!($handle = &file_open($file))) {
 	warn "Warning: Unable to open resource file: $file\n";
 	return 0;
     }
-    if ($file =~ m%(.*[$'DIRSEPREX])%o) {
+    if ($file =~ m%(.*[$DIRSEPREX])%o) {
 	$pathhead = $1;
     } else {
 	$pathhead = '';
@@ -48,6 +51,7 @@ sub read_resource_file {
     print STDOUT "Reading resource file: $file ...\n"  unless $QUIET;
     while ($line = <$handle>) {
 	next unless $line =~ /^\s*<([^>]+)>/;
+	$attr = '';
 	($elem, $attr) = split(' ', $1, 2);
 	$elem =~ tr/A-Z/a-z/;
 	$override = ($attr =~ /override/i);
@@ -72,21 +76,33 @@ sub read_resource_file {
 	    last FMTSW;
 	}
 	if ($elem eq "charsetconverters") {	# Charset filters
-	    @CharSetRequires = (), %'MIMECharSetConverters = ()
-		if $override;
+	    if ($override) {
+		%readmail'MIMECharSetConverters = ();
+		%readmail'MIMECharSetConvertersSrc = ();
+	    }
 	    while ($line = <$handle>) {
 		last  if $line =~ /^\s*<\/charsetconverters\s*>/i;
 		next  if $line =~ /^\s*$/;
 		$line =~ s/\s//g;
-		($type,$routine,$plfile) = split(/:/,$line,3);
+		if ($line =~ /;/) {	# using Perl 5 qualification
+		    ($type,$routine,$plfile) = split(/;/,$line,3);
+		} else {
+		    ($type,$routine,$plfile) = split(/:/,$line,3);
+		}
 		$type =~ tr/A-Z/a-z/;
-		$'MIMECharSetConverters{$type} = $routine;
-		push(@CharSetRequires, $plfile)  if $plfile =~ /\S/;
+		$readmail'MIMECharSetConverters{$type}    = $routine;
+		$readmail'MIMECharSetConvertersSrc{$type} = $plfile
+		    if $plfile =~ /\S/;
 	    }
 	    last FMTSW;
 	}
 	if ($elem eq "conlen") {
 	    $CONLEN = 1; last FMTSW;
+	}
+	if ($elem eq "datefields") {
+	    @a = &get_list_content($handle, $elem);
+	    if (@a) { @DateFields = @a; }
+	    last FMTSW;
 	}
 	if ($elem eq "daybegin") {		# Begin for day group
 	    $DAYBEG = &get_elem_content($handle, $elem, $chop);
@@ -212,6 +228,11 @@ sub read_resource_file {
 	    }
 	    last FMTSW;
 	}
+	if ($elem eq "fromfields") {
+	    @a = &get_list_content($handle, $elem);
+	    if (@a) { @FromFields = @a; }
+	    last FMTSW;
+	}
 	if ($elem eq "gmtdatefmt") {		# GMT date format
 	    if ($line = &get_elem_last_line($handle, $elem)) {
 		$GMTDateFmt = $line;
@@ -298,7 +319,7 @@ sub read_resource_file {
 		last  if $line =~ /^\s*<\/include\s*>/i;
 		next  if $line =~ /^\s*$/;
 		$line =~ s/\s+$//;
-		$line = $pathhead . $line  if ($line !~ /$'DIRSEPREX/o);
+		$line = $pathhead . $line  if ($line !~ /$DIRSEPREX/o);
 		&read_resource_file($line);
 	    }
 	    last FMTSW;
@@ -378,26 +399,38 @@ sub read_resource_file {
 	    last FMTSW;
 	}
 	if ($elem eq "mimefilters") {		# Mime filters
-	    @Requires = (), %'MIMEFilters = ()  if $override;
+	    if ($override) {
+		%readmail'MIMEFilters = ();
+		%readmail'MIMEFiltersSrc = ();
+	    }
 	    while ($line = <$handle>) {
 		last  if $line =~ /^\s*<\/mimefilters\s*>/i;
 		next  if $line =~ /^\s*$/;
 		$line =~ s/\s//g;
-		($type,$routine,$plfile) = split(/:/,$line,3);
+		if ($line =~ /;/) {	# using Perl 5 qualification
+		    ($type,$routine,$plfile) = split(/;/,$line,3);
+		} else {
+		    ($type,$routine,$plfile) = split(/:/,$line,3);
+		}
 		$type =~ tr/A-Z/a-z/;
-		$'MIMEFilters{$type} = $routine;
-		push(@Requires, $plfile)  if $plfile =~ /\S/;
+		$readmail'MIMEFilters{$type}    = $routine;
+		$readmail'MIMEFiltersSrc{$type} = $plfile  if $plfile =~ /\S/;
 	    }
 	    last FMTSW;
 	}
 	if ($elem eq "mimeargs") {		# Mime arguments
-	    %'MIMEFiltersArgs = ()  if $override;
+	    %readmail'MIMEFiltersArgs = ()  if $override;
 	    while ($line = <$handle>) {
-		last  if $line =~ /^\s*<\/mimeargs\s*>/i;
-		next  if $line =~ /^\s*$/;
-		($type,$arg) = split(/:/,$line,2);
+		last  if     $line =~ /^\s*<\/mimeargs\s*>/i;
+		next  unless $line =~ /\S/;
+		$line =~ s/^\s+//;
+		if ($line =~ /;/) {	# using Perl 5 qualification
+		    ($type, $arg) = split(/;/,$line,2);
+		} else {
+		    ($type, $arg) = split(/:/,$line,2);
+		}
 		$type =~ tr/A-Z/a-z/  if $type =~ m%/%;
-		$'MIMEFiltersArgs{$type} = $arg;
+		$readmail'MIMEFiltersArgs{$type} = $arg;
 	    }
 	    last FMTSW;
 	}
@@ -430,6 +463,10 @@ sub read_resource_file {
 	}
 	if ($elem eq "msghead") {		# Message header text
 	    $MSGHEAD = &get_elem_content($handle, $elem, $chop);
+	    last FMTSW;
+	}
+	if ($elem eq "msgidlink") {
+	    $MSGIDLINK = &get_elem_content($handle, $elem, $chop);
 	    last FMTSW;
 	}
 	if ($elem eq "msglocaldatefmt") {	# Message local date format
@@ -539,14 +576,17 @@ sub read_resource_file {
 	if ($elem eq "nourl") {			# Ignore URLs
 	    $NOURL = 1; last FMTSW;
 	}
+	if ($elem eq "nousinglastpg") {
+	    $UsingLASTPG = 0; last FMTSW;
+	}
 	if ($elem eq "otherindexes") {		# Other indexes
 	    @OtherIdxs = ()  if $override;
-	    unshift(@OtherIdxs, &get_list_content($handle, $elem, $'PATHSEP));
+	    unshift(@OtherIdxs, &get_pathname_content($handle, $elem));
 	    last FMTSW;
 	}
 	if ($elem eq "perlinc") {		# Define perl search paths
 	    @PerlINC = ()  if $override;
-	    unshift(@PerlINC, &get_list_content($handle, $elem, $'PATHSEP));
+	    unshift(@PerlINC, &get_pathname_content($handle, $elem));
 	    last FMTSW;
 	}
 	if ($elem eq "prevbutton") {		# Prev button link in message
@@ -592,6 +632,18 @@ sub read_resource_file {
 	if ($elem eq "sort") {			# Sort messages by date
 	    $NOSORT = 0;
 	    $AUTHSORT = 0;  $SUBSORT = 0;
+	    last FMTSW;
+	}
+	if ($elem eq "subjectarticlerxp") {
+	    if ($line = &get_elem_last_line($handle, $elem)) {
+		$SubArtRxp = $line;
+	    }
+	    last FMTSW;
+	}
+	if ($elem eq "subjectreplyrxp") {
+	    if ($line = &get_elem_last_line($handle, $elem)) {
+		$SubReplyRxp = $line;
+	    }
 	    last FMTSW;
 	}
 	if ($elem eq "subsort") {		# Sort messages by subject
@@ -659,6 +711,7 @@ sub read_resource_file {
 		last  if $line =~ /^\s*<\/timezones\s*>/i;
 		$line =~ s/\s//g;  $line =~ tr/a-z/A-Z/;
 		($acro,$hr) = split(/:/,$line);
+		$acro =~ tr/a-z/A-Z/;
 		$Zone{$acro} = $hr;
 	    }
 	    last FMTSW;
@@ -707,6 +760,19 @@ sub read_resource_file {
 	}
 	if ($elem eq "tnosort") {		# Raw order for threads
 	    $TNOSORT = 1; $TSUBSORT = 0;
+	    last FMTSW;
+	}
+	if ($elem eq "tslice") {
+	    ($TSliceNBefore, $TSliceNAfter) =
+		&get_list_content($handle, $elem);
+	    last FMTSW;
+	}
+	if ($elem eq "tslicebeg") {		# Start of thread slice
+	    $TSLICEBEG = &get_elem_content($handle, $elem, $chop);
+	    last FMTSW;
+	}
+	if ($elem eq "tsliceend") {		# End of thread slice
+	    $TSLICEEND = &get_elem_content($handle, $elem, $chop);
 	    last FMTSW;
 	}
 	if ($elem eq "tsort") {			# Date order for threads
@@ -810,6 +876,9 @@ sub read_resource_file {
 	    }
 	    last FMTSW;
 	}
+	if ($elem eq "usinglastpg") {
+	    $UsingLASTPG = 1; last FMTSW;
+	}
 	if ($elem eq "weekdays") {		# Full weekday name
 	    @a = &get_list_content($handle, $elem);
 	    if (scalar(@a)) {
@@ -833,7 +902,7 @@ sub read_resource_file {
 
 ##----------------------------------------------------------------------
 sub get_elem_content {
-    local($filehandle, $gi, $chop) = ($_[0], $_[1], $_[2]);
+    local($filehandle, $gi, $chop) = @_;
     local($ret) = '';
 
     while (<$filehandle>) {
@@ -846,7 +915,7 @@ sub get_elem_content {
 
 ##----------------------------------------------------------------------
 sub get_elem_int {
-    local($filehandle, $gi, $abs) = ($_[0], $_[1], $_[2]);
+    local($filehandle, $gi, $abs) = @_;
     local($ret) = '';
 
     while (<$filehandle>) {
@@ -861,7 +930,7 @@ sub get_elem_int {
 
 ##----------------------------------------------------------------------
 sub get_elem_last_line {
-    local($filehandle, $gi) = ($_[0], $_[1]);
+    local($filehandle, $gi) = @_;
     local($ret) = '';
 
     while (<$filehandle>) {
@@ -875,15 +944,28 @@ sub get_elem_last_line {
 
 ##----------------------------------------------------------------------
 sub get_list_content {
-    local($filehandle, $gi, $sep) = ($_[0], $_[1], $_[2]);
+    local($filehandle, $gi) = @_;
     local(@items) = ();
-    $sep = ':'  unless $sep;
 
     while (<$filehandle>) {
 	last  if /^\s*<\/$gi\s*>/i;
 	next  unless /\S/;
 	s/\r?\n?$//;
-	push(@items, split(/$sep/, $_));
+	push(@items, split(/[:;]/, $_));
+    }
+    @items;
+}
+
+##----------------------------------------------------------------------
+sub get_pathname_content {
+    local($filehandle, $gi) = @_;
+    local(@items) = ();
+
+    while (<$filehandle>) {
+	last  if /^\s*<\/$gi\s*>/i;
+	next  unless /\S/;
+	s/\r?\n?$//;
+	push(@items, split(/$PATHSEP/o, $_));
     }
     @items;
 }

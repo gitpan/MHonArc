@@ -3,7 +3,7 @@
 # A. P. Barrett <barrett@ee.und.ac.za>, October 1993
 # $Revision: 1.4 $$Date: 1994/08/11 16:08:51 $
 #
-#	@(#)  base64.pl 1.1 96/09/17 @(#)
+#	@(#) base64.pl 2.1 98/03/02 20:24:23
 #
 # Modified March 21, 1996 by ehood@convex.com
 #	-> Changes to base64'uudecode to strip out any begin/end
@@ -20,6 +20,9 @@
 #
 #	   Other functions have not been changed to use substr(), but
 #	   may benefit from it.
+#
+# Modified February 20, 1998 by ehood@medusa.acs.uci.edu
+#	-> Removed all uses of $&.
 
 package base64;
 
@@ -76,7 +79,7 @@ sub b64touu
 
     # break into lines of 60 encoded chars, prepending "M" for uuencode
     while (s/^(.{60})//) {
-	$result .= "M" . $& . "\n";
+	$result .= "M" . $1 . "\n";
     }
 
     # any leftover chars go onto a shorter line
@@ -95,8 +98,8 @@ sub b64decode
 {
     # substr() usage added by ehood, 1996/04/16
 
-    local ($str) = shift;
-    local ($result, $tmp, $offset, $len) = ('','', 0, 0);
+    local($str) = shift;
+    local($result, $tmp, $offset, $len);
     
     # zap bad characters and translate others to uuencode alphabet
     eval qq{
@@ -107,7 +110,9 @@ sub b64decode
     # break into lines of 60 encoded chars, prepending "M" for uuencode,
     # and then using perl's builtin uudecoder to convert to binary.
     #
-    $len = length($str);		    # store length
+    $result 	= '';			# init return string
+    $offset	= 0;		    	# init offset to 0
+    $len 	= length($str);		# store length
     while ($offset+60 <= $len) {		# loop until < 60 chars left
 	$tmp = substr($str, $offset, 60);	# grap 60 char block
 	$offset += 60;				# increment offset
@@ -147,9 +152,9 @@ sub b64encode
     # uuencoder to convert each chunk to uuencode format,
     # then kill the leading "M", translate to the base64 alphabet,
     # and finally append a newline.
-    while (s/^((.|\n){45})//) {
-	#warn "in:$&:\n";
-	$chunk = substr(pack("u", $&), $[+1, 60);
+    while (s/^([\s\S]{45})//) {
+	#warn "in:$1:\n";
+	$chunk = substr(pack("u", $1), $[+1, 60);
 	#warn "packed    :$chunk:\n";
 	eval qq{
 	    \$chunk =~ tr|$tr_uuencode|$tr_base64|;
@@ -185,8 +190,8 @@ sub uuencode
     # break into chunks of 45 input chars, and use perl's builtin
     # uuencoder to convert each chunk to uuencode format.
     # (newline is added by builtin uuencoder.)
-    while (s/^((.|\n){45})//) {
-	$result .= pack("u", $&);
+    while (s/^([\s\S]{45})//) {
+	$result .= pack("u", $1);
     }
 
     # any leftover chars go onto a shorter line
@@ -210,7 +215,7 @@ sub uudecode
 
     # use perl's builtin uudecoder to convert each line
     while (s/^([^\n]+\n?)//) {
-	$result .= unpack("u", $&);
+	$result .= unpack("u", $1);
     }
 
     # return result

@@ -51,13 +51,13 @@ itself.  The MIMEARGS resource can only be set via the
 The syntax for each line of the the <CODE>MIMEARGS</CODE>
 element is as follows: </P>
 
-<P><var>content-type</var><CODE>:</CODE><var>argument-string</var> 
+<P><var>content-type</var><CODE>;</CODE><var>argument-string</var> 
 </P>
 
 <P>Or,
 </P>
 
-<P><var>filter-name</var><CODE>:</CODE><var>argument-string</var> 
+<P><var>filter-name</var><CODE>;</CODE><var>argument-string</var> 
 </P>
 
 <P>The format of argument strings is dependent on the filter that
@@ -68,16 +68,28 @@ processes <var>content-type</var> or by the specified filter,
 content-type that the filter processes, the content-type string will
 override the filter string.  </P>
 
+<table border=0 cellpadding=4>
+<tr valign=top>
+<td><strong>NOTE</strong></td>
+<td><p>For backwards compatibility, the values of a MIMEARGS specification
+can be separated with a colon, "<tt>:</tt>".  However, if you use a colon,
+package qualification of a function must use Perl 4 syntax.
+</p>
+</td>
+</tr>
+</table>
+
+
 <!-- *************************************************************** -->
 <hr>
 <h2>Default Setting</h2>
 
 <PRE>
 <b>&lt;MIMEArgs&gt;</b>
-image/gif:inline
-image/jpeg:inline
-image/x-xbitmap:inline
-image/x-xbm:inline
+image/gif;	 inline
+image/jpeg;	 inline
+image/x-xbitmap; inline
+image/x-xbm;	 inline
 <b>&lt;/MIMEArgs&gt;</b>
 </PRE>
 
@@ -119,10 +131,10 @@ text/plain:quote
 <!-- *************************************************************** -->
 <hr>
 <address>
-97/06/03 17:04:18<br>
+98/03/03 18:19:41<br>
 <img align="top" src="../monicon.gif" alt="">
 <a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"><strong>MHonArc</strong></a><br>
-Copyright &#169; 1997, <a href="http://www.oac.uci.edu/indiv/ehood/">Earl Hood</a>, <a href="mailto:ehood@medusa.acs.uci.edu">ehood@medusa.acs.uci.edu</a><br>
+Copyright &#169; 1997-1998, <a href="http://www.oac.uci.edu/indiv/ehood/">Earl Hood</a>, <a href="mailto:ehood@medusa.acs.uci.edu">ehood@medusa.acs.uci.edu</a><br>
 </address>
 
 </body>

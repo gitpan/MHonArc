@@ -1,13 +1,13 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcvars.pl 1.8 97/06/03 16:46:48 @(#)
+##	@(#) mhrcvars.pl 2.2 98/03/03 14:31:22
 ##  Author:
 ##      Earl Hood       ehood@medusa.acs.uci.edu
 ##  Description:
 ##      Defines routine for expanding resource variables.
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1996,1997	Earl Hood, ehood@medusa.acs.uci.edu
+##    Copyright (C) 1996-1998	Earl Hood, ehood@medusa.acs.uci.edu
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -24,6 +24,8 @@
 ##    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 ##    02111-1307, USA
 ##---------------------------------------------------------------------------##
+
+package mhonarc;
 
 ##---------------------------------------------------------------------------
 ##	replace_li_var() is used to substitute vars to current
@@ -300,6 +302,10 @@ sub replace_li_var {
 	    $tmp = $TTITLE;
 	    last REPLACESW;
 	}
+    	if ($var eq 'TSLICE') {
+	    $tmp = &make_thread_slice($index, $TSliceNBefore, $TSliceNAfter);
+	    last REPLACESW;
+	}
     	if ($var eq 'VERSION') {
 	    $tmp = $VERSION;
 	    last REPLACESW;
@@ -512,7 +518,7 @@ sub replace_li_var {
 	##
 	## User defined variable check
 	##
-	if ($CustomRcVars{$var}) {
+	if (defined($CustomRcVars{$var})) {
 	    $expand = 1;
 	    $tmp = $CustomRcVars{$var};
 	    last REPLACESW;
@@ -533,7 +539,7 @@ sub replace_li_var {
 
     } else {
 	if ($raw) {
-	    $ret = &$MHeadCnvFunc($tmp) if $raw;
+	    $ret = &$MHeadCnvFunc($tmp);
 	} else {
 	    $ret = $tmp;
 	}

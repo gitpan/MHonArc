@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxtenrich.pl 1.1 97/06/03 16:52:07 @(#)
+##	@(#) mhtxtenrich.pl 2.1 98/03/02 20:24:36
 ##  Author:
 ##      Earl Hood       ehood@medusa.acs.uci.edu
 ##  Description:
@@ -9,14 +9,14 @@
 ##
 ##	Filter routine can be registered with the following:
 ##
-##		<MIMEFILTERS>
-##		text/enriched:m2h_text_enriched'filter:mhtxtenrich.pl
-##		text/richtext:m2h_text_enriched'filter:mhtxtenrich.pl
-##		</MIMEFILTERS>
+##	    <MIMEFILTERS>
+##	    text/enriched:m2h_text_enriched'filter:mhtxtenrich.pl
+##	    text/richtext:m2h_text_enriched'filter:mhtxtenrich.pl
+##	    </MIMEFILTERS>
 ##
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1997	Earl Hood, ehood@medusa.acs.uci.edu
+##    Copyright (C) 1997-1998	Earl Hood, ehood@medusa.acs.uci.edu
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -76,6 +76,7 @@ sub filter {
     ## Translate 8-bit characters to entity refs based on charset
     ## 		(we already did '<' and '&' characters)
     if ($charset =~ /iso-8859-([2-9]|10)/i) {
+	require 'iso8859.pl';
 	$ret = &iso_8859'str2sgml($ret, $charset, 1);
     }
 
@@ -140,11 +141,12 @@ sub nl_seq_to_brs {
 ##	converted to nbsps.
 ##
 sub preserve_space {
-    local($txt) = shift;
+    local($str) = shift;
  
-    1 while $txt =~ s/\t+/'&nbsp;' x (length($&) * 8 - length($`) % 8)/e;
-    $txt =~ s/ /\&nbsp;/g;
-    $txt;
+    1 while
+    $str =~ s/^([^\t]*)(\t+)/$1 . ' ' x (length($2) * 8 - length($1) % 8)/e;
+    $str =~ s/ /\&nbsp;/g;
+    $str;
 }
 
 ##---------------------------------------------------------------------------

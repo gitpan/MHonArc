@@ -1,13 +1,13 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#)  mhfile.pl 1.1 97/06/03 @(#)
+##	@(#) mhfile.pl 2.1 98/03/02 20:24:34
 ##  Author:
 ##      Earl Hood       ehood@medusa.acs.uci.edu
 ##  Description:
 ##      File routines for MHonArc
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1997	Earl Hood, ehood@medusa.acs.uci.edu
+##    Copyright (C) 1997-1998	Earl Hood, ehood@medusa.acs.uci.edu
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -25,11 +25,13 @@
 ##    02111-1307, USA
 ##---------------------------------------------------------------------------##
 
+package mhonarc;
+
 ##---------------------------------------------------------------------------##
 
 sub file_open {
     local($file) = shift;
-    local($handle) = 'FOPEN' . ++$_fo_cnt;
+    local($handle) = q/mhonarc'FOPEN/ . ++$_fo_cnt;
     local($gz) = $file =~ /\.gz$/;
 
     return $handle  if $gz && (open($handle, "$GzipExe -cd $file |"));
@@ -41,7 +43,7 @@ sub file_open {
 sub file_create {
     local($file) = shift;
     local($gz) = shift;
-    local($handle) = 'FCREAT' . ++$_fc_cnt;
+    local($handle) = q/mhonarc'FCREAT/ . ++$_fc_cnt;
 
     if ($gz) {
 	$file .= ".gz"  unless $file =~ /\.gz$/;
@@ -80,6 +82,37 @@ sub file_utime {
     foreach (@_) {
 	utime($atime, $mtime, $_, "$_.gz");
     }
+}
+
+##---------------------------------------------------------------------------##
+
+sub dir_remove {
+    local($file) = shift;
+
+    if (-d $file) {
+	local(@files) = ();
+
+	if (!opendir(DIR, $file)) {
+	    warn qq{Warning: Unable to open "$file"\n};
+	    return 0;
+	}
+	@files = grep(!/^(\.|\..)$/i, readdir(DIR));
+	closedir(DIR);
+	foreach (@files) {
+	    &dir_remove($file . $mhonarc'DIRSEP . $_);
+	}
+	if (!rmdir($file)) {
+	    warn qq{Warning: Unable to remove "$file": $!\n};
+	    return 0;
+	}
+
+    } else {
+	if (!unlink($file)) {
+	    warn qq{Warning: Unable to delete "$file": $!\n};
+	    return 0;
+	}
+    }
+    1;
 }
 
 ##---------------------------------------------------------------------------##

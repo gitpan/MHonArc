@@ -1,13 +1,13 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#)  mhopt.pl 1.2 97/06/06 @(#)
+##      @(#) mhopt.pl 2.3 98/03/03 15:09:40
 ##  Author:
 ##      Earl Hood       ehood@medusa.acs.uci.edu
 ##  Description:
 ##      Routines to set options for MHonArc.
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1997	Earl Hood, ehood@medusa.acs.uci.edu
+##    Copyright (C) 1997-1998	Earl Hood, ehood@medusa.acs.uci.edu
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -25,6 +25,8 @@
 ##    02111-1307, USA
 ##---------------------------------------------------------------------------##
 
+package mhonarc;
+
 ##---------------------------------------------------------------------------
 ##	get_cli_opts() is responsible for grabbing command-line options
 ##	and also settings the resource file.
@@ -36,7 +38,9 @@ sub get_cli_opts {
     &NGetOpt(
 	"add",		# Add a message to archive
 	"authsort",	# Sort by author
+	"archive",	# Create an archive (the default)
 	"conlen",	# Honor Content-Length fields
+	"datefields=s",	# Fields that contains the date of a message
 	"dbfile=s",	# Database/state filename for mhonarc archive
 	"decodeheads",	# Decode all 1522 encoded data in message headers
 	"definevars=s",	# Define custom resource variables
@@ -48,6 +52,7 @@ sub get_cli_opts {
 	"folrefs",	# Print links to explicit follow-ups/references
 	"footer=s",	# File containing user text for bottom of index page
 	"force",	# Perform archive operation even if unable to lock
+	"fromfields=s",	# Fields that contains the "from" of a message
 	"genidx",	# Generate an index based upon archive contents
 	"gmtdatefmt=s",	# Date specification for GMT date
 	"gzipexe=s",	# Pathname of Gzip executable
@@ -75,6 +80,7 @@ sub get_cli_opts {
 	"multipg",	# Generate multi-page indexes
 	"news",		# Add links to newsgroups
 	"noauthsort",	# Do not sort by author
+	"noarchive",	# Do not create an archive
 	"noconlen",	# Ignore Content-Length fields
 	"nodecodeheads",# Do not decode all 1522 encoded data in message headers
 	"nodoc",	# Do not print link to doc at end of index page
@@ -103,6 +109,8 @@ sub get_cli_opts {
 	"scan",		# List out archive contents to terminal
 	"single",	# Convert a single message to HTML
 	"sort",		# Sort messages in increasing date order
+	"subjectarticlerxp=s",	# Regex for leading articles in subjects
+	"subjectreplyrxp=s",	# Regex for leading reply string in subjects
 	"subsort",	# Sort message by subject
 	"tidxfname=s",	# File name of threaded index page
 	"tidxprefix=s",	# Filename prefix for multi-page thread index
@@ -112,6 +120,7 @@ sub get_cli_opts {
 	"thread",	# Create threaded index
 	"tlevels=i",	# Maximum # of nested lists in threaded index
 	"treverse",	# Reverse order of thread listing
+	"tslice=s",	# Set size of thread slice listing
 	"tsort",	# List threads by date
 	"tnosort",	# List threads by ordered processed
 	"tsubsort",	# List threads by subject
@@ -124,8 +133,16 @@ sub get_cli_opts {
 	"v",		# Version information
 	"help"		# A brief usage message
     );
-    &usage() if defined($opt_help);
-    &version() if defined($opt_v);
+
+    ## Check for help/version options (nothing to do)
+    if (defined($opt_help)) {
+	&usage();
+	return 0;
+    }
+    if (defined($opt_v)) {
+	&version();
+	return 0;
+    }
 
     ## These options have NO resource file equivalent.
     ##
@@ -208,10 +225,10 @@ sub get_cli_opts {
 	$DBFILE = ".mail2html.db"
 	    unless (-e "${OUTDIR}${DIRSEP}${DBFILE}") ||
 		   (!-e "${OUTDIR}${DIRSEP}.mail2html.db");
-	$DBPathName = "${OUTDIR}${DIRSEP}${DBFILE}";
+	$DBPathName = join($DIRSEP, $OUTDIR, $DBFILE);
 	if (-e $DBPathName) {
 	    print STDOUT "Reading database ...\n"  unless $QUIET;
-	    require "$DBPathName" ||
+	    require $DBPathName ||
 		die("ERROR: Database read error of $DBPathName\n");
 	    if ($VERSION ne $DbVERSION) {
 		warn "Warning: Database ($DbVERSION) != ",
@@ -234,7 +251,7 @@ sub get_cli_opts {
     ## Remove lock file if scanning messages
     ##
     if ($SCAN) {
-	&clean_up();
+	&remove_lock_file();
     }
 
     ##	Read resource file (I initially used the term 'format file').
@@ -242,7 +259,7 @@ sub get_cli_opts {
     ##	existing according to current value.
     ##
     if ($FMTFILE) {
-	$FMTFILE = "${OUTDIR}${DIRSEP}$FMTFILE"
+	$FMTFILE = join($DIRSEP, $OUTDIR, $FMTFILE)
 	    unless ($FMTFILE =~ m%^/%) || (-e $FMTFILE);
 	&read_fmt_file($FMTFILE);
     }
@@ -252,9 +269,9 @@ sub get_cli_opts {
 
     $RFC1522 = 1;	# Always True
 
-    unshift(@OtherIdxs, split(/$'PATHSEP/o, $opt_otherindexes))
+    unshift(@OtherIdxs, split(/$PATHSEP/o, $opt_otherindexes))
 						if defined($opt_otherindexes);
-    unshift(@PerlINC, split(/$'PATHSEP/o, $opt_perlinc))
+    unshift(@PerlINC, split(/$PATHSEP/o, $opt_perlinc))
 						if defined($opt_perlinc);
     &remove_dups(*OtherIdxs);
     &remove_dups(*PerlINC);
@@ -265,42 +282,14 @@ sub get_cli_opts {
     if (!$SCAN) {
 	## Require readmail library
 	require 'readmail.pl' || die("ERROR: Unable to require readmail.pl\n");
-
-	if (!$RMM) {
-	    ## Require MIME filters
-	    if (!$EDITIDX) {
-		&remove_dups(*Requires);
-		print STDOUT "Requiring content filter libraries ...\n"
-		    unless $QUIET;
-		foreach (@Requires) {
-		    print STDOUT "\t$_\n"  unless $QUIET;
-		    require $_ || die("ERROR: Unable to require ${_}\n");
-		}
-	    }
-
-	    ## Register functions to readmail.pl
-	    $readmail'FormatHeaderFunc = "main'htmlize_header";
-	}
-
-	## Check for 1522 processing
-	if ($RFC1522) {
-	    &remove_dups(*CharSetRequires);
-	    print STDOUT "Requiring charset filter libraries ...\n"
-		unless $QUIET;
-	    foreach (@CharSetRequires) {
-		print STDOUT "\t$_\n"  unless $QUIET;
-		require $_ || die("ERROR: Unable to require ${_}\n");
-	    }
-	    $MHeadCnvFunc = "main'MAILdecode_1522_str";
-	} else {
-	    $MHeadCnvFunc = "convert_line";
-	}
+	$readmail'FormatHeaderFunc = "mhonarc'htmlize_header";
+	$MHeadCnvFunc = "readmail'MAILdecode_1522_str";
     }
 
     ## Get other command-line options
     ##
     $DBFILE	= $opt_dbfile     if $opt_dbfile; # Set again to override db
-	$DBPathName = "${OUTDIR}${DIRSEP}${DBFILE}";
+	$DBPathName = join($DIRSEP, $OUTDIR, $DBFILE);
     $DOCURL	= $opt_docurl     if $opt_docurl;
     $FOOTER	= $opt_footer     if $opt_footer;
     $FROM	= $opt_msgsep     if $opt_msgsep;
@@ -332,6 +321,9 @@ sub get_cli_opts {
     $GMTDateFmt	= $opt_gmtdatefmt  if $opt_gmtdatefmt;
     $LocalDateFmt = $opt_localdatefmt  if $opt_localdatefmt;
 
+    $SubArtRxp   = $opt_subjectarticlerxp  if $subjectarticlerxp;
+    $SubReplyRxp = $opt_subjectreplyrxp    if $subjectreplyrxp;
+
     ## Parse any rc variable definition from command-line
     %CustomRcVars = (%CustomRcVars, &parse_vardef_str($opt_definevars))
 	if ($opt_definevars);
@@ -356,6 +348,8 @@ sub get_cli_opts {
     $THREAD	= 0  if defined($opt_nothread);
     $TREVERSE	= 1  if defined($opt_treverse);
     $TREVERSE	= 0  if defined($opt_notreverse);
+    $DoArchive	= 1  if defined($opt_archive);
+    $DoArchive	= 0  if defined($opt_noarchive);
     $DoFolRefs	= 1  if defined($opt_folrefs);
     $DoFolRefs	= 0  if defined($opt_nofolrefs);
     $GzipFiles	= 1  if defined($opt_gzipfiles);
@@ -366,6 +360,13 @@ sub get_cli_opts {
     $DecodeHeads = 1 if defined($opt_decodeheads);
     $DecodeHeads = 0 if defined($opt_nodecodeheads);
 	$readmail'DecodeHeader = $DecodeHeads;
+
+    @DateFields	 = split(/:/, $opt_datefields)  if $opt_datefields;
+    foreach (@DateFields) { s/\s//g; tr/A-Z/a-z/; }
+    @FromFields	 = split(/:/, $opt_fromfields)  if $opt_fromfields;
+    foreach (@FromFields) { s/\s//g; tr/A-Z/a-z/; }
+
+    ($TSliceNBefore, $TSliceNAfter) = split(/:/, $opt_tslice)  if $opt_tslice;
 
     @Months   = split(/:/, $opt_months) 	if defined($opt_months);
     @months   = split(/:/, $opt_monthsabr)  	if defined($opt_monthsabr);
@@ -421,22 +422,21 @@ sub get_cli_opts {
     &set_date_names(*weekdays, *Weekdays, *months, *Months);
 
     ## Require some more libaries
-    ##
+
     ##	    Set index resources.
-    ##
     require 'mhidxrc.pl' || die("ERROR: Unable to require mhidxrc.pl\n");
-    ##
+
     ##	    Create dynamic subroutines.
-    ##
     require 'mhdysub.pl' || die("ERROR: Unable to require mhdysub.pl\n");
     &create_routines();
-    ##
+
     ##	    Require library for expanding resource variables
-    ##
     require 'mhrcvars.pl' || die("ERROR: Unable to require mhrcvars.pl\n");
-    ##
+
+    ##	    Require library containing thread routines
+    require 'mhthread.pl' || die("ERROR: Unable to require mhthread.pl\n");
+
     ## 	    Require database write library if needed
-    ##
     if (!($SCAN || $IDXONLY)) {
 	require 'mhdb.pl' || die("ERROR: Unable to require mhdb.pl\n");
     }
@@ -475,7 +475,8 @@ sub get_cli_opts {
 
     ## Check if printing process time
     $TIME = defined($opt_time);
-    $StartTime = (times)[0]  if ($TIME);
+
+    1;
 }
 
 ##---------------------------------------------------------------------------
@@ -484,7 +485,6 @@ sub get_cli_opts {
 sub version {
     select(STDOUT);
     print $VINFO;
-    exit 0;
 }
 
 ##---------------------------------------------------------------------------
@@ -494,7 +494,6 @@ sub usage {
     require 'mhusage.pl' ||
 	die("ERROR: Unable to require mhusage.pl.\n",
 	    "Did you install MHonArc properly?\n");
-    &quit(0);
 }
 
 ##---------------------------------------------------------------------------
@@ -517,6 +516,27 @@ sub create_lock_file {
 	$ISLOCK = 1;  $ret = 1;
     }
     $ret;
+}
+
+##---------------------------------------------------------------------------
+##	remove_lock_file removes the lock on the archive
+##
+sub remove_lock_file {
+    if ($ISLOCK) {
+	if (-d $LOCKFILE) {
+	    if (!rmdir($LOCKFILE)) {
+		warn "Warning: Unable to remove $LOCKFILE: $!\n";
+		return 0;
+	    }
+	} else {
+	    if (!unlink($LOCKFILE)) {
+		warn "Warning: Unable to remove $LOCKFILE\n";
+		return 0;
+	    }
+	}
+	$ISLOCK = 0;
+    }
+    1;
 }
 
 ##---------------------------------------------------------------------------

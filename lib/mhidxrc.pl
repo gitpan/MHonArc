@@ -1,13 +1,13 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhidxrc.pl 1.6 97/06/06 19:23:53 @(#)
+##	@(#) mhidxrc.pl 2.2 98/03/03 14:29:10
 ##  Author:
 ##      Earl Hood       ehood@medusa.acs.uci.edu
 ##  Description:
 ##      MHonArc library defining values for various index resources
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1996,1997	Earl Hood, ehood@medusa.acs.uci.edu
+##    Copyright (C) 1996-1998	Earl Hood, ehood@medusa.acs.uci.edu
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -21,8 +21,11 @@
 ##
 ##    You should have received a copy of the GNU General Public License
 ##    along with this program; if not, write to the Free Software
-##    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+##    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+##    02111-1307, USA
 ##---------------------------------------------------------------------------##
+
+package mhonarc;
 
 ##-----------------##
 ## Index resources ##
@@ -32,7 +35,8 @@ $IdxTypeStr = $NOSORT ? 'Message' :
 		        $SUBSORT ? 'Subject' :
 			$AUTHSORT ? 'Author' :
 			'Date';
-if ($MAIN) {
+## MAIN index resources
+## if ($MAIN) {
 
     ##	Label for main index
     unless ($IDXLABEL) {
@@ -106,9 +110,11 @@ EndOfStr
     unless ($SUBJECTEND) {
 	$SUBJECTEND = ''; $IsDefault{'SUBJECTEND'} = 1;
     }
-}
 
-if ($THREAD) {
+## }
+
+## THREAD index resources
+## if ($THREAD) {
 
     ##	Label for thread index
     unless ($TIDXLABEL) {
@@ -246,11 +252,29 @@ EndOfStr
 
     $DoMissingMsgs = $TLINONE =~ /\S/;
 
+## }
+
+unless ($TSLICEBEG) {
+    $TSLICEBEG = "<BLOCKQUOTE><UL>\n";
+    $IsDefault{'TSLICEBEG'} = 1;
+}
+unless ($TSLICEEND) {
+    $TSLICEEND = "</UL></BLOCKQUOTE>\n";
+    $IsDefault{'TSLICEEND'} = 1;
 }
 
 ##-------------------##
 ## Message resources ##
 ##-------------------##
+
+unless (@DateFields) {
+    @DateFields = ('received', 'date');
+    $IsDefault{'DATEFIELDS'} = 1;
+}
+unless (@FromFields) {
+    @FromFields = ('from', 'reply-to', 'apparently-from');
+    $IsDefault{'FROMFIELDS'} = 1;
+}
 
 ## Beginning of message page
 unless ($MSGPGBEG) {
@@ -471,6 +495,9 @@ $TNEXTPGLINKIA = '[Next Page]',
     $IsDefault{'TNEXTPGLINKIA'} = 1	unless $TNEXTPGLINKIA;
 $TPREVPGLINKIA = '[Prev Page]',
     $IsDefault{'TPREVPGLINKIA'} = 1	unless $TPREVPGLINKIA;
+
+$MSGIDLINK = '<A $A_HREF$>$MSGID$</A>',
+     $IsDefault{'MSGIDLINK'} = 1	unless $MSGIDLINK;
 
 ##	Set unknown icon
 $Icons{'unknown'} = $Icons{'text/plain'}  unless $Icons{'unknown'};
