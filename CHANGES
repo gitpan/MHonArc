@@ -13,6 +13,25 @@
 
 YYYY/MM/DD
 ============================================================================
+2002/08/03	(2.5.11)
+
+* Bug Fixes: See
+    <http://savannah.gnu.org/bugs/index.php?group_id=1968
+     &set=custom&advsrch=0&msort=0&report_id=105&go_report=Go
+     &fix_release=2.5.11&chunksz=50>
+
+* Applied Takashi P.KATOH's patch for iso_2022_jp::clip function
+  to support $has_tag flag as defined by TEXTCLIPFUNC resource.
+
+* The following mail header fields added to list of fields that can
+  contain mail addresses: mail-reply-to, original-bcc, original-cc,
+  original-from, original-sender, original-to, resent-bcc, x-envelope.
+  Applicable to MAILTO, MAILTOURL, and ADDRESSMODIFYCODE resources.
+
+* Added documentation for TEXTCLIPFUNC resource.  Forgot to add it
+  for v2.5.10 release.
+
+============================================================================
 2002/07/28	(2.5.10)
 
 * Bug Fixes: See
@@ -2126,4 +2145,4 @@ YYYY/MM/DD
 
 =======================================================================
 Earl Hood, mhonarc@mhonarc.org
-$Id: CHANGES,v 1.80 2002/07/28 23:21:53 ehood Exp $
+$Id: CHANGES,v 1.82 2002/08/04 03:58:27 ehood Exp $
