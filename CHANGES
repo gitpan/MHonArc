@@ -13,6 +13,14 @@
 
 YYYY/MM/DD
 ============================================================================
+2002/12/21	(2.5.14)
+
+* Security patch release: This release fixes a cross-site scripting
+  (XSS) vulnerability in m2h_text_html::filter (the HTML filter).
+  A specially crafted HTML message can have scripting markup get
+  by the script filtering done by m2h_text_html::filter.
+
+============================================================================
 2002/10/21	(2.5.13)
 
 * Bug Fixes: See
@@ -2209,4 +2217,4 @@ YYYY/MM/DD
 
 =======================================================================
 Earl Hood, mhonarc@mhonarc.org
-$Id: CHANGES,v 1.84 2002/10/21 16:55:51 ehood Exp $
+$Id: CHANGES,v 1.84.2.1 2002/12/22 00:43:56 ehood Exp $
