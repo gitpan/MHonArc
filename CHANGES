@@ -6,16 +6,44 @@ Version history for MHonArc.  Changes listed are brief.  Consult
 the documentation for further information/clarification.  It is
 possible that not all changes are documented here.
 
-MM/DD/YY(YY)
+MM/DD/YYYY
 =======================================================================
 #######################################################################
 =======================================================================
-10/10/1998	(2.3.0)
+10/25/1998	(2.3.1)
 
     Enhancements/Changes
     --------------------
     Please read the RELNOTES file for important information regarding
     upgrading to v2.2.x, or later, from pre-v2.2 releases.
+
+    o	Support for MHTML.  I.e.  An HTML document that references data
+	included as other parts to the mail message, will be converted
+	so the data will be shown where referenced.  Before, all
+	referenced data was shown at the end of the message.
+
+    o	Auto-computing the name for attachments no longer caches
+	data, so performance may decrease when processing MIME
+	messages.  This change is required since multiple filters can
+	now write data to files and not all to the same directory (a
+	common utility function now exists for writing data to a file).
+	Also, it avoids behavioral problems with custom front-ends
+	that operate on multiple archives in a single process.
+
+    o	Changes to readmail.pl inorder to support MHTML.  Changes
+	done should help the handling of other multipart/related
+	data types.
+
+    Bug Fixes
+    ---------
+    Problem:   	Attachments of the same type get written to the same
+		filename.
+    Solution:	Another my/local gotcha.  Note, writing attachments
+		has been redone so other filters besided mhexternal.pl
+		can write data to files.
+
+=======================================================================
+10/10/1998	(2.3.0)
 
     o	Perl 5 is now required to run MHonArc.  Although the code
 	base is still "Perl 4-style", many changes made use of Perl 5
@@ -1387,4 +1415,4 @@ MM/DD/YY(YY)
 #######################################################################
 =======================================================================
 Earl Hood, earlhood@usa.net
-@(#) CHANGES 98/10/10 17:36:35
+@(#) CHANGES 98/10/25 13:35:59

@@ -6,7 +6,7 @@ Read the CHANGES document for changes that may affect you if you are
 a user of an earlier version of MHonArc.
 
 ===========================================================================
-Version 2.3.0
+Version 2.3.0, 2.3.1
 
     o	If you have archives created with v2.1.x, or earlier, you
 	must update the archives before using versions v2.3, or
@@ -148,5 +148,5 @@ Version 2.0.0
 		unpredictable results will occur.
 
 ===========================================================================
-@(#) RELNOTES 98/10/10 17:38:54
+@(#) RELNOTES 98/10/24 18:11:34
 Earl Hood, earlhood@usa.net

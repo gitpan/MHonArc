@@ -793,6 +793,10 @@ recognizes:
 <td align=center><tt>midi</tt></td>
 <td>MIDI audio</td></tr>
 <tr valign="top">
+<td align=left><strong>audio/wav</strong></td>
+<td align=center><tt>wav</tt></td>
+<td>Wave audio</td></tr>
+<tr valign="top">
 <td align=left><strong>audio/x-aiff</strong></td>
 <td align=center><tt>aif</tt></td>
 <td>AIF audio</td></tr>
@@ -1202,10 +1206,29 @@ convert the characters to the appropriate entity references.
 
 <p>This filter is designed to process text/html or
 text/x-html data.
-The filter modifies the HTML so it can be
-included validly into the message page.  Any head data will be
-stripped out, but the title will be extracted and prepended
-to the body data.
+The filter modifies HTML documents so they can be
+included into the message pages without causing invalid markup
+to occur.  The following modification are done to HTML documents when
+processed by MHonArc:
+</p>
+<ul>
+<li><p>The HEAD element is removed.  Since some elements within the HEAD
+element may be relevant to the rest of the document, the following is
+done when removing the HEAD element:</p>
+    <ul>
+    <li>The title will be extracted and prepended
+    to the body data.
+    <li>Any BASE URL will be propogated to any relative URLs in the
+    document.
+    </ul>
+    <p></p>
+</li>
+<li><p><b><tt>cid:</tt></b> URLs are resolved, if possible.  Therefore,
+if image data related to the HTML document is included with the message,
+the URLs will be modified to the filenames of the images that were
+decoded.</p>
+</li>
+</ul>
 </p>
 
 <hr size=0 noshade width="50%">
@@ -1324,8 +1347,9 @@ tabular data will be converted into an HTML table.
 <hr>
 <h2>Examples</h2>
 
-<p>The following code is a filter for HTML message data 
-(code extracted from the HTML filter provided with MHonArc):
+<p>The following code is an example filter for HTML message data
+(note, this example has a subset of the functionality of the HTML
+filter used by MHonArc):
 </p>
 <pre>
 ##---------------------------------------------------------------------------##
@@ -1423,7 +1447,7 @@ sub addbase {
 <!-- *************************************************************** -->
 <hr>
 <address>
-98/10/10 21:28:59<br>
+98/10/24 16:57:31<br>
 <img align="top" src="../monicon.gif" alt="">
 <a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"><strong>MHonArc</strong></a><br>
 Copyright &#169; 1997-1998 <a href="http://www.oac.uci.edu/indiv/ehood/">Earl Hood</a>, <a href="mailto:earlhood@usa.net">earlhood@usa.net</a><br>

@@ -1,7 +1,7 @@
 Bug History for MHonArc
 =======================
 <URL:http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
-@(#) BUGS 98/10/10 17:36:37
+@(#) BUGS 98/10/24 18:11:16
 
 Each bug listing has the following fields:
 
@@ -16,7 +16,15 @@ Each bug listing has the following fields:
 
 Bug List
 ------------------------------------------------------------------------
-Version:	2.x
+Version:	2.3.0
+Problem:   	Attachments of the same type get written to the same
+		filename.
+Solution:	Another my/local gotcha.  Note, writing attachments
+		has been redone so other filters besided mhexternal.pl
+		can write data to files.
+Version Fixed:	2.3.1
+------------------------------------------------------------------------
+Version:	2.0.0 - 2.2.0
 Problem:   	A bogus TCONTBEGIN may get printed at the beginning
 		of a thread index page.  Most common when TREVERSE
 		specified.

@@ -1,8 +1,8 @@
 ---------------------------------------------------------------------------
                             README for MHonArc
-                                 v2.3.0
+                                 v2.3.1
 
-             http://www.oac.uci.edu/indiv/ehood/mhonarc.html
+          <URL:http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
 
 			 Copyright (C) 1995-1998
 		       Earl Hood, earlhood@usa.net
@@ -10,11 +10,11 @@
 ---------------------------------------------------------------------------
 USING/COPYING
 
-    MHonArc is distributed under the GNU General Public License
-    (GPL).  The rules for using and copying MHonArc are explained
-    in the file COPYING.  If you cannot agree to the conditions of
-    the GPL but still want to use/copy the program, you may contact
-    earlhood@usa.net about arranging an alternative license.
+    MHonArc is distributed under the GNU General Public License (GPL).
+    The rules for using and copying MHonArc are explained in the file
+    COPYING.  If you cannot agree to the conditions of the GPL but
+    still want to use/copy the program, you must contact the author of
+    MHonarc, earlhood@usa.net, about arranging an alternative license.
 
 ---------------------------------------------------------------------------
 CONTENTS
@@ -26,7 +26,7 @@ COPYING         GNU General Public License
 INSTALL         Instructions on how to install MHonArc
 README          The file you are reading
 RELNOTES        Release notes for MHonArc (please read)
-bat/            Batch files for MS-DOS users
+bat/            Batch files for Windows/MS-DOS users
 doc/            Documentation for MHonArc
 examples/       Example resource files for MHonArc
 extras/         Extra programs for use with MHonArc (See extras/README)
@@ -97,7 +97,7 @@ BUGS/COMMENTS/SUGGESTIONS?
     send mail to the MHonArc mailing list,
     <URL:mailto:mhonarc@ncsa.uiuc.edu>.
 
-    NOTE: The author of MHonArc *is* subscribed to the list.
+    NOTE: The author of MHonArc *IS* subscribed to the list.
 
     If it is a bug you are reporting, please include the following in
     your message:
@@ -128,4 +128,4 @@ BUGS/COMMENTS/SUGGESTIONS?
 
 ---------------------------------------------------------------------------
 Copyright (C) 1995-1998,		Earl Hood, earlhood@usa.net
-@(#) README 98/10/10 17:36:36
+@(#) README 98/10/24 18:10:26

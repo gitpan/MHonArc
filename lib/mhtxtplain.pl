@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxtplain.pl 2.2 98/08/10 23:33:33
+##	@(#) mhtxtplain.pl 2.3 98/10/24 17:16:20
 ##  Author:
 ##      Earl Hood       earlhood@usa.net
 ##  Description:
@@ -34,8 +34,8 @@ package m2h_text_plain;
 
 $Url    	= '(http://|https://|ftp://|afs://|wais://|telnet://|ldap://' .
 		   '|gopher://|news:|nntp:|mid:|cid:|mailto:|prospero:)';
-$UrlExp 	= $Url . q%[^\s\(\)\|<>"']*[^\.;,"'\|\[\]\(\)\s<>]%;
-$HUrlExp	= $Url . q%[^\s\(\)\|<>"'\&]*[^\.;,"'\|\[\]\(\)\s<>\&]%;
+$UrlExp 	= $Url . q%[^\s\(\)\|<>"']*[^\.?!;,"'\|\[\]\(\)\s<>]%;
+$HUrlExp	= $Url . q%[^\s\(\)\|<>"'\&]*[^\.?!;,"'\|\[\]\(\)\s<>\&]%;
 $QuoteChars	= '[>\|\]+:]';
 $HQuoteChars	= '&gt;|[\|\]+:]';
 
