@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcfile.pl 2.12 99/09/28 23:12:20
+##	@(#) mhrcfile.pl 2.13 00/02/13 03:28:50
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -991,6 +991,10 @@ sub read_resource_file {
 	}
 	if ($elem eq "usinglastpg") {
 	    $UsingLASTPG = 1; last FMTSW;
+	}
+	if ($elem eq "varregex") {		# Regex matching rc vars
+	    $VarExp = &get_elem_last_line($handle, $elem);
+	    last FMTSW;
 	}
 	if ($elem eq "weekdays") {		# Full weekday name
 	    @a = &get_list_content($handle, $elem);

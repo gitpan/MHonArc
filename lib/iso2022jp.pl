@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) iso2022jp.pl 1.1 99/06/25 14:26:34
+##	@(#) iso2022jp.pl 1.2 00/01/15 17:54:50
 ##  Author(s):
 ##      Earl Hood       mhonarc@pobox.com
 ##      NIIBE Yutaka	gniibe@mri.co.jp
@@ -63,7 +63,7 @@ sub jp2022_to_html {
     my($ret, $ascii_text);
     local($_);
 
-    $ret = "<PRE>\n";
+    $ret = "";
     foreach (@lines) {
 	# Process preceding ASCII text
 	while(1) {
@@ -135,8 +135,6 @@ sub jp2022_to_html {
 
 	$ret .= "\n";
     }
-
-    $ret .= "</PRE>\n";
 
     ($ret);
 }

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhopt.pl 2.17 99/08/13 22:18:38
+##      @(#) mhopt.pl 2.19 00/02/13 03:28:54
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -143,6 +143,7 @@ sub get_resources {
 			# Use POSIX strftime()
 	"quiet",	# No status messages while running
 	"rcfile=s@",	# Resource file for mhonarc
+	"varregex=s",	# Regex matching resource variables
 	"reverse",	# List messages in reverse order
 	"rmm",		# Remove messages from an archive
 	"savemem",	# Write message data while processing
@@ -238,6 +239,7 @@ sub get_resources {
     $QUIET   = $opt{'quiet'};
     $EDITIDX = $opt{'editidx'};
     $ANNOTATE= $opt{'annotate'};
+    $AFS     = $opt{'afs'};
     if ($opt{'genidx'}) {
 	$IDXONLY  = 1;  $QUIET = 1;  $ADD = 0;
     } else {
@@ -443,6 +445,7 @@ sub get_resources {
     $TTITLE	= $opt{'ttitle'}     if $opt{'ttitle'};
     $MsgPrefix	= $opt{'msgprefix'}  if defined($opt{'msgprefix'});
     $GzipExe	= $opt{'gzipexe'}    if $opt{'gzipexe'};
+    $VarExp	= $opt{'varregex'}   if $opt{'varregex'};
 
     $IDXNAME	= $opt{'idxfname'} || $IDXNAME || $ENV{'M2H_IDXFNAME'} ||
 		  "maillist.$HtmlExt";

@@ -1,7 +1,7 @@
 Bug History for MHonArc
 =======================
 <URL:http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
-@(#) BUGS 99/10/01 01:24:23
+@(#) BUGS 00/02/13 03:48:54
 
 Each bug listing has the following fields:
 
@@ -15,6 +15,28 @@ Each bug listing has the following fields:
 		    applicable.
 
 Bug List
+------------------------------------------------------------------------
+Version:	2.4.4
+Problem:   	$PGLINKLIST$ for threads did not work.
+Solution:	Fixed in mhrcvars.pl.
+Version Fixed:	2.4.5
+------------------------------------------------------------------------
+Version:	2.4.4, and earlier
+Problem:   	-afs had no effect.
+Solution:	Fixed in mhopt.pl: Option was not checked.
+Version Fixed:	2.4.5
+------------------------------------------------------------------------
+Version:	2.4.4, and earlier
+Problem:   	%y print 3 digits in time format strings if year 2000
+		or later.
+Solution:	Fixed in mhtime.pl
+Version Fixed:	2.4.5
+------------------------------------------------------------------------
+Version:	2.4.0-4
+Problem:   	<PRE> tags are printed when decoding ISO-2022-JP
+		encoded header text.
+Solution:	Fixed in iso2022jp.pl
+Version Fixed:	2.4.5
 ------------------------------------------------------------------------
 Version:	2.4.3, and earlier
 Problem:   	Text/html filter died with a "Modification of

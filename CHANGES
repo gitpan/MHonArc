@@ -10,6 +10,39 @@ MM/DD/YYYY
 =======================================================================
 #######################################################################
 =======================================================================
+02/14/2000	(2.4.5)
+
+    Enhancements/Changes
+    --------------------
+    o	Following changes to m2h_text_html::filter:
+	-   All comment declarations are removed.  This avoid
+	    potential SSI attacks and declarations that may conflict
+	    with MHonArc.
+	-   Additional tags have been added to the to-strip list
+	    to avoid potential client-side scripting attacks.  See
+	    MIMEFILTERS docs for list.
+	-   Added "nofont" option to strip out any <font> tags.
+
+    o	Added application/x-bzip2 to known mime types (mhmimetypes.pl).
+
+    o	Simple modification to get_time_from_date() in mhutil.pl to
+	handle abhorrent case of message date using a 2 digit year.
+
+    o	Under VMS, the default lock file name has been changed to
+	"mhonarc_lck" for directory based locking will work.
+
+    o	mhonarc::htmlize/entify now translates the double-quote
+	character (") to &quot;.
+
+    o	Added VARREGEX resource to allow customization of resource
+	variable matching.  Mainly for use with resource files written
+	on multibyte charsets like SJIS.  Use with caution.
+
+    Bug Fixes
+    ---------
+    See BUGS.
+
+=======================================================================
 10/01/1999	(2.4.4)
 
     Enhancements/Changes
@@ -1377,4 +1410,4 @@ MM/DD/YYYY
 #######################################################################
 =======================================================================
 Earl Hood, mhonarc@pobox.com
-@(#) CHANGES 99/10/01 01:24:24
+@(#) CHANGES 00/02/13 03:49:04

@@ -1318,8 +1318,38 @@ done when removing the HEAD element:</p>
     <p></p>
 </li>
 <li><p>Any markup related to scripting is removed for security
-reasons.  The <strong><tt>allowscript</tt></strong> option can be
-be used to override this behavior (see below).
+reasons.  The following tags are removed:
+<tt>&lt;applet&gt;</tt>,
+<tt>&lt;base&gt;</tt>,
+<tt>&lt;embed&gt;</tt>,
+<tt>&lt;form&gt;</tt>,
+<tt>&lt;ilayer&gt;</tt>,
+<tt>&lt;input&gt;</tt>,
+<tt>&lt;layer&gt;</tt>,
+<tt>&lt;link&gt;</tt>,
+<tt>&lt;meta&gt;</tt>,
+<tt>&lt;object&gt;</tt>,
+<tt>&lt;option&gt;</tt>,
+<tt>&lt;param&gt;</tt>,
+<tt>&lt;script&gt;</tt>,
+<tt>&lt;select&gt;</tt>,
+<tt>&lt;style&gt;</tt>,
+<tt>&lt;textarea&gt;</tt>.
+The following attributes are removed:
+<tt>onload</tt>,
+<tt>onunload</tt>,
+<tt>onclick</tt>,
+<tt>ondblclick</tt>,
+<tt>onmousedown</tt>,
+<tt>onmouseup</tt>,
+<tt>onmouseover</tt>,
+<tt>onmousemove</tt>,
+<tt>onmouseout</tt>,
+<tt>onkeypress</tt>,
+<tt>onkeydown</tt>,
+<tt>onkeyup</tt>.
+The <strong><tt>allowscript</tt></strong> option can be
+be used to override the this behavior (see below).
 </p></li>
 <li><p><b><tt>cid:</tt></b> URLs are resolved, if possible.  Therefore,
 if image data related to the HTML document is included with the message,
@@ -1339,8 +1369,14 @@ following
 <td><p>Preserve any markup associated with scripting.
 This includes elements and attributes related to scripting.  This option
 can cause security problems for your archive since someone can introduce
-foreign client-side code.  Use this options with care.
-</p>
+foreign client-side code.  Use this options with <strong>EXTREME</strong>
+care.
+</p></td>
+</tr>
+<tr valign=top>
+<td><strong><tt>nofont</tt></strong></td>
+<td><p>Remove font tags.
+</p></td>
 </tr>
 </table>
 
@@ -1581,7 +1617,7 @@ sub addbase {
 <!-- *************************************************************** -->
 <hr>
 <address>
-99/10/01 01:19:24<br>
+00/02/13 03:32:34<br>
 <img align="top" src="../monicon.gif" alt="">
 <a href="http://www.pobox.com/~ehood/mhonarc.html"><strong>MHonArc</strong></a><br>
 Copyright &#169; 1997-1999 <a href="http://www.pobox.com/~ehood/">Earl Hood</a>, <a href="mailto:mhonarc@pobox.com">mhonarc@pobox.com</a><br>

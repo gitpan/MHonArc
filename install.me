@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) install.me 1.14 99/08/14 19:30:37
+##	@(#) install.me 1.15 00/02/13 02:23:12
 ##  Author:
 ##      Earl Hood, ehood@pobox.com
 ##  Summary:
@@ -290,6 +290,17 @@ my %OptValues	= ();
     $DefValues{'perl'}     = $Config{'perlpath'};
 
     $SkipPermCheck = 1  if $OptValues{'afs'};
+
+    ## If VMS, tweak pathnames
+    if ($VMS) {
+      my($key);
+      foreach $key (keys(%DefValues)) {
+        $DefValues{$key} =~ s|:||;
+        $DefValues{$key} =~ s|[\.\[\]]|/|g;
+        $DefValues{$key} =~ s|000000||g;
+        $DefValues{$key} =~ s|//|/|g;
+      }
+    }
 }
 
 ###############################################################################

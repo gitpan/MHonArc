@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxtenrich.pl 2.3 99/06/25 14:18:01
+##	@(#) mhtxtenrich.pl 2.4 00/02/08 10:04:43
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -81,7 +81,7 @@ sub filter {
     ## 		(we already did '<' and '&' characters)
     if ($charset =~ /iso-8859-([2-9]|10)/i) {
 	require 'iso8859.pl';
-	$ret = &iso_8859'str2sgml($ret, $charset, 1);
+	$ret = &iso_8859::str2sgml($ret, $charset, 1);
     }
 
     $ret;

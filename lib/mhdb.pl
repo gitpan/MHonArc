@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhdb.pl 2.11 99/09/28 23:07:55
+##	@(#) mhdb.pl 2.12 00/02/13 03:28:23
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -145,6 +145,7 @@ print_var(\*DB,'SubReplyRxp',    \$SubReplyRxp);
 print_var(\*DB,'SubStripCode',   \$SubStripCode);
 print_var(\*DB,'UseLocalTime',   \$UseLocalTime);
 print_var(\*DB,'UsingLASTPG',    \$UsingLASTPG);
+print_var(\*DB,'VarExp',    	 \$VarExp);
 
 print_var(\*DB,'SSMARKUP',       \$SSMARKUP);
 print_var(\*DB,'SpamMode',       \$SpamMode);

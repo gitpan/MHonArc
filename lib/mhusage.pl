@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhusage.pl 2.12 99/08/13 22:47:41
+##      @(#) mhusage.pl 2.13 00/02/13 03:28:52
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -194,6 +194,7 @@ Options:
   -umask <umask>           : Umask of MHonArc process (Unix only)
   -url                     : Make URL hyperlinks (the default)
   -v                       : Print version information
+  -varregex <regex>        : Perl regex matching resource variables
   -weekdays <list>         : Weekday names
   -weekdaysabr <list>      : Abbreviated weekday names
 

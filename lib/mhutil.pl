@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhutil.pl 2.8 99/10/01 00:26:45
+##	@(#) mhutil.pl 2.9 00/01/17 17:18:15
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -258,7 +258,8 @@ sub get_time_from_date {
     local($mday, $mon, $yr, $hr, $min, $sec, $zone) = @_;
     local($time) = 0;
 
-    $yr -= 1900  if $yr >= 1900;
+    $yr -= 1900  if $yr >= 1900;  # if given full 4 digit year
+    $yr += 100   if $yr <= 37;    # in case of 2 digit years
     if (($yr < 70) || ($yr > 137)) {
 	warn "Warning: Bad year (", $yr+1900, ") using current\n";
 	$yr = (localtime(time))[5];

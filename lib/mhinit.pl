@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhinit.pl 2.18 99/09/28 23:11:45
+##	@(#) mhinit.pl 2.20 00/02/13 03:28:47
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -361,7 +361,7 @@ $DBPathName	= '';	# Full pathname of database file
 $MHeadCnvFunc	= "mhonarc::htmlize";
 
 ##  Regexp for variable detection
-$VarExp = '\$([^\$]*)\$';
+$VarExp    = $ENV{'M2H_VARREGEX'}   || '\$([^\$]*)\$';
 
 ##  Regexp for address/msg-id detection (looks like cussing in cartoons)
 $AddrExp = q%[^()<>@,;:\/\s"'&|]+@[^()<>@,;:\/\s"'&|]+%;
@@ -388,7 +388,8 @@ $TITLE     = $ENV{'M2H_TITLE'}      || "Mail Index";
 $MAILTOURL = $ENV{'M2H_MAILTOURL'}  || "";
 $FROM      = $ENV{'M2H_MSGSEP'}     || '^From ';
 $LOCKFILE  = $ENV{'M2H_LOCKFILE'}   ||
-	     (($MSDOS || $VMS) ? "mhonarc.lck": ".mhonarc.lck");
+	     ($MSDOS ? "mhonarc.lck" :
+		$VMS ? "mhonarc_lck" : ".mhonarc.lck");
 $LOCKTRIES = $ENV{'M2H_LOCKTRIES'}  || 10;
 $LOCKDELAY = $ENV{'M2H_LOCKDELAY'}  || 3;
 $MAXSIZE   = $ENV{'M2H_MAXSIZE'}    || 0;

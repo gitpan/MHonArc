@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhamain.pl 2.18 99/10/01 02:02:17
+##	@(#) mhamain.pl 2.19 00/02/13 04:21:32
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -27,10 +27,10 @@
 
 package mhonarc;
 
-$VERSION = "2.4.4";
+$VERSION = "2.4.5";
 $VINFO =<<EndOfInfo;
   MHonArc v$VERSION (Perl $])
-  Copyright (C) 1995-1999  Earl Hood, mhonarc\@pobox.com
+  Copyright (C) 1995-2000  Earl Hood, mhonarc\@pobox.com
   MHonArc comes with ABSOLUTELY NO WARRANTY and MHonArc may be copied only
   under the terms of the GNU General Public License, which may be found in
   the MHonArc distribution.

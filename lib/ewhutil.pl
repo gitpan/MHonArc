@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) ewhutil.pl 2.6 99/09/28 23:07:44
+##	@(#) ewhutil.pl 2.7 00/02/08 10:04:07
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -26,6 +26,13 @@
 
 package mhonarc;
 
+my %HTMLSpecials = (
+  '"'	=> '&quot;',
+  '&'	=> '&amp;',
+  '<'	=> '&lt;',
+  '>'	=> '&gt;',
+);
+
 ##---------------------------------------------------------------------------
 ##	Remove duplicates in an array.
 ##
@@ -41,13 +48,13 @@ sub remove_dups {
 
 sub htmlize {			# Older name
     my($txt) = $_[0];
-    $txt =~ s/&/\&amp;/g; $txt =~ s/>/&gt;/g; $txt =~ s/</&lt;/g;
+    $txt =~ s/(["&<>])/$HTMLSpecials{$1}/g;
     $txt;
 }
 
 sub entify {			# Newer name
     my($txt) = $_[0];
-    $txt =~ s/&/\&amp;/g; $txt =~ s/>/&gt;/g; $txt =~ s/</&lt;/g;
+    $txt =~ s/(["&<>])/$HTMLSpecials{$1}/g;
     $txt;
 }
 

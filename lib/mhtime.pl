@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtime.pl 2.7 99/08/13 22:49:16
+##	@(#) mhtime.pl 2.8 00/01/15 17:51:12
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -102,6 +102,7 @@ sub time2str {
     ## Get here, we have to do it ourselves.
     my($yearfull, $hour12);
     $yearfull = $year + 1900;
+    $year     = $year % 100;
     $hour12   = $hour > 12 ? $hour-12 : $hour;
 
     ## Format output

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhmimetypes.pl 1.3 99/06/25 14:25:25
+##	@(#) mhmimetypes.pl 1.4 00/01/15 17:54:32
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -70,6 +70,7 @@ $UnknownExt     = 'bin';
     'application/wordperfect5.1',	'wp:WordPerfect 5.1 document',
     'application/x-asap',		'asp:asap file',
     'application/x-bcpio', 		'bcpio:BCPIO file',
+    'application/x-bzip2', 		'bz2:BZip2 compressed data',
     'application/x-compress', 		'Z:Unix compressed data',
     'application/x-cpio', 		'cpio:CPIO file',
     'application/x-csh', 		'csh:C-Shell script',

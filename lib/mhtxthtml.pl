@@ -1,18 +1,18 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxthtml.pl 2.10 99/09/28 23:13:13
+##	@(#) mhtxthtml.pl 2.12 00/02/05 19:33:31
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
 ##	Library defines routine to filter text/html body parts
 ##	for MHonArc.
 ##	Filter routine can be registered with the following:
-##		<MIMEFILTERS>
-##		text/html:m2h_text_html'filter:mhtxthtml.pl
-##		</MIMEFILTERS>
+##	    <MIMEFILTERS>
+##	    text/html:m2h_text_html'filter:mhtxthtml.pl
+##	    </MIMEFILTERS>
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1995-1999	Earl Hood, mhonarc@pobox.com
+##    Copyright (C) 1995-2000	Earl Hood, mhonarc@pobox.com
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -38,6 +38,9 @@ my $Url	= '(\w+://|\w+:)';
 my $SAttr = q/(?:onload|onunload|onclick|ondblclick|/.
 	    q/onmouse(?:down|up|over|move|out)|/.
 	    q/onkey(?:press|down|up))/;
+# Script/questionable related elements
+my $SElem = q/(?:applet|base|embed|form|ilayer|input|layer|link|meta|object|/.
+	    q/option|param|select|textarea)/;
 
 ##---------------------------------------------------------------------------
 ##	The filter must modify HTML content parts for merging into the
@@ -51,6 +54,8 @@ my $SAttr = q/(?:onload|onunload|onclick|ondblclick|/.
 ##			to scripting.  The default is to delete any
 ##			scripting markup for security reasons.
 ##
+##	nofont  	Remove <FONT> tags.
+##
 sub filter {
     local($header, *fields, *data, $isdecode, $args) = @_;
     local(@files) = ();	# !!!Used by resolve_cid!!!
@@ -58,7 +63,12 @@ sub filter {
     my $title	 = '';
     my $noscript = 1;
        $noscript = 0  if $args =~ /\ballowscript\b/i;
+    my $nofont	 = $args =~ /\bnofont\b/i;
     my $tmp;
+
+    ## Remove comment declarations: may screw-up mhonarc processing
+    ## and avoids someone sneaking in SSIs.
+    $data =~ s/<!(?:--(?:[^-]|-[^-])*--\s*)+>//go;
 
     ## Get/remove title
     if ($data =~ s|<title\s*>([^<]*)</title\s*>||io) {
@@ -87,14 +97,20 @@ sub filter {
     $data =~ s|</?html[^>]*>||gio;
     $data =~ s|<head\s*>[\s\S]*</head\s*>||io;
 
+    ## Strip out <font> tags if requested
+    if ($nofont) {
+	$data =~ s|<style[^>]*>.*?</style\s*>||gios;
+	$data =~ s|</?font\b[^>]*>||gio;
+    }
+
     ## Strip out scripting markup if requested
     if ($noscript) {
 	$data =~ s|<script[^>]*>.*?</script\s*>||gios;
-	$data =~ s|\b$SAttr\b\s*=\s*"[^"]*"||gio;
-	$data =~ s|\b$SAttr\b\s*=\s*'[^']*'||gio;
+	$data =~ s|<style[^>]*>.*?</style\s*>||gios  unless $nofont;
+	$data =~ s|\b$SAttr\b\s*=\s*"[^"]*"||gio; #"
+	$data =~ s|\b$SAttr\b\s*=\s*'[^']*'||gio; #'
 	$data =~ s|\b$SAttr\b\s*=\s*[^\s>]+||gio;
-	$data =~ s|</?applet[^>]*>||gio;
-	$data =~ s|</?param[^>]*>||gio;
+	$data =~ s|</?$SElem[^>]*>||gio;
     }
 
     ## Check for body attributes

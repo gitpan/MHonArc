@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcvars.pl 2.9 99/09/28 23:12:57
+##	@(#) mhrcvars.pl 2.11 00/01/19 13:16:41
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -417,8 +417,8 @@ sub replace_li_var {
 	}
 	if ($var eq 'PGLINKLIST') {
 	    my $num = $PageNum;
+	    my $t = $arg =~ s/T//i;
 	    my($before, $after) = split(/;/, $arg);
-	       $t = $t =~ s/T//i;
 	    my $prefix  = $t ? $TIDXPREFIX : $IDXPREFIX;
 	    my $suffix  = $HtmlExt;
 	       $suffix .= '.gz'  if $GzipLinks;
@@ -542,7 +542,7 @@ sub replace_li_var {
 
     ##	Check if string needs to be expanded again
     if ($expand) {
-	$tmp =~ s/\$([^\$]*)\$/&replace_li_var($1,$index)/ge;
+	$tmp =~ s/$VarExp/&replace_li_var($1,$index)/geo;
     }
 
     ##	Check if URL text specifier is set
