@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>MHonArc Resources: DATEFIELDS</title>
+</head>
+<body>
+
+<em><a href="../resources.html#datefields">MHonArc Resource List</a></em> |
+<a href="../mhonarc.html">TOC</a>
+
+<hr>
+<h1>DATEFIELDS</h1>
+
+<!-- *************************************************************** -->
+<hr>
+<h2>Syntax</h2>
+
+<dl>
+
+<dt><strong>Envariable</strong><dt>
+<dd><p><br>
+<code>M2H_DATEFIELDS=</code><var>field1</var><code>:</code><var
+>field2</var><code>:</code><var>...</var><code>:</code><var
+>fieldN</var>
+</p>
+</dd>
+
+<dt><strong>Element</strong><dt>
+<dd><p><br>
+<code>&lt;DATEFIELDS&gt;</code><br>
+<var>field1</var><code>:</code><var
+>field2</var><code>:</code><var>...</var><code>:</code><var
+>fieldN</var><br>
+<code>&lt;/DATEFIELDS&gt;</code><br>
+</p>
+</dd>
+
+<dt><strong>Command-line Option</strong><dt>
+<dd><p>
+<code>-datefields </code><var>field1</var><code>:</code><var
+>field2</var><code>:</code><var>...</var><code>:</code><var
+>fieldN</var>
+</p>
+</dd>
+
+</dl>
+
+<!-- *************************************************************** -->
+<hr>
+<h2>Description</h2>
+
+<p>DATEFIELDS specify the message header fields MHonArc will search to
+determine the dates of messages.  Each field will be checked in
+the ordered specified.
+</p>
+<p>The value of the DATEFIELDS is a colon separated
+list of message header fields to check.
+</p>
+
+<!-- *************************************************************** -->
+<hr>
+<h2>Default Setting</h2>
+
+<pre>
+received:date
+</pre>
+
+<!-- *************************************************************** -->
+<hr>
+<h2>Resource Variables</h2>
+
+<p>N/A
+</p>
+
+<!-- *************************************************************** -->
+<hr>
+<h2>Examples</h2>
+
+<p>By default. MHonArc looks at the <tt>Received</tt> fields of
+a message to determine a message's date.  This tends to be more accurate
+as it tells when the message was actually received.  However, you
+may want to have the date based upon the time the sender composed the
+message.  The <tt>Date</tt> field usually reflects the composition
+date.  Therefore, the following setting can be used:
+</p>
+<pre>
+<b>&lt;DateFields&gt;</b>
+date:received
+<b>&lt;/DateFields&gt;</b>
+</pre>
+
+<!-- *************************************************************** -->
+<hr>
+<h2>Version</h2>
+
+<p>2.1.1
+</p>
+
+<!-- *************************************************************** -->
+<hr>
+<h2>See Also</h2>
+
+<p>
+</p>
+
+<!-- *************************************************************** -->
+<hr>
+<address>
+01/09/05 21:43:09<br>
+<img align="top" src="../monicon.gif" alt="">
+<a href="http://www.mhonarc.org/"
+><strong>MHonArc</strong></a><br>
+Copyright &#169; 1998, <a href="http://www.earlhood.com/"
+>Earl Hood</a>, <a href="mailto:mhonarc@mhonarc.org"
+>mhonarc@mhonarc.org</a><br>
+</address>
+
+</body>
+</html>

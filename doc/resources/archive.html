@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>MHonArc Resources: ARCHIVE</title>
+</head>
+<body>
+
+<em><a href="../resources.html#archive">MHonArc Resource List</a></em> |
+<a href="../mhonarc.html">TOC</a>
+
+<hr>
+<h1>ARCHIVE</h1>
+
+<!-- *************************************************************** -->
+<hr>
+<h2>Syntax</h2>
+
+<dl>
+
+<dt><strong>Envariable</strong><dt>
+<dd><p>
+<code>M2H_ARCHIVE=</code> [ <code>0</code> | <code>1</code> ]
+</p>
+</dd>
+
+<dt><strong>Element</strong><dt>
+<dd><p>N/A
+</p>
+</dd>
+
+<dt><strong>Command-line Option(s)</strong><dt>
+<dd><p><br>
+<code>-archive</code><br>
+<code>-noarchive</code>
+</p>
+</dd>
+
+</dl>
+
+<!-- *************************************************************** -->
+<hr>
+<h2>Description</h2>
+
+<p>MHonArc using the ARCHIVE resource to determine if it should
+create archive data after reading message data.
+</p>
+
+<!-- *************************************************************** -->
+<hr>
+<h2>Default Setting</h2>
+
+<pre>
+1
+</pre>
+
+<!-- *************************************************************** -->
+<hr>
+<h2>Resource Variables</h2>
+
+<p>N/A
+</p>
+
+<!-- *************************************************************** -->
+<hr>
+<h2>Examples</h2>
+
+<p>The purpose of MHonArc is to create HTML archive, so why would you
+want to disable archiving?  One potential purpose is to use MHonArc
+as a general MIME processing filter to extract all attachments in a
+mail folder to separate files.  Luckily, the utility program
+<a href="../app-utilsprg.html#mha-decode"><b>mha-decode</b></a> is
+included in the MHonArc distribution to provide basic MIME message
+decoding.  Therefore, the lengthy example that used to be here
+has been deleted.  You can examine the source of <b>mha-decode</b>
+to see how it interfaces with the MHonArc libraries and uses the
+ARCHIVE resource.
+</p>
+
+<!-- *************************************************************** -->
+<hr>
+<h2>Version</h2>
+
+<p>2.1.2
+</p>
+
+<!-- *************************************************************** -->
+<hr>
+<h2>See Also</h2>
+
+<p>
+<a href="../app-utilsprg.html#mha-decode"><b>mha-decode</b></a>
+</p>
+
+<!-- *************************************************************** -->
+<hr>
+<address>
+01/09/05 21:43:08<br>
+<img align="top" src="../monicon.gif" alt="">
+<a href="http://www.mhonarc.org/"
+><strong>MHonArc</strong></a><br>
+Copyright &#169; 1998-1999, <a href="http://www.earlhood.com/"
+>Earl Hood</a>, <a href="mailto:mhonarc@mhonarc.org"
+>mhonarc@mhonarc.org</a><br>
+</address>
+
+</body>
+</html>
