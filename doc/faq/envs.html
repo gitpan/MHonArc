@@ -23,6 +23,7 @@
 <li><a href="#muas">What mail user agents (MUA's) does MHonarc support?</a></li>
 <li><a href="#mdomodigests">Can MHonArc process Majordomo digests?</a></li>
 <li><a href="#listprocessor">Can MHonArc process Listproc, Majordomo, or Listserv archives?</a></li>
+<li><a href="#maildir">Can MHonArc process qmail's maildir style mail folders?</a></li>
 <li><a href="#compuserve">Can MHonArc process Compuserve messages?</a></li>
 <li><a href="#otherformats">What about other mailbox/folder formats?</a></li>
 <li><a href="#nonenglish">Can MHonArc create non-English archives?</a></li>
@@ -306,6 +307,38 @@ www.cruciverb.com
 <hr noshade size=1>
 <table border=0>
 <tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
+<h3><b><a name="maildir">Can MHonArc process qmail's maildir style mail folders?</a></b></h3>
+</td></tr></table>
+
+<p>For simplicity, let "<var>MAILDIR</var>" represent the pathname
+to your qmail mail directory.
+</p>
+<p>To have mhonarc process <var>MAILDIR</var>,
+you pass "<var>MAILDIR</var><tt>/cur</tt>" and/or
+"<var>MAILDIR</var><tt>/new</tt>" as the mail folder arguments.
+Which subdirectory you choose to use depends on your needs.
+</p>
+<p>Also, you will need to define the MHPATTERN resource to process
+all non-dotfiles.  Example:
+</p>
+<pre>
+    shell&gt; <b>mhonarc -mhpattern '^[^\.]' <var>MAILDIR</var>/cur</b>
+</pre>
+<p>If all you will ever do is process qmail maildir folders, it may be best
+to set the M2H_MHPATTERN environment variable so you do not have
+to respecify each time you invoke mhonarc.  Examples:
+</p>
+<dl>
+<dt>csh:
+    <dd><b><tt>setenv M2H_MHPATTERN '^[^\.]'</tt></b>
+<dt>sh:
+    <dd><b><tt>M2H_MHPATTERN='^[^\.]'; export M2H_MHPATTERN</tt></b>
+</dl>
+
+<!-- ??????????????????????????????????????????????????????????????? -->
+<hr noshade size=1>
+<table border=0>
+<tr valign=top><td><img src="monicon.gif" align="bottom" alt=""></td><td>
 <h3><b><a name="compuserve">Can MHonArc process Compuserve messages?</a></b></h3>
 </td></tr></table>
 
@@ -439,13 +472,13 @@ message.  MHonArc has no built-in language translation.
 
 <hr>
 <address>
-98/11/08 12:21:27<br>
+99/06/25 23:17:32<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"
 ><strong>MHonArc</strong></a><br>
-Copyright &#169; 1997-1998, <a href="http://www.oac.uci.edu/indiv/ehood/"
->Earl Hood</a>, <a href="mailto:ehood@medusa.acs.uci.edu"
->ehood@medusa.acs.uci.edu</a><br>
+Copyright &#169; 1997-1999, <a href="http://www.oac.uci.edu/indiv/ehood/"
+>Earl Hood</a>, <a href="mailto:mhonarc@pobox.com"
+>mhonarc@pobox.com</a><br>
 </address>
 </body>
 </html>

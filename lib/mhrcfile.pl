@@ -1,13 +1,13 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcfile.pl 2.6 98/10/10 16:29:34
+##	@(#) mhrcfile.pl 2.9 99/06/25 23:06:19
 ##  Author:
-##      Earl Hood       earlhood@usa.net
+##      Earl Hood       mhonarc@pobox.com
 ##  Description:
 ##      Routines for parsing resource files
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1996-1998	Earl Hood, earlhood@usa.net
+##    Copyright (C) 1996-1999	Earl Hood, mhonarc@pobox.com
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -57,6 +57,10 @@ sub read_resource_file {
 	$chop = ($attr =~ /chop/i);
 
       FMTSW: {
+	if ($elem eq "addressmodifycode") {	# Code to strip subjects
+	    $AddressModify = &get_elem_content($handle, $elem, $chop);
+	    last FMTSW;
+	}
 	if ($elem eq "authorbegin") {		# Begin for author group
 	    $AUTHBEG = &get_elem_content($handle, $elem, $chop);
 	    last FMTSW;
@@ -94,6 +98,9 @@ sub read_resource_file {
 		    if defined($plfile) and $plfile =~ /\S/;
 	    }
 	    last FMTSW;
+	}
+	if ($elem eq "checknoarchive") {
+	    $CheckNoArchive = 1; last FMTSW;
 	}
 	if ($elem eq "conlen") {
 	    $CONLEN = 1; last FMTSW;
@@ -359,6 +366,12 @@ sub read_resource_file {
 	    }
 	    last FMTSW;
 	}
+	if ($elem eq "lockmethod") {		# Locking method
+	    if ($line = &get_elem_last_line($handle, $elem)) {
+		$LockMethod = &set_lock_mode($line);
+	    }
+	    last FMTSW;
+	}
 	if ($elem eq "mailto") {		# Convert e-mail addrs
 	    $NOMAILTO = 0; last FMTSW;
 	}
@@ -525,6 +538,9 @@ sub read_resource_file {
 	    $AUTHSORT = 0;
 	    last FMTSW;
 	}
+	if ($elem eq "nochecknoarchive") {
+	    $CheckNoArchive = 0; last FMTSW;
+	}
 	if ($elem eq "noconlen") {		# Ignore content-length
 	    $CONLEN = 0; last FMTSW;
 	}
@@ -566,6 +582,13 @@ sub read_resource_file {
 	}
 	if ($elem eq "nosort") {		# Do not sort messages
 	    $NOSORT = 1;
+	    last FMTSW;
+	}
+	if ($elem eq "nospammode") {		# Do not do anti-spam stuff
+	    $SpamMode = 0; last FMTSW;
+	}
+	if ($elem eq "nosubjectthreads") {	# No check subjects for threads
+	    $NoSubjectThreads = 1;
 	    last FMTSW;
 	}
 	if ($elem eq "nosubsort") {		# Do not sort msgs by subject
@@ -664,6 +687,13 @@ sub read_resource_file {
 	    $AUTHSORT = 0;  $SUBSORT = 0;
 	    last FMTSW;
 	}
+	if ($elem eq "spammode") {		# Obfsucate/hide addresses
+	    $SpamMode = 1; last FMTSW;
+	}
+	if ($elem eq "ssmarkup") {		# Initial page markup
+	    $SSMARKUP = &get_elem_content($handle, $elem, $chop);
+	    last FMTSW;
+	}
 	if ($elem eq "subjectarticlerxp") {	# Regex for language articles
 	    if ($line = &get_elem_last_line($handle, $elem)) {
 		$SubArtRxp = $line;
@@ -678,6 +708,10 @@ sub read_resource_file {
 	}
 	if ($elem eq "subjectstripcode") {	# Code to strip subjects
 	    $SubStripCode = &get_elem_content($handle, $elem, $chop);
+	    last FMTSW;
+	}
+	if ($elem eq "subjectthreads") {	# Check subjects for threads
+	    $NoSubjectThreads = 0;
 	    last FMTSW;
 	}
 	if ($elem eq "subsort") {		# Sort messages by subject
@@ -740,13 +774,13 @@ sub read_resource_file {
 	    last FMTSW;
 	}
 	if ($elem eq "timezones") {		# Time zones
-	    %Zone = ()  if $override;
+	    if ($override) { %ZoneUD = (); }
 	    while (defined($line = <$handle>)) {
 		last  if $line =~ /^\s*<\/timezones\s*>/i;
 		$line =~ s/\s//g;  $line =~ tr/a-z/A-Z/;
 		($acro,$hr) = split(/:/,$line);
 		$acro =~ tr/a-z/A-Z/;
-		$Zone{$acro} = $hr;
+		$ZoneUD{$acro} = $hr;
 	    }
 	    last FMTSW;
 	}

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
 <html>
 <head>
-<title>MHonArc v2.3 -- Resources</title>
+<title>MHonArc v2.4 -- Resources</title>
 </head>
 <BODY background="ssbg75.jpg"
       text="#000000" link="#0000ee" vlink="#551a8b" alink="ff0000">
@@ -123,6 +123,7 @@ from the version of MHonArc the resource first came available.
 <td><b>Resource Name</b></td><td><b>Description</b></td>
 </tr>
 <tr valign="top"><td><b><a name="add" href="resources/add.html">ADD</a></b></td><td>Add messages to the archive.</td></tr>
+<tr valign="top"><td><b><a name="addressmodifycode" href="resources/addressmodifycode.html">ADDRESSMODIFYCODE</a></b></td><td>Perl expressions modifying displayed addresses in headers.</td></tr>
 <tr valign="top"><td><b><a name="afs" href="resources/afs.html">AFS</a></b></td><td>Skip archive directory permission check.</td></tr>
 <tr valign="top"><td><b><a name="annotate" href="resources/annotate.html">ANNOTATE</a></b></td><td>Add/set annotation for message(s).</td></tr>
 <tr valign="top"><td><b><a name="archive" href="resources/archive.html">ARCHIVE</a></b></td><td>Create archive.</td></tr>
@@ -131,6 +132,7 @@ from the version of MHonArc the resource first came available.
 <tr valign="top"><td><b><a name="authsort" href="resources/authsort.html">AUTHSORT</a></b></td><td>Sort main index by author.</td></tr>
 <tr valign="top"><td><b><a name="botlinks" href="resources/botlinks.html">BOTLINKS</a></b></td><td>Links markup at the bottom of message pages.</td></tr>
 <tr valign="top"><td><b><a name="charsetconverters" href="resources/charsetconverters.html">CHARSETCONVERTERS</a></b></td><td>Charater set filter functions.</td></tr>
+<tr valign="top"><td><b><a name="checknoarchive" href="resources/checknoarchive.html">CHECKNOARCHIVE</a></b></td><td>Honor "no archive" flag in messages.</td></tr>
 <tr valign="top"><td><b><a name="conlen" href="resources/conlen.html">CONLEN</a></b></td><td>Use Content-Length value.</td></tr>
 <tr valign="top"><td><b><a name="datefields" href="resources/datefields.html">DATEFIELDS</a></b></td><td>List of fields to extract date of message.</td></tr>
 <tr valign="top"><td><b><a name="daybegin" href="resources/daybegin.html">DAYBEGIN</a></b></td><td>Markup at the start of a day group.</td></tr>
@@ -186,6 +188,7 @@ from the version of MHonArc the resource first came available.
 <tr valign="top"><td><b><a name="lock" href="resources/lock.html">LOCK</a></b></td><td>Perform a lock on the archive.</td></tr>
 <tr valign="top"><td><b><a name="lockdelay" href="resources/lockdelay.html">LOCKDELAY</a></b></td><td>Wait time between lock attempts.</td></tr>
 <tr valign="top"><td><b><a name="lockfile" href="resources/lockfile.html">LOCKFILE</a></b></td><td>Name of the lock file.</td></tr>
+<tr valign="top"><td><b><a name="lockmethod" href="resources/lockmethod.html">LOCKMETHOD</a></b></td><td>How archive locks are done.</td></tr>
 <tr valign="top"><td><b><a name="locktries" href="resources/locktries.html">LOCKTRIES</a></b></td><td>Total number of time to attempt a lock before failing.</td></tr>
 <tr valign="top"><td><b><a name="mailto" href="resources/mailto.html">MAILTO</a></b></td><td>Convert email addresses in message headers to hyperlinks.</td></tr>
 <tr valign="top"><td><b><a name="mailtourl" href="resources/mailtourl.html">MAILTOURL</a></b></td><td>URL template to use when MAILTO is set.</td></tr>
@@ -239,12 +242,17 @@ from the version of MHonArc the resource first came available.
 <tr valign="top"><td><b><a name="scan" href="resources/scan.html">SCAN</a></b></td><td>List archive messages to standard output.</td></tr>
 <tr valign="top"><td><b><a name="single" href="resources/single.html">SINGLE</a></b></td><td>Process a single message.</td></tr>
 <tr valign="top"><td><b><a name="sort" href="resources/sort.html">SORT</a></b></td><td>List messages by date in main index.</td></tr>
+<tr valign="top"><td><b><a name="spammode" href="resources/spammode.html">SPAMMODE</a></b></td><td>Perform actions to deter email address harvesters.</td></tr>
+<tr valign="top"><td><b><a name="ssmarkup" href="resources/ssmarkup.html">SSMARKUP</a></b></td><td>Markup at the beginning of all generated pages.</td></tr>
+<tr valign="top"><td><b><a name="stderr" href="resources/stderr.html">STDERR</a></b></td><td>File for standard error messages.</td></tr>
+<tr valign="top"><td><b><a name="stdout" href="resources/stdout.html">STDOUT</a></b></td><td>File for standard output messages.</td></tr>
 <tr valign="top"><td><b><a name="subjectarticlerxp" href="resources/subjectarticlerxp.html">SUBJECTARTICLERXP</a></b></td><td>Regex for matching leading articles in message subjects.</td></tr>
 <tr valign="top"><td><b><a name="subjectbegin" href="resources/subjectbegin.html">SUBJECTBEGIN</a></b></td><td>Beginning markup for a subject group in the main index.</td></tr>
 <tr valign="top"><td><b><a name="subjectend" href="resources/subjectend.html">SUBJECTEND</a></b></td><td>Ending markup for a subject group in the main index.</td></tr>
 <tr valign="top"><td><b><a name="subjectheader" href="resources/subjectheader.html">SUBJECTHEADER</a></b></td><td>Main subject line markup above message header.</td></tr>
 <tr valign="top"><td><b><a name="subjectreplyrxp" href="resources/subjectreplyrxp.html">SUBJECTREPLYRXP</a></b></td><td>Regex for matching subject text denoting a reply message.</td></tr>
 <tr valign="top"><td><b><a name="subjectstripcode" href="resources/subjectstripcode.html">SUBJECTSTRIPCODE</a></b></td><td>Perl expressions to strip subject text while reading messages.</td></tr>
+<tr valign="top"><td><b><a name="subjectthreads" href="resources/subjectthreads.html">SUBJECTTHREADS</a></b></td><td>Check subjects when computing message threads.</td></tr>
 <tr valign="top"><td><b><a name="subsort" href="resources/subsort.html">SUBSORT</a></b></td><td>List messages by subjext in main index.</td></tr>
 <tr valign="top"><td><b><a name="tcontbegin" href="resources/tcontbegin.html">TCONTBEGIN</a></b></td><td>Markup before the continuation of a broken thread.</td></tr>
 <tr valign="top"><td><b><a name="tcontend" href="resources/tcontend.html">TCONTEND</a></b></td><td>Markup after the continuation of a broken thread.</td></tr>
@@ -312,13 +320,13 @@ from the version of MHonArc the resource first came available.
 <!-- *************************************************************** -->
 <hr>
 <address>
-98/10/24 17:31:06<br>
+99/06/25 23:19:22<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"
 ><strong>MHonArc</strong></a><br>
-Copyright &#169; 1997-1998, <a href="http://www.oac.uci.edu/indiv/ehood/"
->Earl Hood</a>, <a href="mailto:earlhood@usa.net"
->earlhood@usa.net</a><br>
+Copyright &#169; 1997-1999, <a href="http://www.oac.uci.edu/indiv/ehood/"
+>Earl Hood</a>, <a href="mailto:mhonarc@pobox.com"
+>mhonarc@pobox.com</a><br>
 </address>
 
 </body>

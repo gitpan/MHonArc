@@ -1,12 +1,12 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) ewhutil.pl 2.2 98/08/10 23:19:14
+##	@(#) ewhutil.pl 2.4 99/06/25 13:56:48
 ##  Author:
-##      Earl Hood       earlhood@usa.net
+##      Earl Hood       ehood@pobox.com
 ##  Description:
 ##      Generic utility routines
 ##---------------------------------------------------------------------------##
-##    Copyright (C) 1996-1998	Earl Hood, earlhood@usa.net
+##    Copyright (C) 1996-1999	Earl Hood, ehood@pobox.com
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -32,13 +32,6 @@ sub remove_dups {
     return ()  unless scalar(@array);
     my %dup  = ();
     @array = grep(!$dup{$_}++, @array);
-}
-
-##---------------------------------------------------------------------------
-##	numerically() is used to tell 'sort' to sort by numbers.
-##
-sub numerically {
-    $a <=> $b;
 }
 
 ##---------------------------------------------------------------------------
@@ -75,7 +68,7 @@ sub uncommentize {
 ##	Copy a file.
 ##
 sub cp {
-    local($src, $dst) = @_;
+    my($src, $dst) = @_;
     open(SRC, $src) || die("ERROR: Unable to open $src\n");
     open(DST, "> $dst") || die("ERROR: Unable to create $dst\n");
     print DST <SRC>;
@@ -87,7 +80,7 @@ sub cp {
 ##	Translate html string back to regular string
 ##
 sub dehtmlize {
-    local($str) = shift;
+    my($str) = shift;
     $str =~ s/\&lt;/</g;
     $str =~ s/\&gt;/>/g;
     $str =~ s/\&amp;/\&/g;
@@ -98,9 +91,19 @@ sub dehtmlize {
 ##	Escape special characters in string for URL use.
 ##
 sub urlize {
-    local($url) = shift;
-    $url =~ s/([^\w])/sprintf("%%%X",unpack("C",$1))/ge;
+    my($url) = shift || "";
+    $url =~ s/([^\w@\.])/sprintf("%%%X",unpack("C",$1))/ge;
     $url;
+}
+
+##---------------------------------------------------------------------------##
+##	Perform a "modified" rot13 on a string.  This version includes
+##	the '@' character so addresses can be munged a little better.
+##
+sub mrot13 {
+    my $str	= shift;
+    $str =~ tr/@A-Z[a-z/N-Z[@A-Mn-za-m/;
+    $str;
 }
 
 ##---------------------------------------------------------------------------##

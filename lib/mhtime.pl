@@ -1,12 +1,12 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtime.pl 2.2 98/08/10 23:43:24
+##	@(#) mhtime.pl 2.4 99/06/25 14:12:57
 ##  Author:
-##      Earl Hood       earlhood@usa.net
+##      Earl Hood       mhonarc@pobox.com
 ##  Description:
 ##      Time related routines for mhonarc
 ##---------------------------------------------------------------------------##
-##    Copyright (C) 1996-1998	Earl Hood, earlhood@usa.net
+##    Copyright (C) 1996-1999	Earl Hood, mhonarc@pobox.com
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -98,7 +98,7 @@ sub time2str {
     if ($fmt =~ /\S/) {
 	$fmt =~ s/\%a/$weekdays[$wday]/g;
 	$fmt =~ s/\%A/$Weekdays[$wday]/g;
-	$fmt =~ s/\%b/$months[$mon]/g;
+	$fmt =~ s/\%[bh]/$months[$mon]/g;
 	$fmt =~ s/\%B/$Months[$mon]/g;
 
 	$sec	  = sprintf("%02d", $sec);
@@ -277,19 +277,22 @@ sub zone_offset_to_secs {
     local($off) = shift;
     local($sign, $min);
 
+    ## Check if just an hour specification
     if (length($off) < 4) {
-	warn qq{Warning: "$off" not a valid timezone offset\n};
-	return 0;
+	return $off * 3600;
     }
-    if ($off =~ s/-//) {		# Check for sign
+    ## Check for sign
+    if ($off =~ s/-//) {
 	$sign = -1;
     } else {
 	$sign = 1;  s/\+//;
     }
-    $min = substr($off, -2, 2);		# Extract minutes
-    substr($off, -2, 2) = "";		# Just leave hour in $off
-    $sign * (($off * 3600) + ($min * 60));
+    ## Extract minutes
+    $min = substr($off, -2, 2);
+    substr($off, -2, 2) = "";	# Just leave hour in $off
 
+    ## Translate to seconds
+    $sign * (($off * 3600) + ($min * 60));
 }
 
 ##---------------------------------------------------------------------------##

@@ -1,9 +1,9 @@
-#!/opt/perl/bin/perl
+#!/usr/bin/perl
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) install.me 1.10 98/11/08 15:54:02
+##	@(#) install.me 1.12 99/06/25 16:45:29
 ##  Author:
-##      Earl Hood, earlhood@usa.net
+##      Earl Hood, ehood@pobox.com
 ##  Summary:
 ##	Installation program for Perl applications.  It is an alternative
 ##	to the MakeMaker/Makefile.PL method for "pure" Perl applications.
@@ -13,7 +13,7 @@
 ##	file to install is listed in the file with a prefix telling
 ##	the installation program the type of file it is.
 ##---------------------------------------------------------------------------##
-##    Copyright (C) 1997,1998	Earl Hood, earlhood@usa.net
+##    Copyright (C) 1997-1999	Earl Hood, ehood@pobox.com
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -97,7 +97,7 @@ BEGIN {
     } elsif (/vms/i) {
 	$VMS = 1;
 	$OSType = 'vms';
-    } elsif (/msdos/i) {
+    } elsif (/msdos/i || /\bdos\b/i) {
 	$MSDOS = 1;
 	$OSType = 'msdos';
     } elsif (/mswin/i or /winnt/i) {
@@ -389,6 +389,11 @@ my %OptValues	= ();
 	    print STDOUT $destfile, "\n";
 	    cp($_, $destfile, $plprefix, $WINDOWS);
 	    eval q{chmod 0755, $destfile;};
+	    if ($WINDOWS && $file !~ /\.pl$/i) {
+		$destfile .= ".pl";
+		cp($_, $destfile, $plprefix);
+		eval q{chmod 0755, $destfile;};
+	    }
 	}
     }
     if ($dolib) {

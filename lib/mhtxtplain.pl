@@ -1,8 +1,8 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxtplain.pl 2.3 98/10/24 17:16:20
+##	@(#) mhtxtplain.pl 2.5 99/06/25 15:07:07
 ##  Author:
-##      Earl Hood       earlhood@usa.net
+##      Earl Hood       mhonarc@pobox.com
 ##  Description:
 ##	Library defines routine to filter text/plain body parts to HTML
 ##	for MHonArc.
@@ -12,7 +12,7 @@
 ##              </MIMEFILTERS>
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1995-1998	Earl Hood, earlhood@usa.net
+##    Copyright (C) 1995-1999	Earl Hood, mhonarc@pobox.com
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -35,7 +35,8 @@ package m2h_text_plain;
 $Url    	= '(http://|https://|ftp://|afs://|wais://|telnet://|ldap://' .
 		   '|gopher://|news:|nntp:|mid:|cid:|mailto:|prospero:)';
 $UrlExp 	= $Url . q%[^\s\(\)\|<>"']*[^\.?!;,"'\|\[\]\(\)\s<>]%;
-$HUrlExp	= $Url . q%[^\s\(\)\|<>"'\&]*[^\.?!;,"'\|\[\]\(\)\s<>\&]%;
+$HUrlExp        = $Url . q%(?:&(?![gl]t;)|[^\s\(\)\|<>"'\&])+% .
+			 q%[^\.?!;,"'\|\[\]\(\)\s<>\&]%;
 $QuoteChars	= '[>\|\]+:]';
 $HQuoteChars	= '&gt;|[\|\]+:]';
 
@@ -121,7 +122,8 @@ sub filter {
     if (!$asis{$charset}) {
 	##	Japanese message
 	if ($charset =~ /iso-2022-jp/i) {
-	    return (&jp2022(*data));
+	    require "iso2022jp.pl";
+	    return (&iso_2022_jp::jp2022_to_html($data, $nourl));
 
 	##	Latin 2-6, Greek, Hebrew, Arabic
 	} elsif ($charset =~ /iso-8859-([2-9]|10)/i) {
@@ -156,107 +158,6 @@ sub filter {
 	unless $nourl;
 
     ($data);
-}
-
-##---------------------------------------------------------------------------##
-##	Function to convert ISO-2022-JP data into HTML.  Function is based
-##	on the following RFCs:
-##
-##	RFC-1468 I
-##		J. Murai, M. Crispin, E. van der Poel, "Japanese Character
-##		Encoding for Internet Messages", 06/04/1993. (Pages=6)
-##
-##	RFC-1554  I
-##		M. Ohta, K. Handa, "ISO-2022-JP-2: Multilingual Extension of  
-##		ISO-2022-JP", 12/23/1993. (Pages=6)
-##
-##  Author of function:
-##      NIIBE Yutaka	gniibe@mri.co.jp
-##	(adapted for mhtxtplain.pl by Earl Hood <earlhood@usa.net>)
-##	(some changes made to remove use of $& and few other optimizations)
-##
-sub jp2022 {
-    local(*body) = shift;
-    my(@lines) = split(/\r?\n/,$body);
-    my($ret, $ascii_text);
-    local($_);
-
-    $ret = "<PRE>\n";
-    foreach (@lines) {
-	# Process preceding ASCII text
-	while(1) {
-	    if (s/^([^\033]+)//) {	# ASCII plain text
-		$ascii_text = $1;
-
-		# Replace meta characters in ASCII plain text
-		$ascii_text =~ s%\&%\&amp;%g;
-		$ascii_text =~ s%<%\&lt;%g;
-		$ascii_text =~ s%>%\&gt;%g;
-		## Convert URLs to hyperlinks
-		$ascii_text =~ s%($HUrlExp)%<A HREF="$1">$1</A>%gio
-		    unless $mhonarc::NOURL;
-
-		$ret .= $ascii_text;
-	    } elsif (s/(\033\.[A-F])//) { # G2 Designate Sequence
-		$ret .= $1;
-	    } elsif (s/(\033N[ -])//) { # Single Shift Sequence
-		$ret .= $1;
-	    } else {
-		last;
-	    }
-	}
-
-	# Process Each Segment
-	while(1) {
-	    if (s/^(\033\([BJ])//) { # Single Byte Segment
-		$ret .= $1;
-		while(1) {
-		    if (s/^([^\033]+)//) {	# ASCII plain text
-			$ascii_text = $1;
-
-			# Replace meta characters in ASCII plain text
-			$ascii_text =~ s%\&%\&amp;%g;
-			$ascii_text =~ s%<%\&lt;%g;
-			$ascii_text =~ s%>%\&gt;%g;
-			## Convert URLs to hyperlinks
-			$ascii_text =~ s%($HUrlExp)%<A HREF="$1">$1</A>%gio
-			    unless $mhonarc::NOURL;
-
-			$ret .= $ascii_text;
-		    } elsif (s/(\033\.[A-F])//) { # G2 Designate Sequence
-			$ret .= $1;
-		    } elsif (s/(\033N[ -])//) { # Single Shift Sequence
-			$ret .= $1;
-		    } else {
-			last;
-		    }
-		}
-	    } elsif (s/^(\033\$[\@AB]|\033\$\([CD])//) { # Double Byte Segment
-		$ret .= $1;
-		while (1) {
-		    if (s/^([!-~][!-~]+)//) { # Double Char plain text
-			$ret .= $1;
-		    } elsif (s/(\033\.[A-F])//) { # G2 Designate Sequence
-			$ret .= $1;
-		    } elsif (s/(\033N[ -])//) { # Single Shift Sequence
-			$ret .= $1;
-		    } else {
-			last;
-		    }
-		}
-	    } else {
-		# Something wrong in text
-		$ret .= $_;
-		last;
-	    }
-	}
-
-	$ret .= "\n";
-    }
-
-    $ret .= "</PRE>\n";
-
-    ($ret);
 }
 
 ##---------------------------------------------------------------------------##

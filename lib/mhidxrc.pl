@@ -1,13 +1,13 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhidxrc.pl 2.4 98/08/10 23:26:05
+##	@(#) mhidxrc.pl 2.5 99/06/25 14:01:33
 ##  Author:
-##      Earl Hood       earlhood@usa.net
+##      Earl Hood       mhonarc@pobox.com
 ##  Description:
 ##      MHonArc library defining values for various index resources
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1996-1998	Earl Hood, earlhood@usa.net
+##    Copyright (C) 1996-1999	Earl Hood, mhonarc@pobox.com
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -85,11 +85,14 @@ EndOfStr
 
     ## Main index entry (start, content, and end)
     unless ($LITMPL) {
-	$LITMPL =<<'EndOfStr';
-<LI><STRONG>$SUBJECT$</STRONG>
-<UL><LI><EM>From</EM>: $FROM$</LI></UL>
-</LI>
-EndOfStr
+	$LITMPL = qq|<LI><STRONG>\$SUBJECT\$</STRONG>\n| .
+		  qq|<UL><LI><EM>From</EM>: |;
+	if ($SpamMode) {
+	    $LITMPL .= q|$FROMNAME$|;
+	} else {
+	    $LITMPL .= q|$FROM$|;
+	}
+	$LITMPL .= qq|</LI></UL>\n</LI>\n|;
 	$IsDefault{'LITMPL'} = 1;
     }
 
@@ -274,7 +277,8 @@ unless (@DateFields) {
     $IsDefault{'DATEFIELDS'} = 1;
 }
 unless (@FromFields) {
-    @FromFields = ('from', 'reply-to', 'apparently-from');
+    @FromFields = ('from', 'reply-to', 'apparently-from', 'sender',
+		   'resent-sender');
     $IsDefault{'FROMFIELDS'} = 1;
 }
 
@@ -285,10 +289,11 @@ unless ($MSGPGBEG) {
 <HTML>
 <HEAD>
 <TITLE>$SUBJECTNA:72$</TITLE>
-<LINK REV="made" HREF="mailto:$FROMADDR$">
-</HEAD>
-<BODY>
 EndOfStr
+    
+    $MSGPGBEG .= qq|<LINK REV="made" HREF="mailto:\$FROMADDR\$">\n|
+		 unless $SpamMode;
+    $MSGPGBEG .= "</HEAD>\n<BODY>\n";
     $IsDefault{'MSGPGBEG'} = 1;
 }
 
@@ -442,10 +447,17 @@ EndOfVar
     $IsDefault{'FOLUPBEGIN'} = 1;
 }
 unless ($FOLUPLITXT) {
-    $FOLUPLITXT =<<'EndOfVar';
+    if ($SpamMode) {
+	$FOLUPLITXT =<<'EndOfVar';
+<LI><STRONG>$SUBJECT$</STRONG>
+<UL><LI><EM>From:</EM> $FROMNAME$</LI></UL></LI>
+EndOfVar
+    } else {
+	$FOLUPLITXT =<<'EndOfVar';
 <LI><STRONG>$SUBJECT$</STRONG>
 <UL><LI><EM>From:</EM> $FROM$</LI></UL></LI>
 EndOfVar
+    }
     $IsDefault{'FOLUPLITXT'} = 1;
 }
 unless ($FOLUPEND) {
@@ -463,10 +475,17 @@ EndOfVar
     $IsDefault{'REFSBEGIN'} = 1;
 }
 unless ($REFSLITXT) {
+    if ($SpamMode) {
     $REFSLITXT =<<'EndOfVar';
+<LI><STRONG>$SUBJECT$</STRONG>
+<UL><LI><EM>From:</EM> $FROMNAME$</LI></UL></LI>
+EndOfVar
+    } else {
+	$REFSLITXT =<<'EndOfVar';
 <LI><STRONG>$SUBJECT$</STRONG>
 <UL><LI><EM>From:</EM> $FROM$</LI></UL></LI>
 EndOfVar
+    }
     $IsDefault{'REFSLITXT'} = 1;
 }
 unless ($REFSEND) {
@@ -516,6 +535,23 @@ $NOTEICONIA = '',
 
 ##	Set unknown icon
 $Icons{'unknown'} = $Icons{'text/plain'}  unless $Icons{'unknown'};
+
+##
+if ($AddressModify eq "") {
+    $AddressModify =
+	q{s|([\!\%\w\.\-+=/]+@)([\w\.\-]+)|$1.('x' x length($2))|ge}
+	if $SpamMode;
+    $IsDefault{'AddressModify'} = 1;
+}
+
+if ($MAILTOURL eq "") {
+    if ($SpamMode) {
+	$MAILTOURL = 'mailto:$TOADDRNAME$@DOMAIN.HIDDEN';
+    } else {
+	$MAILTOURL = 'mailto:$TO$';
+    }
+    $IsDefault{'MAILTOURL'} = 1;
+}
 
 }
 

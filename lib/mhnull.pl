@@ -1,8 +1,8 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhnull.pl 1.2 98/09/30 22:51:11
+##	@(#) mhnull.pl 1.3 99/06/25 14:18:03
 ##  Author:
-##      Earl Hood       earlhood@usa.net
+##      Earl Hood       mhonarc@pobox.com
 ##  Description:
 ##	Library defines the null filter routine for MHonArc.  Its use
 ##	is for dropping unwanted data from messages.
@@ -12,7 +12,7 @@
 ##              </MIMEFILTERS>
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1998	Earl Hood, earlhood@usa.net
+##    Copyright (C) 1998,1999	Earl Hood, mhonarc@pobox.com
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by

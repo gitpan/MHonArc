@@ -9,7 +9,7 @@ USING/COPYING
     The rules for using and copying MHonArc are explained in the file
     COPYING.  If you cannot agree to the conditions of the GPL but
     still want to use/copy the program, you must contact the author of
-    MHonarc, earlhood@usa.net, about arranging an alternative license.
+    MHonarc, mhonarc@pobox.com, about arranging an alternative license.
 
 ---------------------------------------------------------------------------
 TABLE OF CONTENTS
@@ -21,6 +21,7 @@ TABLE OF CONTENTS
     o	WIN32 NOTES
     o	ALTERNATE OPERATING SYSTEMS
     o	MANUAL INSTALLATION
+    o	SITE SPECIFIC CUSTOMIZATION
     o	RESOURCE FILE EDITING
 
 ---------------------------------------------------------------------------
@@ -37,7 +38,30 @@ system.  Please read this entire document before installation.
 SYSTEM REQUIREMENTS
 
     o	Perl 5 is installed.  If you do not have Perl 5, goto
-	<URL:http://www.perl.com/> for download information.
+	<URL:http://language.perl.com/> for download information.
+
+    o	Getopt::Long and Time::Local modules are installed.  These
+	modules are part of the standard Perl distribution.  The
+	following command can be used to verify that the modules
+	are installed on your system:
+
+	    shell> perl -MGetopt::Long -MTime::Local -e ';'
+
+	If you get any error messages, you either have an incomplete
+	installation of Perl, or Perl is misconfigured.
+
+    o	The following modules are optional:
+
+	-   Digest::MD5:  Used for creating IDs for messages without
+		message-ids.  This module helps MHonArc detect already
+		archived messages for messages without message-ids.
+
+	-   Fcntl, Symbol:  Used for flock() based archive locking
+		(if specified by the user).  See LOCKMETHOD resource
+		for more information.
+
+	MHonArc will still function if the above listed modules are
+	not available.
 
 ---------------------------------------------------------------------------
 INSTALLING FILES
@@ -46,7 +70,7 @@ Provided in the MHonArc distribution is a Perl program, "install.me"
 that will install MHonArc on your system.  To run the program, type
 the following at your shell prompt:
 
-    shell-prompt> perl install.me
+    shell> perl install.me
 
 Note, you must be in the same directory as the install.me program
 when you run it.
@@ -79,17 +103,17 @@ available:
 For example, if you do not want to install the documentation, do
 the following:
 
-    shell-prompt> perl install.me -nodoc
+    shell> perl install.me -nodoc
 
 Later on, if you decide you want to install the documentation, but
 not re-install the other files, do the following:
 
-    shell-prompt> perl install.me -nobin -nolib -noman
+    shell> perl install.me -nobin -nolib -noman
 
 If you want to install files relative to your home directory, do the
 following:
 
-    shell-prompt> perl install.me -prefix $HOME
+    shell> perl install.me -prefix $HOME
 
 ---------------------------------------------------------------------------
 install.me NOTES
@@ -139,6 +163,18 @@ WIN32 NOTES
 	program.  Note, the path to the perl executable must be in
 	your PATH, also.
 
+    o	The main programs will also be copied to ".pl" files.  Therefore,
+	if you have ".pl" associated with Perl in the registry, you
+	can invoke the programs directly (if the path location of the
+	main programs are in your search page).  For example:
+
+	    shell> mhonarc.pl ...
+
+	This is known to work under WinNT.
+
+	This is better than going though the batch file mechanism since
+	I/O redirection does not work when invoking a batch file.
+
     o	In the logo/ directory of the distribution is a BMP file
 	"mhaicon.bmp".  You can copy the image into your Windows Icon
 	directory.  Then through the file types editor of the file
@@ -165,22 +201,22 @@ steps to install MHonArc manually:
         installed.  After copying, you must edit the each file
         as follows:
 
-            -   Edit the "#!/..." line (the first line of each file)
-		to be the complete pathname of your perl interpreter.
-		Note, this step is only required for systems (Unix)
-		that support "#!".
+	-   Edit the "#!/..." line (the first line of each file)
+	    to be the complete pathname of your perl interpreter.
+	    Note, this step is only required for systems (Unix)
+	    that support "#!".
 
-            -   Add a new line right after the "#!/..." line to
-                contain the following:
+	-   Add a new line right after the "#!/..." line to
+	    contain the following:
 
-                    use lib "/path/to/lib/files";
+		use lib "/path/to/lib/files";
 
-                where "/path/to/lib/files/" is the path to where
-                copied the library files to.
+	    where "/path/to/lib/files/" is the path to where
+	    copied the library files to.
 
-                Note, if the location you copied the libraries are
-                already part of Perl's standard library search path,
-                you do not need to add the "use lib" statement.
+	    Note, if the location you copied the libraries are
+	    already part of Perl's standard library search path,
+	    you do not need to add the "use lib" statement.
 
 ---------------------------------------------------------------------------
 RESOURCE FILE EDITING
@@ -203,5 +239,5 @@ file highlighting mode.  The mode is best used with color-capable
 terminals.
 
 ---------------------------------------------------------------------------
-Copyright (C) 1997-1998,	Earl Hood, earlhood@usa.net
-@(#) INSTALL 98/11/08 15:56:28
+Copyright (C) 1997-1999,	Earl Hood, mhonarc@pobox.com
+@(#) INSTALL 99/06/25 17:10:06

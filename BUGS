@@ -1,7 +1,7 @@
 Bug History for MHonArc
 =======================
 <URL:http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
-@(#) BUGS 98/11/08 13:05:02
+@(#) BUGS 99/06/25 17:11:16
 
 Each bug listing has the following fields:
 
@@ -15,6 +15,80 @@ Each bug listing has the following fields:
 		    applicable.
 
 Bug List
+------------------------------------------------------------------------
+Version:	2.3.3
+Problem:   	Duplicate message-ids in a message's reference list
+		were not removed.
+Solution:	Array changed to my() scope caused remove_dups()
+		to not do anything (it takes a typeglob).  Array
+		changed back to local().
+Version Fixed:	2.4.0
+------------------------------------------------------------------------
+Version:	2.3.0-3
+Problem:   	TFIRST, TLAST, and PARENT arguments to resource
+		variables always produced null values.
+Solution:	Fixed.  Note, PARENT is now TPARENT to be consistent
+		with other thread-related arguments.
+Version Fixed:	2.4.0
+------------------------------------------------------------------------
+Version:	2.3.0-3
+Problem:   	SUBJECTHEADER resource not printed when -savemem is
+		used.
+Solution:	Problem is due to the new resource variable handling
+		in 2.3.  The solution is to support the editing of
+		SUBJECTHEADER (and HEADBODYSEP) in existing message
+		pages.
+Version Fixed:	2.4.0
+------------------------------------------------------------------------
+Version:	2.3.3, and earlier versions
+Problem:   	Multipart processing not done properly if boundary
+		parameter not enclosed in quotes and is terminated
+		by a semi-colon.
+Solution:	Fixed in readmail.pl.
+Version Fixed:	2.4.0
+------------------------------------------------------------------------
+Version:	2.3.3, and earlier versions
+Problem:   	%h not recognized in time format strings.
+Solution:	Fixed.
+Version Fixed:	2.4.0
+------------------------------------------------------------------------
+Version:	2.3.3
+Problem:   	Use of $ICON$ will generate defective tag like
+		`ALT="[text/plain]">'.
+Solution:	Fixed typo in join() call in mhrcvars.pl.
+Version Fixed:	2.4.0
+------------------------------------------------------------------------
+Version:	2.3.3, and earlier versions
+Problem:   	Some messages with specified inline images are not
+		having images inlined.
+Solution:	Content-Disposition parsing fixed.
+Version Fixed:	2.4.0
+------------------------------------------------------------------------
+Version:	2.3.3, and earlier versions
+Problem:   	Clip length not handled properly in resource variables.
+		Ie.  Characters that are translated into entity
+		references are not handled properly when computing clip
+		adjustment.  Incorrect clipping can occur.
+Solution:	Fixed.
+Version Fixed:	2.4.0
+------------------------------------------------------------------------
+Version:	2.3.3, and some possible earlier versions
+Problem:   	MHonArc checking for writable OUTDIR in SINGLE mode.
+Solution:	Fixed.
+Version Fixed:	2.4.0
+------------------------------------------------------------------------
+Version:	2.3.3, and earlier
+Problem:   	Default resource file not read if located in MHonArc
+		lib directory.
+Solution:	Fixed improper assumption of @INC setting.
+Version Fixed:	2.4.0
+------------------------------------------------------------------------
+Version:	2.3.3, and earlier
+Problem:   	TLIEND not generated at proper times when thread level
+		goes beyond TLEVELS.
+Solution:	A check is made in thread index printing to generate a
+		TLIEND properly for TLITXT when deeper than TLEVELS.
+Version Fixed:	2.4.0
 ------------------------------------------------------------------------
 Version:	2.3.0-2.3.2
 Problem:   	-otherindex and -perlinc command-line options do not

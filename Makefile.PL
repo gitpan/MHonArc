@@ -1,5 +1,5 @@
-
-# @(#) Makefile.PL 1.1 98/11/08 15:41:21
+#!/usr/bin/perl
+# @(#) Makefile.PL 1.3 99/06/25 14:40:58
 # Pseudo Makefile.PL:  Since MHonArc's history goes back to Perl 4 days,
 # it has its own installation process.  This file generates a simple
 # Makefile to (paritally) satisfy the standard Perl 5 way to install
@@ -31,12 +31,14 @@ print MAKEFILE <<EOF;
 
 CHMOD		= /bin/chmod
 RM		= /bin/rm
-PRGS		= mhonarc mha-dbrecover mha-dbedit
+PRGS		= mhonarc mha-dbrecover mha-dbedit mha-decode
 PERL		= perl
 INSTALLPRG	= install.me
 
+.PHONY		= default install install-ask pod2man test clean
 
-default:
+
+default: pod2man
 	\$(CHMOD) a+x \$(PRGS)
 	\$(CHMOD) -R a+r,a+X .
 
@@ -45,6 +47,14 @@ install:
 
 install-ask:
 	\$(PERL) \$(INSTALLPRG) $instme_args
+
+pod2man:
+	\@for i in \$(PRGS) ; \\
+	    do( \\
+		echo "Manifying \$\$i ..."; \\
+		pod2man \$\$i > man/\$\$i.1; \\
+	    ); \\
+	done
 
 test:
 	\@echo "No tests"

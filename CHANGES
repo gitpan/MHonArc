@@ -9,6 +9,104 @@ possible that not all changes are documented here.
 MM/DD/YYYY
 =======================================================================
 #######################################################################
+
+=======================================================================
+06/25/1999	(2.4.0)
+
+    Enhancements/Changes
+    --------------------
+    o	Added the following resources:
+
+	    ADDRESSMODIFYCODE	Perl expressions to apply to addresses
+				during message header conversion.
+	    CHECKNOARCHIVE	Check "no archive" flag in messages.
+	    LOCKMETHOD		The type of archive locking performed.
+	    SPAMMODE		Perform actions to deter email address
+				harvesters.
+	    SSMARKUP		Markup at the *very* beginning of any
+				generated page.
+	    STDOUT		Destination of stdout messages/data.
+	    STDERR		Destination of stderr messages/data.
+	    SUBJECTTHREADS	To check, or not to check, subjects when
+				computing threads.
+
+    o	Added the following resource variables:
+
+	    $FROMADDRNAME$	Username portion of From email address.
+	    $FROMADDRDOMAIN$	Domain portion of From email address.
+	    $TOADDRNAME$	Username portion of an email address
+				(applicable in MAILTOURL only).
+	    $TOADDRDOMAIN$	Domain portion of an email address
+				(applicable in MAILTOURL only).
+
+    o	A new utility program: mha-decode.  The program functions
+	as a MIME message decoder.  Can be used against mail folders
+	or single messages.
+
+    o	The "PARENT" argument to applicable resource variables is now
+	called "TPARENT".  This change should not affect anyone since
+	the "PARENT" argument did not work properly in previous
+	releases.
+
+    o	SUBJECTHEADER and HEADBODYSEP resource changes will now affect
+	existing messages that are edited during normal operations or
+	via EDITIDX.  Note, messages created from old versions of
+	MHonArc may not be affected.
+
+    o	The default TIMEZONES settings now has a more complete list.
+
+    o	Timezone acronym settings now support [+-]HHMM specifications.
+
+    o	Support for ISO-2022-JP encoded strings in message headers
+	is now supported.  It does assume that HTML viewer supports
+	ISO-2022-JP.
+
+    o	If Digest::MD5 is installed, md5_hex() will be used to create
+	message-ids for messages without message-ids.  This allows
+	MHonArc to ignore non-message-id archived messages in ADD mode.
+	The MD5 digest is computed only on message header for efficieny.
+	If Digest::MD5 is not installed, a message-id will still be
+	assigned if none present, but MHonArc will not be able to
+	detect if message has already been archived in subsequent ADD
+	operations.
+
+    o	Text/html filter supports the "noscript" option.  If
+	specified, any script-related markup will be removed.
+	This provides added security to avoid sites being compromised
+	with foreign client-side scripting.
+
+    o	Added the following options to mhexternal.pl (the save-to-file
+	filter): forceattach, forceinline, and inlineexts.
+
+    o	Recognize mailing list headers as defined by RFC 2369 and
+	hyperlink URLs listed.
+
+    o	If no boundaries exist in a multipart message (even though
+	a boundary is defined in the header), MHonArc will treat
+	the entire body as the first part.  This prevents "unable
+	to process" warnings.
+
+    o	The "<!--X-From" comment declaration at the top of converted
+	messages is now munged by a modified ROT13 to facilitate
+	anti-spam-bot measures, but still provide the "From"
+	information for mha-dbrecover.
+
+    o	When editing message pages, the new version of the page is now
+	created as a temporary file and then if successfully created,
+	it will get renamed to its proper name.  This help avoids "losing"
+	a message page if there is an error during page editing.  The
+	same method is applied to the dumping of DBFILE.
+
+    o	Message sorting modified to improve sorting performance when
+	sorting by subject and author.
+
+    o	URL matching expression in mhtxtplain.pl modified to handle
+	'&' characters.
+
+    Bug Fixes
+    ---------
+    See BUGS.
+
 =======================================================================
 11/08/1998	(2.3.3)
 
@@ -1456,5 +1554,5 @@ MM/DD/YYYY
 =======================================================================
 #######################################################################
 =======================================================================
-Earl Hood, earlhood@usa.net
-@(#) CHANGES 98/11/08 13:06:01
+Earl Hood, mhonarc@bigfoot.com
+@(#) CHANGES 99/06/25 23:23:04

@@ -350,6 +350,26 @@ following
 
 <table cellspacing=1 border=0 cellpadding=4>
 <tr valign=top>
+<td><strong><tt>ext=<var>ext</var></tt></strong></td>
+<td><p>Use <var>ext</var> as the filename extension.
+The filter already has a large list of extensions for various
+content-types.  Use this argument if you process a
+content-type not recognized by the filter.
+</p>
+</tr>
+<tr valign=top>
+<td><strong><tt>forceattach</tt></strong></td>
+<td><p>Force images to never be displayed inline, overriding any
+Content-Disposition setting.
+</p>
+</tr>
+<tr valign=top>
+<td><strong><tt>forceinline</tt></strong></td>
+<td><p>Force images to be displayed inline, overriding any
+Content-Disposition setting.
+</p>
+</tr>
+<tr valign=top>
 <td><strong><tt>iconurl="<var>url</var>"</tt></strong></td>
 <td><p>Use "<var>url</var>" as the url for the icon to use
 if the <strong><tt>useicon</tt></strong> option is set.
@@ -361,14 +381,6 @@ The double quotes are required.
 <tr valign=top>
 <td><strong><tt>inline</tt></strong></td>
 <td><p>Inline image data by default if content-disposition not defined.
-</p>
-</tr>
-<tr valign=top>
-<td><strong><tt>ext=<var>ext</var></tt></strong></td>
-<td><p>Use <var>ext</var> as the filename extension.
-The filter already has a large list of extensions for various
-content-types.  Use this argument if you process a
-content-type not recognized by the filter.
 </p>
 </tr>
 <tr valign=top>
@@ -524,6 +536,30 @@ recognizes:
 <td align=left><strong>application/vnd.hp-hpgl</strong></td>
 <td align=center><tt>hpg</tt></td>
 <td>HPGL file</td></tr>
+<tr valign="top">
+<td align=left><strong>application/vnd.lotus-1-2-3</strong></td>
+<td align=center><tt>123</tt></td>
+<td>Lotus 1-2-3</td></tr>
+<tr valign="top">
+<td align=left><strong>application/vnd.lotus-approach</strong></td>
+<td align=center><tt>apr</tt></td>
+<td>Lotus Approach</td></tr>
+<tr valign="top">
+<td align=left><strong>application/vnd.lotus-freelance</strong></td>
+<td align=center><tt>prz</tt></td>
+<td>Lotus Freelance</td></tr>
+<tr valign="top">
+<td align=left><strong>application/vnd.lotus-organizer</strong></td>
+<td align=center><tt>org</tt></td>
+<td>Lotus Organizer</td></tr>
+<tr valign="top">
+<td align=left><strong>application/vnd.lotus-screencam</strong></td>
+<td align=center><tt>scm</tt></td>
+<td>Lotus Screencam</td></tr>
+<tr valign="top">
+<td align=left><strong>application/vnd.lotus-wordpro</strong></td>
+<td align=center><tt>lwp</tt></td>
+<td>Lotus WordPro</td></tr>
 <tr valign="top">
 <td align=left><strong>application/vnd.mif</strong></td>
 <td align=center><tt>mif</tt></td>
@@ -841,6 +877,10 @@ recognizes:
 <td align=center><tt>cml</tt></td>
 <td>CML chemical test</td></tr>
 <tr valign="top">
+<td align=left><strong>chemical/cmsl</strong></td>
+<td align=center><tt>cml</tt></td>
+<td>Chemical Structure Markup</td></tr>
+<tr valign="top">
 <td align=left><strong>chemical/cxf</strong></td>
 <td align=center><tt>cxf</tt></td>
 <td>Chemical Exhange Format file</td></tr>
@@ -853,9 +893,17 @@ recognizes:
 <td align=center><tt>emb</tt></td>
 <td>EMBL nucleotide format file</td></tr>
 <tr valign="top">
+<td align=left><strong>chemical/gaussian</strong></td>
+<td align=center><tt>gau</tt></td>
+<td>Gaussian data</td></tr>
+<tr valign="top">
 <td align=left><strong>chemical/gaussian-input</strong></td>
 <td align=center><tt>gau</tt></td>
-<td>Gaussian chemical test</td></tr>
+<td>Gaussian input data</td></tr>
+<tr valign="top">
+<td align=left><strong>chemical/gaussian-log</strong></td>
+<td align=center><tt>gal</tt></td>
+<td>Gaussian log</td></tr>
 <tr valign="top">
 <td align=left><strong>chemical/gcg8-sequence</strong></td>
 <td align=center><tt>gcg</tt></td>
@@ -871,7 +919,7 @@ recognizes:
 <tr valign="top">
 <td align=left><strong>chemical/kinemage</strong></td>
 <td align=center><tt>kin</tt></td>
-<td>Kinemage chemical test</td></tr>
+<td>Kinemage</td></tr>
 <tr valign="top">
 <td align=left><strong>chemical/macromodel-input</strong></td>
 <td align=center><tt>mmd</tt></td>
@@ -901,6 +949,10 @@ recognizes:
 <td align=center><tt>mif</tt></td>
 <td>MIF chemical test</td></tr>
 <tr valign="top">
+<td align=left><strong>chemical/mmd</strong></td>
+<td align=center><tt>mmd</tt></td>
+<td>Macromodel data</td></tr>
+<tr valign="top">
 <td align=left><strong>chemical/mopac-input</strong></td>
 <td align=center><tt>mop</tt></td>
 <td>MOPAC data </td></tr>
@@ -911,11 +963,15 @@ recognizes:
 <tr valign="top">
 <td align=left><strong>chemical/pdb</strong></td>
 <td align=center><tt>pdb</tt></td>
-<td>PDB chemical test</td></tr>
+<td>Protein Databank data</td></tr>
 <tr valign="top">
 <td align=left><strong>chemical/rosdal</strong></td>
 <td align=center><tt>ros</tt></td>
 <td>Rosdal data</td></tr>
+<tr valign="top">
+<td align=left><strong>chemical/xyz</strong></td>
+<td align=center><tt>xyz</tt></td>
+<td>Xmol XYZ data</td></tr>
 <tr valign="top">
 <td align=left><strong>image/bmp</strong></td>
 <td align=center><tt>bmp</tt></td>
@@ -1217,9 +1273,9 @@ element may be relevant to the rest of the document, the following is
 done when removing the HEAD element:</p>
     <ul>
     <li>The title will be extracted and prepended
-    to the body data.
+    to the body data.</li>
     <li>Any BASE URL will be propogated to any relative URLs in the
-    document.
+    document.</li>
     </ul>
     <p></p>
 </li>
@@ -1229,7 +1285,22 @@ the URLs will be modified to the filenames of the images that were
 decoded.</p>
 </li>
 </ul>
+
+<p><strong><tt>m2h_text_html::filter</tt></strong> can take the
+following
+<a href="mimeargs.html">arguments</a>:
 </p>
+
+<table cellspacing=1 border=0 cellpadding=4>
+<tr valign=top>
+<td><strong><tt>noscript</tt></strong></td>
+<td><p>Remove any markup associated with scripting.
+This includes elements and attributes related to scripting.  This option
+provides more security for your archive since someone can not introduce
+foreign client-side code.
+</p>
+</tr>
+</table>
 
 <hr size=0 noshade width="50%">
 <H3><a name="m2h_text_plain">m2h_text_plain::filter</a></h3>
@@ -1286,7 +1357,7 @@ equivalent number of <strong>&amp;nbsp;</strong> entity references.
 </p>
 </tr>
 <tr valign=top>
-<td><strong><tt>maxwidth=</strong><var>#</var></tt></td>
+<td><strong><tt>maxwidth=</tt></strong><var>#</var></td>
 <td><p>Force the maximum width of lines to be <var>#</var> characters
 in length.  Any lines longer than <var>#</var> characters will be
 wrapped.
@@ -1353,7 +1424,7 @@ filter used by MHonArc):
 </p>
 <pre>
 ##---------------------------------------------------------------------------##
-##    Copyright (C) 1995-1998	Earl Hood, earlhood@usa.net
+##    Copyright (C) 1995-1998	Earl Hood, mhonarc@pobox.com
 ##---------------------------------------------------------------------------##
 
 package m2h_text_html;
@@ -1447,10 +1518,10 @@ sub addbase {
 <!-- *************************************************************** -->
 <hr>
 <address>
-98/10/24 16:57:31<br>
+99/06/25 17:56:29<br>
 <img align="top" src="../monicon.gif" alt="">
 <a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"><strong>MHonArc</strong></a><br>
-Copyright &#169; 1997-1998 <a href="http://www.oac.uci.edu/indiv/ehood/">Earl Hood</a>, <a href="mailto:earlhood@usa.net">earlhood@usa.net</a><br>
+Copyright &#169; 1997-1998 <a href="http://www.oac.uci.edu/indiv/ehood/">Earl Hood</a>, <a href="mailto:mhonarc@pobox.com">mhonarc@pobox.com</a><br>
 </address>
 
 </body>

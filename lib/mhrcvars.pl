@@ -1,13 +1,13 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcvars.pl 2.5 98/11/02 22:32:45
+##	@(#) mhrcvars.pl 2.6 99/06/25 14:06:51
 ##  Author:
-##      Earl Hood       earlhood@usa.net
+##      Earl Hood       mhonarc@pobox.com
 ##  Description:
 ##      Defines routine for expanding resource variables.
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1996-1998	Earl Hood, earlhood@usa.net
+##    Copyright (C) 1996-1999	Earl Hood, mhonarc@pobox.com
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -151,11 +151,26 @@ sub replace_li_var {
 	    $tmp = defined($key) ? &$esub($From{$key}) : "(nil)";
 	    last REPLACESW;
 	}
+    	if ( ($cnd1 = ($var eq 'FROMADDRNAME')) ||
+	     ($cnd2 = ($var eq 'FROMADDRDOMAIN')) ) {
+	    ($lref, $key, $pos) = compute_msg_pos($index, $var, $arg);
+	    if (!defined($key)) {
+		$tmp = "";
+		last REPLACESW;
+	    }
+	    my @a = split(/@/, extract_email_address($From{$key}), 2);
+	    if ($cnd1) {
+		$tmp = $a[0];
+		last REPLACESW;
+	    }
+	    $tmp = defined($a[1]) ? $a[1] : "";
+	    last REPLACESW;
+	}
     	if ($var eq 'ICON') {		## Message icon
 	    ($lref, $key, $pos) = compute_msg_pos($index, $var, $arg);
 	    if (!defined($key)) { $tmp = ""; last REPLACESW; }
 	    $tmp = $Icons{$ContentType{$key}} ?
-			join(qq|<IMG SRC="$Icons{$ContentType{$key}}" |,
+			join("", qq|<IMG SRC="$Icons{$ContentType{$key}}" |,
 			     qq|ALT="[$ContentType{$key}]">|) :
 			qq|<IMG SRC="$Icons{'unknown'}" ALT="[unknown]">|;
 	    last REPLACESW;
@@ -506,16 +521,16 @@ sub replace_li_var {
 	}
 
 	# Check for clipping
-	if ($len > 0 && $canclip) {
-	    # Check for entity refs and modify clip length accordingly
-	    foreach ($ret =~ /(\&[^;\s]*;)/g) {
-		$len += length($_) -1;
-	    }
-	    $ret = substr($ret, 0, $len);
-	}
+	$ret = join("", ($ret =~ /(\&[^;\s]*;|.)/g)[0 .. $len - 1])
+	    if ($len > 0 && $canclip);
 
 	# Check if JavaScript string
-	$ret =~ s/(["'])/\\$1/g  if $jstr;
+	if ($jstr) {
+	    $ret =~ s/\\/\\\\/g;	# escape backslashes
+	    $ret =~ s/(["'])/\\$1/g;	# escape quotes
+	    $ret =~ s/\n/\\n/g;		# escape newlines
+	    $ret =~ s/\r/\\r/g;		# escape returns
+	}
     }
 
     ##	Check for subject link
@@ -558,16 +573,23 @@ sub compute_msg_pos {
 	    if $arg eq 'PREV';
 	$ofs = ($flip ? -1 : 1), last SW
 	    if $arg eq 'NEXT';
-	$ofs = ($flip ? $aref->[$#$aref] : $aref->[0]), last SW
-	    if $arg eq 'FIRST';
-	$ofs = ($flip ? $aref->[$#$aref] : $aref->[0]), last SW
-	    if $arg eq 'LAST';
 	$ofs = ($flip ? -$arg : $arg), last SW
 	    if $arg =~ /^-?\d+$/;
+
+	if ($arg eq 'FIRST') {
+	    $pos = $flip ? $#$aref : 0;
+	    undef $ofs;
+	    last SW;
+	}
+	if ($arg eq 'LAST') {
+	    $pos = $flip ? 0 : $#$aref;
+	    undef $ofs;
+	    last SW;
+	}
 	if ($arg eq 'PARENT') {
 	    my $level = $ThreadLevel{$idx};
 	    $pos = $Index2TLoc{$idx};
-	    for ( ; $pos >= 0; --$pos) {
+	    for (--$pos; $pos >= 0; --$pos) {
 		last  if $ThreadLevel{$TListOrder[$pos]} < $level;
 	    }
 	    undef $ofs;

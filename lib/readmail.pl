@@ -1,8 +1,8 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) readmail.pl 2.3 98/10/24 17:17:37
+##	@(#) readmail.pl 2.4 99/06/25 14:12:12
 ##  Author:
-##      Earl Hood       earlhood@usa.net
+##      Earl Hood       mhonarc@pobox.com
 ##  Description:
 ##      Library defining routines to parse MIME e-mail messages.  The
 ##	library is designed so it may be reused for other e-mail
@@ -25,7 +25,7 @@
 ##	    &MAILhead_get_disposition(*fields);
 ##
 ##---------------------------------------------------------------------------##
-##    Copyright (C) 1996-1998	Earl Hood, earlhood@usa.net
+##    Copyright (C) 1996-1999	Earl Hood, mhonarc@pobox.com
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -461,13 +461,16 @@ sub MAILread_body {
 		$boundary = $1;
 	    } else {
 		($boundary) = $content =~ m%boundary\s*=\s*(\S+)%i;
+		$boundary =~ s/;$//;  # chop ';' if grabbed
 	    }
 
 	    ## If boundary defined, split body into parts
 	    if ($boundary =~ /\S/) {
+		my $found = 0;
 		substr($body, 0, 0) = "\n";
 		substr($boundary, 0, 0) = "\n--";
 		while (($pos = index($body, $boundary, 0)) > -1) {
+		    $found = 1;
 		    if ($isalt) {
 			unshift(@parts, substr($body, 0, $pos));
 			$parts[0] =~ s/^\r//;
@@ -479,8 +482,14 @@ sub MAILread_body {
 		    last  if $body =~ /^--/;
 		    $body =~ s/^\r?\n//;
 		}
-		# Discard front-matter
-		if ($isalt) { pop(@parts); } else { shift(@parts); }
+		if ($found) {
+		    # Discard front-matter
+		    if ($isalt) { pop(@parts); } else { shift(@parts); }
+		} else {
+		    # No boundary separators in message!
+		    substr($body, 0, 1) = ""; # remove \n added above
+		    push(@parts, $body);
+		}
 
 	    ## Else treat body as one part
 	    } else {
@@ -689,8 +698,7 @@ sub MAILhead_get_disposition {
     local($_);
 
     if ($_ = $hfields{'content-disposition'}) {
-	($disp)	    = /^\s*(\S+)/;
-	$disp	    =~ s/;//g;		# Remove semi-colon if grabbed
+	($disp)	    = /^\s*([^\s;]+)/;
 	if (/filename="([^"]+)"/i) {
 	    $filename = $1;
 	} elsif (/filename=(\S+)/i) {

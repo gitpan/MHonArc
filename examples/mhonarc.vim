@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:	MHonArc Resource File
 " Maintainer:	Earl Hood <earlhood@usa.net>
-" Last change:	98/10/10 15:49:20
+" Last change:	99/06/25 13:25:53
 
 "	Adapted from the following:
 " Language:	HTML
@@ -42,7 +42,8 @@ syn region  mhaRcVarArg	 contained start=+(+  end=+)+
 " syn match mhaRcVar	  "\$[^$]*\$"
 
 " MHonArc tag names
-syn keyword mhaTagName contained annotate archive authorbegin authorend authsort
+syn keyword mhaTagName contained addressmodifycode annotate
+syn keyword mhaTagName contained archive authorbegin authorend authsort
 syn keyword mhaTagName contained botlinks charsetconverters conlen datefields
 syn keyword mhaTagName contained daybegin dayend dbfile decodeheads definederived
 syn keyword mhaTagName contained definevar defrcfile defrcname doc docurl
@@ -54,7 +55,8 @@ syn keyword mhaTagName contained gmtdatefmt gzipexe gzipfiles gziplinks headbody
 syn keyword mhaTagName contained header htmlext icons idxfname idxlabel
 syn keyword mhaTagName contained idxpgbegin idxpgend idxprefix idxsize include
 syn keyword mhaTagName contained labelbeg labelend labelstyles listbegin listend
-syn keyword mhaTagName contained litemplate localdatefmt lock lockdelay locktries
+syn keyword mhaTagName contained litemplate localdatefmt
+syn keyword mhaTagName contained lock lockdelay lockmethod locktries
 syn keyword mhaTagName contained mailto mailtourl main maxsize mhpattern mimeargs
 syn keyword mhaTagName contained mimefilters modtime months monthsabr msgbodyend
 syn keyword mhaTagName contained msgfoot msggmtdatefmt msghead msgidlink
@@ -67,7 +69,7 @@ syn keyword mhaTagName contained note noteia notetext otherindexes outdir pagenu
 syn keyword mhaTagName contained perlinc prevbutton prevbuttonia prevlink
 syn keyword mhaTagName contained prevlinkia prevpglink prevpglinkia quiet readdb
 syn keyword mhaTagName contained rcfile refsbegin refsend refslitxt reverse
-syn keyword mhaTagName contained rmm scan single sort subjectarticlerxp
+syn keyword mhaTagName contained rmm scan single sort ssmarkup subjectarticlerxp
 syn keyword mhaTagName contained subjectbegin subjectend subjectheader
 syn keyword mhaTagName contained subjectreplyrxp subjectstripcode subsort
 syn keyword mhaTagName contained tcontbegin tcontend tfoot thead thread

@@ -1,9 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
 <HTML>
 <HEAD>
-<TITLE>
-MHonArc v2.3 -- Appendix: Bugs
-</TITLE></HEAD>
+<TITLE>MHonArc v2.4 -- Appendix: Bugs</TITLE></HEAD>
 <BODY background="ssbg75.jpg"
       text="#000000" link="#0000ee" vlink="#551a8b" alink="ff0000">
 
@@ -69,6 +67,234 @@ the bug was fixed.
 
 <!--X-BugList-Start-->
 <table border=0 cellspacing=0 cellpadding=4 width="100%">
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.3.3</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Duplicate message-ids in a message's reference list were not removed.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Array changed to my() scope caused remove_dups() to not do anything (it takes a typeglob).  Array
+ changed back to local().
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.0</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.3.0-3</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>TFIRST, TLAST, and PARENT arguments to resource variables always produced null values.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Fixed.  Note, PARENT is now TPARENT to be consistent with other thread-related arguments.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.0</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.3.0-3</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>SUBJECTHEADER resource not printed when -savemem is used.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Problem is due to the new resource variable handling in 2.3.  The solution is to support the editing of
+ SUBJECTHEADER (and HEADBODYSEP) in existing message
+ pages.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.0</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.3.3, and earlier versions</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Multipart processing not done properly if boundary parameter not enclosed in quotes and is terminated
+ by a semi-colon.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Fixed in readmail.pl.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.0</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.3.3, and earlier versions</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>%h not recognized in time format strings.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Fixed.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.0</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.3.3</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Use of $ICON$ will generate defective tag like `ALT="[text/plain]">'.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Fixed typo in join() call in mhrcvars.pl.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.0</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.3.3, and earlier versions</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Some messages with specified inline images are not having images inlined.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Content-Disposition parsing fixed.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.0</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.3.3, and earlier versions</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Clip length not handled properly in resource variables. Ie.  Characters that are translated into entity
+ references are not handled properly when computing clip
+ adjustment.  Incorrect clipping can occur.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Fixed.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.0</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.3.3, and some possible earlier versions</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>MHonArc checking for writable OUTDIR in SINGLE mode.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Fixed.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.0</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.3.3, and earlier</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Default resource file not read if located in MHonArc lib directory.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Fixed improper assumption of @INC setting.</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.0</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.3.3, and earlier</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>TLIEND not generated at proper times when thread level goes beyond TLEVELS.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>A check is made in thread index printing to generate a TLIEND properly for TLITXT when deeper than TLEVELS.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.0</td>
+</tr>
 <tr valign=top>
 <td colspan=2><hr noshade size=0></td>
 </tr>
@@ -1493,13 +1719,13 @@ the bug was fixed.
 <!-- *************************************************************** -->
 <hr>
 <address>
-98/11/08 12:24:47<br>
+99/06/25 23:19:18<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"
 ><strong>MHonArc</strong></a><br>
-Copyright &#169; 1997-1998, <a href="http://www.oac.uci.edu/indiv/ehood/"
->Earl Hood</a>, <a href="mailto:earlhood@usa.net"
->earlhood@usa.net</a><br>
+Copyright &#169; 1997-1999, <a href="http://www.oac.uci.edu/indiv/ehood/"
+>Earl Hood</a>, <a href="mailto:mhonarc@pobox.com"
+>mhonarc@pobox.com</a><br>
 </address>
 
 </BODY>

@@ -2,8 +2,10 @@ name:MHonArc
 bin:mhonarc
 bin:mha-dbedit
 bin:mha-dbrecover
+bin:mha-decode
 lib:lib/base64.pl
 lib:lib/ewhutil.pl
+lib:lib/iso2022jp.pl
 lib:lib/iso8859.pl
 lib:lib/mhamain.pl
 lib:lib/mhdb.pl
@@ -13,6 +15,7 @@ lib:lib/mhfile.pl
 lib:lib/mhidxrc.pl
 lib:lib/mhindex.pl
 lib:lib/mhinit.pl
+lib:lib/mhlock.pl
 lib:lib/mhmimetypes.pl
 lib:lib/mhmsgfile.pl
 lib:lib/mhnote.pl
@@ -59,3 +62,7 @@ doc:doc/resources.html
 doc:doc/ssbg75.jpg
 doc:doc/stampwb2.gif
 doc:doc/up.gif
+man:man/mhonarc.1
+man:man/mha-dbedit.1
+man:man/mha-dbrecover.1
+man:man/mha-decode.1

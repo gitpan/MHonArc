@@ -1,13 +1,13 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhindex.pl 1.3 98/10/10 16:33:39
+##	@(#) mhindex.pl 1.4 99/06/25 14:21:22
 ##  Author:
-##      Earl Hood       earlhood@usa.net
+##      Earl Hood       mhonarc@pobox.com
 ##  Description:
 ##	Main index routines for mhonarc
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1995-1998	Earl Hood, earlhood@usa.net
+##    Copyright (C) 1995-1999	Earl Hood, mhonarc@pobox.com
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -195,6 +195,9 @@ sub output_maillist_head {
     local($handle, $cphandle) = @_;
     local($tmp, $index, $headfh);
     $index = "";
+
+    ($tmp = $SSMARKUP) =~ s/$VarExp/&replace_li_var($1,'')/geo;
+    print $handle $tmp;
 
     print $handle "<!-- ", &commentize("MHonArc v$VERSION"), " -->\n";
 

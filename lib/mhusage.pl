@@ -1,14 +1,14 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhusage.pl 2.5 98/09/30 22:47:09
+##      @(#) mhusage.pl 2.8 99/06/25 23:06:22
 ##  Author:
-##      Earl Hood       earlhood@usa.net
+##      Earl Hood       mhonarc@pobox.com
 ##  Description:
 ##      Usage output.  Just require the file to have usage info
 ##	printed to STDOUT.
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1995-1998   Earl Hood, earlhood@usa.net
+##    Copyright (C) 1995-1999   Earl Hood, mhonarc@pobox.com
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -50,12 +50,14 @@ Usage:  $PROG [<options>] <mailfolder> ...
 Options:
   -add                     : Add message(s) to archive
   -afs                     : Skip archive directory permission check
+  -addressmodifycode <exp> : Perl expressions for modifying addresses
   -annotate                : Add an annotation to message(s)
   -archive                 : Generate archive related files (the default)
   -authsort                : Sort messages by author
+  -checknoarchive          : Check for "no archive" flags in messages
   -conlen                  : Honor Content-Length fields
   -datefields <list>       : Fields to determine the date of a message
-  -decodeheads             : Decode 1522 decode-only data when reading mail
+  -decodeheads             : Decode decode-only charset data when reading mail
   -definevar <varlist>     : Define custom resource variables
   -dbfile <name>           : Name of MHonArc database file
                              (def: ".mhonarc.db")
@@ -109,6 +111,7 @@ Options:
   -news                    : Add links to newsgroups (the default)
   -noarchive               : Do not generate archive related files
   -noauthsort              : Do not sort messages by author
+  -nochecknoarchive        : Ignore "no archive" flags in messages
   -noconlen                : Ignore Content-Length fields (the default)
   -nodecodeheads           : Leave message headers "as is" when read
   -nodoc                   : Do not print link to doc at end of index page
@@ -124,6 +127,8 @@ Options:
   -nonews                  : Do not add links to newsgroups
   -noreverse               : List messages in normal order (the default)
   -nosort                  : Do not sort messages
+  -nospammode              : Do not obfuscate addresses
+  -nosubjectthreads        : Do not check subjects for threads
   -nosubsort               : Do not sort messages by subject
   -notetext <text>         : Text data of annotation if -annotation specified
   -nothread                : Do not create threaded index
@@ -142,9 +147,13 @@ Options:
   -scan                    : List out archive contents to stdout
   -single                  : Convert a single message to HTML (no archive ops)
   -sort                    : Sort messages by date (the default)
+  -spammode                : Obfuscate addresses
+  -stderr <file>           : File to send stderr messages to
+  -stdout <file>           : File to send stdout messages to
   -subjectarticlerxp <rxp> : Regex for leading articles in subjects
   -subjectreplyrxp <rxp>   : Regex for leading reply string in subjects
-  -subjectstripcode <exp>  : Expressions for modifying subjects
+  -subjectstripcode <exp>  : Perl expressions for modifying subjects
+  -subjectthreads          : Check subjects for threads
   -subsort                 : Sort message by subject
   -thread                  : Create threaded index (the default)
   -tidxfname <name>        : Filename of threaded index page

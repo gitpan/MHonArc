@@ -1,13 +1,13 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhdb.pl 2.5 98/10/10 16:29:01
+##	@(#) mhdb.pl 2.8 99/06/25 23:05:59
 ##  Author:
-##      Earl Hood       earlhood@usa.net
+##      Earl Hood       mhonarc@pobox.com
 ##  Description:
 ##      MHonArc library defining routines for outputing database.
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1995-1998	Earl Hood, earlhood@usa.net
+##    Copyright (C) 1995-1999	Earl Hood, mhonarc@pobox.com
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -37,10 +37,11 @@
 ##
 sub output_db {
     my($pathname) = shift;
+    my $tmpfile = $pathname . "$$";
     local(*DB);
 
-    if (!open(DB, "> $pathname")) {
-	warn qq/ERROR: Unable to create database "$pathname": $!\n/;
+    if (!open(DB, "> $tmpfile")) {
+	warn qq/ERROR: Unable to create "$tmpfile": $!\n/;
 	return 0;
     }
     binmode(DB);  # Unix text format okay for Perl source on Windog
@@ -64,7 +65,7 @@ print_assoc(DB,'MsgId',       *MsgId);
 print_assoc(DB,'Refs',        *Refs);
 print_assoc(DB,'Subject',     *Subject);
 print_assoc(DB,'UDerivedFile',*UDerivedFile);
-print_assoc(DB,'Zone',        *Zone);
+print_assoc(DB,'ZoneUD',      *ZoneUD);
 
 print_assoc(DB, "readmail::MIMECharSetConverters",
 		*readmail::MIMECharSetConverters);
@@ -77,6 +78,8 @@ print_assoc(DB, "readmail::MIMEFiltersSrc",
 print_assoc(DB, "readmail::MIMEFiltersArgs",
 		*readmail::MIMEFiltersArgs);
 
+print_array(DB,'AddressModify', *AddressModify)
+				unless $IsDefault{'AddressModify'};
 print_array(DB,'DateFields', *DateFields) unless $IsDefault{'DATEFIELDS'};
 print_array(DB,'FieldOrder', *FieldOrder);
 print_array(DB,'FromFields', *FromFields) unless $IsDefault{'FROMFIELDS'};
@@ -90,6 +93,7 @@ print_array(DB,'weekdays',   *weekdays);
 
 ## I should use a hash for this stuff instead of individual variables
 
+print_var(DB,'CheckNoArchive', *CheckNoArchive);
 print_var(DB,'DOCURL',         *DOCURL);
 print_var(DB,'DecodeHeads',    *DecodeHeads);
 print_var(DB,'DoFolRefs',      *DoFolRefs);
@@ -103,7 +107,7 @@ print_var(DB,'GzipLinks',      *GzipLinks);
 print_var(DB,'HtmlExt',        *HtmlExt);
 print_var(DB,'IDXSIZE',        *IDXSIZE);
 print_var(DB,'LocalDateFmt',   *LocalDateFmt);
-print_var(DB,'MAILTOURL',      *MAILTOURL);
+print_var(DB,'MAILTOURL',      *MAILTOURL)  unless $IsDefault{'MAILTOURL'};
 print_var(DB,'MAIN',           *MAIN);
 print_var(DB,'MAXSIZE',        *MAXSIZE);
 print_var(DB,'MHPATTERN',      *MHPATTERN);
@@ -118,6 +122,7 @@ print_var(DB,'NOMAILTO',       *NOMAILTO);
 print_var(DB,'NoMsgPgs',       *NoMsgPgs);
 print_var(DB,'NONEWS',         *NONEWS);
 print_var(DB,'NOURL',          *NOURL);
+print_var(DB,'NoSubjectThreads', *NoSubjectThreads);
 print_var(DB,'NoteDir',        *NoteDir);
 print_var(DB,'NumOfMsgs',      *NumOfMsgs);
 print_var(DB,'NumOfPages',     *NumOfPages);
@@ -127,6 +132,9 @@ print_var(DB,'SubReplyRxp',    *SubReplyRxp);
 print_var(DB,'SubStripCode',   *SubStripCode);
 print_var(DB,'UseLocalTime',   *UseLocalTime);
 print_var(DB,'UsingLASTPG',    *UsingLASTPG);
+
+print_var(DB,'SSMARKUP',       *SSMARKUP);
+print_var(DB,'SpamMode',       *SpamMode);
 
 # Main index resources
 print_var(DB,'AUTHSORT',     *AUTHSORT);
@@ -238,6 +246,11 @@ print_var(DB,'UMASK', 	     *UMASK);
 print DB "1;\n";	# for require
 
     close(DB);
+
+    if (!rename($tmpfile, $pathname)) {
+	warn qq/ERROR: Unable to rename "$tmpfile" to "$pathname": $!\n/;
+	return 0;
+    }
     1;
 }
 

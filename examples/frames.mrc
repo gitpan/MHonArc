@@ -1,6 +1,6 @@
 <!-- ================================================================== -->
-<!--	@(#) frames.mrc 1.6 98/08/10 23:13:15
-	Earl Hood <earlhood@usa.net>
+<!--	@(#) frames.mrc 1.7 99/06/25 13:25:43
+	Earl Hood <mhonarc@pobox.com>
   -->
 <!--	MHonArc v2.3 Resource File					--
   --									--

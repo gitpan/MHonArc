@@ -1,6 +1,6 @@
 <!-- ================================================================== -->
-<!--    @(#) def-mime.mrc 1.4 98/10/10 21:56:24
-        Earl Hood <earlhood@usa.net>
+<!--    @(#) def-mime.mrc 1.5 99/06/25 13:25:42
+        Earl Hood <mhonarc@pobox.com>
   -->
 <!--    MHonArc Resource File                                           --
   --                                                                    --
@@ -22,6 +22,7 @@ iso-8859-7;     iso_8859::str2sgml;     iso8859.pl
 iso-8859-8;     iso_8859::str2sgml;     iso8859.pl
 iso-8859-9;     iso_8859::str2sgml;     iso8859.pl
 iso-8859-10;    iso_8859::str2sgml;     iso8859.pl
+iso-2022-jp;    iso_2022_jp::str2html;  iso2022jp.pl
 default;        -ignore-
 </CharsetConverters>
 

@@ -139,7 +139,12 @@ provides a
 <strong>Glimpse</strong>
 <a href="http://glimpse.cs.arizona.edu/"
 >&lt;URL:http://glimpse.cs.arizona.edu/&gt;</a>
-search engine for searching messages.  For more information, see
+search engine for searching messages.
+The <a href="http://www.mail-archive.com/">Mail Archive</a> uses
+<strong>ht://Dig</strong>
+<a href="http://www.htdig.org/">&lt;URL:http://www.htdig.org/&gt;</a>.
+</p>
+<p>For more information, see
 the respective documentation of the search engine software of
 interest.
 </p>
@@ -169,8 +174,10 @@ by Majordomo's archive2.pl script.
 </td></tr></table>
 
 <p>No official ones.  Several users have created home-grown interfaces
-to perform various tasks.  I recommend searching the
-MHonArc mailing list archives.
+to perform various tasks.  An experimental web admin tool comes in
+with the MHonArc distribution under the "admin" directory.
+I recommend searching the
+MHonArc mailing list archives for discussion about web interfaces.
 </p>
 
 <!-- ??????????????????????????????????????????????????????????????? -->
@@ -226,7 +233,7 @@ the directory your message files are in when invoking MHonArc.
 called "messages".  I'd do the following:
 </p>
 <pre>
-    % <b>mhonarc -mhpattern "^[^.]" messages</b>
+    shell&gt; <b>mhonarc -mhpattern "^[^.]" messages</b>
 </pre>
 <p>MHPATTERN can be any Perl regular expression.  The one in
 the example matches any file not beginning with ".".  This
@@ -237,8 +244,8 @@ is to avoid the special files "." and ".." which are directories.
 it one at a time.  For example:
 </p>
 <pre>
-    % <b>mhonarc -add &lt; file1.822</b>
-    % <b>mhonarc -add &lt; file2.822</b>
+    shell&gt; <b>mhonarc -add &lt; file1.822</b>
+    shell&gt; <b>mhonarc -add &lt; file2.822</b>
     ...
 </pre>
 
@@ -253,7 +260,7 @@ it one at a time.  For example:
 the capability).  The syntax is something like the following:
 </p>
 <pre>
-    % <b>mhonarc </b><var>[options-here]</var> <b>-- -</b>
+    shell&gt; <b>mhonarc </b><var>[options-here]</var> <b>-- -</b>
 </pre>
 <p>The "--" tells MHonArc to terminate all command-line
 option processing and treat all following arguments as mail
@@ -267,7 +274,7 @@ takes input from some preprocessor that massages some data to
 make it suitable for processing by MHonArc.  For example:
 </p>
 <pre>
-    % <b>mypreproc | mhonarc -- -</b>
+    shell&gt; <b>mypreproc | mhonarc -- -</b>
 </pre>
 
 <!-- ??????????????????????????????????????????????????????????????? -->
@@ -343,13 +350,13 @@ and
 
 <hr>
 <address>
-98/10/03 15:44:56<br>
+99/06/25 23:17:33<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"
 ><strong>MHonArc</strong></a><br>
-Copyright &#169; 1997-1998, <a href="http://www.oac.uci.edu/indiv/ehood/"
->Earl Hood</a>, <a href="mailto:ehood@medusa.acs.uci.edu"
->ehood@medusa.acs.uci.edu</a><br>
+Copyright &#169; 1997-1999, <a href="http://www.oac.uci.edu/indiv/ehood/"
+>Earl Hood</a>, <a href="mailto:mhonarc@pobox.com"
+>mhonarc@pobox.com</a><br>
 </address>
 </body>
 </html>

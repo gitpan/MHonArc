@@ -1,12 +1,12 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) iso8859.pl 2.2 98/08/10 23:19:53
+##	@(#) iso8859.pl 2.3 99/06/25 13:57:07
 ##  Author:
-##      Earl Hood       earlhood@usa.net
+##      Earl Hood       mhonarc@pobox.com
 ##  Description:
 ##      Routines to process data encoded in iso8859 character sets.
 ##---------------------------------------------------------------------------##
-##    Copyright (C) 1996,1998	Earl Hood, earlhood@usa.net
+##    Copyright (C) 1996-1999	Earl Hood, mhonarc@pobox.com
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
