@@ -1,7 +1,7 @@
 Bug History for MHonArc
 =======================
 <URL:http://www.mhonarc.org/>
-@(#) BUGS 01/04/10 21:44:20
+@(#) BUGS 01/06/10 18:10:37
 
 Each bug listing has the following fields:
 
@@ -15,6 +15,21 @@ Each bug listing has the following fields:
 		    applicable.
 
 Bug List
+------------------------------------------------------------------------
+Version:	2.4.8, and earlier
+Problem:   	Default CHARSETCONVERTERS values for latin[1-6] charsets
+		causing require error.
+Solution:	This was supposedly fixed in 2.4.8 in mhinit.pl, but
+		apparently was not.  The def-mime.mrc file in the
+		example directory did have the correct mappings.
+Version Fixed:	2.4.9
+------------------------------------------------------------------------
+Version:	2.4.8
+Problem:   	MHonArc aborts with Perl syntax errors if mhnull.pl
+		filter is loaded.
+Solution:	Dump typo errors that should have been caught before
+		release.  Syntax errors fixed in mhnull.pl.
+Version Fixed:	2.4.9
 ------------------------------------------------------------------------
 Version:	2.4.7, and earlier
 Problem:   	Message with HTML content can cause perl to crash.

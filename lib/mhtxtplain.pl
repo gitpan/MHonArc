@@ -1,8 +1,8 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxtplain.pl 2.11 01/04/10 21:36:41
+##	@(#) mhtxtplain.pl 2.12 01/06/10 17:39:30
 ##  Author:
-##      Earl Hood       mhonarc@pobox.com
+##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
 ##	Library defines routine to filter text/plain body parts to HTML
 ##	for MHonArc.
@@ -12,7 +12,7 @@
 ##              </MIMEFILTERS>
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1995-1999	Earl Hood, mhonarc@pobox.com
+##    Copyright (C) 1995-2001	Earl Hood, mhonarc@mhonarc.org
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -150,22 +150,27 @@ sub filter {
 		$uddata = base64::uudecode($pdata);
 
 		# save to file
-		push(@files,
-		     mhonarc::write_attachment(
-			'application/octet-stream', \$uddata, '',
-			($usename?$file:''), $inext));
-		$urlfile = mhonarc::htmlize($files[$#files]);
-
-		# create link to file
-		if (index($inlineexts, ','.lc($inext).',') >= $[) {
-		    $ret .= qq|<a href="$urlfile"><img src="$urlfile">| .
-			    qq|</a><br>\n|;
+		if (&readmail::MAILis_excluded('application/octet-stream')) {
+		    $ret .=
+		    "<tt>&lt;&lt;&lt; $file: EXCLUDED &gt;&gt;&gt;</tt><br>\n";
 		} else {
-		    $ret .= qq|<a href="$urlfile">| . mhonarc::htmlize($file) .
-			    qq|</a><br>\n|;
+		    push(@files,
+			 mhonarc::write_attachment(
+			    'application/octet-stream', \$uddata, '',
+			    ($usename?$file:''), $inext));
+		    $urlfile = mhonarc::htmlize($files[$#files]);
+
+		    # create link to file
+		    if (index($inlineexts, ','.lc($inext).',') >= $[) {
+			$ret .= qq|<a href="$urlfile"><img src="$urlfile">| .
+				qq|</a><br>\n|;
+		    } else {
+			$ret .= qq|<a href="$urlfile">| .
+				mhonarc::htmlize($file) .  qq|</a><br>\n|;
+		    }
 		}
 
-	    } else {		# plain text
+	    } elsif ($pdata =~ /\S/) {	# plain text
 		my(@subret) =
 		    &filter($header, *fields, *pdata, $isdecode, $args);
 		$ret .= shift @subret;
@@ -277,7 +282,7 @@ sub filter {
 	    $data =~ s/^(.*)$/&preserve_space($1)/gem;
 	}
     } else {
-    	$data = "<PRE>\n" . $data . "</PRE>\n";
+    	$data = "<pre>\n" . $data . "</pre>\n";
     }
 
     ## Convert URLs to hyperlinks

@@ -10,6 +10,38 @@ MM/DD/YYYY
 =======================================================================
 #######################################################################
 =======================================================================
+06/10/2001	(2.4.9)
+
+    o	Added the following resources:
+
+	    MIMEEXCS		List of content-types to exclude
+				from processing.  Exclusion occurs
+				before data is passed to filters.
+
+    o	mhtxtplain.pl: If decoding uuencoded data, the data will
+	be excluded if application/octet-stream is listed the
+	MIMEEXCS resource.
+
+    o	mhtxthtml.pl: If a CID URL is not available, the CID URL
+	is no longer preserved in the converted output.  The CID
+	URL is stripped.
+
+    o	Added the following to mhmimetypes.pl content-type table:
+
+	  application/ms-excel		=> xls:MS-Excel spreadsheet
+	  application/ms-powerpoint	=> ppt:MS-Powerpoint presentation
+	  application/ms-project	=> mpp:MS-Project file
+
+	The "vnd." official versions are already present, but
+	some application use the above.
+
+    o	TODO list added to distribution.
+
+    Bug Fixes
+    ---------
+    See BUGS.
+
+=======================================================================
 04/13/2001	(2.4.8)
 
     o	Added the following resources:
@@ -1534,5 +1566,5 @@ MM/DD/YYYY
 =======================================================================
 #######################################################################
 =======================================================================
-Earl Hood, mhonarc@pobox.com
-@(#) CHANGES 01/04/13 12:33:07
+Earl Hood, mhonarc@mhonarc.org
+@(#) CHANGES 01/06/10 18:10:36

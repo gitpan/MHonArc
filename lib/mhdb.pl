@@ -1,13 +1,13 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhdb.pl 2.14 01/04/10 21:36:37
+##	@(#) mhdb.pl 2.15 01/06/10 17:38:53
 ##  Author:
-##      Earl Hood       mhonarc@pobox.com
+##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
 ##      MHonArc library defining routines for outputing database.
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1995-1999	Earl Hood, mhonarc@pobox.com
+##    Copyright (C) 1995-2001	Earl Hood, mhonarc@mhonarc.org
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -90,6 +90,10 @@ print_var(\*DB,'readmail::MIMEFiltersSrc',
 		\%readmail::MIMEFiltersSrc);
 print_var(\*DB,'readmail::MIMEFiltersArgs',
 		\%readmail::MIMEFiltersArgs);
+if (%readmail::MIMEExcs) {
+  print_var(\*DB,'readmail::MIMEExcs',
+		  \%readmail::MIMEExcs);
+}
 
 print_var(\*DB,'DateFields', \@DateFields) unless $IsDefault{'DATEFIELDS'};
 print_var(\*DB,'FieldOrder', \@FieldOrder);
@@ -101,7 +105,8 @@ print_var(\*DB,'PerlINC',    \@PerlINC)    if scalar(@PerlINC);
 print_var(\*DB,'Weekdays',   \@Weekdays)   if scalar(@Weekdays);
 print_var(\*DB,'weekdays',   \@weekdays)   if scalar(@weekdays);
 
-## I should use a hash for this stuff instead of individual variables
+## I should use a hash for this stuff instead of individual variables.
+## A legacy of Perl 4 days and a program getting larger than expected.
 
 print_var(\*DB,'AddressModify',  \$AddressModify)
 				unless $IsDefault{'AddressModify'};

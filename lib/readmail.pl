@@ -1,8 +1,8 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) readmail.pl 2.9 00/10/28 10:58:32
+##	@(#) readmail.pl 2.10 01/06/10 17:39:42
 ##  Author:
-##      Earl Hood       mhonarc@pobox.com
+##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
 ##      Library defining routines to parse MIME e-mail messages.  The
 ##	library is designed so it may be reused for other e-mail
@@ -23,13 +23,15 @@
 ##
 ##	($disposition, $filename) =
 ##	    &MAILhead_get_disposition(*fields);
+##	$boolean =
+##	    &MAILis_excluded($content_type);
 ##	$parm_hash_ref =
 ##	    &MAILparse_parameter_str($header_field);
 ##	$parm_hash_ref =
 ##	    &MAILparse_parameter_str($header_field, 1);
 ##
 ##---------------------------------------------------------------------------##
-##    Copyright (C) 1996-1999	Earl Hood, mhonarc@pobox.com
+##    Copyright (C) 1996-2001	Earl Hood, mhonarc@mhonarc.org
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -207,6 +209,19 @@ $MIMECharSetConverters{"default"}	= "-ignore-"
 %MIMEFiltersArgs	= ()
     unless defined(%MIMEFiltersArgs);
 
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+##  %MIMEExcs is the associative array listing which data types
+##  should be auto-excluded during parsing:
+##
+##	Keys => content-type, or base-type
+##	Values => <should evaluate to a true expression>
+##
+##  For purposes of efficiency, content-types, or base-types, should
+##  be specified in lowercase.  All key lookups are done in lowercase.
+
+%MIMEExcs			= ()
+    unless defined(%MIMEExcs);
+
 ##---------------------------------------------------------------------------
 ##	Variables holding functions for generating processed output
 ##	for MAILread_body().  The default functions generate HTML.
@@ -222,6 +237,11 @@ $MIMECharSetConverters{"default"}	= "-ignore-"
 
 $CantProcessPartFunc		= \&cantProcessPart
     unless(defined($CantProcessPartFunc));
+
+##  Function that returns a message when a part is excluded via %MIMEExcs.
+
+$ExcludedPartFunc	= \&excludedPart
+    unless(defined($ExcludedPartFunc));
 
 ##  Function that returns a message when a part is unrecognized in a
 ##  multipart/alternative message.  I.e. No part could be processed.
@@ -410,6 +430,11 @@ sub MAILread_body {
 	$type = $subtype = '';
     }
 
+    ## Check if type is excluded
+    if ($MIMEExcs{$ctype} || $MIMEExcs{$type}) {
+	return (&$ExcludedPartFunc($ctype));
+    }
+
     ## Load content-type filter
     if ( (!defined($filter = &load_filter($ctype)) || !defined(&$filter)) &&
 	 (!defined($filter = &load_filter("$type/*")) || !defined(&$filter)) &&
@@ -548,14 +573,18 @@ sub MAILread_body {
 		$href->{'filtered'} = 0;
 		push(@entity, $href);
 
-		$cid = $partfields{'content-id'} || $partfields{'message-id'};
-		$cid =~ s/[\s<>]//g;
-		$Cid{"cid:$cid"} = $href  if $cid =~ /\S/;
-		if ($cid = $partfields{'content-location'}) {
-		    $cid =~ s/^\s+//;
-		    $cid =~ s/\s+$//;
-		    if ($cid =~ /\S/ && !$Cid{$cid}) {
-			$Cid{$cid} = $href;
+		## only add to %Cid if not excluded
+		if (!&MAILis_excluded($partfields{'content-type'})) {
+		    $cid = $partfields{'content-id'} ||
+			   $partfields{'message-id'};
+		    $cid =~ s/[\s<>]//g;
+		    $Cid{"cid:$cid"} = $href  if $cid =~ /\S/;
+		    if ($cid = $partfields{'content-location'}) {
+			$cid =~ s/^\s+//;
+			$cid =~ s/\s+$//;
+			if ($cid =~ /\S/ && !$Cid{$cid}) {
+			    $Cid{$cid} = $href;
+			}
 		    }
 		}
 	    }
@@ -744,13 +773,30 @@ sub MAILread_file_header {
 }
 
 ##---------------------------------------------------------------------------##
+##	MAILis_excluded() checks if specified content-type has been
+##	specified to be excluded.
+##
+sub MAILis_excluded {
+    my $content = $_[0] || 'text/plain';
+    my($ctype) = $content =~ m|^\s*([\w-\./]+)|;
+    $ctype =~ tr/A-Z/a-z/;
+    if ($MIMEExcs{$ctype}) {
+	return 1;
+    }
+    if ($ctype =~ m|([^/]+)/|) {
+	return $MIMEExcs{$1};
+    }
+    0;
+}
+
+##---------------------------------------------------------------------------##
 ##	MAILhead_get_disposition gets the content disposition and
 ##	filename from *hfields, *hfields is a hash produced by the
 ##	MAILread_head* routines.
 ##
 sub MAILhead_get_disposition {
     local(*hfields) = shift;
-    local($disp, $filename) = ('', '');
+    my($disp, $filename) = ('', '');
     local($_);
 
     if ($_ = $hfields{'content-disposition'}) {
@@ -866,11 +912,17 @@ sub MAILparse_parameter_str {
 ##	message.
 ##
 sub cantProcessPart {
-    local($ctype) = $_[0];
-
+    my($ctype) = $_[0];
     warn "Warning: Could not process part with given Content-Type: ",
 	 "$ctype\n";
     "<BR><TT>&lt;&lt;&lt; $ctype: Unrecognized &gt;&gt;&gt;</TT><BR>\n";
+}
+##---------------------------------------------------------------------------##
+##	Default function returning message for content-types excluded.
+##
+sub excludedPart {
+    my($ctype) = $_[0];
+    "<BR><TT>&lt;&lt;&lt; $ctype: EXCLUDED &gt;&gt;&gt;</TT><BR>\n";
 }
 ##---------------------------------------------------------------------------##
 ##	Default function for unrecognizeable part in multipart/alternative.

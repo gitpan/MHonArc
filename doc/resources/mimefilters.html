@@ -503,6 +503,18 @@ recognizes:
 <td align=center><tt>mbd</tt></td>
 <td>mbedlet file</td></tr>
 <tr valign="top">
+<td align=left><strong>application/ms-excel</strong></td>
+<td align=center><tt>xls</tt></td>
+<td>MS-Excel spreadsheet</td></tr>
+<tr valign="top">
+<td align=left><strong>application/ms-powerpoint</strong></td>
+<td align=center><tt>ppt</tt></td>
+<td>MS-Powerpoint presentation</td></tr>
+<tr valign="top">
+<td align=left><strong>application/ms-project</strong></td>
+<td align=center><tt>mpp</tt></td>
+<td>MS-Project file</td></tr>
+<tr valign="top">
 <td align=left><strong>application/msword</strong></td>
 <td align=center><tt>doc</tt></td>
 <td>MS-Word document</td></tr>
@@ -614,6 +626,10 @@ recognizes:
 <td align=left><strong>application/x-bcpio</strong></td>
 <td align=center><tt>bcpio</tt></td>
 <td>BCPIO file</td></tr>
+<tr valign="top">
+<td align=left><strong>application/x-bzip2</strong></td>
+<td align=center><tt>bz2</tt></td>
+<td>BZip2 compressed data</td></tr>
 <tr valign="top">
 <td align=left><strong>application/x-compress</strong></td>
 <td align=center><tt>Z</tt></td>
@@ -1422,9 +1438,9 @@ convert the characters to the appropriate entity reference.
 <table border=0 cellpadding=4>
 <tr valign=top>
 <td><strong>NOTE</strong></td>
-<td><p>Only the ISO-8859-[1-10] and ISO-2022-JP
-character sets are recognized.  Some character sets may require
-proper support by the web client for accurate rendering.
+<td><p>The functions registered via the
+<a href="charsetconverters.html">CHARSETCONVERTERS</a> are used
+to handle character set processing.
 </p>
 </td>
 </tr>
@@ -1533,6 +1549,12 @@ USENET (binary) newsgroups.  Note, specifying <b><tt>uudecode</tt></b>
 adds extra
 overhead in the processing of text messages, including messages without
 any uuencoded data.
+</p>
+<p>Uuencoded data is treated as <tt>application/octet-stream</tt>
+data for purposes of checking if the data should be excluded when
+checked against the <a href="mimeexcs.html">MIMEEXCS</a> resource.
+Therefore, if <tt>application/octet-stream</tt> data is listed
+in MIMEEXCS, uudencode data will be excluded.
 </p></td>
 </tr>
 
@@ -1597,7 +1619,7 @@ filter used by MHonArc):
 </p>
 <pre>
 ##---------------------------------------------------------------------------##
-##    Copyright (C) 1995-1998	Earl Hood, mhonarc@pobox.com
+##    Copyright (C) 1995-1998	Earl Hood, mhonarc@mhonarc.org
 ##---------------------------------------------------------------------------##
 
 package m2h_text_html;
@@ -1686,16 +1708,17 @@ sub addbase {
 <a href="charsetconverters.html">CHARSETCONVERTERS</a>,
 <a href="mimeargs.html">MIMEARGS</a>,
 <a href="mimedecoders.html">MIMEDECODERS</a>,
+<a href="mimeexcs.html">MIMEEXCS</a>,
 <a href="perlinc.html">PERLINC</a>
 </p>
 
 <!-- *************************************************************** -->
 <hr>
 <address>
-01/04/10 21:42:33<br>
+01/06/10 17:48:19<br>
 <img align="top" src="../monicon.gif" alt="">
-<a href="http://www.pobox.com/~ehood/mhonarc.html"><strong>MHonArc</strong></a><br>
-Copyright &#169; 1997-1999 <a href="http://www.pobox.com/~ehood/">Earl Hood</a>, <a href="mailto:mhonarc@pobox.com">mhonarc@pobox.com</a><br>
+<a href="http://www.mhonarc.org"><strong>MHonArc</strong></a><br>
+Copyright &#169; 1997-2001 <a href="http://www.mhonarc.org/~ehood/">Earl Hood</a>, <a href="mailto:mhonarc@mhonarc.org">mhonarc@mhonarc.org</a><br>
 </address>
 
 </body>

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhmimetypes.pl 1.5 00/10/28 11:01:33
+##	@(#) mhmimetypes.pl 1.6 01/06/10 17:37:44
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -43,6 +43,9 @@ $UnknownExt     = 'bin';
     'application/mathematica', 		'ma:Mathematica Notebook document',
     'application/mbedlet',		'mbd:mbedlet file',
     'application/msword',		'doc:MS-Word document',
+    'application/ms-excel',            	'xls:MS-Excel spreadsheet',
+    'application/ms-powerpoint',	'ppt:MS-Powerpoint presentation',
+    'application/ms-project',		'mpp:MS-Project file',
     'application/octet-stream', 	'bin:Binary data',
     'application/oda', 			'oda:ODA file',
     'application/pdf', 			'pdf:Adobe PDF document',

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcfile.pl 2.14 01/04/10 21:36:41
+##	@(#) mhrcfile.pl 2.15 01/06/10 17:39:12
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -474,6 +474,15 @@ sub read_resource_file {
 		}
 		$type =~ tr/A-Z/a-z/  if $type =~ m%/%;
 		$readmail::MIMEFiltersArgs{$type} = $arg;
+	    }
+	    last FMTSW;
+	}
+	if ($elem eq 'mimeexcs') {		# Mime exclusions
+	    %readmail::MIMEExcs = ()  if $override;
+	    while (defined($line = <$handle>)) {
+		last  if $line =~ /^\s*<\/mimeexcs\s*>/i;
+		$line =~ s/\s//g;  $line =~ tr/A-Z/a-z/;
+		$readmail::MIMEExcs{$line} = 1  if $line;
 	    }
 	    last FMTSW;
 	}

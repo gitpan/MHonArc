@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:	MHonArc Resource File
 " Maintainer:	Earl Hood <mhonarc@pobox.com>
-" Last change:	99/10/01 01:15:21
+" Last change:	01/06/10 17:47:56
 
 "	Adapted from the following:
 " Language:	HTML
@@ -114,6 +114,7 @@ syn keyword mhaTagName contained maxsize
 syn keyword mhaTagName contained mhpattern
 syn keyword mhaTagName contained mimeargs
 syn keyword mhaTagName contained mimedecoders
+syn keyword mhaTagName contained mimeexcs
 syn keyword mhaTagName contained mimefilters
 syn keyword mhaTagName contained modtime
 syn keyword mhaTagName contained months

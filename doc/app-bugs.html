@@ -28,7 +28,7 @@
 mailing list,
 <a href="mailto:mhonarc@ncsa.uiuc.edu">mhonarc@ncsa.uiuc.edu</a>.  The list
 is closed to subscribers, so if you are not subscribed, you can
-send mail to <a href="mailto:mhonarc@pobox.com">mhonarc@pobox.com</a>.
+send mail to <a href="mailto:mhonarc@mhonarc.org">mhonarc@mhonarc.org</a>.
 </p>
 
 <p>Please include the following information in your message:
@@ -79,6 +79,49 @@ the bug was fixed.
 
 <!--X-BugList-Start-->
 <table border=0 cellspacing=0 cellpadding=4 width="100%">
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.4.8, and earlier</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>Default CHARSETCONVERTERS values for latin[1-6] charsets causing require error.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>This was supposedly fixed in 2.4.8 in mhinit.pl, but apparently was not.  The def-mime.mrc file in the
+ example directory did have the correct mappings.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.9</td>
+</tr>
+<tr valign=top>
+<td colspan=2><hr noshade size=0></td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Version</strong></td>
+<td align=left>2.4.8</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Problem</strong></td>
+<td align=left>MHonArc aborts with Perl syntax errors if mhnull.pl filter is loaded.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Solution</strong></td>
+<td align=left>Dump typo errors that should have been caught before release.  Syntax errors fixed in mhnull.pl.
+</td>
+</tr>
+<tr valign=top>
+<td align=right><strong>Fixed</strong></td>
+<td align=left>2.4.9</td>
+</tr>
 <tr valign=top>
 <td colspan=2><hr noshade size=0></td>
 </tr>
@@ -2265,13 +2308,13 @@ the bug was fixed.
 <!-- *************************************************************** -->
 <hr>
 <address>
-01/04/10 21:42:54<br>
+01/06/10 17:47:38<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.mhonarc.org"
 ><strong>MHonArc</strong></a><br>
-Copyright &#169; 1997-1999, <a href="http://www.pobox.com/~ehood/"
->Earl Hood</a>, <a href="mailto:mhonarc@pobox.com"
->mhonarc@pobox.com</a><br>
+Copyright &#169; 1997-1999, <a href="http://www.mhonarc.org/~ehood/"
+>Earl Hood</a>, <a href="mailto:mhonarc@mhonarc.org"
+>mhonarc@mhonarc.org</a><br>
 </address>
 
 </BODY>

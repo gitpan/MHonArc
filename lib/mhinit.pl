@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhinit.pl 2.22 01/04/10 21:36:40
+##	@(#) mhinit.pl 2.23 01/06/10 17:35:46
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -347,11 +347,11 @@ $DBPathName	= '';	# Full pathname of database file
     "iso-8859-10",   			"iso8859.pl",
     "iso-2022-jp",   			"iso2022jp.pl",
     "latin1",   			undef,
-    "latin2",   			"iso_8859.pl",
-    "latin3",   			"iso_8859.pl",
-    "latin4",   			"iso_8859.pl",
-    "latin5",   			"iso_8859.pl",
-    "latin6",   			"iso_8859.pl",
+    "latin2",   			"iso8859.pl",
+    "latin3",   			"iso8859.pl",
+    "latin4",   			"iso8859.pl",
+    "latin5",   			"iso8859.pl",
+    "latin6",   			"iso8859.pl",
     "default",     			undef,
 );
 

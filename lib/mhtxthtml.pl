@@ -1,8 +1,8 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxthtml.pl 2.14 01/04/10 21:36:41
+##	@(#) mhtxthtml.pl 2.15 01/06/10 17:36:57
 ##  Author:
-##      Earl Hood       mhonarc@pobox.com
+##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
 ##	Library defines routine to filter text/html body parts
 ##	for MHonArc.
@@ -12,7 +12,7 @@
 ##	    </MIMEFILTERS>
 ##---------------------------------------------------------------------------##
 ##    MHonArc -- Internet mail-to-HTML converter
-##    Copyright (C) 1995-2000	Earl Hood, mhonarc@pobox.com
+##    Copyright (C) 1995-2000	Earl Hood, mhonarc@mhonarc.org
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -220,7 +220,7 @@ sub addbase {
 sub resolve_cid {
     my $cid = shift;
     my $href = $readmail::Cid{$cid};
-    if (!defined($href)) { return $cid; }
+    if (!defined($href)) { return ""; }
 
     require 'mhmimetypes.pl';
     my $filename;
