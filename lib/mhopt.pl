@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      $Id: mhopt.pl,v 2.26 2002/05/02 01:34:30 ehood Exp $
+##      $Id: mhopt.pl,v 2.27 2002/06/07 17:45:09 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -129,6 +129,8 @@ sub get_resources {
 	"nosubsort",	# Do not sort by subject
 	"nosubjectthreads",
 			# Do not do subject based threading
+	"nosubjecttxt=s",
+			# Text to use if message has no subject
 	"notedir",	# Location of notes
 	"notetext=s@",	# Text data of note
 	"nothread",	# Do not create threaded index
@@ -490,6 +492,8 @@ sub get_resources {
     $SubReplyRxp   = $opt{'subjectreplyrxp'}    if $opt{'subjectreplyrxp'};
     $SubStripCode  = $opt{'subjectstripcode'}   if $opt{'subjectstripcode'};
     $MsgExcFilter  = $opt{'msgexcfilter'}    if defined($opt{'msgexcfilter'});
+
+    $NoSubjectTxt  = $opt{'nosubjecttxt'}	if $opt{'nosubjecttxt'};
 
     $IdxPageNum  = $opt{'pagenum'}   if defined($opt{'pagenum'});
 

@@ -1,28 +1,15 @@
-#!/usr/local/bin/perl
-
-while (<>) {
-    chomp;
-    s/:.*//;
-    $name = $_;
-    ($Name = $_) =~ tr/a-z/A-Z/;
-
-    next  if -e "$name.html";
-
-    open(FILE, "> $name.html") || die "Unable to create $name\n";
-    select(FILE);
-    print <<EndOfText;
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
 <html>
 <head>
-<title>MHonArc Resources: $Name</title>
+<title>MHonArc Resources: NOSUBJECTTXT</title>
 </head>
 <body>
 
-<em><a href="../resources.html#$name">MHonArc Resource List</a></em> |
+<em><a href="../resources.html#nosubjecttxt">MHonArc Resource List</a></em> |
 <a href="../mhonarc.html">TOC</a>
 
 <hr>
-<h1>$Name</h1>
+<h1>NOSUBJECTTXT</h1>
 
 <!-- *************************************************************** -->
 <hr>
@@ -32,20 +19,21 @@ while (<>) {
 
 <dt><strong>Envariable</strong></dt>
 <dd><p>
-<code>M2H_$Name=</code>
+<code>M2H_NOSUBJECTTXT=</code><var>text</var>
 </p>
 </dd>
 
 <dt><strong>Element</strong></dt>
 <dd><p><br>
-<code>&lt;$Name&gt;</code><br>
-<code>&lt;/$Name&gt;</code><br>
+<code>&lt;NOSUBJECTTXT&gt;</code><br>
+<var>text</var><br>
+<code>&lt;/NOSUBJECTTXT&gt;</code><br>
 </p>
 </dd>
 
 <dt><strong>Command-line Option</strong></dt>
 <dd><p><br>
-<code>-$name </code>
+<code>-nosubjecttxt </code><var>text</var>
 </p>
 </dd>
 
@@ -55,15 +43,17 @@ while (<>) {
 <hr>
 <h2>Description</h2>
 
-<p>
+<p>NOSUBJECTTXT defines the <em>raw</em> text to use for messages
+that have no subject.
 </p>
 
 <!-- *************************************************************** -->
 <hr>
 <h2>Default Setting</h2>
 
-<p>
-</p>
+<pre>
+[no subject]
+</pre>
 
 <!-- *************************************************************** -->
 <hr>
@@ -83,7 +73,7 @@ while (<>) {
 <hr>
 <h2>Version</h2>
 
-<p>
+<p>2.5.6
 </p>
 
 <!-- *************************************************************** -->
@@ -96,18 +86,13 @@ while (<>) {
 <!-- *************************************************************** -->
 <hr>
 <address>
-\$Date\$<br>
+$Date: 2002/06/07 17:45:08 $<br>
 <img align="top" src="../monicon.png" alt="">
 <a href="http://www.mhonarc.org/"><strong>MHonArc</strong></a><br>
 Copyright &#169; 2002, <a href="http://www.earlhood.com/"
->Earl Hood</a>, <a href="mailto:mhonarc\@mhonarc.org"
->mhonarc\@mhonarc.org</a><br>
+>Earl Hood</a>, <a href="mailto:mhonarc@mhonarc.org"
+>mhonarc@mhonarc.org</a><br>
 </address>
 
 </body>
 </html>
-EndOfText
-
-    close(FILE);
-    print STDOUT "Created $name\n";
-}

@@ -101,6 +101,7 @@ nextlink:M::<NEXTLINK>::Link markup for next message by main index.
 nextlinkia:M::<NEXTLINKIA>::Inactive link markup for next message by main index.
 nextpglink:i::<NEXTPGLINK>::Link markup for next page of main index.
 nextpglinkia:i::<NEXTPGLINKIA>::Inactive link markup for next page of main index.
+nosubjecttxt::M2H_NOSUBJECTTXT:<NOSUBJECTTXT>:-nosubjecttxt:Raw subject text to use for messages without a subject.
 note:M,!NOTE,NOTETEXT::<NOTE>::Markup for representing the annotation of a message.
 notedir:M:M2H_NOTEDIR:<NOTEDIR>:-notedir:Directory to store annotations.
 noteia:M::<NOTEIA>::Markup when no annotation is available for a message.

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhrcfile.pl,v 2.20 2002/05/02 01:34:30 ehood Exp $
+##	$Id: mhrcfile.pl,v 2.21 2002/06/07 17:45:09 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -639,6 +639,10 @@ sub read_resource_file {
 	}
 	if ($elem eq 'nosubjectthreads') {	# No check subjects for threads
 	    $NoSubjectThreads = 1;
+	    last FMTSW;
+	}
+	if ($elem eq 'nosubjecttxt') {		# Text to use if no subject
+	    $NoSubjectTxt = &get_elem_content($handle, $elem, $chop);
 	    last FMTSW;
 	}
 	if ($elem eq 'nosubsort') {		# Do not sort msgs by subject

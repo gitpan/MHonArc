@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhrcvars.pl,v 2.19 2002/05/04 05:01:20 ehood Exp $
+##	$Id: mhrcvars.pl,v 2.20 2002/06/07 17:45:09 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -251,7 +251,7 @@ sub replace_li_var {
 	    ($lref, $key, $pos) = compute_msg_pos($index, $var, $arg);
 	    if (defined($key)) {
 		$tmp = $Subject{$key};
-		$tmp = '[no subject]'  if $tmp eq "";
+		$tmp = $NoSubjectTxt  if $tmp eq "";
 	    } else {
 		$tmp = "";
 	    }
@@ -262,7 +262,7 @@ sub replace_li_var {
 	    ($lref, $key, $pos) = compute_msg_pos($index, $var, $arg);
 	    if (defined($key)) {
 		$tmp = $Subject{$key};
-		$tmp = '[no subject]'  if $tmp eq "";
+		$tmp = $NoSubjectTxt  if $tmp eq "";
 	    } else {
 		$tmp = "";
 	    }

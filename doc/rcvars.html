@@ -78,7 +78,7 @@ the next message in the archive.
 
 <table border=0 cellpadding=4>
 <tr valign=top>
-<td><strong><a name="note1">*</a> NOTE</strong></td>
+<td><strong><a name="note1">*</a>&nbsp;NOTE</strong></td>
 <td><p>In the two examples given, the replacement value of
 <tt>$SUBJECT$</tt> is different (excluding the variable argument difference).
 For compatibility of older versions of MHonArc, when <tt>$SUBJECT$</tt>
@@ -209,72 +209,72 @@ expanded will be based upon. Possible values are:
 </p>
 <table border=0>
 <tr valign=top>
-<th align=right>Value -</th><th align=left>Meaning</th>
+<th align=right>Value&nbsp;-</th><th align=left>Meaning</th>
 </tr>
 <tr valign=top>
-<td align=right><tt>CUR</tt> -</td>
+<td align=right><tt>CUR</tt>&nbsp;-</td>
   <td>Current message.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>FIRST</tt> -</td>
+<td align=right><tt>FIRST</tt>&nbsp;-</td>
   <td>First message listed in main index.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>LAST</tt> -</td>
+<td align=right><tt>LAST</tt>&nbsp;-</td>
   <td>Last message listed in main index.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>NEXT</tt> -</td>
+<td align=right><tt>NEXT</tt>&nbsp;-</td>
   <td>Next message by main sort order.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>PREV</tt> -</td>
+<td align=right><tt>PREV</tt>&nbsp;-</td>
   <td>Previous message by main sort order.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TEND</tt> -</td>
+<td align=right><tt>TEND</tt>&nbsp;-</td>
   <td>Last message of current discussion thread.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TFIRST</tt> -</td>
+<td align=right><tt>TFIRST</tt>&nbsp;-</td>
   <td>First message listed thread index.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TLAST</tt> -</td>
+<td align=right><tt>TLAST</tt>&nbsp;-</td>
   <td>Last message listed thread index.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TNEXT</tt> -</td>
+<td align=right><tt>TNEXT</tt>&nbsp;-</td>
   <td>Next message by thread.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TNEXTIN</tt> -</td>
+<td align=right><tt>TNEXTIN</tt>&nbsp;-</td>
   <td>Next message within current thread.  This differs from
   <tt>TNEXT</tt> in that it does not cross discussion thread boundaries.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TNEXTTOP</tt> -</td>
+<td align=right><tt>TNEXTTOP</tt>&nbsp;-</td>
   <td>First message of next discussion thread.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TPARENT</tt> -</td>
+<td align=right><tt>TPARENT</tt>&nbsp;-</td>
   <td>Parent message of current thread.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TPREV</tt> -</td>
+<td align=right><tt>TPREV</tt>&nbsp;-</td>
   <td>Previous message by thread.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TPREVIN</tt> -</td>
+<td align=right><tt>TPREVIN</tt>&nbsp;-</td>
   <td>Previous message within current thread.  This differs from
   <tt>TPREV</tt> in that it does not cross discussion thread boundaries.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TPREVTOP</tt> -</td>
+<td align=right><tt>TPREVTOP</tt>&nbsp;-</td>
   <td>First message of previous discussion thread.</td>
 </tr>
 <tr valign=top>
-<td align=right><tt>TTOP</tt> -</td>
+<td align=right><tt>TTOP</tt>&nbsp;-</td>
   <td>Top/root message of current discussion thread.</td>
 </tr>
 </table>
@@ -491,7 +491,7 @@ HOME environment variable.</td>
 <tr valign=top>
 <td align=right><b>Description:</b></td>
 <td>The username/local-part of the mail address in the <tt>From:</tt>
-field of the message.  For example, given the address "someuser@foo.com",
+field of the message.  For example, given the address "someuser@mhonarc.org",
 <tt>$FROMADDRNAME$</tt> would equal "someuser".</td>
 </tr>
 </table><br></dd>
@@ -504,8 +504,8 @@ field of the message.  For example, given the address "someuser@foo.com",
 <tr valign=top>
 <td align=right><b>Description:</b></td>
 <td>The domain part of the mail address in the <tt>From:</tt>
-field of the message.  For example, given the address "someuser@foo.com",
-<tt>$FROMADDRDOMAIN$</tt> would equal "foo.com".</td>
+field of the message.  For example, given the address "someuser@mhonarc.org",
+<tt>$FROMADDRDOMAIN$</tt> would equal "mhonarc.org".</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="FROMNAME"><tt>$FROMNAME$</tt></a></strong></dt>
@@ -1094,7 +1094,7 @@ This variable is only applicable for use in the
 <tr valign=top>
 <td align=right><b>Description:</b></td>
 <td>The username/local-part of the e-mail address.
-For example, given the address "someuser@foo.com",
+For example, given the address "someuser@mhonarc.org",
 <tt>$TOADDRNAME$</tt> would equal "someuser".
 This variable is only applicable for use in the
 <a href="resources/mailtourl.html">MAILTOURL</a>.</td>
@@ -1109,8 +1109,8 @@ This variable is only applicable for use in the
 <tr valign=top>
 <td align=right><b>Description:</b></td>
 <td>The domain part of the e-mail address.
-For example, given the address "someuser@foo.com",
-<tt>$TOADDRDOMAIN$</tt> would equal "foo.com".
+For example, given the address "someuser@mhonarc.org",
+<tt>$TOADDRDOMAIN$</tt> would equal "mhonarc.org".
 This variable is only applicable for use in the
 <a href="resources/mailtourl.html">MAILTOURL</a>.</td>
 </tr>
@@ -1197,7 +1197,7 @@ resources.
 <!-- *************************************************************** -->
 <hr>
 <address>
-$Date: 2001/12/24 14:38:07 $ <br>
+$Date: 2002/06/07 17:43:18 $ <br>
 <img align="top" src="monicon.png" alt="">
 <a href="http://www.mhonarc.org"
 ><strong>MHonArc</strong></a><br>

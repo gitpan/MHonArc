@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhdysub.pl,v 2.5 2001/08/25 20:09:21 ehood Exp $
+##	$Id: mhdysub.pl,v 2.6 2002/06/07 17:45:09 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -120,7 +120,7 @@ EndOfRoutine
 	my($ret) = ($Subject{$_[0]});
 	1 while $ret =~ s/$SubReplyRxp//io;
 	if ($ret eq "") {
-	    return '[no subject]';
+	    return $NoSubjectTxt;
 	}
 	$ret;
     }

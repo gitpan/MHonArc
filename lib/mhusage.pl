@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      $Id: mhusage.pl,v 2.18 2001/09/30 09:24:02 ehood Exp $
+##      $Id: mhusage.pl,v 2.19 2002/06/07 17:45:09 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -55,8 +55,8 @@ Description:
   of UUCP-style mailbox files and MH style mail folders.  The -single
   option can be used to convert a single mail message to standard output.
 
-  Read the full documentation included with the distribution for more
-  complete usage information.
+  Read the full documentation included with the distribution, or at
+  <http://www.mhonarc.org/>, for more complete usage information.
 
 Options:
   -add                     : Add message(s) to archive
@@ -145,6 +145,7 @@ Options:
   -nosort                  : Do not sort messages
   -nospammode              : Do not obfuscate addresses
   -nosubjectthreads        : Do not check subjects for threads
+  -nosubjecttxt <text>     : Text to use if message has no subject
   -nosubsort               : Do not sort messages by subject
   -notetext <text>         : Text data of annotation if -annotation specified
   -nothread                : Do not create threaded index

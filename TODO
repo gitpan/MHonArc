@@ -48,9 +48,6 @@ Items are in no particular order:
    attachment disposition.  Would also require changes to how base
    parsing cooperates with content filters.
 
-=> Create a resource to control value of "[no subject]" given to
-   messages without a defined subject.
-
 => Unicode support (waiting for Perl to be mature enough).
     (related to "UTF8 charsetconverter below").
 
@@ -71,10 +68,6 @@ Items are in no particular order:
    (see
     http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=131512&repeatmerged=yes)
 
-=> Check into TSLICE problem report mailed in by Mike Hamilton where
-   older messages of a thread are not properly updated to include newer
-   messages in tslice listing.
-
 => Add a reasource (ICONURLPREFIX?) to prepend to icon url to support
    relative-based archives (see message from Oliver Creighton).
 
@@ -90,4 +83,4 @@ Items are in no particular order:
    Should be configurable?
 
 ===========================================================================
-$Id: TODO,v 1.18 2002/05/15 07:19:28 ehood Exp $
+$Id: TODO,v 1.20 2002/06/07 17:47:33 ehood Exp $

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhdb.pl,v 2.18 2002/05/02 01:34:30 ehood Exp $
+##	$Id: mhdb.pl,v 2.19 2002/06/07 17:45:09 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -156,6 +156,7 @@ print_var(\*DB,'NONEWS',         \$NONEWS);
 print_var(\*DB,'NOURL',          \$NOURL);
 print_var(\*DB,'NoMsgPgs',       \$NoMsgPgs);
 print_var(\*DB,'NoSubjectThreads', \$NoSubjectThreads);
+print_var(\*DB,'NoSubjectTxt',   \$NoSubjectTxt);
 print_var(\*DB,'NoteDir',        \$NoteDir);
 print_var(\*DB,'POSIXstrftime',  \$POSIXstrftime);
 print_var(\*DB,'THREAD',         \$THREAD);

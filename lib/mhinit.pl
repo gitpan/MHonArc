@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhinit.pl,v 2.31 2002/05/02 01:34:30 ehood Exp $
+##	$Id: mhinit.pl,v 2.32 2002/06/07 17:45:09 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -474,6 +474,8 @@ $ExpireTime	= $ENV{'M2H_EXPIREAGE'}    	|| 0;
 
 $MsgGMTDateFmt	= $ENV{'M2H_MSGGMTDATEFMT'}   	|| '';
 $MsgLocalDateFmt= $ENV{'M2H_MSGLOCALDATEFMT'}	|| '';
+
+$NoSubjectTxt	= $ENV{'M2H_NOSUBJECTTXT'}	|| '[no subject]';
 
 $NoteDir	= $ENV{'M2H_NOTEDIR'} 		|| 'notes';
 

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: readmail.pl,v 2.16 2002/04/04 03:39:26 ehood Exp $
+##	$Id: readmail.pl,v 2.17 2002/05/31 02:54:10 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -42,6 +42,16 @@
 ##---------------------------------------------------------------------------##
 
 package readmail;
+
+##---------------------------------------------------------------------------##
+##	Constants
+##
+
+##  Constants for use as second argument to MAILdecode_1522_str().
+sub JUST_DECODE() { 1; }
+sub DECODE_ALL()  { 2; }
+
+##---------------------------------------------------------------------------##
 
 ##---------------------------------------------------------------------------##
 ##	Scalar Variables
@@ -279,14 +289,15 @@ $FormatHeaderFunc		= undef
 ##
 ##	Usage:
 ##
-##	    $ret_data = &MAILdecode_1522_str($str, $justdecode);
+##	    $ret_data = &MAILdecode_1522_str($str, $decoding_flag);
 ##
-##	If $justdecode is non-zero, $str will be decoded for only
-##	the charsets specified as "-decode-".
+##	If $decoding_flag is JUST_DECODE, $str will be decoded for only
+##	the charsets specified as "-decode-".  If it is equal to
+##	DECODE_ALL, all encoded data is decoded without any conversion.
 ##
 sub MAILdecode_1522_str {
     my($str) = shift;
-    my($justdecode) = shift;
+    my($decoding_flag) = shift;
     my($charset,
        $lcharset,
        $encoding,
@@ -322,7 +333,7 @@ sub MAILdecode_1522_str {
 	}
 
 	# Convert before (unencoded) text
-	if ($justdecode) {				# ignore if just decode
+	if ($decoding_flag) {				# ignore if just decode
 	    $ret .= $str_before;
 	} elsif (defined(&$plaincnv)) {			# decode and convert
 	    $ret .= &$plaincnv($str_before,'');
@@ -335,16 +346,20 @@ sub MAILdecode_1522_str {
 
 	# Convert encoded text
 	($lcharset = $charset) =~ tr/A-Z/a-z/;
-	$charcnv = &load_charset($lcharset);
-	$charcnv = $defcharcnv  unless $charcnv;
+	if ($decoding_flag == DECODE_ALL) {
+	    $charcnv = '-decode-';
+	} else {
+	    $charcnv = &load_charset($lcharset);
+	    $charcnv = $defcharcnv  unless $charcnv;
+	}
 
 	# Decode only
-	if ($charcnv eq "-decode-") {
+	if ($charcnv eq '-decode-') {
 	    $strtxt =~ s/_/ /g;
 	    $ret .= &$dec($strtxt);
 
 	# Ignore if just decoding
-	} elsif ($justdecode) {
+	} elsif ($decoding_flag) {
 	    $ret .= "=?$charset?$encoding?$strtxt?=";
 
 	# Decode and convert
@@ -364,7 +379,7 @@ sub MAILdecode_1522_str {
     }
 
     # Convert left-over unencoded text
-    if ($justdecode) {				# ignore if just decode
+    if ($decoding_flag) {			# ignore if just decode
 	$ret .= $str;
     } elsif (defined(&$plaincnv)) {		# decode and convert
 	$ret .= &$plaincnv($str,'');
@@ -713,7 +728,7 @@ sub MAILread_header {
 	}
 
 	## Decode text if requested
-	$tmp = &MAILdecode_1522_str($tmp,1)  if $DecodeHeader;
+	$tmp = &MAILdecode_1522_str($tmp,JUST_DECODE)  if $DecodeHeader;
 
 	## Check for continuation of a field
 	if ($tmp =~ s/^\s//) {
@@ -757,7 +772,7 @@ sub MAILread_file_header {
 	$tmp =~ s/[\r\n]//g;
 
 	## Decode text if requested
-	$tmp = &MAILdecode_1522_str($tmp,1)  if $DecodeHeader;
+	$tmp = &MAILdecode_1522_str($tmp,JUST_DECODE)  if $DecodeHeader;
 
 	## Check for continuation of a field
 	if ($tmp =~ s/^\s//) {
@@ -821,6 +836,7 @@ sub MAILhead_get_disposition {
 	    ($filename = $1) =~ s/;\s*$//g;
 	}
     }
+    $filename = MAILdecode_1522_str($filename, DECODE_ALL);
     $filename =~ s%.*[/\\:]%%;	# Remove any path component
     $filename =~ s/^\s+//;	# Remove leading whitespace
     $filename =~ s/\s+$//;	# Remove trailing whitespace

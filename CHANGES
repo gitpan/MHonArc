@@ -13,6 +13,17 @@
 
 YYYY/MM/DD
 ============================================================================
+2002/06/18	(2.5.6)
+
+* Bug Fixes: See
+    <http://savannah.gnu.org/bugs/index.php?group_id=1968
+     &set=custom&advsrch=0&msort=0&report_id=105&go_report=Go
+     &fix_release=2.5.6&chunksz=50>
+
+* Added NOSUBJECTTXT resource: Defines raw subject text to use
+  for messages that do not have a subject.
+
+============================================================================
 2002/05/28	(2.5.5)
 
 * Bug Fixes: See
@@ -1984,4 +1995,4 @@ YYYY/MM/DD
 
 =======================================================================
 Earl Hood, mhonarc@mhonarc.org
-$Id: CHANGES,v 1.68 2002/05/28 05:11:34 ehood Exp $
+$Id: CHANGES,v 1.70 2002/06/18 17:54:50 ehood Exp $
