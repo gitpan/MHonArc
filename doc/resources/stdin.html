@@ -1,16 +1,16 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
 <html>
 <head>
-<title>MHonArc Resources: SINGLE</title>
+<title>MHonArc Resources: STDIN</title>
 </head>
 <body>
 
 <address>
-<a href="../resources.html#single">MHonArc Resource List</a>
+<a href="../resources.html#stdin">MHonArc Resource List</a><br>
 </address>
 
 <hr>
-<h1>SINGLE</h1>
+<h1>STDIN</h1>
 
 <!-- *************************************************************** -->
 <hr>
@@ -29,8 +29,8 @@
 </dd>
 
 <dt><strong>Command-line Option</strong><dt>
-<dd><p>
-<code>-single</code>
+<dd><p><br>
+<code>-stdin <var>filename</var></code>
 </p>
 </dd>
 
@@ -40,18 +40,20 @@
 <hr>
 <h2>Description</h2>
 
-<p>When SINGLE is on, MHonArc will interpret input
-as a single message to convert to HTML with no archive
-processing performed.  Input can specified as a filename on the command-line
-or from standard input.  The converted message is sent to
-standard output.
+<p>STDIN can be used to specify a file to treat as standard input.
+</p>
+
+<p>Note, most system shells (Unix) provide the ability to redirect
+standard input from a file or other process. STDIN is provided where such
+functionality is not available or easy to achieve.
 </p>
 
 <!-- *************************************************************** -->
 <hr>
 <h2>Default Setting</h2>
 
-<p>N/A
+<p>The default location of standard input, which is usually the
+terminal.
 </p>
 
 <!-- *************************************************************** -->
@@ -65,27 +67,23 @@ standard output.
 <hr>
 <h2>Examples</h2>
 
-<DL>
-<DT>Input from standard input:
- 
-<DD>
-<tt>% <b>mhonarc -single &lt; messagefile &gt; file.html</b></tt><br>
-or,<br>
-<tt>% <b>cat messagefile | mhonarc -single &gt; file.html</b></tt> 
-</DL>
- 
-<DL>
-<DT>Filename on command-line:
- 
-<DD>
-<tt>% <b>mhonarc -single messagefile &gt; file.html</b></tt> 
-</DL>
+<p>One way to perform an <a href="add.html">ADD</a> operation for
+a single message is something like the following:
+</p>
+<pre>
+    shell&gt; <b>mhonarc -add -outdir /path/to/archive -stdin mesg.822</b>
+</pre>
+<p>However, any decent shell would allow:
+</p>
+<pre>
+    shell&gt; <b>mhonarc -add -outdir /path/to/archive &lt; mesg.822</b>
+</pre>
 
 <!-- *************************************************************** -->
 <hr>
 <h2>Version</h2>
 
-<p>1.0
+<p>2.4.2
 </p>
 
 <!-- *************************************************************** -->
@@ -93,16 +91,18 @@ or,<br>
 <h2>See Also</h2>
 
 <p>
+<a href="stderr.html">STDERR</a>,
+<a href="stdout.html">STDOUT</a>
 </p>
 
 <!-- *************************************************************** -->
 <hr>
 <address>
-99/08/08 23:14:31<br>
+99/08/08 23:14:32<br>
 <img align="top" src="../monicon.gif" alt="">
 <a href="http://www.pobox.com/~ehood/mhonarc.html"
 ><strong>MHonArc</strong></a><br>
-Copyright &#169; 1997-1998, <a href="http://www.pobox.com/~ehood/"
+Copyright &#169; 1999, <a href="http://www.pobox.com/~ehood"
 >Earl Hood</a>, <a href="mailto:mhonarc@pobox.com"
 >mhonarc@pobox.com</a><br>
 </address>

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhrcvars.pl 2.7 99/07/25 02:03:42
+##	@(#) mhrcvars.pl 2.8 99/08/08 20:01:37
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -452,6 +452,10 @@ sub replace_li_var {
     	if ($var eq 'DOCURL') {
 	    $isurl = 0;
 	    $tmp = $DOCURL;
+	    last REPLACESW;
+	}
+	if ($var eq 'ENV') {
+	    $tmp = htmlize($ENV{$arg});
 	    last REPLACESW;
 	}
     	if ($var eq 'GMTDATE') {

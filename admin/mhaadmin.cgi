@@ -1,7 +1,7 @@
 #!/usr/local/bin/perl
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhaadmin.cgi 1.1 99/06/25 13:34:58
+##	@(#) mhaadmin.cgi 1.2 99/08/11 22:16:37
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -38,7 +38,10 @@ use CGI::Carp;
 use vars qw( $JSMenuBar $JSIndexPage $JSMesgPage );
 BEGIN: {
     jscript_define();
+    $ENV{'M2H_USELOCALTIME'} = 1;
 }
+
+my $Debug = 0;  # set to 1 for debug mode, messages sent to server log
 
 my $Rc;
 my $menulogo;
@@ -48,15 +51,30 @@ my $action;
 my $archive;
 my $pagesize;
 
+my @body_attr = (
+    '-bgcolor'	=> "#dddddd",
+    '-text'	=> "#000000",
+    '-link'	=> "#0000ee",
+    '-vlink'	=> "#551a8b",
+    '-alink'	=> "#ff0000",
+);
+
 MAIN: {
     $Rc = require 'mhaadmin.rc' or
 	croak qq/Error: Unable to require resource file\n/;
 
+    if ($Debug) { warn '@INC=', join(':', @INC), "\n"; }
+
     $menulogo	= "$Rc->{'iconurl'}/mhaicon.gif";
     $noteicon	= "$Rc->{'iconurl'}/mhanote_s.gif";
 
+    $ENV{'M2H_LOCKMETHOD'} = $Rc->{'lockmethod'}
+	if defined($Rc->{'lockmethod'});
+
     ## Load main MHonArc library
-    require 'mhamain.pl'  || croak qq/Error: Unable to require "mhamain.pl"\n/;
+    require 'mhamain.pl';
+    if ($Debug) { warn qq/MHonArc version = $mhonarc::VERSION\n/; }
+    if ($Debug) { warn qq/lockmethod = $ENV{'M2H_LOCKMETHOD'}\n/; }
 
     ## Initialize CGI environment
     $query 	= new CGI;
@@ -74,6 +92,8 @@ MAIN: {
 
     ## Get action
     $action	= $query->param('action');
+
+    if ($Debug) { warn qq/(archive=$archive, action=$action)/; }
 
     ## Check if deleting messages
     if ($action eq 'delete') {
@@ -116,12 +136,14 @@ MAIN: {
 ##	menubar frame.
 ##
 sub do_menu_bar {
+    if ($Debug) { warn qq/do_menu_bar/; }
+
     print $query->header(
 		    '-target'	=> 'mhaMenuBar');
     print $query->start_html(
 		    '-title'	=> 'MHonArc Admin: Menubar',
 		    '-script'	=> $JSMenuBar,
-		    '-bgcolor'	=> '#FFFFFF');
+		    @body_attr);
     print $query->startform(
 		    '-name'	=> 'menuBarForm',
 		    '-method'	=> 'post',
@@ -138,6 +160,8 @@ sub do_menu_bar {
 ##	the main window frame.
 ##
 sub do_index {
+    if ($Debug) { warn qq/do_index/; }
+
     my $page	 = $query->param('page');
     my $pagenum	 = $query->param('pagenum');
     my $pagesize = $query->param('pagesize') || 50;
@@ -151,7 +175,7 @@ sub do_index {
     print $query->start_html(
 		    '-title'	=> 'MHonArc Admin: Message Index',
 		    '-script'	=> $JSIndexPage,
-		    '-bgcolor'	=> '#FFFFFF');
+		    @body_attr);
     #print $query->dump;
 
     print $query->startform(
@@ -238,6 +262,8 @@ sub do_index {
 ##	message view frame/window.
 ##
 sub do_mesg_view {
+    if ($Debug) { warn qq/do_mesg_view/; }
+
     my %dup	= ();
     my @msgnum	= grep { /\S/ && ($dup{$_}++ < 1 ) }
 		       $query->param('msgnum');
@@ -248,7 +274,8 @@ sub do_mesg_view {
     print $query->start_html(
 		    '-title'	=> "MHonArc Admin: Message View",
 		    '-script'	=> $JSMesgPage,
-		    '-bgcolor'	=> '#FFFFFF');
+		    '-onload'	=> 'window.focus();',
+		    @body_attr);
     print $query->startform(
 		    '-name'	=> 'listForm',
 		    '-method'	=> 'post',
@@ -455,7 +482,7 @@ EOT
 	$col[3] = '<td><small><b>$SUBJECTNA$</b></small></td>';
     } else {
 	$colheads = '<th>Date</th><th>From</th><th>Subject</th></tr>';
-	$col[1] = '<td align=center><small>$MSGLOCALDATE(%H:%M)$</small></td>';
+	$col[1] = '<td align=center><small>$MSGLOCALDATE(;%H:%M)$</small></td>';
 	$col[2] = '<td><small>$FROMNAME$</small></td>';
 	$col[3] = '<td><small><b>$SUBJECTNA$</b></small></td>';
     }
@@ -501,7 +528,7 @@ EOT
     $mhonarc::DAYBEG	 =<<EOT;
 <tr><th align=left bgcolor="#88BBFF" colspan=$colcnt>
 <input type=checkbox name=msgnum value="" onClick="checkGroup(this);">
-\$MSGLOCALDATE(%B %d, %Y)\$</th><tr>
+\$MSGLOCALDATE(;%B %d, %Y)\$</th><tr>
 EOT
     $mhonarc::DAYEND	 =<<EOT;
 <input type=hidden name="endGroup" value="">
@@ -574,7 +601,7 @@ EOT
 
     $mhonarc::TSINGLETXT =<<EOT;
 <table border=0 width="100%" cellpadding=0>
-<tr valign=top bgcolor="#FFFFFF">
+<tr valign=top bgcolor="#EEEEEE">
 <td><small><input type=checkbox name=msgnum value="\$MSGNUM\$"
 ><a \$A_NAME\$>\$NOTEICON\$</a><b><a
 href="javascript:open_mesg_view('$cgiurl&action=show&msgnum=\$MSGNUM\$')"
@@ -663,7 +690,8 @@ sub print_main_menus {
 EOT
 
     my $i = 1;
-    foreach (sort keys %{$Rc->{archive}}) {
+    foreach (sort { $Rc->{archive}{$a}[0] cmp $Rc->{archive}{$b}[0] }
+		  keys %{$Rc->{archive}}) {
 	print qq(<option value="arch:$_">$i: ),
 	      $Rc->{archive}{$_}[0],
 	      qq(</option>\n);

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhinit.pl 2.13 99/07/25 02:02:56
+##	@(#) mhinit.pl 2.15 99/08/09 23:12:52
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -26,8 +26,6 @@
 ##---------------------------------------------------------------------------##
 
 package mhonarc;
-
-no strict;
 
 ##---------------------------------------------------------------------------##
 
@@ -401,25 +399,25 @@ $NoteDir	= $ENV{'M2H_NOTEDIR'} 		|| 'notes';
 $LockMethod 	= $ENV{'M2H_LOCKMETHOD'}	|| 'directory';
 $LockMethod	= set_lock_mode($LockMethod);
 
-$CONLEN      = defined($ENV{'M2H_CONLEN'})    ?  $ENV{'M2H_CONLEN'}    : 0;
-$MAIN        = defined($ENV{'M2H_MAIN'})      ?  $ENV{'M2H_MAIN'}      : 1;
-$MULTIIDX    = defined($ENV{'M2H_MULTIPG'})   ?  $ENV{'M2H_MULTIPG'}   : 0;
-$MODTIME     = defined($ENV{'M2H_MODTIME'})   ?  $ENV{'M2H_MODTIME'}   : 0;
-$NODOC       = defined($ENV{'M2H_DOC'})       ? !$ENV{'M2H_DOC'}       : 0;
-$NOMAILTO    = defined($ENV{'M2H_MAILTO'})    ? !$ENV{'M2H_MAILTO'}    : 0;
-$NoMsgPgs    = defined($ENV{'M2H_MSGPGS'})    ? !$ENV{'M2H_MSGPGS'}    : 0;
-$NONEWS      = defined($ENV{'M2H_NEWS'})      ? !$ENV{'M2H_NEWS'}      : 0;
-$NOSORT      = defined($ENV{'M2H_SORT'})      ? !$ENV{'M2H_SORT'}      : 0;
-$NOURL       = defined($ENV{'M2H_URL'})       ? !$ENV{'M2H_SORT'}      : 0;
-$REVSORT     = defined($ENV{'M2H_REVSORT'})   ?  $ENV{'M2H_REVSORT'}   : 0;
-$SUBSORT     = defined($ENV{'M2H_SUBSORT'})   ?  $ENV{'M2H_SUBSORT'}   : 0;
-$AUTHSORT    = defined($ENV{'M2H_AUTHSORT'})  ?  $ENV{'M2H_AUTHSORT'}  : 0;
-$THREAD      = defined($ENV{'M2H_THREAD'})    ?  $ENV{'M2H_THREAD'}    : 1;
-$TNOSORT     = defined($ENV{'M2H_TSORT'})     ? !$ENV{'M2H_TSORT'}     : 0;
-$TREVERSE    = defined($ENV{'M2H_TREVERSE'})  ?  $ENV{'M2H_TREVERSE'}  : 0;
-$TSUBSORT    = defined($ENV{'M2H_TSUBSORT'})  ?  $ENV{'M2H_TSUBSORT'}  : 0;
-$GzipFiles   = defined($ENV{'M2H_GZIPFILES'}) ?  $ENV{'M2H_GZIPFILES'} : 0;
-$GzipLinks   = defined($ENV{'M2H_GZIPLINKS'}) ?  $ENV{'M2H_GZIPLINKS'} : 0;
+$CONLEN      = defined($ENV{'M2H_CONLEN'})    ?  $ENV{'M2H_CONLEN'}	: 0;
+$MAIN        = defined($ENV{'M2H_MAIN'})      ?  $ENV{'M2H_MAIN'}	: 1;
+$MULTIIDX    = defined($ENV{'M2H_MULTIPG'})   ?  $ENV{'M2H_MULTIPG'}	: 0;
+$MODTIME     = defined($ENV{'M2H_MODTIME'})   ?  $ENV{'M2H_MODTIME'}	: 0;
+$NODOC       = defined($ENV{'M2H_DOC'})       ? !$ENV{'M2H_DOC'}	: 0;
+$NOMAILTO    = defined($ENV{'M2H_MAILTO'})    ? !$ENV{'M2H_MAILTO'}	: 0;
+$NoMsgPgs    = defined($ENV{'M2H_MSGPGS'})    ? !$ENV{'M2H_MSGPGS'}	: 0;
+$NONEWS      = defined($ENV{'M2H_NEWS'})      ? !$ENV{'M2H_NEWS'}	: 0;
+$NOSORT      = defined($ENV{'M2H_SORT'})      ? !$ENV{'M2H_SORT'}	: 0;
+$NOURL       = defined($ENV{'M2H_URL'})       ? !$ENV{'M2H_URL'}	: 0;
+$REVSORT     = defined($ENV{'M2H_REVSORT'})   ?  $ENV{'M2H_REVSORT'}	: 0;
+$SUBSORT     = defined($ENV{'M2H_SUBSORT'})   ?  $ENV{'M2H_SUBSORT'}	: 0;
+$AUTHSORT    = defined($ENV{'M2H_AUTHSORT'})  ?  $ENV{'M2H_AUTHSORT'}	: 0;
+$THREAD      = defined($ENV{'M2H_THREAD'})    ?  $ENV{'M2H_THREAD'}	: 1;
+$TNOSORT     = defined($ENV{'M2H_TSORT'})     ? !$ENV{'M2H_TSORT'}	: 0;
+$TREVERSE    = defined($ENV{'M2H_TREVERSE'})  ?  $ENV{'M2H_TREVERSE'}	: 0;
+$TSUBSORT    = defined($ENV{'M2H_TSUBSORT'})  ?  $ENV{'M2H_TSUBSORT'}	: 0;
+$GzipFiles   = defined($ENV{'M2H_GZIPFILES'}) ?  $ENV{'M2H_GZIPFILES'}	: 0;
+$GzipLinks   = defined($ENV{'M2H_GZIPLINKS'}) ?  $ENV{'M2H_GZIPLINKS'}	: 0;
 $UseLocalTime= defined($ENV{'M2H_USELOCALTIME'}) ? 
 		       $ENV{'M2H_USELOCALTIME'} : 0;
 $NoSubjectThreads = defined($ENV{'M2H_SUBJECTTHREADS'}) ?

@@ -1,8 +1,9 @@
 INSTALL for MHonArc
 ===================
-<URL:http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
+<http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
 
 ---------------------------------------------------------------------------
+
 Using/Copying
 
     MHonArc is distributed under the GNU General Public License (GPL).
@@ -19,10 +20,14 @@ Table of Contents
    * Downloading MHonArc
    * Extracting the MHonArc Distribution
    * Installing with install.me
+        o install.me Notes
    * The Perl 5 Way
    * Win32 Notes
    * Alternate Operating Systems
    * Manual Installation
+   * Post Installation Configuration
+        o Default Resource File
+        o Site Initialization Library
    * Resource File Editing
 
 ----------------------------------------------------------------------------
@@ -66,13 +71,8 @@ familiar with Comprehensive Perl Archive Network (CPAN), MHonArc can be
 downloaded from <http://www.perl.com/CPAN/authors/id/EHOOD/>.
 
 MHonArc is distributed in either a tar/gzip file or a zip file. The tar/gzip
-file will have a name like MHonArc2.4.0.tar.gz, and the zip file have a name
-like MHonArc2.4.0.zip.
-
- NOTE The version number included in the filename may differ from what is
-      listed here. Hopefully, the version number shown in the copy you have
-      is equal, or greater, to the one used here in this document. If the
-      version number you have is older, please download a newer release.
+file will have a name like MHonArcX.X.X.tar.gz, and the zip file have a name
+like MHonArcX.X.X.zip; where X.X.X represents the version number.
 
 Alternate distribution formats for MHonArc may be available, like Linux RPM.
 Alternate distribution formats are not covered in this document.
@@ -85,7 +85,7 @@ After downloading MHonArc, it is best to move the file to a temporary
 location for extraction. To extract a tar/gzip distribution, use the
 following command:
 
-    shell> gzip -dc MHonArc2.4.0.tar.gz | tar xvf -
+    shell> gzip -dc MHonArcX.X.X.tar.gz | tar xvf -
 
 To extract the zip distribution, you can use a program like WinZip, or any
 other program that supports zip archives. When extracting, make sure to
@@ -93,15 +93,14 @@ preserve the directory structure.
 
  NOTE WinZip does support tar/gzip files.
 
-After extraction, the subdirectory MHonArc2.4.0 will have been created
-(remember, the version number shown here may differ from what you have)
+After extraction, the subdirectory MHonArcX.X.X will have been created
 containing all the files comprising MHonArc.
 
  IMPORTANT Please read the file RELNOTES included in the MHonArc
            distribution before continuing for any news about compatibility
            with previous versions and/or important usage information.
 
-You will now want to change your current directory to MHonArc2.4.0 for the
+You will now want to change your current directory to MHonArcX.X.X for the
 next step.
 
 ----------------------------------------------------------------------------
@@ -214,7 +213,7 @@ Win32 Notes
    * The main programs will also be copied to ".pl" files. Therefore, if you
      have .pl associated with Perl in the registry, you can invoke the
      programs directly (if the path location of the main programs are in
-     your search page). For example:
+     your search path). For example:
 
          shell> mhonarc.pl ...
 
@@ -266,10 +265,41 @@ install MHonArc manually:
 
 ----------------------------------------------------------------------------
 
+Post Installation Configuration
+
+After installation, you may want to do some site-specific configuration.
+
+Default Resource File
+
+You have the ability to create a default resource file to make site-wide
+defaults for MHonArc. The name of the resource file should be mhonarc.rc and
+should be placed in the MHonArc library directory as specified during
+installation. For more information on what can be put in a resource file,
+see the Resources section.
+
+ NOTE It is advisable to create some local documentation for users
+      describing any settings you place in the site-wide resource file.
+      This will avoid confusion if site settings vary from default settings
+      described in the documentation, and it will help avoid invalid bug
+      reports.
+
+Site Initialization Library
+
+If you do not know Perl, ignore this section.
+
+When MHonArc opens an archive for processing, MHonArc will attempt to
+execute the instructions in the file mhasiteinit.pl. This file allows you to
+make site customizations not possible through a default resource file.
+mhasiteinit.pl should be placed in the MHonArc library directory as
+specified during installation. A sample mhasiteinit.pl file is provied in
+the examples directory of the distribution to get you started.
+
+----------------------------------------------------------------------------
+
 Resource File Editing
 
 If you are a Vim user, <http://www.vim.org/>, a syntax file for MHonArc
-resource files is included in the examples directory (mhonarc.vim). Vim is
+resource files is included in the examples directory: mhonarc.vim. Vim is
 known to run on a variety of operating systems, and is free software.
 
 To use mhonarc.vim, copy mhonarc.vim to an appropriate location and add

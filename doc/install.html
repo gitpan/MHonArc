@@ -8,7 +8,7 @@
 
 <!--X-NavButtons-Start-->
 <p align=center>
-<a href="intro.html"><img src="prev.gif" border=0 alt="[Prev]"></a><a href="quickstart.html"><img src="next.gif" border=0 alt="[Next]"></a><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"><img src="home.gif" border=0 alt="[Home]"></a>
+<a href="intro.html"><img src="prev.gif" border=0 alt="[Prev]"></a><a href="quickstart.html"><img src="next.gif" border=0 alt="[Next]"></a><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"><img src="home.gif" border=0 alt="[Home]"></a>
 </p>
 <!--X-NavButtons-End-->
 <HR>
@@ -21,21 +21,29 @@ system.
 
 <!--X-TOC-Start-->
 <ul>
-<li><a href="#">System Requirements</a></li>
+<li><a href="#sysreqs">System Requirements</a></li>
 <li><a href="#download">Downloading MHonArc</a></li>
 <li><a href="#extraction">Extracting the MHonArc Distribution</a></li>
 <li><a href="#installingviainstallme">Installing with <tt>install.me</tt></a></li>
+<ul>
+<li><small><a href="#installmenotes"><tt>install.me</tt> Notes</a></small></li>
+</ul>
 <li><a href="#p5install">The Perl 5 Way</a></li>
 <li><a href="#win32">Win32 Notes</a></li>
 <li><a href="#altos">Alternate Operating Systems</a></li>
 <li><a href="#manual">Manual Installation</a></li>
+<li><a href="#postinstall">Post Installation Configuration</a></li>
+<ul>
+<li><small><a href="#siterc">Default Resource File</a></small></li>
+<li><small><a href="#sitelib">Site Initialization Library</a></small></li>
+</ul>
 <li><a href="#rcfileedit">Resource File Editing</a></li>
 </ul>
 <!--X-TOC-End-->
 
 <!-- *************************************************************** -->
 <hr>
-<h2><a name"sysreqs">System Requirements</a></h2>
+<h2><a name="sysreqs">System Requirements</a></h2>
 
 <p>The following is required inorder to use MHonArc:
 </p>
@@ -93,21 +101,10 @@ familiar with
 </p>
 
 <p>MHonArc is distributed in either a tar/gzip file or a zip file.  The
-tar/gzip file will have a name like <tt>MHonArc2.4.0.tar.gz</tt>, and
-the zip file have a name like <tt>MHonArc2.4.0.zip</tt>.
+tar/gzip file will have a name like <tt>MHonArc<var>X.X.X</var>.tar.gz</tt>,
+and the zip file have a name like <tt>MHonArc<var>X.X.X</var>.zip</tt>;
+where <tt><var>X.X.X</var></tt> represents the version number.
 </p>
-<table border=0 cellpadding=4>
-<tr valign=top>
-<td><strong>NOTE</strong></td>
-<td><p>The version number included in the filename may differ from
-what is listed here.  Hopefully, the version number shown in the
-copy you have is equal, or greater, to the one used here in this
-document.  If the version number you have is older, please download
-a newer release.
-</p>
-</td>
-</tr>
-</table>
 <p>Alternate distribution formats for MHonArc may be available, like
 Linux RPM.  Alternate distribution formats are not covered in this
 document.
@@ -122,7 +119,7 @@ temporary location for extraction.  To extract a tar/gzip distribution,
 use the following command:
 </p>
 <pre>
-    shell&gt; <b>gzip -dc MHonArc2.4.0.tar.gz | tar xvf -</b>
+    shell&gt; <b>gzip -dc MHonArc<var>X.X.X</var>.tar.gz | tar xvf -</b>
 </pre>
 <p>To extract the zip distribution, you can use a program like WinZip,
 or any other program that supports zip archives.  When extracting, make
@@ -136,9 +133,8 @@ sure to preserve the directory structure.
 </td>
 </tr>
 </table>
-<p>After extraction, the subdirectory <tt>MHonArc2.4.0</tt> will have
-been created (remember, the version number shown here may differ from
-what you have) containing all the files comprising MHonArc.
+<p>After extraction, the subdirectory <tt>MHonArc<var>X.X.X</var></tt> will
+have been created containing all the files comprising MHonArc.
 </p>
 <table border=0 cellpadding=4>
 <tr valign=top>
@@ -151,7 +147,7 @@ with previous versions and/or important usage information.
 </tr>
 </table>
 <p>You
-will now want to change your current directory to <tt>MHonArc2.4.0</tt>
+will now want to change your current directory to <tt>MHonArc<var>X.X.X</var></tt>
 for the <a href="#installingfiles">next step</a>.
 </p>
 
@@ -309,7 +305,7 @@ your PATH, also.
 <li><p>The main programs will also be copied to "<tt>.pl</tt>" files.
 Therefore, if you have <tt>.pl</tt> associated with Perl in the registry, you
 can invoke the programs directly (if the path location of the
-main programs are in your search page).  For example:
+main programs are in your search path).  For example:
 </p><pre>
     shell&gt; <b>mhonarc.pl ...</b>
 </pre>
@@ -320,10 +316,10 @@ I/O redirection does not work when invoking a batch file.
 </p>
 </li>
 <li><p>In the logo/ directory of the distribution is a BMP file
-<tt>mhaicon.bmp</tt>.  You can copy the image into your Windows Icon
+<b><tt>mhaicon.bmp</tt></b>.  You can copy the image into your Windows Icon
 directory.  Then through the file types editor of the file
-explorer, you can specify <tt>mhaicon.bmp</tt> as the icon for MHonArc
-resource (<tt>.mrc</tt>) files.
+explorer, you can specify <b><tt>mhaicon.bmp</tt></b> as the icon for MHonArc
+resource (<b><tt>.mrc</tt></b>) files.
 </p>
 </li>
 </ul>
@@ -380,12 +376,62 @@ you do not need to add the "use lib" statement.
 
 <!-- *************************************************************** -->
 <hr>
+<h2><a name="postinstall">Post Installation Configuration</a></h2>
+
+<p>After installation, you may want to do some site-specific
+configuration.
+</p>
+
+<h3><a name="siterc">Default Resource File</a></h3>
+
+<p>You have the ability to create a default
+<a href="resources/rcfile.html">resource file</a>
+to make site-wide defaults for MHonArc.  The name of the
+resource file should be <b><tt>mhonarc.rc</tt></b> and should
+be placed in the MHonArc library directory as specified during
+installation.  For more information on what can be put in
+a resource file, see the
+<a href="resources.html">Resources</a> section.
+</p>
+<table border=0 cellpadding=4>
+<tr valign=top>
+<td><strong>NOTE</strong></td>
+<td><p>It is advisable to create some local documentation for
+users describing
+any settings you place in the site-wide resource file.
+This will avoid confusion if site settings vary from default settings
+described in the documentation, and it will help avoid invalid bug
+reports.
+</p>
+</td>
+</tr>
+</table>
+
+<h3><a name="sitelib">Site Initialization Library</a></h3>
+
+<p>If you do not know Perl, ignore this section.
+</p>
+<p>When MHonArc opens an archive for processing, MHonArc
+will attempt to execute the instructions in the file
+<b><tt>mhasiteinit.pl</tt></b>.  This file allows you
+to make site customizations not possible through a
+<a href="#siterc">default resource file</a>.
+<b><tt>mhasiteinit.pl</tt></b> should be placed in the
+MHonArc library directory as specified during installation.
+A sample <b><tt>mhasiteinit.pl</tt></b> file is provied in the
+<b><tt>examples</tt></b> directory of the distribution to get you
+started.
+</p>
+
+<!-- *************************************************************** -->
+<hr>
 <h2><a name="rcfileedit">Resource File Editing</a></h2>
 
 <p>If you are a Vim user,
 <a href="http://www.vim.org/">&lt;http://www.vim.org/&gt;</a>, a syntax file
-for MHonArc resource files is included in the examples directory
-(<tt>mhonarc.vim</tt>).  Vim is known to run on a variety of operating systems,
+for MHonArc resource files is included in the examples directory:
+<b><tt>mhonarc.vim</tt></b>.
+Vim is known to run on a variety of operating systems,
 and is free software.
 </p>
 
@@ -408,14 +454,14 @@ color-capable terminals.
 <HR>
 <!--X-NavButtons-Start-->
 <p align=center>
-<a href="intro.html"><img src="prev.gif" border=0 alt="[Prev]"></a><a href="quickstart.html"><img src="next.gif" border=0 alt="[Next]"></a><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"><img src="home.gif" border=0 alt="[Home]"></a>
+<a href="intro.html"><img src="prev.gif" border=0 alt="[Prev]"></a><a href="quickstart.html"><img src="next.gif" border=0 alt="[Next]"></a><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"><img src="home.gif" border=0 alt="[Home]"></a>
 </p>
 <!--X-NavButtons-End-->
 
 <!-- *************************************************************** -->
 <hr>
 <address>
-99/07/25 02:17:33<br>
+99/08/11 23:34:41<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.pobox.com/~ehood/mhonarc.html"
 ><strong>MHonArc</strong></a><br>

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhidxrc.pl 2.5 99/06/25 14:01:33
+##	@(#) mhidxrc.pl 2.6 99/08/08 20:01:19
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -277,8 +277,8 @@ unless (@DateFields) {
     $IsDefault{'DATEFIELDS'} = 1;
 }
 unless (@FromFields) {
-    @FromFields = ('from', 'reply-to', 'apparently-from', 'sender',
-		   'resent-sender');
+    @FromFields = ('from', 'reply-to', 'return-path', 'apparently-from',
+		   'sender', 'resent-sender');
     $IsDefault{'FROMFIELDS'} = 1;
 }
 

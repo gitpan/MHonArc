@@ -1,14 +1,44 @@
-		    Version History for MHonArc
-		    ===========================
-	<URL:http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
+		     Change History for MHonArc
+		     ==========================
+	  <http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
 
-Version history for MHonArc.  Changes listed are brief.  Consult
-the documentation for further information/clarification.  It is
-possible that not all changes are documented here.
+Change history for MHonArc.  Changes listed are brief.  Consult the
+documentation for further information/clarification.  It is possible
+that not all changes are documented here.
 
 MM/DD/YYYY
 =======================================================================
 #######################################################################
+=======================================================================
+08/11/1999	(2.4.2)
+
+    Enhancements/Changes
+    --------------------
+    o	Added the following resources:
+
+	    STDIN		Source for standard input
+
+    o	Added the following resource variables:
+
+	    $ENV$		Print an environment variable
+
+    o	Added support for decoding uuencoded data within text
+	messages in mhtxtplain.pl.  Decoding activated via the
+	"uudecode" option.
+
+    o	For processing time format strings, POSIX::strftime() is
+	used, if available.  If not, MHonArc implementation is
+	used.
+
+    o	The default value of FROMFIELDS now includes "return-path".
+
+    o	Description section moved before Options section in -help
+	message.
+
+    Bug Fixes
+    ---------
+    See BUGS.
+
 =======================================================================
 07/25/1999	(2.4.1)
 
@@ -23,7 +53,7 @@ MM/DD/YYYY
 
     o	Added the following resource variables:
 
-	    $HTMLEXT$	Value of HTMLEXT resource.
+	    $HTMLEXT$		Value of HTMLEXT resource.
 
     o	Documentation corrections an additions.
 
@@ -1579,5 +1609,5 @@ MM/DD/YYYY
 =======================================================================
 #######################################################################
 =======================================================================
-Earl Hood, mhonarc@bigfoot.com
-@(#) CHANGES 99/07/25 02:29:18
+Earl Hood, mhonarc@pobox.com
+@(#) CHANGES 99/08/11 23:43:10

@@ -80,17 +80,6 @@ resource.
 
 </DL>
 
-<table border=0 cellpadding=4>
-<tr valign=top>
-<td><strong>NOTE</strong></td>
-<td><p>For backwards compatibility, the values of a filter specification
-can be separated with a colon, "<tt>:</tt>".  However, if you use a colon,
-package qualification of a function must use Perl 4 syntax.
-</p>
-</td>
-</tr>
-</table>
-
 <P>Whitespace is stripped out for each filter specification.
 </P>
 
@@ -107,8 +96,7 @@ information assumes you know Perl.
 <td><p>The filter model follows Perl 4 syntax conventions
 and constructs.  This is because of historical reasons.
 Note, the implementation of the filter can use Perl 5
-syntax and features, where applicable, if running MHonArc
-under Perl 5.
+syntax and features, when applicable.
 </p>
 </td>
 </tr>
@@ -384,6 +372,14 @@ The double quotes are required.
 </p>
 </tr>
 <tr valign=top>
+<td><strong><tt>inlineexts=</tt></strong><var>ext1</var><tt>,</tt>...</td>
+<td><p>A comma separated list of message specified filename
+extensions to treat as possible inline data.
+Applicable when content-type is not <tt>image/</tt><var>*</var> and
+<b><tt>usename</tt></b> or <b><tt>usenameext</tt></b> is in effect.
+</p>
+</tr>
+<tr valign=top>
 <td><strong><tt>type="<var>description</var>"</tt></strong></td>
 <td><p>Use "<var>description</var>" as type description of the
 data.  The double quotes are required.
@@ -395,7 +391,7 @@ content-type not recognized by the filter.
 <tr valign=top>
 <td><strong><tt>subdir</tt></strong></td>
 <td><p>Place derived file in a subdirectory of the archive.
-The subdirectory will be called "<tt>msg<var>MSGNUM</var>.dir</tt>".
+The subdirectory will be called "<tt>msg<var>MSGNUM</var></tt>".
 This option may be useful if <strong><tt>usename</tt></strong> is
 specified to avoid security and name conflict problems.
 </p>
@@ -1350,6 +1346,13 @@ is defined for the message.  If option not specified,
 </p>
 </tr>
 <tr valign=top>
+<td><strong><tt>inlineexts=</tt></strong><var>ext1</var><tt>,</tt>...</td>
+<td><p>A comma separated list of message specified filename
+extensions to treat as inline data.
+Applicable only when <b><tt>uudecode</tt></b> is specified.
+</p>
+</tr>
+<tr valign=top>
 <td><strong><tt>keepspace</tt></strong></td>
 <td><p>Preserve all spaces if the <strong><tt>nonfixed</tt></strong>
 option is specified.  All spaces and tabs will be translated to the
@@ -1386,6 +1389,18 @@ of the message.
 <td><strong><tt>target=</tt></strong><var>name</var></td>
 <td><p>Set the TARGET attribute of an anchor links generated from
 hyperlinking URLs.
+</p>
+</tr>
+<tr valign=top>
+<td><strong><tt>uudecode</tt></strong></td>
+<td><p>Decode any embedded uuencoded data.  Including uuencoded data
+within messages was a way to trasmit binary data
+via email before MIME was developed.  The inclusion of uuencoded
+data is deprecated within email, but is still common in the
+USENET (binary) newsgroups.  Note, specifying <b><tt>uudecode</tt></b>
+adds extra
+overhead in the processing of text messages, including messages without
+any uuencoded data.
 </p>
 </tr>
 
@@ -1518,10 +1533,10 @@ sub addbase {
 <!-- *************************************************************** -->
 <hr>
 <address>
-99/07/25 02:14:37<br>
+99/08/08 23:14:29<br>
 <img align="top" src="../monicon.gif" alt="">
 <a href="http://www.pobox.com/~ehood/mhonarc.html"><strong>MHonArc</strong></a><br>
-Copyright &#169; 1997-1998 <a href="http://www.pobox.com/~ehood/">Earl Hood</a>, <a href="mailto:mhonarc@pobox.com">mhonarc@pobox.com</a><br>
+Copyright &#169; 1997-1999 <a href="http://www.pobox.com/~ehood/">Earl Hood</a>, <a href="mailto:mhonarc@pobox.com">mhonarc@pobox.com</a><br>
 </address>
 
 </body>

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhmsgfile.pl 1.3 99/07/25 02:08:53
+##	@(#) mhmsgfile.pl 1.4 99/08/04 23:14:15
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -32,8 +32,8 @@ package mhonarc;
 ##---------------------------------------------------------------------------##
 ## Dependent libraries:
 ##---------------------------------------------------------------------------##
-require ewhutil.pl;
-require mhtime.pl;
+require 'ewhutil.pl';
+require 'mhtime.pl';
 
 ##---------------------------------------------------------------------------##
 ##	parse_data_from_msg(): Function to parse the initial comment

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhamain.pl 2.15 99/07/26 00:00:24
+##	@(#) mhamain.pl 2.16 99/08/04 23:36:48
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -27,9 +27,7 @@
 
 package mhonarc;
 
-no strict;
-
-$VERSION = "2.4.1";
+$VERSION = "2.4.2";
 $VINFO =<<EndOfInfo;
   MHonArc v$VERSION (Perl $])
   Copyright (C) 1995-1999  Earl Hood, mhonarc\@pobox.com
@@ -215,7 +213,7 @@ sub doit {
 	if (!defined($NoteText)) {
 	    print STDOUT "Please enter note text (terminated with EOF char):\n"
 		unless $QUIET;
-	    $NoteText = join("", <STDIN>);
+	    $NoteText = join("", <$MhaStdin>);
 	}
 	return annotate(@ARGV, $NoteText);
     }
@@ -357,7 +355,7 @@ sub doit {
 	    ## UUCP mail box file
 	    } else {
 		if ($mbox eq "-") {
-		    $fh = 'STDIN';
+		    $fh = $MhaStdin;
 		} elsif (!($fh = &file_open($mbox))) {
 		    warn "\nWarning: Unable to open $mbox\n";
 		    next;

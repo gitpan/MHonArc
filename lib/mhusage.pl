@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhusage.pl 2.9 99/07/25 02:04:47
+##      @(#) mhusage.pl 2.11 99/08/10 00:52:13
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -30,15 +30,16 @@ package mhonarc;
 
 sub mhusage {
     my($usefh, $close);
-    PAGER: {
+    local(*PAGER);
+    PAGERCHECK: {
 	if ($UNIX &&
-	    (($ENV{'PAGER'} && open(USEPAGER, "| $ENV{'PAGER'}")) ||
-	     (open(USEPAGER, "| more")))) {
-	    $usefh = 'USEPAGER';
+	    (($ENV{'PAGER'} && open(PAGER, "| $ENV{'PAGER'}")) ||
+	     (open(PAGER, "| more")))) {
+	    $usefh = \*PAGER;
 	    $close = 1;
-	    last PAGER;
+	    last PAGERCHECK;
 	}
-	$usefh = 'STDOUT';
+	$usefh = \*STDOUT;
 	$close = 0;
     }
     my($curfh) = select($usefh);
@@ -47,6 +48,16 @@ sub mhusage {
 Usage:  $PROG [<options>] <mailfolder> ...
         $PROG -rmm [<options>] <msg> ...
         $PROG -annotate [-notetext <text>] <msg> ...
+
+Description:
+  MHonArc is a highly customizable Perl program for converting mail,
+  encoded with MIME, into HTML archives.  MHonArc supports the conversion
+  of UUCP-style mailbox files and MH style mail folders.  The -single
+  option can be used to convert a single mail message to standard output.
+
+  Read the full documentation included with the distribution for more
+  complete usage information.
+
 Options:
   -add                     : Add message(s) to archive
   -afs                     : Skip archive directory permission check
@@ -152,6 +163,7 @@ Options:
   -sort                    : Sort messages by date (the default)
   -spammode                : Obfuscate addresses
   -stderr <file>           : File to send stderr messages to
+  -stdin <file>            : File to treat as standard input
   -stdout <file>           : File to send stdout messages to
   -subjectarticlerxp <rxp> : Regex for leading articles in subjects
   -subjectreplyrxp <rxp>   : Regex for leading reply string in subjects
@@ -183,17 +195,8 @@ Options:
   -weekdays <list>         : Weekday names
   -weekdaysabr <list>      : Abbreviated weekday names
 
-Description:
-  MHonArc is a highly customizable Perl program for converting mail,
-  encoded with MIME, into HTML archives.  MHonArc supports the conversion
-  of UUCP-style mailbox files and MH style mail folders.  The -single
-  option can be used to convert a single mail message to standard output.
-
   The following options can be specified multiple times: -definevar,
   -notetext, -otherindex, -perlinc, -rcfile.
-
-  Read the full documentation included with the distribution for more
-  complete usage information.
 
 Version:
 $VINFO

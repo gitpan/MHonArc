@@ -1,12 +1,18 @@
+#!/usr/local/bin/perl
 ## mhaadmin.cgi resource file
 
 ## The syntax of this file is Perl.  mhaadmin.cgi will require this file
 ## at start-up.  This file should be in the same directory as mhaadmin.cgi.
 
-## Location of MHonArc (v2.3, or later) libraries
+## Location of MHonArc libraries
 use lib qw( /home/ehood/work/perl/MHonArc/lib );
 
 +{
+    ## Type of archive locking performed
+    ## ---------------------------------
+    'lockmethod' => 'directory',	# Directory file method (default)
+    #'lockmethod' => 'flock',		# Flock() method (use it if you can)
+
     ## Hash of archives to manage
     ## --------------------------
     'archive' 	=> {

@@ -56,7 +56,19 @@ followed a character that determines the type of conversion.
 <p>The following lists the possible conversion specifications:
 </p>
 
-<table border=0 cellspacing=1 cellpadding=4>
+<table border=0 cellpadding=4>
+<tr valign=top>
+<td><strong>NOTE</strong></td>
+<td><p>If your Perl installation contains the <b>POSIX</b> module,
+the <b>strftime()</b> function will be used.  Therefore, there may be
+more conversion specifications available.  See your system's
+<b>strftime()</b> manpage for specifics.
+</p>
+</td>
+</tr>
+</table>
+
+<table border=0 cellpadding=4>
 <tr valign=top>
 <th align=right>Spec</th>
 <th align=left>Value</th>
@@ -190,7 +202,7 @@ to the default setting.
 <!-- *************************************************************** -->
 <hr>
 <address>
-99/07/25 02:14:38<br>
+99/08/08 23:14:30<br>
 <img align="top" src="../monicon.gif" alt="">
 <a href="http://www.pobox.com/~ehood/mhonarc.html"><strong>MHonArc</strong></a><br>
 Copyright &#169; 1997-1998, <a href="http://www.pobox.com/~ehood/">Earl Hood</a>, <a href="mailto:mhonarc@pobox.com">mhonarc@pobox.com</a><br>

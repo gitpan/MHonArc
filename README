@@ -1,8 +1,8 @@
 ---------------------------------------------------------------------------
                             README for MHonArc
-                                 v2.4.1
+                                 v2.4.2
 
-          <URL:http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
+            <http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
 
 			 Copyright (C) 1995-1999
 		       Earl Hood, mhonarc@pobox.com
@@ -67,7 +67,8 @@ INSTALLATION
     about compatibility with previous versions and/or important
     usage information.
 
-    Read the file INSTALL for instructions on how to install MHonArc.
+    Read the file INSTALL, or load doc/install.html into your favorite
+    web client, for instructions on how to install MHonArc.
 
 ---------------------------------------------------------------------------
 DOCUMENTATION
@@ -83,6 +84,7 @@ DOCUMENTATION
 
     Some tables are used in the documentation.  Therefore, having
     a table-capable viewer is beneficial, but not essential.
+    Documentation is still readable in clients like Lynx.
 
 ---------------------------------------------------------------------------
 MAILING LIST
@@ -105,7 +107,7 @@ MAILING LIST
     to /dev/null.
 
     The WWW archive of the mailing list is located at
-    <URL:http://www.xray.mpe.mpg.de/mailing-lists/mhonarc/> and is
+    <http://www.xray.mpe.mpg.de/mailing-lists/mhonarc/> and is
     searchable via a Glimpse search engine.
 
 ---------------------------------------------------------------------------
@@ -113,7 +115,7 @@ BUGS/COMMENTS/SUGGESTIONS?
 
     If you have any bugs/comments/suggestions about MHonArc, you may
     send mail to the MHonArc mailing list,
-    <URL:mailto:mhonarc@ncsa.uiuc.edu>.
+    <mailto:mhonarc@ncsa.uiuc.edu>.
 
     NOTE: The author of MHonArc *IS* subscribed to the list.
 
@@ -146,4 +148,4 @@ BUGS/COMMENTS/SUGGESTIONS?
 
 ---------------------------------------------------------------------------
 Copyright (C) 1995-1999,		Earl Hood, mhonarc@pobox.com
-@(#) README 99/07/25 02:27:31
+@(#) README 99/08/11 23:43:10

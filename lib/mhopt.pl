@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhopt.pl 2.15 99/07/25 02:05:22
+##      @(#) mhopt.pl 2.16 99/08/04 23:42:43
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -145,6 +145,7 @@ sub get_resources {
 	"sort",		# Sort messages in increasing date order
 	"spammode",	# Run in (anti)spam mode
 	"stderr=s",	# Set file for stderr
+	"stdin=s",	# Set file for stdin
 	"stdout=s",	# Set file for stdout
 	"subjectarticlerxp=s",
 			# Regex for leading articles in subjects
@@ -186,19 +187,32 @@ sub get_resources {
     if ($opt{'help'}) 	{ &usage();   return 0; }
     if ($opt{'v'}) 	{ &version(); return 0; }
 
-    ## Check if stdout & stderr should go to files
+    ## Check std{in,out,err} options
     DUP: {
-	if (defined($opt{'stdout'})) {
-	    open(STDOUT, ">>$opt{'stdout'}") ||
-		die qq/ERROR: Unable to create "$opt{'stdout'}": $!\n/;
-	    if ($opt{'stderr'} eq $opt{'stdout'}) {
-		open(STDERR, ">&STDOUT") ||
-		    die qq/ERROR: Unable to dup STDOUT: $!\n/;
+	$MhaStdin = \*STDIN;
+	STDOUTERR: {
+	    if (defined($opt{'stdout'}) && !ref($opt{'stdout'})) {
+		open(STDOUT, ">>$opt{'stdout'}") ||
+		    die qq/ERROR: Unable to create "$opt{'stdout'}": $!\n/;
+		if ($opt{'stderr'} eq $opt{'stdout'}) {
+		    open(STDERR, ">&STDOUT") ||
+			die qq/ERROR: Unable to dup STDOUT: $!\n/;
+		    last STDOUTERR;
+		}
+	    }
+	    if (defined($opt{'stderr'}) && !ref($opt{'stderr'})) {
+		open(STDERR, ">>$opt{'stderr'}") ||
+		    die qq/ERROR: Unable to create "$opt{'stderr'}": $!\n/;
 	    }
 	}
-	if (defined($opt{'stderr'})) {
-	    open(STDERR, ">>$opt{'stderr'}") ||
-		die qq/ERROR: Unable to create "$opt{'stderr'}": $!\n/;
+	if (defined($opt{'stdin'})) {
+	    if (ref($opt{'stdin'})) {
+		$MhaStdin = $opt{'stdin'};
+	    } else {
+		open(STDIN, "<$opt{'stdin'}") ||
+		    die qq/ERROR: Unable to open "$opt{'stdin'}": $!\n/;
+		$MhaStdin = \*STDIN;
+	    }
 	}
 	my $curfh = select(STDOUT);  $| = 1;
 		    select(STDERR);  $| = 1;
@@ -343,7 +357,7 @@ sub get_resources {
 	if (!$IDXONLY) {
 	    if ($#ARGV < 0) { $ADDSINGLE = 1; }	# See if adding single mesg
 	    else { $ADDSINGLE = 0; }
-	    $ADD = 'STDIN';
+	    $ADD = $MhaStdin;
 	}
     }
     my($OldMULTIIDX) = $MULTIIDX;

@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtime.pl 2.5 99/07/25 02:04:05
+##	@(#) mhtime.pl 2.6 99/08/08 20:02:54
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -74,7 +74,7 @@ sub getdate {
 }
 
 ##---------------------------------------------------------------------------
-##	Convert a calander time to a string.  Similar to strftime(3).
+##	Convert a calander time to a string.
 ##
 sub time2str {
     my($fmt, $time, $local) = @_;
@@ -84,12 +84,22 @@ sub time2str {
     my($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) =
 	    ($local ? localtime($time) : gmtime($time));
 
+    POSIXMODCHK: {
+	eval { require POSIX; };
+	last  POSIXMODCHK  if ($@) || !defined(&POSIX::strftime);
+	return POSIX::strftime($fmt, $sec,$min,$hour,$mday,$mon,$year,
+				     $wday,$yday,$isdst);
+    }
+
+    ## Get here, we have to do it ourselves.
     my($yearfull, $hour12);
     $yearfull = $year + 1900;
     $hour12   = $hour > 12 ? $hour-12 : $hour;
 
     ## Format output
     if ($fmt =~ /\S/) {
+	$fmt =~ s/\%c/\%a \%b \%d \%H:\%M:\%S \%Y/g;
+
 	$fmt =~ s/\%a/$wdays[$wday]/g;
 	$fmt =~ s/\%A/$Wdays[$wday]/g;
 	$fmt =~ s/\%[bh]/$mons[$mon]/g;

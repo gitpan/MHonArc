@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxtplain.pl 2.5 99/06/25 15:07:07
+##	@(#) mhtxtplain.pl 2.6 99/08/08 20:03:43
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -44,21 +44,33 @@ $HQuoteChars	= '&gt;|[\|\]+:]';
 ##	Text/plain filter for mhonarc.  The following filter arguments
 ##	are recognized ($args):
 ##
-##	    asis=set1:set2:...	-- Colon separated lists of charsets
-##				   to leave as-is.  Only HTML special
-##				   characters will be converted into
-##				   entities.
-##	    default=set 	-- Default charset to use if not set.
-##	    keepspace		-- Preserve whitespace if nonfixed
-##	    nourl		-- Do hyperlink URLs
-##	    nonfixed		-- Use normal typeface
-##	    maxwidth=#		-- Set the maximum width of lines.  Lines
-##				   exceeding the maxwidth will be broken
-##				   up across multiple lines.
-##	    quote		-- Italicize quoted message text
-##	    target=name  	-- Set TARGET attribute for links if
-##				   converting URLs to links.  Defaults to
-##				   _top.
+##	asis=set1:set2:...
+##			Colon separated lists of charsets to leave as-is.
+##			Only HTML special characters will be converted into
+##			entities.
+##
+##	default=set 	Default charset to use if not set.
+##
+##      inlineexts="ext1,ext2,..."
+##                      A comma separated list of message specified filename
+##                      extensions to treat as inline data.
+##                      Applicable only when uudecode options specified.
+##
+##	keepspace	Preserve whitespace if nonfixed
+##
+##	nourl		Do hyperlink URLs
+##
+##	nonfixed	Use normal typeface
+##
+##	maxwidth=#	Set the maximum width of lines.  Lines exceeding
+##			the maxwidth will be broken up across multiple lines.
+##
+##	quote		Italicize quoted message text
+##
+##	target=name  	Set TARGET attribute for links if converting URLs
+##			to links.  Defaults to _top.
+##
+##	uudecode	Decoded any embedded uuencoded data.
 ##
 ##	All arguments should be separated by at least one space
 ##
@@ -71,6 +83,71 @@ sub filter {
 
     ## Parse arguments
     $args	= ""  unless defined($args);
+
+    ## Check if decoding uuencoded data.  The implementation chosen here
+    ## for decoding uuencoded data was done so when uudecode is not
+    ## specified, there is no extra overhead (besides the $args check for
+    ## uudecode).  However, when uudecode is specified, more overhead may
+    ## exist over other potential implementations.
+    ## I.e.  We only try to penalize performance when uudecode is specified.
+    if ($args =~ s/\buudecode\b//ig) {
+	# $args has uudecode stripped out for recursive calls
+
+	# Make sure we have needed routines
+	require 'base64.pl';
+	require 'mhmimetypes.pl';
+
+	# Grab any filename extensions that imply inlining
+	my $inlineexts = '';
+	if ($args =~ /\binlineexts=(\S+)/) {
+	    $inlineexts = ',' . lc($1) . ',';
+	    $inlineexts =~ s/['"]//g;
+	}
+
+	local($pdata);	# have to use local() since typeglobs used
+	my($inext, $uddata, $file, $urlfile);
+	my @files = ( );
+	my $ret = "";
+	my $i = 0;
+
+	# Split on uuencoded data.  For text portions, recursively call
+	# filter to convert text data: makes it easier to handle all
+	# the various formatting options.
+	foreach $pdata
+		(split(/^(begin \d\d\d \S+\n[!-M].*?\nend\n)/sm, $data)) {
+	    if ($i % 2) {	# uuencoded data
+		# extract filename extension
+		($file) = $pdata =~ /^begin \d\d\d (\S+)/;
+		if ($file =~ /\.(\w+)$/) { $inext = $1; } else { $inext = ""; }
+
+		# decode data
+		$uddata = base64::uudecode($pdata);
+
+		# save to file
+		push(@files,
+		     mhonarc::write_attachment(
+			'application/octet-stream', \$uddata, '', '', $inext));
+		$urlfile = mhonarc::htmlize($files[$#files]);
+
+		# create link to file
+		if (index($inlineexts, ','.lc($inext).',') >= $[) {
+		    $ret .= qq|<A HREF="$urlfile"><IMG SRC="$urlfile">| .
+			    qq|</A><BR>\n|;
+		} else {
+		    $ret .= qq|<A HREF="$urlfile">| . mhonarc::htmlize($file) .
+			    qq|</A><BR>\n|;
+		}
+
+	    } else {		# plain text
+		$ret .= &filter($header, *fields, *pdata, $isdecode, $args);
+	    }
+	    ++$i;
+	}
+
+	## Done with uudecode
+	return ($ret, @files);
+    }
+
     $nourl	= ($mhonarc::NOURL || ($args =~ /\bnourl\b/i));
     $doquote	= ($args =~ /\bquote\b/i);
     $nonfixed	= ($args =~ /\bnonfixed\b/i);

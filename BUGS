@@ -1,7 +1,7 @@
 Bug History for MHonArc
 =======================
 <URL:http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
-@(#) BUGS 99/07/26 00:07:30
+@(#) BUGS 99/08/11 23:43:11
 
 Each bug listing has the following fields:
 
@@ -15,6 +15,23 @@ Each bug listing has the following fields:
 		    applicable.
 
 Bug List
+------------------------------------------------------------------------
+Version:	2.4.1, and earlier
+Problem:   	M2H_URL envariable does not properly affect the URL
+		resource.  M2H_SORT does affect it.
+Solution:	Fixed (typo).
+Version Fixed:	2.4.2
+------------------------------------------------------------------------
+Version:	2.4.1, and earlier
+Problem:   	%c does not work in time format resources.
+Solution:	Fixed.
+Version Fixed:	2.4.2
+------------------------------------------------------------------------
+Version:	2.4.1
+Problem:   	When invoking mha-dbrecover, Perl errors occur for
+		mhmsgfile.pl.
+Solution:	Fixed.
+Version Fixed:	2.4.2
 ------------------------------------------------------------------------
 Version:	2.4.0, and earlier
 Problem:   	DOC resource setting not stored in database.

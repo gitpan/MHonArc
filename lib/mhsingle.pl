@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhsingle.pl 1.4 99/06/25 14:24:02
+##      @(#) mhsingle.pl 1.5 99/08/04 23:39:52
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -44,7 +44,7 @@ sub single {
 	    die("ERROR: Unable to open $ARGV[0]\n");
 	$filename = $ARGV[0];
     } else {
-	$handle = 'STDIN';
+	$handle = $MhaStdin;
     }
 
     ## Read header

@@ -1,12 +1,12 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) ewhutil.pl 2.4 99/06/25 13:56:48
+##	@(#) ewhutil.pl 2.5 99/08/08 20:00:40
 ##  Author:
-##      Earl Hood       ehood@pobox.com
+##      Earl Hood       mhonarc@pobox.com
 ##  Description:
 ##      Generic utility routines
 ##---------------------------------------------------------------------------##
-##    Copyright (C) 1996-1999	Earl Hood, ehood@pobox.com
+##    Copyright (C) 1996-1999	Earl Hood, mhonarc@pobox.com
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
@@ -23,6 +23,8 @@
 ##    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 ##    02111-1307, USA
 ##---------------------------------------------------------------------------##
+
+package mhonarc;
 
 ##---------------------------------------------------------------------------
 ##	Remove duplicates in an array.

@@ -8,7 +8,7 @@
 
 <!--X-NavButtons-Start-->
 <p align=center>
-<a href="resources.html"><img src="prev.gif" border=0 alt="[Prev]"></a><a href="contacts.html"><img src="next.gif" border=0 alt="[Next]"></a><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"><img src="home.gif" border=0 alt="[Home]"></a>
+<a href="resources.html"><img src="prev.gif" border=0 alt="[Prev]"></a><a href="contacts.html"><img src="next.gif" border=0 alt="[Next]"></a><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"><img src="home.gif" border=0 alt="[Home]"></a>
 </p>
 <!--X-NavButtons-End-->
 <hr>
@@ -19,6 +19,9 @@
 <li><a href="#overview">Overview</a></li>
 <li><a href="#rcvar_syntax">Resource Variable Syntax</a></li>
 <li><a href="#rcvar_index">Resource Variable Index</a></li>
+<ul>
+<li><small><a href="#variables">Variables</a></small></li>
+</ul>
 </ul>
 <!--X-TOC-End-->
 
@@ -382,6 +385,19 @@ by the following resources:
 <td align=right><b>Description:</b></td>
 <td>URL to MHonArc documentation.  Value of variable set by the
 <a href="resources/docurl.html">DOCURL</a> resource.</td>
+</tr>
+</table><br></dd>
+<dt><strong><a name="ENV"><tt>$ENV$</tt></a></strong></dt>
+<dd><table border=0>
+<tr valign=top>
+<td align=right><b>Arguments:</b></td>
+<td><tt><i>variable_name</i></tt></td>
+</tr>
+<tr valign=top>
+<td align=right><b>Description:</b></td>
+<td>The value of the environment variable specified by <i>variable_name</i>.
+For example, <tt>$ENV(HOME)$</tt> would expand to the value of the
+HOME environment variable.</td>
 </tr>
 </table><br></dd>
 <dt><strong><a name="FROM"><tt>$FROM$</tt></a></strong></dt>
@@ -1010,14 +1026,14 @@ resources.
 <hr>
 <!--X-NavButtons-Start-->
 <p align=center>
-<a href="resources.html"><img src="prev.gif" border=0 alt="[Prev]"></a><a href="contacts.html"><img src="next.gif" border=0 alt="[Next]"></a><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"><img src="home.gif" border=0 alt="[Home]"></a>
+<a href="resources.html"><img src="prev.gif" border=0 alt="[Prev]"></a><a href="contacts.html"><img src="next.gif" border=0 alt="[Next]"></a><a href="mhonarc.html"><img src="up.gif" border=0 alt="[TOC]"></a><a href="faq/faq.html"><img src="faq.gif" border=0 alt="[FAQ]"></a><a href="app-bugs.html"><img src="bug.gif" border=0 alt="[Bugs]"></a><a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"><img src="home.gif" border=0 alt="[Home]"></a>
 </p>
 <!--X-NavButtons-End-->
 
 <!-- *************************************************************** -->
 <hr>
 <address>
-99/07/25 02:15:59<br>
+99/08/11 23:19:51<br>
 <img align="top" src="monicon.gif" alt="">
 <a href="http://www.oac.uci.edu/indiv/ehood/mhonarc.html"
 ><strong>MHonArc</strong></a><br>

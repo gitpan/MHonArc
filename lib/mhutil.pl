@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhutil.pl 2.5 99/06/25 14:09:11
+##	@(#) mhutil.pl 2.6 99/08/08 20:01:54
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -50,6 +50,7 @@ my %HFieldsAddr = (
     'resent-from'	=> 1,
     'resent-sender'	=> 1,
     'resent-to'		=> 1,
+    'return-path'	=> 1,
     'sender'		=> 1,
     'to'		=> 1,
 );
