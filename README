@@ -1,8 +1,8 @@
 ---------------------------------------------------------------------------
                             README for MHonArc
-                                 v2.4.5
+                                 v2.4.6
 
-            <http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
+			<http://www.mhonarc.org/>
 
 			 Copyright (C) 1995-2000
 		       Earl Hood, mhonarc@pobox.com
@@ -106,9 +106,10 @@ MAILING LIST
     seen be subscribers.  Any spam messages are happily redirected
     to /dev/null.
 
-    The WWW archive of the mailing list is located at
-    <http://www.xray.mpe.mpg.de/mailing-lists/mhonarc/> and is
-    searchable via a Glimpse search engine.
+    The WWW searchable archives of the mailing list are located at
+    the following URLs:
+      <http://www.xray.mpe.mpg.de/mailing-lists/mhonarc/>
+      <http://www.mail-archive.com/mhonarc@ncsa.uiuc.edu/>
 
 ---------------------------------------------------------------------------
 BUGS/COMMENTS/SUGGESTIONS?
@@ -148,4 +149,4 @@ BUGS/COMMENTS/SUGGESTIONS?
 
 ---------------------------------------------------------------------------
 Copyright (C) 1995-2000,		Earl Hood, mhonarc@pobox.com
-@(#) README 00/02/13 03:47:35
+@(#) README 00/04/24 00:20:37

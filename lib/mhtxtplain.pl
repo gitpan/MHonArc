@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhtxtplain.pl 2.8 99/08/15 22:19:04
+##	@(#) mhtxtplain.pl 2.9 00/04/24 00:02:43
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -201,7 +201,13 @@ sub filter {
 	# Japanese
 	if ($charset =~ /iso-2022-jp/) {
 	    require "iso2022jp.pl";
-	    return (&iso_2022_jp::jp2022_to_html($data, $nourl));
+	    if ($nonfixed) {
+		return (&iso_2022_jp::jp2022_to_html($data, $nourl));
+	    } else {
+		return ('<PRE>' .
+			&iso_2022_jp::jp2022_to_html($data, $nourl).
+			'</PRE>');
+	    }
 
 	# Latin 1-6, Greek, Hebrew, Arabic
 	} elsif ($charset =~ /\biso-8859-(10|[1-9])\b/ ||

@@ -1,6 +1,6 @@
 		     Change History for MHonArc
 		     ==========================
-	  <http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
+		     <http://www.mhonarc.org/>
 
 Change history for MHonArc.  Changes listed are brief.  Consult the
 documentation for further information/clarification.  It is possible
@@ -9,6 +9,21 @@ that not all changes are documented here.
 MM/DD/YYYY
 =======================================================================
 #######################################################################
+=======================================================================
+04/24/2000	(2.4.6)
+
+    o	Stricter check is made when decoded quoted-printable data.
+	An escape sequence is only converted to a raw character if
+	a it is a valid escape sequence.  I.e.  Any '=' not followed
+	by two hexadecimal characters is left as-is.
+
+    o	Call to Digest::MD5::md5_hex() wrapped in eval block in
+	case of bad installations of Digest::MD5 module.
+
+    Bug Fixes
+    ---------
+    See BUGS.
+
 =======================================================================
 02/14/2000	(2.4.5)
 
@@ -1410,4 +1425,4 @@ MM/DD/YYYY
 #######################################################################
 =======================================================================
 Earl Hood, mhonarc@pobox.com
-@(#) CHANGES 00/02/13 03:49:04
+@(#) CHANGES 00/04/24 00:53:08

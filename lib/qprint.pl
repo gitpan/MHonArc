@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) qprint.pl 2.3 99/06/25 14:11:46
+##	@(#) qprint.pl 2.4 00/04/24 00:04:24
 ##  Authors:
 ##      Earl Hood       mhonarc@pobox.com
 ##	Alan Barrett	barrett@daisy.ee.und.ac.za
@@ -37,7 +37,7 @@ sub qprdecode {
 
     s/[^\S\r\n]*(\r?\n)/$1/g;	# remove trailing whitespace on each line
     s/\=\r?\n//g;		# remove soft linebreaks
-    s/=(..)/pack("H2",$1)/ge;	# convert hex codes
+    s/=([0-9A-F]{2})/pack("H2",$1)/ge;	# convert hex codes
     $_;				# return result
 }
 

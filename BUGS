@@ -1,7 +1,7 @@
 Bug History for MHonArc
 =======================
-<URL:http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
-@(#) BUGS 00/02/13 03:48:54
+<URL:http://www.mhonarc.org/>
+@(#) BUGS 00/04/24 00:59:57
 
 Each bug listing has the following fields:
 
@@ -15,6 +15,16 @@ Each bug listing has the following fields:
 		    applicable.
 
 Bug List
+------------------------------------------------------------------------
+Version:	2.4.5, maybe earlier
+Problem:   	Using message-ids with -rmm does not remove messages.
+Solution:	Fixed in mhrmm.pl
+Version Fixed:	2.4.6
+------------------------------------------------------------------------
+Version:	2.4.5
+Problem:   	Japanese text messages not wrapped in PRE element.
+Solution:	Fixed in mhtxtplain.pl
+Version Fixed:	2.4.6
 ------------------------------------------------------------------------
 Version:	2.4.4
 Problem:   	$PGLINKLIST$ for threads did not work.

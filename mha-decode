@@ -1,7 +1,7 @@
 #!/usr/local/bin/perl
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mha-decode 1.2 99/07/25 02:27:07
+##	@(#) mha-decode 1.3 00/04/24 00:13:53
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -121,7 +121,7 @@ access the documentation on the web.
 
 =head1 AVAILABILITY
 
-E<lt>URL:I<http://www.pobox.com/~ehood/mhonarc.html>E<gt>
+E<lt>I<http://www.mhonarc.org/>E<gt>
 
 =head1 AUTHOR
 

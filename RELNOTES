@@ -1,6 +1,6 @@
 Release Notes for MHonArc
 =========================
-<URL:http://www.oac.uci.edu/indiv/ehood/mhonarc.html>
+<http://www.mhonarc.org/>
 
 Read the CHANGES document for changes that may affect you if you are
 a user of an earlier version of MHonArc.
@@ -59,5 +59,5 @@ a user of an earlier version of MHonArc.
 	and use the variant version when updating your archives.
 
 ===========================================================================
-@(#) RELNOTES 99/06/25 17:11:00
+@(#) RELNOTES 00/04/24 00:20:38
 Earl Hood, mhonarc@pobox.com

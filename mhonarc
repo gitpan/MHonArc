@@ -1,7 +1,7 @@
 #!/usr/local/bin/perl
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhonarc 2.4 99/06/25 14:35:31
+##	@(#) mhonarc 2.5 00/04/24 00:13:37
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -83,7 +83,7 @@ any
 
 =head1 AVAILABILITY
 
-E<lt>URL:I<http://www.oac.uci.edu/indiv/ehood/mhonarc.html>E<gt>
+E<lt>I<http://www.mhonarc.org/>E<gt>
 
 =head1 SCRIPT CATEGORIES
 

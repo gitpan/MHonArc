@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##      @(#) mhrmm.pl 1.3 99/06/25 14:23:33
+##      @(#) mhrmm.pl 1.4 00/04/24 00:03:36
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -70,7 +70,7 @@ sub rmm {
 
     ## Remove messages
     foreach $num (@numbers) {
-	if (($key = $Num2Index{$num}) || $MsgId{$num}) {
+	if (($key = $Num2Index{$num}) || ($key = $MsgId{$num})) {
 	    &delmsg($key);
 
 	    # Need to flag messages that link to deleted message so

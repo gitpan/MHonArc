@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	@(#) mhamain.pl 2.19 00/02/13 04:21:32
+##	@(#) mhamain.pl 2.20 00/04/24 00:05:57
 ##  Author:
 ##      Earl Hood       mhonarc@pobox.com
 ##  Description:
@@ -27,7 +27,7 @@
 
 package mhonarc;
 
-$VERSION = "2.4.5";
+$VERSION = "2.4.6";
 $VINFO =<<EndOfInfo;
   MHonArc v$VERSION (Perl $])
   Copyright (C) 1995-2000  Earl Hood, mhonarc\@pobox.com
@@ -738,15 +738,16 @@ sub read_mail_header {
 	}
     } else {
         # create bogus ID if none exists
-	eval { require Digest::MD5; };
+	eval {
+	    # create message-id using md5 digest of header;
+	    # can potentially skip over already archived messages w/o id
+	    require Digest::MD5;
+	    $msgid = join("", Digest::MD5::md5_hex($header),
+			      '@NO-ID-FOUND.mhonarc.org');
+	};
 	if ($@) {
 	    # unable to require, so create arbitary message-id
 	    $msgid = join("", $$,'.',time,'.',$_msgid_cnt++,
-			      '@NO-ID-FOUND.mhonarc.org');
-	} else {
-	    # create message-id using md5 digest of header;
-	    # can potentially skip over already archived messages w/o id
-	    $msgid = join("", Digest::MD5::md5_hex($header),
 			      '@NO-ID-FOUND.mhonarc.org');
 	}
     }
