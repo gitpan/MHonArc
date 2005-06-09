@@ -4,8 +4,8 @@
 
 		      <http://www.mhonarc.org/>
 
-		       Copyright (C) 1995-2003
-		     Earl Hood, mhonarc@mhonarc.org
+		       Copyright (C) 1995-2005
+		   Earl Hood, mhonarc(AT)mhonarc.org
 
 ---------------------------------------------------------------------------
 USING/COPYING
@@ -14,7 +14,7 @@ USING/COPYING
   (GPL).  The rules for using and copying MHonArc are explained
   in the file COPYING.  If you cannot agree to the conditions of
   the GPL but still want to use/copy the program, you must contact
-  the author of MHonArc, mhonarc@mhonarc.org, about arranging an
+  the author of MHonArc, mhonarc(AT)mhonarc.org, about arranging an
   alternative license.
 
 ---------------------------------------------------------------------------
@@ -90,7 +90,7 @@ BUGS/COMMENTS/SUGGESTIONS?
 
   If you have any comments and suggestions about MHonArc, you may send
   mail to the MHonArc mailing list, <mailto:mhonarc-users@mhonarc.org>,
-  or to the author at <mailto:mhonarc@mhonarc.org> if you are not
+  or to the author at <mailto:mhonarc(AT)mhonarc.org> if you are not
   subscribed to the list.
 
   NOTE: The author of MHonArc *IS* subscribed to the list so there
@@ -110,8 +110,8 @@ DONATIONS
   more timely responses ;-) and help insure the continued development
   of the program.
 
-  The author can be reached at mhonarc@mhonarc.org.
+  The author can be reached at mhonarc(AT)mhonarc.org.
 
 ---------------------------------------------------------------------------
-Earl Hood, mhonarc@mhonarc.org
-$Date: 2003/01/01 23:41:42 $
+Earl Hood, mhonarc(AT)mhonarc.org
+$Date: 2005/05/21 21:53:24 $
