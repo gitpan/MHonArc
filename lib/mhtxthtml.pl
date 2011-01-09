@@ -1,6 +1,6 @@
 ##---------------------------------------------------------------------------##
 ##  File:
-##	$Id: mhtxthtml.pl,v 2.41 2011/01/09 08:48:54 ehood Exp $
+##	$Id: mhtxthtml.pl,v 2.42 2011/01/09 16:12:14 ehood Exp $
 ##  Author:
 ##      Earl Hood       mhonarc@mhonarc.org
 ##  Description:
@@ -181,7 +181,7 @@ sub filter {
       # Just neutralize scripting attributes.  Since we do not
       # do true tag-based parsing, this ensures that valid content
       # is not removed (but it will still get modified)
-      $$data =~ s/($SAttr)(\s*=)/_${1}_${2}/g;
+      $$data =~ s/($SAttr)(\s*=)/_${1}_${2}/gi;
 
       for ($i=0; $$data =~ s|</?$SElem[^>]*>||gio; ++$i) {
         return bad_html_reject("Nested scriptable/form tags")  if $i > 0; }
